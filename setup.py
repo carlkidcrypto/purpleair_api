@@ -16,8 +16,8 @@ setup(
     author_email="27721404+carlkid1499@users.noreply.github.com",
     long_description=read_file("README.md"),
     long_description_content_type="text/markdown",
-    packages=["purpleair_data_logger"],
-    url="https://github.com/carlkid1499/purpleair_data_logger",
+    packages=["purpleair_api"],
+    url="https://github.com/carlkid1499/purpleair_api",
     keywords=[
         "purpleair_api",
         "purple air api",
