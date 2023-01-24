@@ -18,12 +18,7 @@ setup(
     long_description_content_type="text/markdown",
     packages=["purpleair_api"],
     url="https://github.com/carlkid1499/purpleair_api",
-    keywords=[
-        "purpleair_api",
-        "purple air api",
-        "purple_air",
-        "purple air"
-    ],
+    keywords=["purpleair_api", "purple air api", "purple_air", "purple air"],
     install_requires=["requests"],
     platforms=["Windows 32/64", "Linux 32/64", "MacOS 32/64"],
 )
