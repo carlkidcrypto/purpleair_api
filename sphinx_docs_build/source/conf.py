@@ -13,13 +13,13 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../../purpleair_data_logger/"))
+sys.path.insert(0, os.path.abspath("../../purpleair_api/"))
 
 
 # -- Project information -----------------------------------------------------
 
-project = "PurpleAir Data Logger(s)"
-copyright = "2022, carlkid1499"
+project = "PurpleAir API"
+copyright = "2023, carlkid1499"
 author = "carlkid1499"
 
 # The full version, including alpha/beta/rc tags

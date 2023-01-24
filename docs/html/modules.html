@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>purpleair_data_logger &mdash; PurpleAir Data Logger(s) V1.0.0 documentation</title>
+  <title>purpleair_data_logger &mdash; PurpleAir API V1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -16,6 +16,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,7 +29,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> PurpleAir Data Logger(s)
+            <a href="index.html" class="icon icon-home"> PurpleAir API
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -43,13 +44,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">purpleair_data_logger</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPI.html">PurpleAirAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIConstants.html">PurpleAirAPIConstants module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PurpleAirCSVDataLogger.html">PurpleAirCSVDataLogger module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PurpleAirCSVDataLoggerConstants.html">PurpleAirCSVDataLoggerConstants module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PurpleAirDataLogger.html">PurpleAirDataLogger module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PurpleAirPSQLDataLogger.html">PurpleAirPSQLDataLogger module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PurpleAirPSQLQueryStatements.html">PurpleAirPSQLQueryStatements module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PurpleAirSQLiteDataLogger.html">PurpleAirSQLiteDataLogger module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="PurpleAirSQLiteQueryStatements.html">PurpleAirSQLiteQueryStatements module</a></li>
 </ul>
 </li>
 </ul>
@@ -60,15 +54,15 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PurpleAir Data Logger(s)</a>
+          <a href="index.html">PurpleAir API</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>purpleair_data_logger</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">purpleair_data_logger</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -82,15 +76,36 @@
 <h1>purpleair_data_logger<a class="headerlink" href="#purpleair-data-logger" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirAPI.html">PurpleAirAPI module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirAPIConstants.html">PurpleAirAPIConstants module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirCSVDataLogger.html">PurpleAirCSVDataLogger module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirCSVDataLoggerConstants.html">PurpleAirCSVDataLoggerConstants module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirDataLogger.html">PurpleAirDataLogger module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirPSQLDataLogger.html">PurpleAirPSQLDataLogger module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirPSQLQueryStatements.html">PurpleAirPSQLQueryStatements module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirSQLiteDataLogger.html">PurpleAirSQLiteDataLogger module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="PurpleAirSQLiteQueryStatements.html">PurpleAirSQLiteQueryStatements module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PurpleAirAPI.html">PurpleAirAPI module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_key_last_checked</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.get_api_key_type"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_key_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.get_api_versions"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_versions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.post_create_group_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.post_create_group_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.post_create_member"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.post_create_member()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.post_delete_group"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.post_delete_group()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.post_delete_member"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.post_delete_member()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.request_group_detail_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_group_detail_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.request_group_list_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_group_list_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.request_member_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_member_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.request_member_historic_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_member_historic_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.request_members_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_members_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.request_multiple_sensors_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_multiple_sensors_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.request_sensor_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_sensor_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPI.request_sensor_historic_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_sensor_historic_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.PurpleAirAPIError"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPIError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPI.html#PurpleAirAPI.debug_log"><code class="docutils literal notranslate"><span class="pre">debug_log()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PurpleAirAPIConstants.html">PurpleAirAPIConstants module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIConstants.html#PurpleAirAPIConstants.ACCEPTED_FIELD_NAMES_DICT"><code class="docutils literal notranslate"><span class="pre">ACCEPTED_FIELD_NAMES_DICT</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIConstants.html#PurpleAirAPIConstants.ERROR_CODES_LIST"><code class="docutils literal notranslate"><span class="pre">ERROR_CODES_LIST</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIConstants.html#PurpleAirAPIConstants.PRINT_DEBUG_MSGS"><code class="docutils literal notranslate"><span class="pre">PRINT_DEBUG_MSGS</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIConstants.html#PurpleAirAPIConstants.SUCCESS_CODE_LIST"><code class="docutils literal notranslate"><span class="pre">SUCCESS_CODE_LIST</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -106,7 +121,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, carlkid1499.</p>
+    <p>&#169; Copyright 2023, carlkid1499.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

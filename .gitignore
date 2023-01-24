@@ -1,2 +1,5 @@
-
-.DS_Store
+**/.pyc/**
+**/.DS_Store/**
+**/dist/**
+**/build/**
+**/__pycache__/**
