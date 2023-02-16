@@ -1,8 +1,8 @@
-purpleair_data_logger
+purpleair_api
 =====================
 
 .. toctree::
-   :maxdepth: 8
+   :maxdepth: 4
 
    PurpleAirAPI
    PurpleAirAPIConstants
