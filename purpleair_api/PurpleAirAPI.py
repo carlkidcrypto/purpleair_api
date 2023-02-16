@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 """
-    Copyright 2022 carlkid1499, All rights reserved.
+    Copyright 2023 carlkid1499, All rights reserved.
     A python3 class designed to fetch data from Purple Air's new API.
     https://api.purpleair.com/#api-welcome
 """
 
 import requests
 import json
-from purpleair_data_logger.PurpleAirAPIConstants import (
+from purpleair_api.PurpleAirAPIConstants import (
     ACCEPTED_FIELD_NAMES_DICT,
     PRINT_DEBUG_MSGS,
     SUCCESS_CODE_LIST,
