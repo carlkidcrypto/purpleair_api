@@ -518,7 +518,7 @@ class PurpleAirAPI:
 
         request_url = (
             self._base_api_v1_request_string
-            + f"groups/{group_id}/members/{member_id}/history/?{fields}"
+            + f"groups/{group_id}/members/{member_id}/history/?fields={fields}"
         )
 
         # Add to the request_url string depending on what optional parameters are
@@ -614,7 +614,8 @@ class PurpleAirAPI:
         """
 
         request_url = (
-            self._base_api_v1_request_string + f"groups/{group_id}/members?{fields}"
+            self._base_api_v1_request_string
+            + f"groups/{group_id}/members?fields={fields}"
         )
 
         # Add to the request_url string depending on what optional parameters are
