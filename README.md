@@ -3,7 +3,7 @@
 This is a python3 wrapper for the new PurpleAirAPI (PAA). Details of the API can be found using this link: <https://api.purpleair.com/#api-welcome>
 To use the PurpleAirAPI (PAA) api keys are required. You can get API keys by sending an email to `contact@purpleair.com` with a first and last name to assign them to.
 
-| [![PyPI Distributions](https://github.com/carlkid1499/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg?branch=main)](https://github.com/carlkid1499/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml) | [![TestPyPI Distributions](https://github.com/carlkid1499/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml/badge.svg?branch=main)](https://github.com/carlkid1499/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml) | [![Black](https://github.com/carlkid1499/purpleair_api/actions/workflows/black.yml/badge.svg?branch=main)](https://github.com/carlkid1499/purpleair_api/actions/workflows/black.yml) |
+| [![PyPI Distributions](https://github.com/carlkid1499/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg)](https://github.com/carlkid1499/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml) | [![TestPyPI Distributions](https://github.com/carlkid1499/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml/badge.svg)](https://github.com/carlkid1499/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml) | [![Black](https://github.com/carlkid1499/purpleair_api/actions/workflows/black.yml/badge.svg)](https://github.com/carlkid1499/purpleair_api/actions/workflows/black.yml) |
 | --------------- | --------------- | --------------- |
 
 ## How to Support This Project
