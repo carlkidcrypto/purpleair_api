@@ -909,7 +909,7 @@ class PurpleAirAPI:
         if text:
             the_request_text_as_json = json.loads(text)
             debug_log(the_request_text_as_json)
-            
+
         return the_request_text_as_json
 
     @staticmethod
