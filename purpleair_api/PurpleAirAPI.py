@@ -896,19 +896,24 @@ class PurpleAirAPI:
             return False
 
     @staticmethod
-    def _convert_requests_text_to_json(text) -> dict:
+    def _convert_requests_text_to_json(text=None) -> dict:
         """
         A helper to convert request.text to json.
+
+        :param str text: The request.txt to convert to json
+
+        :return dict
         """
 
         the_request_text_as_json = None
         if text:
             the_request_text_as_json = json.loads(text)
             debug_log(the_request_text_as_json)
-
+            
         return the_request_text_as_json
 
-    def _sanitize_sensor_data_from_paa(self, paa_return_data):
+    @staticmethod
+    def _sanitize_sensor_data_from_paa(paa_return_data) -> dict:
         """
         A helper method.
         Since not all sensors support all field names we check that the keys exist
