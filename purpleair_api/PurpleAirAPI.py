@@ -909,7 +909,9 @@ class PurpleAirAPI:
         if text:
             debug_log(f"_convert_requests_text_to_json - text: {text}")
             the_request_text_as_json = json.loads(text)
-            debug_log(f"_convert_requests_text_to_json - json: {the_request_text_as_json}")
+            debug_log(
+                f"_convert_requests_text_to_json - json: {the_request_text_as_json}"
+            )
 
         return the_request_text_as_json
 
