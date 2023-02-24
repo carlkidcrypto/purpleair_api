@@ -907,10 +907,9 @@ class PurpleAirAPI:
 
         the_request_text_as_json = None
         if text:
-            # For now encode as UTF-8. The PAA documentation mentions nothing about what
-            # encoding method they use.
-            the_request_text_as_json = json.loads(text.encode("UTF-8"))
-            debug_log(the_request_text_as_json)
+            debug_log(f"_convert_requests_text_to_json - text: {text}")
+            the_request_text_as_json = json.loads(text)
+            debug_log(f"_convert_requests_text_to_json - json: {the_request_text_as_json}")
 
         return the_request_text_as_json
 
