@@ -14,7 +14,7 @@ To use the PurpleAirAPI (PAA) api keys are required. You can get API keys by sen
 
 This package is designed to be used for making tools around the PurpleAir API.
 
-For example, PAA data loggers - <https://github.com/carlkid1499/purpleair_data_logger>
+For example, PAA data loggers - <https://github.com/carlkidcrypto/purpleair_data_logger>
 
 ## Installation
 
