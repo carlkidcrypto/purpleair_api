@@ -799,6 +799,7 @@ class PurpleAirAPI:
         # Strip away any whitespace that might persist
         request_url = request_url.replace(" ", "")
         debug_log(request_url)
+        my_request = None
         my_request = requests.get(
             request_url, headers={"X-API-Key": str(api_key_to_use)}
         )
@@ -806,6 +807,8 @@ class PurpleAirAPI:
         the_request_text_as_json = self._convert_requests_text_to_json(my_request.text)
 
         if self._verify_request_status_codes(my_request.status_code):
+            my_request.close()
+            del my_request
             return the_request_text_as_json
 
         else:
@@ -824,6 +827,7 @@ class PurpleAirAPI:
         """
 
         debug_log(request_url)
+        my_request = None
         if json_post_parameters:
             debug_log(json_post_parameters)
             my_request = requests.post(
@@ -841,6 +845,8 @@ class PurpleAirAPI:
         the_request_text_as_json = self._convert_requests_text_to_json(my_request.text)
 
         if self._verify_request_status_codes(my_request.status_code):
+            my_request.close()
+            del my_request
             return the_request_text_as_json
 
         else:
@@ -859,6 +865,7 @@ class PurpleAirAPI:
         """
 
         debug_log(request_url)
+        my_request = None
         if json_post_parameters:
             my_request = requests.delete(
                 request_url,
@@ -874,6 +881,8 @@ class PurpleAirAPI:
         the_request_text_as_json = self._convert_requests_text_to_json(my_request.text)
 
         if self._verify_request_status_codes(my_request.status_code):
+            my_request.close()
+            del my_request
             return the_request_text_as_json
 
         else:
