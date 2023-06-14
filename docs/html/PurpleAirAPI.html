@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PurpleAirAPI module &mdash; PurpleAir API V1.0.1 documentation</title>
+  <title>PurpleAirAPI module &mdash; PurpleAir API V1.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -44,7 +45,29 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">purpleair_api</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirAPI module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirAPI module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_key_last_checked</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_type"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_key_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_versions"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_versions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.post_create_group_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.post_create_group_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.post_create_member"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.post_create_member()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.post_delete_group"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.post_delete_group()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.post_delete_member"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.post_delete_member()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.request_group_detail_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_group_detail_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.request_group_list_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_group_list_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.request_member_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_member_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.request_member_historic_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_member_historic_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.request_members_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_members_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.request_multiple_sensors_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_multiple_sensors_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.request_sensor_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_sensor_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.request_sensor_historic_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.request_sensor_historic_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPIError"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPIError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#PurpleAirAPI.debug_log"><code class="docutils literal notranslate"><span class="pre">debug_log()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIConstants.html">PurpleAirAPIConstants module</a></li>
 </ul>
 </li>
@@ -76,7 +99,7 @@
            <div itemprop="articleBody">
              
   <section id="module-PurpleAirAPI">
-<span id="purpleairapi-module"></span><h1>PurpleAirAPI module<a class="headerlink" href="#module-PurpleAirAPI" title="Permalink to this headline"></a></h1>
+<span id="purpleairapi-module"></span><h1>PurpleAirAPI module<a class="headerlink" href="#module-PurpleAirAPI" title="Permalink to this heading"></a></h1>
 <p>Copyright 2023 carlkidcrypto, All rights reserved.
 A python3 class designed to fetch data from Purple Air’s new API.
 <a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
@@ -109,7 +132,7 @@ PurpleAirAPI requests.</p>
 <span class="sig-name descname"><span class="pre">post_create_group_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.post_create_group_data" title="Permalink to this definition"></a></dt>
 <dd><p>A method to create a group for sensors.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name of the group to create.</p>
 </dd>
 </dl>
@@ -121,7 +144,7 @@ PurpleAirAPI requests.</p>
 <dd><p>Using a sensor_id (Parameters Option 1)
 The sensor_id should be exactly as printed on the label on the sensor. When no owner_email is provided, the sensor has to be marked as public.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to add a member to. This group must be owned by the api_key.</p></li>
 <li><p><strong>sensor_id</strong> (<em>str</em>) – The sensor_id of the new member sensor. This must be AS PRINTED on the sensor’s label.</p></li>
@@ -131,7 +154,7 @@ The sensor_id should be exactly as printed on the label on the sensor. When no o
 <p>Using a sensor_index (Parameters Option 2)
 The sensor_index can be found in lists for example from a /sensors api call. When no owner_email is provided, the sensor has to be marked as public.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to add a member to. This group must be owned by the api_key.</p></li>
 <li><p><strong>sensor_index</strong> (<em>int</em>) – The sensor_index of the new member as found in the JSON for this specific sensor.</p></li>
@@ -141,7 +164,7 @@ The sensor_index can be found in lists for example from a /sensors api call. Whe
 <p>Using sensor_id with a private sensor by specifying owner_email and optionally location_type. (Parameters Option 3)
 This example will produce an error if any provided value does not match the current configuration of the sensor. Note, too many incorrect attempts may disable your API key, so do not try guessing the email!!</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to add a member to. This group must be owned by the api_key.</p></li>
 <li><p><strong>sensor_id</strong> (<em>str</em>) – The sensor_id of the new member sensor. This must be AS PRINTED on the sensor’s label.</p></li>
@@ -160,7 +183,7 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
 <span class="sig-name descname"><span class="pre">post_delete_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.post_delete_group" title="Permalink to this definition"></a></dt>
 <dd><p>A method to delete a group for sensors.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to delete</p>
 </dd>
 </dl>
@@ -170,7 +193,7 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
 <dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI.post_delete_member">
 <span class="sig-name descname"><span class="pre">post_delete_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.post_delete_member" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group in which member_id is in.</p></li>
 <li><p><strong>member_id</strong> (<em>int</em>) – The member_id to delete.</p></li>
@@ -184,7 +207,7 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
 <span class="sig-name descname"><span class="pre">request_group_detail_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.request_group_detail_data" title="Permalink to this definition"></a></dt>
 <dd><p>A method to retrieve a list of all members of a specified group.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>group_id</strong> (<em>int</em>) – The group_id of the requested group. This group must be owned by the api_key.</p>
 </dd>
 </dl>
@@ -201,7 +224,7 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
 <span class="sig-name descname"><span class="pre">request_member_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.request_member_data" title="Permalink to this definition"></a></dt>
 <dd><p>A method to get a members’ data from a group to which said member belongs.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_id</strong> (<em>int</em>) – Groups unique ID.</p></li>
 <li><p><strong>member_id</strong> (<em>int</em>) – Members unique ID.</p></li>
@@ -236,7 +259,7 @@ primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, prim
 <span class="sig-name descname"><span class="pre">request_member_historic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.request_member_historic_data" title="Permalink to this definition"></a></dt>
 <dd><p>A method to get a members’ historic data from a group to which said member belongs too.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_id</strong> (<em>int</em>) – Groups unique ID.</p></li>
 <li><p><strong>member_id</strong> (<em>int</em>) – Members unique ID.</p></li>
@@ -278,7 +301,7 @@ scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deci
 <span class="sig-name descname"><span class="pre">request_members_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modified_since</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwlng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwlat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.request_members_data" title="Permalink to this definition"></a></dt>
 <dd><p>A method to get multiple members’ data from from a group to which said members belong too.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the requested group. This group must be owned by the api_key.</p></li>
 <li><p><strong>fields</strong> (<em>str</em>) – <p>The ‘Fields’ parameter specifies which ‘sensor data fields’ to include in the response. It is a comma separated list with one or more of the following:</p>
@@ -315,10 +338,10 @@ Default value: 604800</p></li>
 Use a bounding box to limit the sensors returned to a specific geographic area. The bounding box is defined by two points, a north west latitude/longitude and a south east latitude/longitude.</p></li>
 <li><p><strong>nwlat</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – <p>A north west latitude for the bounding box.</p>
 <dl class="field-list simple">
-<dt class="field-odd">param (optional) int selng</dt>
+<dt class="field-odd">param (optional) int selng<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A south east longitude for the bounding box.</p>
 </dd>
-<dt class="field-even">param (optional) int selat</dt>
+<dt class="field-even">param (optional) int selat<span class="colon">:</span></dt>
 <dd class="field-even"><p>A south east latitude for the bounding box.</p>
 </dd>
 </dl>
@@ -334,7 +357,7 @@ Use a bounding box to limit the sensors returned to a specific geographic area. 
 <dd><p>A method to retrieve sensor data from multiple sensors. Will return the
 response payload as a python dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fields</strong> (<em>str</em>) – <p>The ‘Fields’ parameter specifies which ‘sensor data fields’ to include in the response. It is a comma separated list with one or more of the following:
 Station information and status fields:
@@ -390,7 +413,7 @@ north west latitude/longitude and a south east latitude/longitude.</p></li>
 <dd><p>A method to retrieve sensor data from one sensor. Will return the
 response payload as a python dictionary.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sensor_index</strong> (<em>int</em>) – The sensor_index as found in the JSON for
 this specific sensor.</p></li>
@@ -419,7 +442,7 @@ information:
 <span class="sig-name descname"><span class="pre">request_sensor_historic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.request_sensor_historic_data" title="Permalink to this definition"></a></dt>
 <dd><p>A method to request historic data from a single sensor.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sensor_index</strong> (<em>int</em>) – The sensor_index as found in the JSON for this specific sensor.</p></li>
 <li><p><strong>read_key</strong> (<em>(</em><em>optional</em><em>) </em><em>str</em>) – This read_key is required for private devices. It is separate to the api_key and each sensor has its own read_key. Submit multiple keys by separating them with a comma (,) character for example: key-one,key-two,key-three.</p></li>
@@ -473,7 +496,7 @@ debug messages only if DEBUG is defined as True in
 ‘PurpleAirAPIConstants.py’. Messages will be the color
 red.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>debug_msg_string</strong> (<em>str</em>) – The debug message string</p>
 </dd>
 </dl>
