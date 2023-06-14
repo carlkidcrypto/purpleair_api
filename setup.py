@@ -12,7 +12,7 @@ def read_file(filename):
 
 setup(
     name="purpleair_api",
-    version="1.0.2a1",
+    version="1.0.2",
     license="MIT",
     author="Carlos Santos",
     author_email="dose.lucky.sake@cloak.id",
