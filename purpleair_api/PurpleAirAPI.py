@@ -47,7 +47,9 @@ class PurpleAirAPI:
     PurpleAirAPI requests.
     """
 
-    def __init__(self, your_api_read_key=None, your_api_write_key=None, your_ipv4_address=None):
+    def __init__(
+        self, your_api_read_key=None, your_api_write_key=None, your_ipv4_address=None
+    ):
         """
         :param str your_api_read_key: A valid PurpleAirAPI Read key
         :param str your_api_write_key: A valid PurpleAirAPI Write key
@@ -55,11 +57,15 @@ class PurpleAirAPI:
         """
 
         # We can not have all three parameters be empty
-        if your_api_read_key is None and your_api_write_key is None and your_ipv4_address is None:
+        if (
+            your_api_read_key is None
+            and your_api_write_key is None
+            and your_ipv4_address is None
+        ):
             raise PurpleAirAPIError(
-                "Ensure that the right combination of parameters have been provided! " + \
-                "`your_api_read_key` or `your_api_write_key` for external internet requests. Or " + \
-                "just `your_ipv4_address` for local network requests"
+                "Ensure that the right combination of parameters have been provided! "
+                + "`your_api_read_key` or `your_api_write_key` for external internet requests. Or "
+                + "just `your_ipv4_address` for local network requests"
             )
 
         # Save off the API key for internal usage
@@ -75,7 +81,9 @@ class PurpleAirAPI:
 
         # Create the vase API request string for local networks.
         if your_ipv4_address:
-            self._base_api_local_network_request_string = f"http://{your_ipv4_address}/json"
+            self._base_api_local_network_request_string = (
+                f"http://{your_ipv4_address}/json"
+            )
 
         # Place holders for information we care about
         self._api_versions = {}
@@ -104,7 +112,7 @@ class PurpleAirAPI:
 
             else:
                 raise PurpleAirAPIError("Ensure 'your_api_write_key' is a write key")
-            
+
         debug_log(self._api_versions)
         debug_log(self._api_keys_last_checked)
         debug_log(self._api_key_types)
@@ -822,13 +830,13 @@ class PurpleAirAPI:
         request_url = request_url.replace(" ", "")
         debug_log(request_url)
         my_request = None
-        
+
         # If any API key is provided use it
         if api_key_to_use is not None:
             my_request = requests.get(
                 request_url, headers={"X-API-Key": str(api_key_to_use)}
             )
-        
+
         # No API key provided
         else:
             my_request = requests.get(request_url)
