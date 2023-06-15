@@ -47,23 +47,35 @@ class PurpleAirAPI:
     PurpleAirAPI requests.
     """
 
-    def __init__(self, your_api_read_key=None, your_api_write_key=None):
+    def __init__(self, your_api_read_key=None, your_api_write_key=None, your_ipv4_address=None):
         """
         :param str your_api_read_key: A valid PurpleAirAPI Read key
         :param str your_api_write_key: A valid PurpleAirAPI Write key
+        :param str your_ipv4_address: The IPv4 address of your PurpleAir.
         """
 
-        if your_api_read_key is None and your_api_write_key is None:
+        # We can not have all three parameters be empty
+        if your_api_read_key is None and your_api_write_key is None and your_ipv4_address is None:
             raise PurpleAirAPIError(
-                "Ensure one or both of 'your_api_read_key'/'your_api_write_key' key(s) are provided"
+                "Ensure that the right combination of parameters have been provided! " + \
+                "`your_api_read_key` or `your_api_write_key` for external internet requests. Or " + \
+                "just `your_ipv4_address` for local network requests"
             )
 
         # Save off the API key for internal usage
         self._your_api_read_key = your_api_read_key
         self._your_api_write_key = your_api_write_key
 
+        self._base_api_v1_request_string = None
+        self._base_api_local_network_request_string = None
+
         # Create the base API request string. Must be HTTPS.
-        self._base_api_v1_request_string = "https://api.purpleair.com/v1/"
+        if your_api_read_key or your_api_write_key:
+            self._base_api_v1_request_string = "https://api.purpleair.com/v1/"
+
+        # Create the vase API request string for local networks.
+        if your_ipv4_address:
+            self._base_api_local_network_request_string = f"http://{your_ipv4_address}/json"
 
         # Place holders for information we care about
         self._api_versions = {}
@@ -79,10 +91,6 @@ class PurpleAirAPI:
         if your_api_write_key is not None:
             retval_api_write_key = self._check_an_api_key(your_api_write_key)
 
-        debug_log(self._api_versions)
-        debug_log(self._api_keys_last_checked)
-        debug_log(self._api_key_types)
-
         if retval_api_read_key is not None:
             if self._api_key_types[your_api_read_key] == "READ":
                 print("PurpleAirAPI: Successfully authenticated read key")
@@ -96,6 +104,11 @@ class PurpleAirAPI:
 
             else:
                 raise PurpleAirAPIError("Ensure 'your_api_write_key' is a write key")
+            
+        debug_log(self._api_versions)
+        debug_log(self._api_keys_last_checked)
+        debug_log(self._api_key_types)
+        debug_log(your_ipv4_address)
 
     def _check_an_api_key(self, str_api_key_to_check):
         """
@@ -640,6 +653,12 @@ class PurpleAirAPI:
             optional_parameters_dict,
         )
 
+    def request_local_sensor_data(self):
+        """
+        A method to request a local sensors data. This sensor must be in a netork that is accessible
+        """
+        return self._send_url_get_request(self._base_api_local_network_request_string)
+
     def post_create_group_data(self, name):
         """
         A method to create a group for sensors.
@@ -759,7 +778,7 @@ class PurpleAirAPI:
     def _send_url_get_request(
         self,
         request_url,
-        api_key_to_use,
+        api_key_to_use=None,
         first_optional_parameter_separator=None,
         optional_parameters_dict=None,
     ):
@@ -773,6 +792,9 @@ class PurpleAirAPI:
         :param dict optional_parameters_dict: Optional parameters that can be added onto the
                                               request_url.
         """
+
+        if request_url is None:
+            raise PurpleAirAPIError(f"A request URL string must be provided")
 
         if optional_parameters_dict is not None:
             if first_optional_parameter_separator not in ["?", "&"]:
@@ -800,9 +822,16 @@ class PurpleAirAPI:
         request_url = request_url.replace(" ", "")
         debug_log(request_url)
         my_request = None
-        my_request = requests.get(
-            request_url, headers={"X-API-Key": str(api_key_to_use)}
-        )
+        
+        # If any API key is provided use it
+        if api_key_to_use is not None:
+            my_request = requests.get(
+                request_url, headers={"X-API-Key": str(api_key_to_use)}
+            )
+        
+        # No API key provided
+        else:
+            my_request = requests.get(request_url)
 
         the_request_text_as_json = self._convert_requests_text_to_json(my_request.text)
 
