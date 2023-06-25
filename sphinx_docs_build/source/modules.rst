@@ -6,3 +6,8 @@ purpleair_api
 
    PurpleAirAPI
    PurpleAirAPIConstants
+   PurpleAirAPIError
+   PurpleAirAPIHelpers
+   PurpleAirLocalAPI
+   PurpleAirReadAPI
+   PurpleAirWriteAPI
