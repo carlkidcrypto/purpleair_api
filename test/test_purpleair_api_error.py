@@ -5,11 +5,10 @@
 """
 
 
-
-
 import unittest
 import sys
-sys.path.append("../") 
+
+sys.path.append("../")
 
 from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
 

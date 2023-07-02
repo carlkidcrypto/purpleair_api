@@ -8,7 +8,13 @@
 python3 -m pip install coverage.
 ```
 
-2. Remove any currenlty installed versions of PurpleAirAPI.
+2. Install mock requests
+
+```bash
+python3 -m pip install requests-mock
+```
+
+3. Remove any currenlty installed versions of PurpleAirAPI.
 
 ```bash
 python3 -m pip uninstall purpleair_api
