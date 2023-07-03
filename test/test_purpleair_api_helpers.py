@@ -155,7 +155,7 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
             ACCEPTED_FIELD_NAMES_DICT[item_to_remove], retval["sensor"][item_to_remove]
         )
 
-    def test_send_url_request_none(self):
+    def test_send_url_get_request_none(self):
         """
         Test that if no `request_url` is provied, we raise a `PurpleAPIError`.
         """
@@ -167,7 +167,7 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
         with self.assertRaises(PurpleAirAPIError):
             send_url_get_request(request_url=fake_url_request)
 
-    def test_send_url_request_optional_parameter_1(self):
+    def test_send_url_get_request_optional_parameter_1(self):
         """
         Test that the `?` optional parameter is added to the first positional argument in the request url string.
         """
@@ -194,7 +194,7 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
                 optional_parameters_dict=optional_parameters_dict,
             )
 
-    def test_send_url_request_optional_parameter_2(self):
+    def test_send_url_get_request_optional_parameter_2(self):
         """
         Test that the `&` optional parameter is added to the first positional argument in the request url string.
         """
@@ -221,7 +221,7 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
                 optional_parameters_dict=optional_parameters_dict,
             )
 
-    def test_send_url_request_optional_parameter_raise_error(self):
+    def test_send_url_get_request_optional_parameter_raise_error(self):
         """
         Test that an invalid optional parameter raises a `PurpleAirAPIError`.
         """
@@ -242,7 +242,7 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
                 optional_parameters_dict=optional_parameters_dict,
             )
 
-    def test_send_url_request_no_api_key(self):
+    def test_send_url_get_request_no_api_key(self):
         """
         Test that a no API request can happen
         """
@@ -268,7 +268,7 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
                 optional_parameters_dict=optional_parameters_dict,
             )
 
-    def test_send_url_request_error_response(self):
+    def test_send_url_get_request_error_response(self):
         """
         Test that if our response returns an error, we raise `PurpleAirAPIError`.
         """
@@ -293,6 +293,152 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
                     api_key_to_use=fake_api_key_to_use,
                     first_optional_parameter_separator=fake_first_optional_parameter_separator,
                     optional_parameters_dict=optional_parameters_dict,
+                )
+
+    def test_send_url_post_request_json_param(self):
+        """
+        Test that we can provide json parameters
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/del"
+        fake_api_key_to_use = "111-222-333-444"
+        fake_json_post_params = {"val_1": 2, "val_2": 5}
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.post(
+                fake_url_request,
+                headers={"X-API-Key": str(fake_api_key_to_use)},
+                json=fake_json_post_params,
+                status_code=200,
+            )
+            send_url_post_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+                json_post_parameters=fake_json_post_params,
+            )
+
+    def test_send_url_post_request_no_json_param(self):
+        """
+        Test that we can provide no json parameters
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/pos"
+        fake_api_key_to_use = "111-222-333-444"
+        fake_json_post_params = {}
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.post(
+                fake_url_request,
+                headers={"X-API-Key": str(fake_api_key_to_use)},
+                json=fake_json_post_params,
+                status_code=200,
+            )
+            send_url_post_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+                json_post_parameters=fake_json_post_params,
+            )
+
+    def test_send_url_post_request_error_response(self):
+        """
+        Test that if our response returns an error, we raise `PurpleAirAPIError`.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/del"
+        fake_api_key_to_use = "111-222-333-444"
+        fake_json_post_params = {}
+
+        # Action and Expected Result
+        with self.assertRaises(PurpleAirAPIError):
+            with requests_mock.Mocker() as m:
+                m.post(
+                    fake_url_request,
+                    headers={"X-API-Key": str(fake_api_key_to_use)},
+                    text='{"test": 5, "error": "BAD!", "description": "BAD BAD!"}',
+                    status_code=400,
+                )
+                send_url_post_request(
+                    request_url=fake_url_request,
+                    api_key_to_use=fake_api_key_to_use,
+                    json_post_parameters=fake_json_post_params,
+                )
+
+    def test_send_url_delete_request_json_param(self):
+        """
+        Test that we can provide json parameters
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/del"
+        fake_api_key_to_use = "111-222-333-444"
+        fake_json_post_params = {"no_data": 4}
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.delete(
+                fake_url_request,
+                headers={"X-API-Key": str(fake_api_key_to_use)},
+                json=fake_json_post_params,
+                status_code=200,
+            )
+            send_url_delete_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+                json_post_parameters=fake_json_post_params,
+            )
+
+    def test_send_url_delete_request_no_json_param(self):
+        """
+        Test that we can provide no json parameters
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/del"
+        fake_api_key_to_use = "111-222-333-444"
+        fake_json_post_params = {}
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.delete(
+                fake_url_request,
+                headers={"X-API-Key": str(fake_api_key_to_use)},
+                json=fake_json_post_params,
+                status_code=200,
+            )
+            send_url_delete_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+                json_post_parameters=fake_json_post_params,
+            )
+
+    def test_send_url_delete_request_error_response(self):
+        """
+        Test that if our response returns an error, we raise `PurpleAirAPIError`.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/del"
+        fake_api_key_to_use = "111-222-333-444"
+        fake_json_post_params = {}
+
+        # Action and Expected Result
+        with self.assertRaises(PurpleAirAPIError):
+            with requests_mock.Mocker() as m:
+                m.delete(
+                    fake_url_request,
+                    headers={"X-API-Key": str(fake_api_key_to_use)},
+                    text='{"test": 5, "error": "BAD!", "description": "BAD BAD!"}',
+                    status_code=400,
+                )
+                send_url_delete_request(
+                    request_url=fake_url_request,
+                    api_key_to_use=fake_api_key_to_use,
+                    json_post_parameters=fake_json_post_params,
                 )
 
 

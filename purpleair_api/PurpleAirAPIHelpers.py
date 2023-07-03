@@ -45,7 +45,7 @@ def verify_request_status_codes(status_code) -> bool:
 
     elif status_code in ERROR_CODES_LIST:
         return False
-    
+
     else:
         raise PurpleAirAPIError(f"Unkown status code - {status_code}!")
 
