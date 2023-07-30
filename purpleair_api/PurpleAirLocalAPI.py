@@ -19,12 +19,15 @@ class PurpleAirLocalAPI:
 
     def __init__(self, ipv4_address=None):
         # Create the vase API request string for local networks.
-        if ipv4_address is not None:
-            self._base_api_local_network_request_string = f"http://{ipv4_address}/json"
-        else:
-            raise PurpleAirAPIError(
-                "Must provide the IPv4 address for the senson on your local network"
-            )
+        error_msg = "Must provide the IPv4 address for the senson on your local network"
+
+        if type(ipv4_address) is type(None):
+            raise PurpleAirAPIError(error_msg)
+
+        elif len(ipv4_address) == 0:
+            raise PurpleAirAPIError(error_msg)
+
+        self._base_api_local_network_request_string = f"http://{ipv4_address}/json"
 
     def request_local_sensor_data(self):
         """
