@@ -28,13 +28,14 @@ jobs:
                  python -m pip install --upgrade setuptools ;
                  python -m pip install --upgrade pip ;
                  python -m pip install coverage ;
+                 python -m pip install requests_mock ;
                  python setup.py install
 
       - name: Run unit tests...
         uses: knicknic/os-specific-run@v1.0.4
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/test ;
-                 coverage run -m unittest                              ;
+                 coverage run -m unittest ;
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
