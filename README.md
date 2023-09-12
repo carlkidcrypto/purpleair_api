@@ -51,3 +51,15 @@ Now you can use that PAA instance to do things like...
 ```bash
 retval = my_paa.request_sensor_data(1234)
 ```
+
+## Tests
+
+Run tests using...
+```bash
+python3 -m unittest
+```
+
+To run tests with coverage...
+```bash
+coverage run -m unittest && coverage html
+```
