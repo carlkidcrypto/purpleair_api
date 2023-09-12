@@ -19,6 +19,7 @@ class PurpleAirReadAPI:
     def __init__(self, api_read_key=None):
         # Save off the API key for internal usage
         self._your_api_read_key = api_read_key
+        self._base_api_v1_request_string = "https://api.purpleair.com/v1/"
 
     def request_sensor_data(self, sensor_index, read_key=None, fields=None):
         """
