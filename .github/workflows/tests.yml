@@ -35,7 +35,7 @@ jobs:
         uses: knicknic/os-specific-run@v1.0.4
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/test ;
-                 coverage run -m unittest ;
+                 coverage run -m unittest && coverage json ;
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
