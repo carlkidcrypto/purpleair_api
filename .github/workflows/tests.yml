@@ -2,7 +2,7 @@ name: Tests
 
 on:
   push:
-    branches: [ feature/work_more_on_tests_workflow ]
+    branches: [ main ]
 
   pull_request:
     branches: [ main ]
