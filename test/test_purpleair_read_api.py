@@ -89,10 +89,81 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.pala.request_multiple_sensors_data("test1, test2, test3, test4, test5")
+            self.pala.request_multiple_sensors_data(
+                fields="test1, test2, test3, test4, test5"
+            )
 
-    # def test_request_sensor_historic_data(self):
-    #     pass
+    def test_request_multiple_sensors_data_with_some_optional_parameters(self):
+        """
+        Test that we can request multiple sensors data with fields, location_type, show_only, max_age, nwlat, selat
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/sensors/?fields=test1,test2,test3,test4,test5&location_type=1&show_only=123,456&max_age=1234&nwlat=5678&selat=91234"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            self.pala.request_multiple_sensors_data(
+                fields="test1, test2, test3, test4, test5",
+                location_type=1,
+                show_only="123, 456",
+                max_age=1234,
+                nwlat=5678,
+                selat=91234,
+            )
+
+    def test_request_multiple_sensors_data_with_all_optional_parameters(self):
+        """
+        Test that we can request multiple sensors data with fields, location_type, read_keys, show_only, modified_since, max_age, nwlng, nwlat, selng, & selat.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/sensors/?fields=test1,test2,test3,test4,test5&location_type=5&read_keys=asdf&show_only=124,567&modified_since=123456789&max_age=123456789&nwlng=123456&nwlat=6789&selng=444&selat=333"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            self.pala.request_multiple_sensors_data(
+                fields="test1, test2, test3, test4, test5",
+                location_type=5,
+                read_keys="asdf",
+                show_only="124, 567",
+                modified_since=123456789,
+                max_age=123456789,
+                nwlng=123456,
+                nwlat=6789,
+                selng=444,
+                selat=333,
+            )
+
+    def test_request_sensor_historic_data_with_no_optional_parameters(self):
+        """
+        Test that we can request historic sensor data with no optional parameters. Just sensor_index and fields.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/sensors/1234/history?fields=name,field1,field2,etc"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            self.pala.request_sensor_historic_data(
+                sensor_index=1234,
+                fields="name, field1, field2, etc",
+            )
 
     # def test_request_group_detail_data(self):
     #     pass

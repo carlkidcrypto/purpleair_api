@@ -3,8 +3,8 @@
 This is a python3 wrapper for the new PurpleAirAPI (PAA). Details of the API can be found using this link: <https://api.purpleair.com/#api-welcome>
 To use the PurpleAirAPI (PAA) api keys are required. You can get API keys by sending an email to `contact@purpleair.com` with a first and last name to assign them to.
 
-| [![PyPI Distributions](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg)](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml) | [![TestPyPI Distributions](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml/badge.svg)](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml) | [![Black](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/black.yml/badge.svg)](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/black.yml) |
-| --------------- | --------------- | --------------- |
+| [![PyPI Distributions](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg)](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml) | [![TestPyPI Distributions](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml/badge.svg)](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml) | [![Black](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/black.yml/badge.svg)](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/black.yml) | [![Tests](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/carlkidcrypto/purpleair_api/actions/workflows/tests.yml) |
+| --------------- | --------------- | --------------- | --------------- |
 
 ## How to Support This Project
 
@@ -32,34 +32,83 @@ cd purple_air_api
 python3 setup.py install
 ```
 
-## Usage Example
+## PurpleAirAPI Usage Example
 
 First we need to import the PurpleAir API (PAA)
 
-```bash
-from purpleair_api.PurpleAirAPI
+```python
+from purpleair_api.PurpleAirAPI import PurpleAirAPI
 ```
 
 Next we need to make an instance of PAA.
 
-```bash
-my_paa = PurpleAirAPI(your_api_read_key, your_api_write_key)
+```python
+my_paa = PurpleAirAPI(your_api_read_key, your_api_write_key, your_ipv4_address)
 ```
 
 Now you can use that PAA instance to do things like...
 
-```bash
+```python
 retval = my_paa.request_sensor_data(1234)
+```
+
+## PurpleAirReadAPI Usage Example
+
+First we need to import the PurpleAirReadAPI.
+
+```python.
+from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
+```
+
+Now we need to make an instance if it.
+
+```python
+my_paa = PurpleAirReadAPI(api_read_key)
+```
+
+Now we can use that instance to do things like...
+```python
+retval = my_paa.request_multiple_sensors_data("name")
+```
+
+## PurpleAirWriteAPI Usage Example
+
+First we need to import the PurpleAirWriteAPI.
+
+```python.
+from purpleair_api.PurpleAirWriteAPI import PurpleAirWriteAPI
+```
+
+Now we need to make an instance if it.
+
+```python
+my_paa = PurpleAirWriteAPI(api_write_key)
+```
+
+Now we can use that instance to do things like...
+```python
+retval = my_paa.post_create_member(1234)
+```
+
+## PurpleAirLocalAPI Usage Example
+
+First we need to import the PurpleAirLocalAPI.
+
+```python.
+from purpleair_api.PurpleAirLocalAPI import PurpleAirLocalAPI
+```
+
+Now we need to make an instance if it.
+
+```python
+my_paa = PurpleAirLocalAPI(ipv4_address)
+```
+
+Now we can use that instance to do things like...
+```python
+retval = my_paa.request_local_sensor_data()
 ```
 
 ## Tests
 
-Run tests using...
-```bash
-python3 -m unittest
-```
-
-To run tests with coverage...
-```bash
-coverage run -m unittest && coverage html
-```
+Refer to the test [readme](/test/README.md)
