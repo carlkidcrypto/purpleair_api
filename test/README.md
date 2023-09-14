@@ -23,5 +23,5 @@ python3 -m pip uninstall purpleair_api
 ## Running tests
 
 ```bash
-coverage run --source=../purpleair_api -m unittest && coverage html -d coverage_reports
+python3 -m unittest && coverage html -d purpleair_api_coverage_reports
 ```
