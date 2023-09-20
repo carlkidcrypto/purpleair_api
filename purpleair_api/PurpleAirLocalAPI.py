@@ -14,24 +14,43 @@ from purpleair_api.PurpleAirAPIHelpers import send_url_get_request
 class PurpleAirLocalAPI:
     """
     The PurpleAirLocalAPI class designed to send valid
-    local network requests.
+    local network requests. It can work with one or many IPv4 addresses.
+
+    :param list ipv4_address_list: A list of strings with valid IPv4 addresses for your sensors. The addresses don't need a CIDR.
     """
 
-    def __init__(self, ipv4_address=None):
+    def __init__(self, ipv4_address_list=None):
         # Create the vase API request string for local networks.
-        error_msg = "Must provide the IPv4 address for the senson on your local network"
+        error_msg = (
+            "Must provide the IPv4 address list for the sensor(s) on your local network"
+        )
 
-        if type(ipv4_address) is type(None):
+        if type(ipv4_address_list) is type(None):
             raise PurpleAirAPIError(error_msg)
 
-        elif len(ipv4_address) == 0:
+        elif type(ipv4_address_list) is not type(list()):
             raise PurpleAirAPIError(error_msg)
 
-        self._base_api_local_network_request_string = f"http://{ipv4_address}/json"
+        for address in ipv4_address_list:
+            if len(address) == 0 or len(address) > 15:
+                raise PurpleAirAPIError(error_msg)
 
-    def request_local_sensor_data(self):
+        self._base_api_local_network_request_string_dict = dict()
+        for address in ipv4_address_list:
+            self._base_api_local_network_request_string_dict[
+                address
+            ] = f"http://{address}/json"
+
+    def request_local_sensor_data(self) -> dict:
         """
         A method to request a local sensors data. This sensor must be in a netork that is accessible
         """
 
-        return send_url_get_request(self._base_api_local_network_request_string)
+        retval = {}
+        for key, value in self._base_api_local_network_request_string_dict.items():
+            print("key", key)
+            print("value", value)
+            request_value = send_url_get_request(value)
+            retval[key] = request_value
+
+        return retval

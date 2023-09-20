@@ -67,7 +67,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
             retval_api_write_key = self._check_an_api_key(your_api_write_key)
 
         if your_ipv4_address is not None:
-            PurpleAirLocalAPI.__init__(self, ipv4_address=your_ipv4_address)
+            PurpleAirLocalAPI.__init__(self, ipv4_address_list=your_ipv4_address)
 
         if retval_api_read_key is not None:
             if self._api_key_types[your_api_read_key] == "READ":
