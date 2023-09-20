@@ -17,7 +17,7 @@ from purpleair_api.PurpleAirLocalAPI import PurpleAirLocalAPI
 
 class PurpleAirLocalAPITest(unittest.TestCase):
     def setUp(self):
-        self.pala = PurpleAirLocalAPI("192.168.1.2")
+        self.pala = PurpleAirLocalAPI(["192.168.1.2"])
 
     def tearDown(self):
         self.pala = None
@@ -48,7 +48,7 @@ class PurpleAirLocalAPITest(unittest.TestCase):
         with self.assertRaises(PurpleAirAPIError):
             self.pala = PurpleAirLocalAPI(None)
 
-    def test_request_local_sensor_data_empty_string_ip_provided(self):
+    def test_request_local_sensor_data_empty_list_ip_provided(self):
         """
         Test that providing no IP address results in a `PurpleAirAPIError`
         """
@@ -58,7 +58,10 @@ class PurpleAirLocalAPITest(unittest.TestCase):
             self.pala = PurpleAirLocalAPI(None)
 
         with self.assertRaises(PurpleAirAPIError):
-            self.pala = PurpleAirLocalAPI("")
+            self.pala = PurpleAirLocalAPI(["", ""])
+
+        with self.assertRaises(PurpleAirAPIError):
+            self.pala = PurpleAirLocalAPI({})
 
 
 if __name__ == "__main__":
