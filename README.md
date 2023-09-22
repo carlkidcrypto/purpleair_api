@@ -52,6 +52,10 @@ Now you can use that PAA instance to do things like...
 retval = my_paa.request_sensor_data(1234)
 ```
 
+> Note: PurpleAirAPI is the main entry point. It will load read, write, and local submodules
+based on the parameters that are passed in upon construction. If you wish to only use a
+small piece of PurpleAirAPI then see the examples below.
+
 ## PurpleAirReadAPI Usage Example
 
 First we need to import the PurpleAirReadAPI.

@@ -24,6 +24,7 @@ class PurpleAirWriteAPI:
     def __init__(self, api_write_key=None):
         # Save off the API key for internal usage
         self._your_api_write_key = api_write_key
+        self._base_api_v1_request_string = "https://api.purpleair.com/v1/"
 
     def post_create_group_data(self, name):
         """
