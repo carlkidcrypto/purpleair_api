@@ -105,7 +105,7 @@ from purpleair_api.PurpleAirLocalAPI import PurpleAirLocalAPI
 Now we need to make an instance if it.
 
 ```python
-my_paa = PurpleAirLocalAPI(ipv4_address)
+my_paa = PurpleAirLocalAPI(["ipv4_address"])
 ```
 
 Now we can use that instance to do things like...
