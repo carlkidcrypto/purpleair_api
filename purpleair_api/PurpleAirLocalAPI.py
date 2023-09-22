@@ -48,8 +48,6 @@ class PurpleAirLocalAPI:
 
         retval = {}
         for key, value in self._base_api_local_network_request_string_dict.items():
-            print("key", key)
-            print("value", value)
             request_value = send_url_get_request(value)
             retval[key] = request_value
 

@@ -87,7 +87,7 @@ ACCEPTED_FIELD_NAMES_DICT = {
     "pm2.5_cf_1_b": 0.0,
     # PM2.5 pseudo (simple running) average fields:
     # Note: These are inside the return json as json["sensor"]["stats"]. They are averages of the two sensors.
-    # sensor 'a' and 'b' sensor be. Each sensors data is inside json["sensor"]["stats_a"] and json["sensor"]["stats_b"]
+    # sensor 'a' and sensor 'b'. Each sensors data is inside json["sensor"]["stats_a"] and json["sensor"]["stats_b"]
     "pm2.5_10minute": 0.0,
     "pm2.5_10minute_a": 0.0,
     "pm2.5_10minute_b": 0.0,
