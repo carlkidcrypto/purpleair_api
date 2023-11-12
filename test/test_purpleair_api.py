@@ -132,6 +132,28 @@ class PurpleAirAPITest(unittest.TestCase):
                 your_api_read_key="123456789", your_ipv4_address=["192.168.1.2"]
             )
 
+    def test_purpleairapi_getters(self):
+        """
+        Test the PurpleAirAPI getters.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/keys"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"api_version" : "1.1.1", "time_stamp": 987654321, "api_key_type": "WRITE"}',
+                status_code=200,
+            )
+
+            paa = PurpleAirAPI(your_api_write_key="123456789")
+
+        self.assertEqual(paa.get_api_key_last_checked["123456789"], 987654321)
+        self.assertEqual(paa.get_api_key_type["123456789"], "WRITE")
+        self.assertEqual(paa.get_api_versions["123456789"], "1.1.1")
+
 
 if __name__ == "__main__":
     unittest.main()
