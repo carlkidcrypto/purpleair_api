@@ -96,21 +96,22 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
         :return True, if an API key can be successfully verified.
         """
         request_url = self._base_api_v1_request_string + "keys"
-        the_request_text_as_json = send_url_get_request(request_url, api_key_to_use=str_api_key_to_check)
+        the_request_text_as_json = send_url_get_request(
+            request_url, api_key_to_use=str_api_key_to_check
+        )
 
         # We good :) get the request information
         self._api_versions[str_api_key_to_check] = the_request_text_as_json[
             "api_version"
         ]
-        self._api_keys_last_checked[
-            str_api_key_to_check
-        ] = the_request_text_as_json["time_stamp"]
+        self._api_keys_last_checked[str_api_key_to_check] = the_request_text_as_json[
+            "time_stamp"
+        ]
         self._api_key_types[str_api_key_to_check] = the_request_text_as_json[
             "api_key_type"
         ]
 
         return True
-
 
     @property
     def get_api_versions(self):
