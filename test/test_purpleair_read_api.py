@@ -16,10 +16,10 @@ from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
 
 class PurpleAirReadAPITest(unittest.TestCase):
     def setUp(self):
-        self.pala = PurpleAirReadAPI(123456789)
+        self.para = PurpleAirReadAPI(123456789)
 
     def tearDown(self):
-        self.pala = None
+        self.para = None
 
     def test_request_sensor_data_with_no_optional_parameters(self):
         """
@@ -36,7 +36,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.pala.request_sensor_data(1234)
+            self.para.request_sensor_data(1234)
 
     def test_request_sensor_data_with_read_key_no_fields(self):
         """
@@ -53,7 +53,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.pala.request_sensor_data(1234, 56789)
+            self.para.request_sensor_data(1234, 56789)
 
     def test_request_sensor_data_with_read_key_and_fields(self):
         """
@@ -70,7 +70,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.pala.request_sensor_data(1234, 56789, "test1, test2, test3")
+            self.para.request_sensor_data(1234, 56789, "test1, test2, test3")
 
     def test_request_multiple_sensors_data_with_no_optional_parameters(self):
         """
@@ -89,7 +89,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.pala.request_multiple_sensors_data(
+            self.para.request_multiple_sensors_data(
                 fields="test1, test2, test3, test4, test5"
             )
 
@@ -108,7 +108,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.pala.request_multiple_sensors_data(
+            self.para.request_multiple_sensors_data(
                 fields="test1, test2, test3, test4, test5",
                 location_type=1,
                 show_only="123, 456",
@@ -132,7 +132,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.pala.request_multiple_sensors_data(
+            self.para.request_multiple_sensors_data(
                 fields="test1, test2, test3, test4, test5",
                 location_type=5,
                 read_keys="asdf",
@@ -160,7 +160,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.pala.request_sensor_historic_data(
+            self.para.request_sensor_historic_data(
                 sensor_index=1234,
                 fields="name, field1, field2, etc",
             )
@@ -184,7 +184,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
 
     #     # Setup,  Action, and Expected Result
     #     with self.assertRaises(PurpleAirAPIError):
-    #         self.pala = PurpleAirLocalAPI(None)
+    #         self.para = PurpleAirLocalAPI(None)
 
     # def test_request_local_sensor_data_empty_string_ip_provided(self):
     #     """
@@ -193,10 +193,10 @@ class PurpleAirReadAPITest(unittest.TestCase):
 
     #     # Setup,  Action, and Expected Result
     #     with self.assertRaises(PurpleAirAPIError):
-    #         self.pala = PurpleAirLocalAPI(None)
+    #         self.para = PurpleAirLocalAPI(None)
 
     #     with self.assertRaises(PurpleAirAPIError):
-    #         self.pala = PurpleAirLocalAPI("")
+    #         self.para = PurpleAirLocalAPI("")
 
 
 if __name__ == "__main__":
