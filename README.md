@@ -115,4 +115,4 @@ retval = my_paa.request_local_sensor_data()
 
 ## Tests
 
-Refer to the test [readme](/test/README.md)
+Refer to the test [readme](/tests/README.md)
