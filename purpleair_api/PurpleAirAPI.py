@@ -6,10 +6,7 @@
     https://api.purpleair.com/#api-welcome
 """
 
-from requests import get
-from json import loads
-from purpleair_api.PurpleAirAPIHelpers import debug_log
-from purpleair_api.PurpleAirAPIConstants import SUCCESS_CODE_LIST
+from purpleair_api.PurpleAirAPIHelpers import debug_log, send_url_get_request
 from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
 from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
 from purpleair_api.PurpleAirWriteAPI import PurpleAirWriteAPI
@@ -99,30 +96,22 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
         :return True, if an API key can be successfully verified.
         """
         request_url = self._base_api_v1_request_string + "keys"
-        my_request = get(request_url, headers={"X-API-Key": str(str_api_key_to_check)})
+        the_request_text_as_json = send_url_get_request(
+            request_url, api_key_to_use=str_api_key_to_check
+        )
 
-        the_request_text_as_json = loads(my_request.text)
-        debug_log(the_request_text_as_json)
+        # We good :) get the request information
+        self._api_versions[str_api_key_to_check] = the_request_text_as_json[
+            "api_version"
+        ]
+        self._api_keys_last_checked[str_api_key_to_check] = the_request_text_as_json[
+            "time_stamp"
+        ]
+        self._api_key_types[str_api_key_to_check] = the_request_text_as_json[
+            "api_key_type"
+        ]
 
-        if my_request.status_code in SUCCESS_CODE_LIST:
-            # We good :) get the request text
-            self._api_versions[str_api_key_to_check] = the_request_text_as_json[
-                "api_version"
-            ]
-            self._api_keys_last_checked[
-                str_api_key_to_check
-            ] = the_request_text_as_json["time_stamp"]
-            self._api_key_types[str_api_key_to_check] = the_request_text_as_json[
-                "api_key_type"
-            ]
-            my_request.close()
-            del my_request
-            return True
-
-        else:
-            raise PurpleAirAPIError(
-                f"""{my_request.status_code}: {the_request_text_as_json['error']} - {the_request_text_as_json['description']}"""
-            )
+        return True
 
     @property
     def get_api_versions(self):

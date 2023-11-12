@@ -16,10 +16,10 @@ from purpleair_api.PurpleAirWriteAPI import PurpleAirWriteAPI
 
 class PurpleAirWriteAPITest(unittest.TestCase):
     def setUp(self):
-        self.pala = PurpleAirWriteAPI(123456789)
+        self.pawa = PurpleAirWriteAPI(123456789)
 
     def tearDown(self):
-        self.pala = None
+        self.pawa = None
 
     def test_post_create_group_data(self):
         """
@@ -36,7 +36,7 @@ class PurpleAirWriteAPITest(unittest.TestCase):
                 text='{"test" : 1234}',
                 status_code=200,
             )
-            self.pala.post_create_group_data("this_is_a_name")
+            self.pawa.post_create_group_data("this_is_a_name")
 
     def test_post_create_member_with_sensor_index(self):
         """
@@ -53,7 +53,7 @@ class PurpleAirWriteAPITest(unittest.TestCase):
                 text='{"test" : 1234}',
                 status_code=200,
             )
-            self.pala.post_create_member(group_id=1234, sensor_index=4567)
+            self.pawa.post_create_member(group_id=1234, sensor_index=4567)
 
 
 if __name__ == "__main__":

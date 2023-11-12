@@ -1,0 +1,20 @@
+{
+    "cSpell.words": [
+        "carlkidcrypto",
+        "drawio",
+        "Grafana",
+        "hypertable",
+        "nwlat",
+        "nwlng",
+        "purpleair_data_logger",
+        "rssi",
+        "segmentby",
+        "selat",
+        "selng",
+        "thingspeak",
+        "timescaledb",
+        "PSQL",
+        "deciviews"
+    ],
+    "python.formatting.provider": "black"
+}
