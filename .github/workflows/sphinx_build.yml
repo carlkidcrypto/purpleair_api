@@ -1,0 +1,61 @@
+name: "Pull Request Sphinx Docs Check"
+
+on:
+  push:
+    branches: [ main ]
+
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check-source-changes:
+    runs-on: Linux
+    outputs:
+      run_job: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - name: Checkout Sourcecode
+        uses: actions/checkout@v4
+
+      - name: Check for changes in source code
+        id: changed-files
+        uses: tj-actions/changed-files@v41.0.1
+        with:
+          files: |
+            sphinx_docs_build/*.rst
+            sphinx_docs_build/*.py
+            sphinx_docs_build/*.txt
+
+  sphinx_docs_build:
+    runs-on: Linux
+    if: needs.check-source-changes.outputs.run_job == 'true'
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10 env for sphinx...
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install python3/os requirements...
+        uses: carlkidcrypto/os-specific-runner@v2.0.0
+        with:
+          linux: cd /home/runner/work/purpleair_api/purpleair_api/ &&
+                 python -m pip install --upgrade wheel &&
+                 python -m pip install --upgrade setuptools &&
+                 python -m pip install --upgrade pip &&
+                 python -m pip install -r sphinx_docs_build/requirements.txt &&
+                 python -m pip install . --user;
+
+      - name: Run sphinx...
+        uses: carlkidcrypto/os-specific-runner@v2.0.0
+        with:
+          linux: cd /home/runner/work/purpleair_api/purpleair_api/sphinx_docs_build;
+                 mkdir source/_static;
+                 mkdir source/_templates;
+                 make clean && make html SPHINXOPTS="-W"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HTML Documentation
+          path: docs/

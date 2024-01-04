@@ -29,11 +29,13 @@ jobs:
             setup.cfg
 
       - name: Set up Python 3.10 env for running unittest tests...
+        if: needs.check-source-changes.outputs.run_job == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
       - name: Install python3 requirements...
+        if: needs.check-source-changes.outputs.run_job == 'true'
         uses: carlkidcrypto/os-specific-runner@v2.0.0
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/ ;
@@ -44,12 +46,14 @@ jobs:
                  python -m pip install requests_mock ;
 
       - name: Run unit tests...
+        if: needs.check-source-changes.outputs.run_job == 'true'
         uses: carlkidcrypto/os-specific-runner@v2.0.0
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/tests ;
                  coverage run -m unittest && coverage json ;
 
       - name: Upload coverage reports to Codecov
+        if: needs.check-source-changes.outputs.run_job == 'true'
         uses: codecov/codecov-action@v3
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
