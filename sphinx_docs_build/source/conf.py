@@ -19,11 +19,11 @@ sys.path.insert(0, os.path.abspath("../../purpleair_api/"))
 # -- Project information -----------------------------------------------------
 
 project = "PurpleAir API"
-copyright = "2023, carlkidcrypto"
+copyright = "2024, carlkidcrypto"
 author = "carlkidcrypto"
 
 # The full version, including alpha/beta/rc tags
-release = "V1.1.2"
+release = "V1.1.3"
 
 
 # -- General configuration ---------------------------------------------------
