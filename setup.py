@@ -12,7 +12,7 @@ def read_file(filename):
 
 setup(
     name="purpleair_api",
-    version="1.1.2",
+    version="1.1.3",
     license="MIT",
     author="Carlos Santos",
     author_email="dose.lucky.sake@cloak.id",
@@ -20,7 +20,15 @@ setup(
     long_description_content_type="text/markdown",
     packages=["purpleair_api"],
     url="https://github.com/carlkidcrypto/purpleair_api",
-    keywords=["purpleair_api", "purple air api", "purple_air", "purple air"],
+    keywords=[
+        "purpleair_api",
+        "purple air api",
+        "purple_air",
+        "purple air",
+        "purpleair-sensor",
+        "purpleair sensor",
+        "purpleair-sensor",
+    ],
     install_requires=["requests"],
     platforms=["Windows 32/64", "Linux 32/64", "MacOS 32/64"],
 )

@@ -6,3 +6,4 @@
 **/purpleair_api.egg-info/**
 test/.coverage
 test/coverage_reports/**
+**/.DS_Store
