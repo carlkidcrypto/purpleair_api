@@ -1,21 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PurpleAirAPIHelpers module &mdash; PurpleAir API V1.1.2 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>PurpleAirAPIHelpers module &mdash; PurpleAir API V1.1.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b405dd7c"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -91,13 +93,13 @@
            <div itemprop="articleBody">
              
   <section id="module-PurpleAirAPIHelpers">
-<span id="purpleairapihelpers-module"></span><h1>PurpleAirAPIHelpers module<a class="headerlink" href="#module-PurpleAirAPIHelpers" title="Permalink to this heading"></a></h1>
+<span id="purpleairapihelpers-module"></span><h1>PurpleAirAPIHelpers module<a class="headerlink" href="#module-PurpleAirAPIHelpers" title="Link to this heading"></a></h1>
 <p>Copyright 2023 carlkidcrypto, All rights reserved.
 A python3 file containing helper functions for the PurpleAirAPI** files.
 <a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.convert_requests_text_to_json">
-<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">convert_requests_text_to_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#PurpleAirAPIHelpers.convert_requests_text_to_json" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">convert_requests_text_to_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#PurpleAirAPIHelpers.convert_requests_text_to_json" title="Link to this definition"></a></dt>
 <dd><p>A helper to convert request.text to json.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -109,7 +111,7 @@ A python3 file containing helper functions for the PurpleAirAPI** files.
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.debug_log">
-<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">debug_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_msg_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.debug_log" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">debug_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">debug_msg_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.debug_log" title="Link to this definition"></a></dt>
 <dd><p>A helper function to print out
 debug messages only if DEBUG is defined as True in
 ‘PurpleAirAPIConstants.py’. Messages will be the color
@@ -123,7 +125,7 @@ red.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.sanitize_sensor_data_from_paa">
-<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">sanitize_sensor_data_from_paa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paa_return_data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#PurpleAirAPIHelpers.sanitize_sensor_data_from_paa" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">sanitize_sensor_data_from_paa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paa_return_data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#PurpleAirAPIHelpers.sanitize_sensor_data_from_paa" title="Link to this definition"></a></dt>
 <dd><p>A helper function.
 Since not all sensors support all field names we check that the keys exist
 in the sensor data. If they do not exist we add it in with a NULL
@@ -138,7 +140,7 @@ We access the “sensor” key inside this function.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.send_url_delete_request">
-<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">send_url_delete_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_to_use</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_post_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.send_url_delete_request" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">send_url_delete_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_to_use</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_post_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.send_url_delete_request" title="Link to this definition"></a></dt>
 <dd><p>A class helper to send the url request. It can also add onto the
 ‘request_url’ string if ‘optional_parameters_dict’ are provided.</p>
 <dl class="field-list simple">
@@ -150,7 +152,7 @@ We access the “sensor” key inside this function.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.send_url_get_request">
-<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">send_url_get_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_to_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_optional_parameter_separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optional_parameters_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.send_url_get_request" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">send_url_get_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_to_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_optional_parameter_separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optional_parameters_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.send_url_get_request" title="Link to this definition"></a></dt>
 <dd><p>A helper to send the url request. It can also add onto the
 ‘request_url’ string if ‘optional_parameters_dict’ are provided.</p>
 <dl class="field-list simple">
@@ -168,7 +170,7 @@ request_url.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.send_url_post_request">
-<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">send_url_post_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_to_use</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_post_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.send_url_post_request" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">send_url_post_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_to_use</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_post_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.send_url_post_request" title="Link to this definition"></a></dt>
 <dd><p>A class helper to send the url request. It can also add onto the
 ‘request_url’ string if ‘optional_parameters_dict’ are provided.</p>
 <dl class="field-list simple">
@@ -180,7 +182,7 @@ request_url.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.verify_request_status_codes">
-<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">verify_request_status_codes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#PurpleAirAPIHelpers.verify_request_status_codes" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">verify_request_status_codes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#PurpleAirAPIHelpers.verify_request_status_codes" title="Link to this definition"></a></dt>
 <dd><p>A helper to check those status codes.
 True if in SUCCESS_CODE_LIST
 False if in ERROR_CODES_LIST</p>
@@ -199,7 +201,7 @@ False if in ERROR_CODES_LIST</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, carlkidcrypto.</p>
+    <p>&#169; Copyright 2024, carlkidcrypto.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
