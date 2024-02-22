@@ -37,9 +37,9 @@ class PurpleAirLocalAPI:
 
         self._base_api_local_network_request_string_dict = dict()
         for address in ipv4_address_list:
-            self._base_api_local_network_request_string_dict[
-                address
-            ] = f"http://{address}/json"
+            self._base_api_local_network_request_string_dict[address] = (
+                f"http://{address}/json"
+            )
 
     def request_local_sensor_data(self) -> dict:
         """
