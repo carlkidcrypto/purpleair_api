@@ -170,6 +170,7 @@ class PurpleAirReadAPI:
         self,
         sensor_index,
         fields,
+        csv_data_format=False,
         read_key=None,
         privacy=None,
         start_timestamp=None,
@@ -178,6 +179,13 @@ class PurpleAirReadAPI:
     ):
         """
         A method to request historic data from a single sensor.
+
+        :param bool csv_data_format: Whether or not the data will be returned in CSV format or JSON format.
+                                     True means we use this endpoint https://api.purpleair.com/#api-sensors-get-sensor-history-csv
+                                     False means we use this endpoint https://api.purpleair.com/#api-sensors-get-sensor-history
+                                      
+
+        ## What's below is straight from the Purpleair api website...
 
         :param int sensor_index: The sensor_index as found in the JSON for this specific sensor.
 
@@ -228,11 +236,18 @@ class PurpleAirReadAPI:
                            For field descriptions, please see the 'sensor data fields'. section.
         """
 
+        history_url_portion = ""
+        if csv_data_format:
+            history_url_portion = "/history/csv"
+
+        else:
+            history_url_portion = "/history"
+        
         request_url = (
             self._base_api_v1_request_string
             + "sensors/"
             + f"{sensor_index}"
-            + "/history"
+            + f"{history_url_portion}"
             + f"?fields={fields}"
         )
 
