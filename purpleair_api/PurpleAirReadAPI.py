@@ -183,7 +183,7 @@ class PurpleAirReadAPI:
         :param bool csv_data_format: Whether or not the data will be returned in CSV format or JSON format.
                                      True means we use this endpoint https://api.purpleair.com/#api-sensors-get-sensor-history-csv
                                      False means we use this endpoint https://api.purpleair.com/#api-sensors-get-sensor-history
-                                      
+
 
         ## What's below is straight from the Purpleair api website...
 
@@ -242,7 +242,7 @@ class PurpleAirReadAPI:
 
         else:
             history_url_portion = "/history"
-        
+
         request_url = (
             self._base_api_v1_request_string
             + "sensors/"
@@ -349,6 +349,7 @@ class PurpleAirReadAPI:
         group_id,
         member_id,
         fields,
+        privacy=None,
         start_timestamp=None,
         end_timestamp=None,
         average=None,
@@ -360,22 +361,25 @@ class PurpleAirReadAPI:
 
         :param int member_id: Members unique ID.
 
-        :param (optional) int start_timestamp: The time stamp of the first required history entry. Query is executed using data_timestamp >= start_timestamp.
-                                    Time can be specified as a UNIX time stamp in seconds or an ISO 8601 string. https://en.wikipedia.org/wiki/ISO_8601.
-                                    The time_stamp column in the resulting JSON or CSV will be in the same format and or time zone that you use for this start_timestamp parameter.
-                                    If not specified, the last maximum time span for the requested average will be returned.
+        :param (optional) str privacy: The privacy of returned data. Sensors can record data while registered as public or private.
+                                        `auto` (default if not specified) returns data with privacy matching the sensor's current registration. `both` returns all data regardless of privacy and adds the private field to the returned data columns.
+                                        Allowed values: auto, public, private, both
 
-        :param (optional) int end_timestamp: The end time stamp of the history to return. Query is executed using data_timestamp < end_timestamp.
-                                             Time can be specified as a UNIX time stamp in seconds or an ISO 8601 string. https://en.wikipedia.org/wiki/ISO_8601.
-                                             If not specified, the maximum time span will be returned starting from the provided start_timestamp.
+        :param (optional) int start_timestamp: The time stamp of the first required history entry. Query is executed using data_time_stamp >= start_timestamp. This can be specified as a UNIX time stamp in seconds or an ISO 8601 string.
+                                                If not specified, the maximum amount of data for the requested average will be returned up to the provided end_timestamp.
+                                                The time_stamp column of data in the response's JSON or CSV will use the same format and/or time zone used in the start_timestamp.
 
-        :param (optional) int average: The desired average in minutes, one of the following: 0 (real-time), 10 (default if not specified), 30, 60, 360 (6 hour), 1440 (1 day)
-                                       Coming soon: 10080 (1 week), 44640 (1 month), 525600 (1 year).
+        :param (optional) int end_timestamp: The end time stamp of the history to return. Query is executed using data_time_stamp < end_timestamp. This can be specified as a UNIX time stamp in seconds or an ISO 8601 string.
+                                             If not specified, the maximum amount of data for the requested average will be returned starting from the provided start_timestamp.
+
+        :param (optional) int average: The desired average in minutes. One of the following:
+                                        0 (real-time), 10 (default if not specified), 30, 60, 360 (6 hour), 1440 (1 day), 10080 (1 week), 43200 (1 month), 525600 (1 year).
+                                        The amount of data that can be returned in a single response depends on the average used. Time limits for each average are found in our looping API calls community article.
 
         :param str fields: The 'Fields' parameter specifies which 'sensor data fields' to include in the response. Not all fields are available as history fields and we will be working to add more as time goes on. Fields marked with an asterisk (*) may not be available when using averages. It is a comma separated list with one or more of the following:
 
                             Station information and status fields:
-                            hardware*, latitude*, longitude*, altitude*, firmware_version*, rssi, uptime, pa_latency, memory,
+                            hardware*, latitude*, longitude*, altitude*, firmware_version*, private, rssi, uptime, pa_latency, memory
 
                             Environmental fields:
                             humidity, humidity_a, humidity_b, temperature, temperature_a, temperature_b, pressure, pressure_a, pressure_b
@@ -409,6 +413,7 @@ class PurpleAirReadAPI:
         # Add to the request_url string depending on what optional parameters are
         # passed in. Turn them into a dict of optional parameters
         optional_parameters_dict = {
+            "privacy": privacy,
             "start_timestamp": start_timestamp,
             "end_timestamp": end_timestamp,
             "average": average,
