@@ -165,6 +165,23 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 fields="name, field1, field2, etc",
             )
 
+    def test_request_organization_data(self):
+        """
+        Test that we can call the organization endpoint.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/organization"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            self.para.request_organization_data()
+
     # def test_request_group_detail_data(self):
     #     pass
 
