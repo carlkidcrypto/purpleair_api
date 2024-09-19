@@ -4,21 +4,21 @@
 
 1. Install python coverage
 
-```bash
-python3 -m pip install coverage.
-```
+    ```bash
+    python3 -m pip install coverage
+    ```
 
 2. Install mock requests
 
-```bash
-python3 -m pip install requests-mock
-```
+    ```bash
+    python3 -m pip install requests-mock
+    ```
 
 3. Remove any currenlty installed versions of PurpleAirAPI.
 
-```bash
-python3 -m pip uninstall purpleair_api
-```
+    ```bash
+    python3 -m pip uninstall purpleair_api
+    ```
 
 ## Running tests
 

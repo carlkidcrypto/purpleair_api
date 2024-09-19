@@ -1,23 +1,21 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PurpleAirReadAPI module &mdash; PurpleAir API V1.1.3 documentation</title>
+  <title>PurpleAirReadAPI module &mdash; PurpleAir API V1.2.0a1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=66b59bf7" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=b405dd7c"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=3ed4c164"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -60,6 +58,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_member_historic_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_member_historic_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_members_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_members_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_multiple_sensors_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_multiple_sensors_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_organization_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_organization_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_sensor_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_historic_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_sensor_historic_data()</span></code></a></li>
 </ul>
@@ -162,25 +161,27 @@ primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, prim
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI.request_member_historic_data">
-<span class="sig-name descname"><span class="pre">request_member_historic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_member_historic_data" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">request_member_historic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_member_historic_data" title="Link to this definition"></a></dt>
 <dd><p>A method to get a members’ historic data from a group to which said member belongs too.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_id</strong> (<em>int</em>) – Groups unique ID.</p></li>
 <li><p><strong>member_id</strong> (<em>int</em>) – Members unique ID.</p></li>
-<li><p><strong>start_timestamp</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The time stamp of the first required history entry. Query is executed using data_timestamp &gt;= start_timestamp.
-Time can be specified as a UNIX time stamp in seconds or an ISO 8601 string. <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">https://en.wikipedia.org/wiki/ISO_8601</a>.
-The time_stamp column in the resulting JSON or CSV will be in the same format and or time zone that you use for this start_timestamp parameter.
-If not specified, the last maximum time span for the requested average will be returned.</p></li>
-<li><p><strong>end_timestamp</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The end time stamp of the history to return. Query is executed using data_timestamp &lt; end_timestamp.
-Time can be specified as a UNIX time stamp in seconds or an ISO 8601 string. <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">https://en.wikipedia.org/wiki/ISO_8601</a>.
-If not specified, the maximum time span will be returned starting from the provided start_timestamp.</p></li>
-<li><p><strong>average</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The desired average in minutes, one of the following: 0 (real-time), 10 (default if not specified), 30, 60, 360 (6 hour), 1440 (1 day)
-Coming soon: 10080 (1 week), 44640 (1 month), 525600 (1 year).</p></li>
+<li><p><strong>privacy</strong> (<em>(</em><em>optional</em><em>) </em><em>str</em>) – The privacy of returned data. Sensors can record data while registered as public or private.
+<cite>auto</cite> (default if not specified) returns data with privacy matching the sensor’s current registration. <cite>both</cite> returns all data regardless of privacy and adds the private field to the returned data columns.
+Allowed values: auto, public, private, both</p></li>
+<li><p><strong>start_timestamp</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The time stamp of the first required history entry. Query is executed using data_time_stamp &gt;= start_timestamp. This can be specified as a UNIX time stamp in seconds or an ISO 8601 string.
+If not specified, the maximum amount of data for the requested average will be returned up to the provided end_timestamp.
+The time_stamp column of data in the response’s JSON or CSV will use the same format and/or time zone used in the start_timestamp.</p></li>
+<li><p><strong>end_timestamp</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The end time stamp of the history to return. Query is executed using data_time_stamp &lt; end_timestamp. This can be specified as a UNIX time stamp in seconds or an ISO 8601 string.
+If not specified, the maximum amount of data for the requested average will be returned starting from the provided start_timestamp.</p></li>
+<li><p><strong>average</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The desired average in minutes. One of the following:
+0 (real-time), 10 (default if not specified), 30, 60, 360 (6 hour), 1440 (1 day), 10080 (1 week), 43200 (1 month), 525600 (1 year).
+The amount of data that can be returned in a single response depends on the average used. Time limits for each average are found in our looping API calls community article.</p></li>
 <li><p><strong>fields</strong> (<em>str</em>) – <p>The ‘Fields’ parameter specifies which ‘sensor data fields’ to include in the response. Not all fields are available as history fields and we will be working to add more as time goes on. Fields marked with an asterisk (*) may not be available when using averages. It is a comma separated list with one or more of the following:</p>
 <p>Station information and status fields:
-hardware*, latitude*, longitude*, altitude*, firmware_version*, rssi, uptime, pa_latency, memory,</p>
+hardware*, latitude*, longitude*, altitude*, firmware_version*, private, rssi, uptime, pa_latency, memory</p>
 <p>Environmental fields:
 humidity, humidity_a, humidity_b, temperature, temperature_a, temperature_b, pressure, pressure_a, pressure_b</p>
 <p>Miscellaneous fields:
@@ -314,6 +315,12 @@ north west latitude/longitude and a south east latitude/longitude.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI.request_organization_data">
+<span class="sig-name descname"><span class="pre">request_organization_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_organization_data" title="Link to this definition"></a></dt>
+<dd><p>Retrieves information for the organization using the api key of this class instance.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_data">
 <span class="sig-name descname"><span class="pre">request_sensor_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_data" title="Link to this definition"></a></dt>
 <dd><p>A method to retrieve sensor data from one sensor. Will return the
@@ -345,25 +352,36 @@ information:
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_historic_data">
-<span class="sig-name descname"><span class="pre">request_sensor_historic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_historic_data" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">request_sensor_historic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sensor_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_data_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_historic_data" title="Link to this definition"></a></dt>
 <dd><p>A method to request historic data from a single sensor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>csv_data_format</strong> (<em>bool</em>) – Whether or not the data will be returned in CSV format or JSON format.
+True means we use this endpoint <a class="reference external" href="https://api.purpleair.com/#api-sensors-get-sensor-history-csv">https://api.purpleair.com/#api-sensors-get-sensor-history-csv</a>
+False means we use this endpoint <a class="reference external" href="https://api.purpleair.com/#api-sensors-get-sensor-history">https://api.purpleair.com/#api-sensors-get-sensor-history</a></p>
+</dd>
+</dl>
+<p>## What’s below is straight from the Purpleair api website…</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sensor_index</strong> (<em>int</em>) – The sensor_index as found in the JSON for this specific sensor.</p></li>
 <li><p><strong>read_key</strong> (<em>(</em><em>optional</em><em>) </em><em>str</em>) – This read_key is required for private devices. It is separate to the api_key and each sensor has its own read_key. Submit multiple keys by separating them with a comma (,) character for example: key-one,key-two,key-three.</p></li>
-<li><p><strong>start_timestamp</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The time stamp of the first required history entry. Query is executed using data_timestamp &gt;= start_timestamp.
-Time can be specified as a UNIX time stamp in seconds or an ISO 8601 string. <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">https://en.wikipedia.org/wiki/ISO_8601</a>.
-The time_stamp column in the resulting JSON or CSV will be in the same format and or time zone that you use for this start_timestamp parameter.
-If not specified, the last maximum time span for the requested average will be returned.</p></li>
-<li><p><strong>end_timestamp</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The end time stamp of the history to return. Query is executed using data_timestamp &lt; end_timestamp.
-Time can be specified as a UNIX time stamp in seconds or an ISO 8601 string. <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">https://en.wikipedia.org/wiki/ISO_8601</a>.
-If not specified, the maximum time span will be returned starting from the provided start_timestamp.</p></li>
-<li><p><strong>average</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The desired average in minutes, one of the following: 0 (real-time), 10 (default if not specified), 30, 60, 360 (6 hour), 1440 (1 day)
-Coming soon: 10080 (1 week), 44640 (1 month), 525600 (1 year).</p></li>
+<li><p><strong>privacy</strong> (<em>(</em><em>optional</em><em>) </em><em>str</em>) – The privacy of returned data. Sensors can record data while registered as public or private. Obtaining private data requires the sensor’s read_key be provided.
+<cite>auto</cite> (default if not specified) returns data with privacy matching the sensor’s current registration.
+<cite>both</cite> returns all data regardless of privacy and adds the private field to the returned data columns.
+Allowed values: auto, public, private, both</p></li>
+<li><p><strong>start_timestamp</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The time stamp of the first required history entry. Query is executed using data_time_stamp &gt;= start_timestamp. This can be specified as a UNIX time stamp in seconds or an ISO 8601 string.
+If not specified, the maximum amount of data for the requested average will be returned up to the provided end_timestamp.
+The time_stamp column of data in the response’s JSON or CSV will use the same format and/or time zone used in the start_timestamp.</p></li>
+<li><p><strong>end_timestamp</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The end time stamp of the history to return. Query is executed using data_time_stamp &lt; end_timestamp. This can be specified as a UNIX time stamp in seconds or an ISO 8601 string.
+If not specified, the maximum amount of data for the requested average will be returned starting from the provided start_timestamp.</p></li>
+<li><p><strong>average</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The desired average in minutes. One of the following:
+0 (real-time), 10 (default if not specified), 30, 60, 360 (6 hour), 1440 (1 day), 10080 (1 week), 43200 (1 month), 525600 (1 year).
+The amount of data that can be returned in a single response depends on the average used. Time limits for each average are found in our looping API calls community article.</p></li>
 <li><p><strong>fields</strong> (<em>str</em>) – <p>The ‘Fields’ parameter specifies which ‘sensor data fields’ to include in the response. Not all fields are available as history fields and we will be working to add more as time goes on. Fields marked with an asterisk (*) may not be available when using averages. It is a comma separated list with one or more of the following:</p>
 <p>Station information and status fields:
-hardware*, latitude*, longitude*, altitude*, firmware_version*, rssi, uptime, pa_latency, memory,</p>
+hardware*, latitude*, longitude*, altitude*, firmware_version*, private, rssi, uptime, pa_latency, memory</p>
 <p>Environmental fields:
 humidity, humidity_a, humidity_b, temperature, temperature_a, temperature_b, pressure, pressure_a, pressure_b</p>
 <p>Miscellaneous fields:
