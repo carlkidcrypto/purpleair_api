@@ -49,7 +49,13 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIConstants.html">PurpleAirAPIConstants module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIError.html">PurpleAirAPIError module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIHelpers.html">PurpleAirAPIHelpers module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirLocalAPI module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirLocalAPI module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#PurpleAirLocalAPI.PurpleAirLocalAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirLocalAPI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirLocalAPI.PurpleAirLocalAPI.request_local_sensor_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirLocalAPI.request_local_sensor_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirReadAPI.html">PurpleAirReadAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirWriteAPI.html">PurpleAirWriteAPI module</a></li>
 </ul>
@@ -81,8 +87,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="purpleairlocalapi-module">
-<h1>PurpleAirLocalAPI module<a class="headerlink" href="#purpleairlocalapi-module" title="Link to this heading"></a></h1>
+  <section id="module-PurpleAirLocalAPI">
+<span id="purpleairlocalapi-module"></span><h1>PurpleAirLocalAPI module<a class="headerlink" href="#module-PurpleAirLocalAPI" title="Link to this heading"></a></h1>
+<p>Copyright 2023 carlkidcrypto, All rights reserved.
+A python3 class designed to fetch data from Purple Air’s new API.
+This class will handle all <cite>local</cite> requests
+<a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="PurpleAirLocalAPI.PurpleAirLocalAPI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PurpleAirLocalAPI.</span></span><span class="sig-name descname"><span class="pre">PurpleAirLocalAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ipv4_address_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirLocalAPI.PurpleAirLocalAPI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The PurpleAirLocalAPI class designed to send valid
+local network requests. It can work with one or many IPv4 addresses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ipv4_address_list</strong> (<em>list</em>) – A list of strings with valid IPv4 addresses for your sensors. The addresses don’t need a CIDR.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="PurpleAirLocalAPI.PurpleAirLocalAPI.request_local_sensor_data">
+<span class="sig-name descname"><span class="pre">request_local_sensor_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#PurpleAirLocalAPI.PurpleAirLocalAPI.request_local_sensor_data" title="Link to this definition"></a></dt>
+<dd><p>A method to request a local sensors data. This sensor must be in a netork that is accessible</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
