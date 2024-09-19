@@ -529,3 +529,12 @@ class PurpleAirReadAPI:
             first_optional_parameter_separator,
             optional_parameters_dict,
         )
+
+    def request_organization_data():
+        """
+        Retrieves information for the organization using the api key of this class instance.
+        """
+
+        request_url = self._base_api_v1_request_string + f"/organization"
+
+        return send_url_get_request(request_url, self._your_api_read_key)
