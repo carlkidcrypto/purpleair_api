@@ -203,38 +203,63 @@ class PurpleAirReadAPITest(unittest.TestCase):
             )
             self.para.request_organization_data()
 
-    # def test_request_group_detail_data(self):
-    #     pass
+    def test_request_group_detail_data(self):
 
-    # def test_request_member_data(self):
-    #     pass
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/1234"
 
-    # def test_request_member_historic_data(self):
-    #     pass
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            self.para.request_group_detail_data(1234)
 
-    # def test_request_members_data(self):
-    #     pass
+    def test_request_member_data(self):
 
-    # def test_request_local_sensor_data_none_ip_provided(self):
-    #     """
-    #     Test that providing no IP address results in a `PurpleAirAPIError`
-    #     """
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members/1234"
 
-    #     # Setup,  Action, and Expected Result
-    #     with self.assertRaises(PurpleAirAPIError):
-    #         self.para = PurpleAirLocalAPI(None)
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            self.para.request_member_data(4321, 1234)
 
-    # def test_request_local_sensor_data_empty_string_ip_provided(self):
-    #     """
-    #     Test that providing no IP address results in a `PurpleAirAPIError`
-    #     """
+    def test_request_member_historic_data(self):
+        # Setup
+        fake_url_request = (
+            "https://api.purpleair.com/v1/groups/4321/members/1234/history/?fields=name"
+        )
 
-    #     # Setup,  Action, and Expected Result
-    #     with self.assertRaises(PurpleAirAPIError):
-    #         self.para = PurpleAirLocalAPI(None)
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            self.para.request_member_historic_data(4321, 1234, "name")
 
-    #     with self.assertRaises(PurpleAirAPIError):
-    #         self.para = PurpleAirLocalAPI("")
+    def test_request_members_data(self):
+        # Setup
+        fake_url_request = (
+            " https://api.purpleair.com/v1/groups/4321/members?fields=name"
+        )
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            self.para.request_members_data(4321, "name")
 
 
 if __name__ == "__main__":
