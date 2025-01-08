@@ -48,7 +48,19 @@ jobs:
       - name: Install python3 requirements...
         uses: carlkidcrypto/os-specific-runner@v2.1.1
         with:
-          linux: cd /home/runner/work/purpleair_api/purpleair_api/ ;
+            linux: cd /home/runner/work/purpleair_api/purpleair_api/ ;
+               python -m pip install --upgrade wheel ;
+               python -m pip install --upgrade setuptools ;
+               python -m pip install --upgrade pip ;
+               python -m pip install coverage ;
+               python -m pip install requests_mock ;
+            macos: cd /Users/runner/work/purpleair_api/purpleair_api/ ;
+               python -m pip install --upgrade wheel ;
+               python -m pip install --upgrade setuptools ;
+               python -m pip install --upgrade pip ;
+               python -m pip install coverage ;
+               python -m pip install requests_mock ;
+            windows: cd C:\Users\runneradmin\work\purpleair_api\purpleair_api\ ;
                  python -m pip install --upgrade wheel ;
                  python -m pip install --upgrade setuptools ;
                  python -m pip install --upgrade pip ;
