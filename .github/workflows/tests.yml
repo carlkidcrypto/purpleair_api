@@ -60,7 +60,7 @@ jobs:
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/tests ;
                  coverage run -m unittest && coverage json -o coverage_linux_${{ matrix.os }}_${{ matrix.python-version }}.json ;
-          macos: cd /home/runner/work/purpleair_api/purpleair_api/tests ;
+          macos: cd /Users/runner/work/purpleair_api/purpleair_api/tests ;
                  coverage run -m unittest && coverage json -o coverage_macos_${{ matrix.os }}_${{ matrix.python-version }}.json ;
           windows: cd C:\Users\runneradmin\work\purpleair_api\purpleair_api\tests ;
                    coverage run -m unittest && coverage json -o coverage_windows_${{ matrix.os }}_${{ matrix.python-version }}.json ;
