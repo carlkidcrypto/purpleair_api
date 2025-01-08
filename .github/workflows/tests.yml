@@ -58,9 +58,11 @@ jobs:
       - name: Run unit tests...
         uses: carlkidcrypto/os-specific-runner@v2.1.1
         with:
-          coverage run -m unittest && coverage json -o coverage_${{ matrix.os }}_${{ matrix.python-version }}.json ;
+          coverage run -m unittest && coverage json -o 'coverage_${{ matrix.os }}_${{ matrix.python-version }}.json' ;
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
+        with:
+          files: coverage_*.json
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
