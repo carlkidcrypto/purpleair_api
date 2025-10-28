@@ -1,4 +1,6 @@
 name: Black
+permissions:
+  contents: read
 
 on:
   push:
