@@ -30,6 +30,8 @@ jobs:
             setup.cfg
 
   tests:
+    permissions:
+      pull-requests: write # This is needed to create/update comments
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -85,3 +87,15 @@ jobs:
           files: coverage_*.json
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@v1.1.57
+        with:
+          title: Tests Unittest Coverage Report(s)
+          unique-id-for-comment: Tests-Unittest-Coverage-Report
+          hide-badge: true
+          hide-report: true
+          create-new-comment: false
+          hide-comment: false
+          report-only-changed-files: false
+          coverage-json-path: ${{ github.workspace }}/tests/coverage_${{ runner.os }}_${{ matrix.os }}_${{ matrix.python-version }}.json
