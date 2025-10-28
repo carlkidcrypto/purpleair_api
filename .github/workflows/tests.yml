@@ -98,4 +98,5 @@ jobs:
           create-new-comment: false
           hide-comment: false
           report-only-changed-files: false
-          coverage-json-path: ${{ github.workspace }}/tests/coverage_${{ runner.os }}_${{ matrix.os }}_${{ matrix.python-version }}.json
+          multiple-files: |
+            ${{ matrix.os }} - ${{ matrix.python-version }}, ${{ github.workspace }}/tests/coverage_${{ runner.os }}_${{ matrix.os }}_${{ matrix.python-version }}.json, ""
