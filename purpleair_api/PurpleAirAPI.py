@@ -82,9 +82,10 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
             else:
                 raise PurpleAirAPIError("Ensure 'your_api_write_key' is a write key")
 
-        debug_log(self._api_versions)
-        debug_log(self._api_keys_last_checked)
-        debug_log(self._api_key_types)
+        # Avoid logging sensitive API keys in debug output
+        debug_log(f"_api_versions contains {len(self._api_versions)} key(s)")
+        debug_log(f"_api_keys_last_checked contains {len(self._api_keys_last_checked)} key(s)")
+        debug_log(f"_api_key_types contains {len(self._api_key_types)} key(s)")
         debug_log(your_ipv4_address)
 
     def _check_an_api_key(self, str_api_key_to_check):
