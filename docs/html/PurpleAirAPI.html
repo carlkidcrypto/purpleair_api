@@ -6,15 +6,15 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PurpleAirAPI module &mdash; PurpleAir API V1.2.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=66b59bf7" />
+  <title>PurpleAirAPI module &mdash; PurpleAir API V1.3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=118289fd"></script>
-      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/documentation_options.js?v=c42f47bd"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -96,25 +96,25 @@ A python3 class designed to fetch data from Purple Air’s new API.
 <a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PurpleAirAPI.</span></span><span class="sig-name descname"><span class="pre">PurpleAirAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">your_api_read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">your_api_write_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">your_ipv4_address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PurpleAirAPI.</span></span><span class="sig-name descname"><span class="pre">PurpleAirAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">your_api_read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">your_api_write_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">your_ipv4_address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirReadAPI</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirWriteAPI</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirLocalAPI</span></code></p>
 <p>The PurpleAirAPI class designed to send valid
 PurpleAirAPI requests.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_api_key_last_checked</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_api_key_last_checked</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked" title="Link to this definition"></a></dt>
 <dd><p>A method to return the timestamp of when the API read/write keys were last checked.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI.get_api_key_type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_api_key_type</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_type" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_api_key_type</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_type" title="Link to this definition"></a></dt>
 <dd><p>A method to return the API key types being used.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI.get_api_versions">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_api_versions</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_versions" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_api_versions</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_versions" title="Link to this definition"></a></dt>
 <dd><p>A method to return the API versions being used for both read/write keys.</p>
 </dd></dl>
 
