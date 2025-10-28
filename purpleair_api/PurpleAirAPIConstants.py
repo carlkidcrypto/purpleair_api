@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-    Copyright 2024 carlkidcrypto, All rights reserved.
-    A python with constants with for use in PurpleAirAPI.py
+Copyright 2024 carlkidcrypto, All rights reserved.
+A python with constants with for use in PurpleAirAPI.py
 """
 
 #: A constant to see if debug statements are enabled in the PurpleAirAPI module.

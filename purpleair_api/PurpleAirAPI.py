@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 """
-    Copyright 2024 carlkidcrypto, All rights reserved.
-    A python3 class designed to fetch data from Purple Air's new API.
-    https://api.purpleair.com/#api-welcome
+Copyright 2024 carlkidcrypto, All rights reserved.
+A python3 class designed to fetch data from Purple Air's new API.
+https://api.purpleair.com/#api-welcome
 """
 
 from purpleair_api.PurpleAirAPIHelpers import debug_log, send_url_get_request
@@ -84,7 +84,9 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
 
         # Avoid logging sensitive API keys in debug output
         debug_log(f"_api_versions contains {len(self._api_versions)} key(s)")
-        debug_log(f"_api_keys_last_checked contains {len(self._api_keys_last_checked)} key(s)")
+        debug_log(
+            f"_api_keys_last_checked contains {len(self._api_keys_last_checked)} key(s)"
+        )
         debug_log(f"_api_key_types contains {len(self._api_key_types)} key(s)")
         debug_log(your_ipv4_address)
 
