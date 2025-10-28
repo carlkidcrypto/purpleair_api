@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 """
-    Copyright 2024 carlkidcrypto, All rights reserved.
-    A python3 file containing helper functions for the PurpleAirAPI** files.
-    https://api.purpleair.com/#api-welcome
+Copyright 2024 carlkidcrypto, All rights reserved.
+A python3 file containing helper functions for the PurpleAirAPI** files.
+https://api.purpleair.com/#api-welcome
 """
 
 from purpleair_api.PurpleAirAPIConstants import (

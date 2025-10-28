@@ -35,4 +35,4 @@ jobs:
     if: needs.check-source-changes.outputs.run_job == 'true'
     steps:
       - uses: actions/checkout@v4
-      - uses: psf/black@24.10.0
+      - uses: psf/black@25.9.0
