@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 """
-    Copyright 2024 carlkidcrypto, All rights reserved.
-    A python3 class designed to fetch data from Purple Air's new API.
-    This class will handle all `local` requests
-    https://api.purpleair.com/#api-welcome
+Copyright 2024 carlkidcrypto, All rights reserved.
+A python3 class designed to fetch data from Purple Air's new API.
+This class will handle all `local` requests
+https://api.purpleair.com/#api-welcome
 """
 
 from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
