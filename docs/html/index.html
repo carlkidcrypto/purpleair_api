@@ -104,8 +104,8 @@ This package allows you to interact with PurpleAir sensors through their officia
 <h3>Quick Example<a class="headerlink" href="#quick-example" title="Link to this heading"></a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">purpleair_api.PurpleAirAPI</span> <span class="kn">import</span> <span class="n">PurpleAirAPI</span>
 
-<span class="c1"># Initialize the API with your keys</span>
-<span class="n">my_paa</span> <span class="o">=</span> <span class="n">PurpleAirAPI</span><span class="p">(</span><span class="n">your_api_read_key</span><span class="p">,</span> <span class="n">your_api_write_key</span><span class="p">,</span> <span class="n">your_ipv4_address</span><span class="p">)</span>
+<span class="c1"># Initialize the API with your keys (replace with actual values)</span>
+<span class="n">my_paa</span> <span class="o">=</span> <span class="n">PurpleAirAPI</span><span class="p">(</span><span class="s2">&quot;your_api_read_key&quot;</span><span class="p">,</span> <span class="s2">&quot;your_api_write_key&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;your_ipv4_address&quot;</span><span class="p">])</span>
 
 <span class="c1"># Request sensor data</span>
 <span class="n">sensor_data</span> <span class="o">=</span> <span class="n">my_paa</span><span class="o">.</span><span class="n">request_sensor_data</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>

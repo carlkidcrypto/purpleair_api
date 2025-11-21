@@ -43,8 +43,8 @@ Quick Example
 
     from purpleair_api.PurpleAirAPI import PurpleAirAPI
     
-    # Initialize the API with your keys
-    my_paa = PurpleAirAPI(your_api_read_key, your_api_write_key, your_ipv4_address)
+    # Initialize the API with your keys (replace with actual values)
+    my_paa = PurpleAirAPI("your_api_read_key", "your_api_write_key", ["your_ipv4_address"])
     
     # Request sensor data
     sensor_data = my_paa.request_sensor_data(1234)
