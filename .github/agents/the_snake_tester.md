@@ -20,4 +20,4 @@ For example, `/usr/sbin/snmpd -f -C -c /etc/snmp/snmpd.conf`
 
 Tools needed:
 - unittest
-- unittest Coverage
+- coverage.py
