@@ -14,7 +14,7 @@ look at [here](https://github.com/carlkidcrypto/purpleair_api/actions).
 
 
 Focus on the following instructions:
-- Ensure that `.github/workflows/` pass reliable and consistently within
+- Ensure that .github/workflows/ pass reliably and consistently within
     their runners
 - Ensure that `.github/workflows/auto_change_log.yml` focuses on
     updating/running the `changelog.md updating chore`.
