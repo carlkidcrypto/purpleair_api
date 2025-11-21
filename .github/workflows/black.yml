@@ -5,9 +5,15 @@ permissions:
 on:
   push:
     branches: [ main ]
+    paths:
+      - '**.py'
+      - '.github/workflows/black.yml'
 
   pull_request:
     branches: [ main ]
+    paths:
+      - '**.py'
+      - '.github/workflows/black.yml'
 
 jobs:
   check-source-changes:
@@ -16,11 +22,11 @@ jobs:
       run_job: ${{ steps.changed-files.outputs.any_changed }}
     steps:
       - name: Checkout Sourcecode
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Check for changes in source code
         id: changed-files
-        uses: tj-actions/changed-files@v46.0.1
+        uses: tj-actions/changed-files@c3a1bb2c992d77180ae65be6ae6c166cf40f857c # v46.0.1
         with:
           files: |
             purpleair_api/*.py
@@ -34,5 +40,5 @@ jobs:
     needs: check-source-changes
     if: needs.check-source-changes.outputs.run_job == 'true'
     steps:
-      - uses: actions/checkout@v4
-      - uses: psf/black@25.9.0
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: psf/black@17d0bb0b67b589b7a5bc1dce983f57f93aac88a2 # 25.9.0
