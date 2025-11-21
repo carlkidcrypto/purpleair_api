@@ -14,6 +14,7 @@ import sys
 
 sys.path.append("../")
 
+import purpleair_api.PurpleAirAPIHelpers as helpers_module
 from purpleair_api.PurpleAirAPIHelpers import *
 
 
@@ -24,18 +25,15 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
         """
 
         # Setup
-        import sys
-
         msg_str = "this is a test debug message!"
 
         # Action and Expected Result - No exception should be raised
         with patch("builtins.print") as mock_print:
-            # Get the module and patch the constant
-            helpers_module = sys.modules["purpleair_api.PurpleAirAPIHelpers"]
+            # Patch the constant in the helpers module directly
             original_value = helpers_module.PRINT_DEBUG_MSGS
             try:
                 helpers_module.PRINT_DEBUG_MSGS = False
-                debug_log(msg_str)
+                helpers_module.debug_log(msg_str)
                 mock_print.assert_not_called()
             finally:
                 helpers_module.PRINT_DEBUG_MSGS = original_value
@@ -46,18 +44,15 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
         """
 
         # Setup
-        import sys
-
         msg_str = "this is a test debug message!"
 
         # Action and Expected Result
         with patch("builtins.print") as mock_print:
-            # Get the module and patch the constant
-            helpers_module = sys.modules["purpleair_api.PurpleAirAPIHelpers"]
+            # Patch the constant in the helpers module directly
             original_value = helpers_module.PRINT_DEBUG_MSGS
             try:
                 helpers_module.PRINT_DEBUG_MSGS = True
-                debug_log(msg_str)
+                helpers_module.debug_log(msg_str)
                 mock_print.assert_called_once()
                 # Check that the message was printed with ANSI color codes
                 call_args = mock_print.call_args[0][0]
