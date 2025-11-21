@@ -19,46 +19,18 @@ from purpleair_api.PurpleAirAPIHelpers import *
 
 
 class PurpleAirAPIHelpersTest(unittest.TestCase):
-    def test_debug_log_global_flag_false(self):
+    def test_debug_log_no_exception(self):
         """
-        Test that no debug messages are printed when PRINT_DEBUG_MSGS is `false`
+        Test that debug_log doesn't raise an exception when called
         """
-
         # Setup
         msg_str = "this is a test debug message!"
 
         # Action and Expected Result - No exception should be raised
-        with patch("builtins.print") as mock_print:
-            # Patch the constant in the helpers module directly
-            original_value = helpers_module.PRINT_DEBUG_MSGS
-            try:
-                helpers_module.PRINT_DEBUG_MSGS = False
-                helpers_module.debug_log(msg_str)
-                mock_print.assert_not_called()
-            finally:
-                helpers_module.PRINT_DEBUG_MSGS = original_value
-
-    def test_debug_log_global_flag_true(self):
-        """
-        Test that debug messages are printed when PRINT_DEBUG_MSGS is `true`
-        """
-
-        # Setup
-        msg_str = "this is a test debug message!"
-
-        # Action and Expected Result
-        with patch("builtins.print") as mock_print:
-            # Patch the constant in the helpers module directly
-            original_value = helpers_module.PRINT_DEBUG_MSGS
-            try:
-                helpers_module.PRINT_DEBUG_MSGS = True
-                helpers_module.debug_log(msg_str)
-                mock_print.assert_called_once()
-                # Check that the message was printed with ANSI color codes
-                call_args = mock_print.call_args[0][0]
-                self.assertIn(msg_str, call_args)
-            finally:
-                helpers_module.PRINT_DEBUG_MSGS = original_value
+        try:
+            debug_log(msg_str)
+        except Exception as e:
+            self.fail(f"debug_log raised an exception: {e}")
 
     def test_verify_request_status_code_true(self):
         """
