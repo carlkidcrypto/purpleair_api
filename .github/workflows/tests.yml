@@ -82,7 +82,7 @@ jobs:
                    coverage run -m unittest && coverage json -o coverage_windows_${{ matrix.os }}_${{ matrix.python-version }}.json ;
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@3627e82763ce9c92c8de489a8c30f2e23c62c44b # v5.1.2
+        uses: codecov/codecov-action@5c47607acb93fed5485fdbf7232e8a31425f672a # v4.6.0
         with:
           files: coverage_*.json
         env:
