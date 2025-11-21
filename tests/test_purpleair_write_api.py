@@ -92,7 +92,7 @@ class PurpleAirWriteAPITest(unittest.TestCase):
                 group_id=1234,
                 sensor_id="SENSOR456",
                 owner_email="test@example.com",
-                location_type=0
+                location_type=0,
             )
 
     def test_post_create_member_with_invalid_params(self):
@@ -104,9 +104,7 @@ class PurpleAirWriteAPITest(unittest.TestCase):
         with self.assertRaises(PurpleAirAPIError):
             # Both sensor_index and sensor_id provided
             self.pawa.post_create_member(
-                group_id=1234,
-                sensor_index=4567,
-                sensor_id="SENSOR123"
+                group_id=1234, sensor_index=4567, sensor_id="SENSOR123"
             )
 
     def test_post_delete_group(self):
