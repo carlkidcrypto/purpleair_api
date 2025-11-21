@@ -7,3 +7,4 @@
 test/.coverage
 test/coverage_reports/**
 **venv**
+**/doctrees/**

@@ -42,14 +42,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">purpleair_api</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirAPI module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_key_last_checked</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_type"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_key_type</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_versions"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_versions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-PurpleAirAPI">API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -89,8 +88,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-PurpleAirAPI">
-<span id="purpleairapi-module"></span><h1>PurpleAirAPI module<a class="headerlink" href="#module-PurpleAirAPI" title="Link to this heading"></a></h1>
+  <section id="purpleairapi-module">
+<h1>PurpleAirAPI module<a class="headerlink" href="#purpleairapi-module" title="Link to this heading"></a></h1>
+<p>The main entry point for the PurpleAir API wrapper. This module automatically loads
+the appropriate submodules (Read, Write, Local) based on the API keys and configuration
+provided during initialization.</p>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">purpleair_api.PurpleAirAPI</span> <span class="kn">import</span> <span class="n">PurpleAirAPI</span>
+
+<span class="c1"># Initialize with all API types</span>
+<span class="n">paa</span> <span class="o">=</span> <span class="n">PurpleAirAPI</span><span class="p">(</span>
+    <span class="n">api_read_key</span><span class="o">=</span><span class="s2">&quot;your_read_key&quot;</span><span class="p">,</span>
+    <span class="n">api_write_key</span><span class="o">=</span><span class="s2">&quot;your_write_key&quot;</span><span class="p">,</span>
+    <span class="n">ipv4_address</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;192.168.1.100&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="c1"># Now you can use read, write, and local methods</span>
+<span class="n">sensor_data</span> <span class="o">=</span> <span class="n">paa</span><span class="o">.</span><span class="n">request_sensor_data</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-PurpleAirAPI">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-PurpleAirAPI" title="Link to this heading"></a></h2>
 <p>Copyright 2024 carlkidcrypto, All rights reserved.
 A python3 class designed to fetch data from Purple Air’s new API.
 <a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
@@ -121,6 +141,7 @@ PurpleAirAPI requests.</p>
 </dd></dl>
 
 </section>
+</section>
 
 
            </div>
@@ -133,7 +154,7 @@ PurpleAirAPI requests.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, carlkidcrypto.</p>
+    <p>&#169; Copyright 2024-2025, carlkidcrypto.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
