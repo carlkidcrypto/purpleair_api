@@ -8,57 +8,46 @@ Copyright 2023 carlkidcrypto, All rights reserved.
 import unittest
 from random import choice
 from copy import deepcopy
-from io import StringIO
 from unittest.mock import patch
 import requests_mock
 import sys
 
 sys.path.append("../")
 
-from purpleair_api.PurpleAirAPIConstants import PRINT_DEBUG_MSGS
 from purpleair_api.PurpleAirAPIHelpers import *
 
 
 class PurpleAirAPIHelpersTest(unittest.TestCase):
-    def setUp(self):
-        self.msg_str = ""
-        self.out = StringIO()
-
-    def tearDown(self):
-        self.msg_str = ""
-        self.out.close()
-
     def test_debug_log_global_flag_false(self):
         """
         Test that no debug messages are printed when PRINT_DEBUG_MSGS is `false`
         """
 
         # Setup
-        globals()["PRINT_DEBUG_MSGS"] = False
-        self.msg_str = "this is a test debug message!"
+        msg_str = "this is a test debug message!"
 
-        # Action
-        debug_log(self.msg_str)
+        # Action and Expected Result - No exception should be raised
+        with patch('builtins.print') as mock_print:
+            with patch('purpleair_api.PurpleAirAPIHelpers.PRINT_DEBUG_MSGS', False):
+                debug_log(msg_str)
+                mock_print.assert_not_called()
 
-        # Expected Result
-        self.assertEqual("", self.out.getvalue())
-
-    @patch('purpleair_api.PurpleAirAPIHelpers.PRINT_DEBUG_MSGS', True)
     def test_debug_log_global_flag_true(self):
         """
         Test that debug messages are printed when PRINT_DEBUG_MSGS is `true`
         """
 
         # Setup
-        self.msg_str = "this is a test debug message!"
+        msg_str = "this is a test debug message!"
 
         # Action and Expected Result
         with patch('builtins.print') as mock_print:
-            debug_log(self.msg_str)
-            mock_print.assert_called_once()
-            # Check that the message was printed with ANSI color codes
-            call_args = mock_print.call_args[0][0]
-            self.assertIn(self.msg_str, call_args)
+            with patch('purpleair_api.PurpleAirAPIHelpers.PRINT_DEBUG_MSGS', True):
+                debug_log(msg_str)
+                mock_print.assert_called_once()
+                # Check that the message was printed with ANSI color codes
+                call_args = mock_print.call_args[0][0]
+                self.assertIn(msg_str, call_args)
 
     def test_verify_request_status_code_true(self):
         """
@@ -144,14 +133,14 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
         dict_keys_list = list(ACCEPTED_FIELD_NAMES_DICT.keys())
         fake_data = {"sensor": {}}
 
-        # Action
-        item_to_remove = dict_keys_list[choice(range(0, 1, dict_length))]
+        # Action - Remove a random key
+        item_to_remove = dict_keys_list[choice(range(dict_length))]
         dict_copy.pop(item_to_remove)
         fake_data["sensor"] = dict_copy
         self.assertNotEqual(len(dict_copy), dict_length)
         retval = sanitize_sensor_data_from_paa(fake_data)
 
-        # Expected Result
+        # Expected Result - Verify missing key was added back
         self.assertEqual(ACCEPTED_FIELD_NAMES_DICT.keys(), retval["sensor"].keys())
         self.assertEqual(
             ACCEPTED_FIELD_NAMES_DICT[item_to_remove], retval["sensor"][item_to_remove]
