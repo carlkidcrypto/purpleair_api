@@ -50,7 +50,7 @@ jobs:
           cache: 'pip'
 
       - name: Install python3 requirements...
-        uses: carlkidcrypto/os-specific-runner@0396cb2145e0ba19f3b87ff667de7dce2a4ce0b3 # v2.1.1
+        uses: carlkidcrypto/os-specific-runner@v2.1.1
         with:
             linux: cd /home/runner/work/purpleair_api/purpleair_api/ ;
                python -m pip install --upgrade wheel ;
@@ -72,7 +72,7 @@ jobs:
                  python -m pip install requests_mock ;
 
       - name: Run unit tests...
-        uses: carlkidcrypto/os-specific-runner@0396cb2145e0ba19f3b87ff667de7dce2a4ce0b3 # v2.1.1
+        uses: carlkidcrypto/os-specific-runner@v2.1.1
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/tests ;
                  coverage run -m unittest && coverage json -o coverage_linux_${{ matrix.os }}_${{ matrix.python-version }}.json ;
