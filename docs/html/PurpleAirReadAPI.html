@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PurpleAirReadAPI module &mdash; PurpleAir API V1.3.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
@@ -42,7 +42,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">purpleair_api</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPI.html">PurpleAirAPI module</a></li>
@@ -51,16 +51,9 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIHelpers.html">PurpleAirAPIHelpers module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirReadAPI module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_group_detail_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_group_detail_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_group_list_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_group_list_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_member_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_member_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_member_historic_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_member_historic_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_members_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_members_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_multiple_sensors_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_multiple_sensors_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_organization_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_organization_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_sensor_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_sensor_historic_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI.request_sensor_historic_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-PurpleAirReadAPI">API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirReadAPI.PurpleAirReadAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirReadAPI</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -95,8 +88,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-PurpleAirReadAPI">
-<span id="purpleairreadapi-module"></span><h1>PurpleAirReadAPI module<a class="headerlink" href="#module-PurpleAirReadAPI" title="Link to this heading"></a></h1>
+  <section id="purpleairreadapi-module">
+<h1>PurpleAirReadAPI module<a class="headerlink" href="#purpleairreadapi-module" title="Link to this heading"></a></h1>
+<p>Provides read-only access to the PurpleAir API for querying sensor data.
+This module does not require write permissions.</p>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">purpleair_api.PurpleAirReadAPI</span> <span class="kn">import</span> <span class="n">PurpleAirReadAPI</span>
+
+<span class="c1"># Initialize with read key only</span>
+<span class="n">read_api</span> <span class="o">=</span> <span class="n">PurpleAirReadAPI</span><span class="p">(</span><span class="n">api_read_key</span><span class="o">=</span><span class="s2">&quot;your_read_key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Request single sensor data</span>
+<span class="n">sensor_data</span> <span class="o">=</span> <span class="n">read_api</span><span class="o">.</span><span class="n">request_sensor_data</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+
+<span class="c1"># Request multiple sensors data</span>
+<span class="n">sensors</span> <span class="o">=</span> <span class="n">read_api</span><span class="o">.</span><span class="n">request_multiple_sensors_data</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-PurpleAirReadAPI">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-PurpleAirReadAPI" title="Link to this heading"></a></h2>
 <p>Copyright 2024 carlkidcrypto, All rights reserved.
 A python3 class designed to fetch data from Purple Air’s new API.
 This class will handle all <cite>read</cite> requests
@@ -406,6 +418,7 @@ scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deci
 </dd></dl>
 
 </section>
+</section>
 
 
            </div>
@@ -418,7 +431,7 @@ scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deci
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, carlkidcrypto.</p>
+    <p>&#169; Copyright 2024-2025, carlkidcrypto.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

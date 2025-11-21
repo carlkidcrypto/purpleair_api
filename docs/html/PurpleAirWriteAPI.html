@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PurpleAirWriteAPI module &mdash; PurpleAir API V1.3.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
@@ -41,7 +41,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">purpleair_api</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPI.html">PurpleAirAPI module</a></li>
@@ -51,11 +51,9 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirReadAPI.html">PurpleAirReadAPI module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirWriteAPI module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_group_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI.post_create_group_data()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_member"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI.post_create_member()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_group"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI.post_delete_group()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_member"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI.post_delete_member()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-PurpleAirWriteAPI">API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -89,8 +87,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-PurpleAirWriteAPI">
-<span id="purpleairwriteapi-module"></span><h1>PurpleAirWriteAPI module<a class="headerlink" href="#module-PurpleAirWriteAPI" title="Link to this heading"></a></h1>
+  <section id="purpleairwriteapi-module">
+<h1>PurpleAirWriteAPI module<a class="headerlink" href="#purpleairwriteapi-module" title="Link to this heading"></a></h1>
+<p>Provides write access to the PurpleAir API for managing sensors, members, and configurations.
+Requires a write API key with appropriate permissions.</p>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">purpleair_api.PurpleAirWriteAPI</span> <span class="kn">import</span> <span class="n">PurpleAirWriteAPI</span>
+
+<span class="c1"># Initialize with write key</span>
+<span class="n">write_api</span> <span class="o">=</span> <span class="n">PurpleAirWriteAPI</span><span class="p">(</span><span class="n">api_write_key</span><span class="o">=</span><span class="s2">&quot;your_write_key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a new member</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">write_api</span><span class="o">.</span><span class="n">post_create_member</span><span class="p">(</span><span class="n">sensor_index</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-PurpleAirWriteAPI">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-PurpleAirWriteAPI" title="Link to this heading"></a></h2>
 <p>Copyright 2024 carlkidcrypto, All rights reserved.
 A python3 class designed to fetch data from Purple Air’s new API.
 This class will handle all <cite>write</cite> requests
@@ -179,6 +193,7 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
 </dd></dl>
 
 </section>
+</section>
 
 
            </div>
@@ -190,7 +205,7 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, carlkidcrypto.</p>
+    <p>&#169; Copyright 2024-2025, carlkidcrypto.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

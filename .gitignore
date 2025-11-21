@@ -8,3 +8,4 @@ test*/.coverage
 test*/coverage_reports/**
 test*/purpleair_api_coverage_reports/**
 **venv**
+**/doctrees/**
