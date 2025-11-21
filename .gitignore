@@ -4,8 +4,7 @@
 **/build/**
 **/__pycache__/**
 **/purpleair_api.egg-info/**
-test/.coverage
-test/coverage_reports/**
-tests/.coverage
-tests/purpleair_api_coverage_reports/**
+test*/.coverage
+test*/coverage_reports/**
+test*/purpleair_api_coverage_reports/**
 **venv**
