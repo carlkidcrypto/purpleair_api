@@ -8,3 +8,7 @@ test/.coverage
 test/coverage_reports/**
 **venv**
 **/doctrees/**
+# Generated documentation - should be built, not committed
+docs/html/
+!docs/html/_static/README.md
+docs/doctrees/
