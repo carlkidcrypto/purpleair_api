@@ -261,6 +261,23 @@ class PurpleAirReadAPITest(unittest.TestCase):
             )
             self.para.request_members_data(4321, "name")
 
+    def test_request_group_list_data(self):
+        """
+        Test that we can retrieve a list of all groups owned by the api_key.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"groups": [{"id": 1, "name": "Test Group"}]}',
+                status_code=200,
+            )
+            self.para.request_group_list_data()
+
 
 if __name__ == "__main__":
     unittest.main()

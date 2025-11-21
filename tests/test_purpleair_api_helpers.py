@@ -9,6 +9,7 @@ import unittest
 from random import choice
 from copy import deepcopy
 from io import StringIO
+from unittest.mock import patch
 import requests_mock
 import sys
 
@@ -42,21 +43,22 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
         # Expected Result
         self.assertEqual("", self.out.getvalue())
 
-    # This fails need to figure out why
-    # def test_debug_log_global_flag_true(self):
-    #     """
-    #     Test that debug messages are printed when PRINT_DEBUG_MSGS is `true`
-    #     """
+    @patch('purpleair_api.PurpleAirAPIHelpers.PRINT_DEBUG_MSGS', True)
+    def test_debug_log_global_flag_true(self):
+        """
+        Test that debug messages are printed when PRINT_DEBUG_MSGS is `true`
+        """
 
-    #     # Setup
-    #     globals()["PRINT_DEBUG_MSGS"] = True
-    #     self.msg_str = "this is a test debug message!"
+        # Setup
+        self.msg_str = "this is a test debug message!"
 
-    #     # Action
-    #     debug_log(self.msg_str)
-
-    #     # Expected Result
-    #     self.assertEqual(self.msg_str,  self.out.getvalue())
+        # Action and Expected Result
+        with patch('builtins.print') as mock_print:
+            debug_log(self.msg_str)
+            mock_print.assert_called_once()
+            # Check that the message was printed with ANSI color codes
+            call_args = mock_print.call_args[0][0]
+            self.assertIn(self.msg_str, call_args)
 
     def test_verify_request_status_code_true(self):
         """
