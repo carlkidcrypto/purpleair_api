@@ -13,7 +13,7 @@ things to be run on a Linux, MacOS, and Windows systems.
 containers under `docker/`.
 
 Focus on the following instructions:
-- Ensure that `tests/` pass reliable and consistently
+- Ensure that tests/ pass reliably and consistently
 - Ensure that `tests/` have 100 percent coverage
 
 Tools needed:
