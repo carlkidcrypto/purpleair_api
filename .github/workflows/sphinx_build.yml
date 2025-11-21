@@ -3,15 +3,9 @@ name: "Pull Request Sphinx Docs Check"
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'sphinx_docs_build/**'
-      - '.github/workflows/sphinx_build.yml'
 
   pull_request:
     branches: [ main ]
-    paths:
-      - 'sphinx_docs_build/**'
-      - '.github/workflows/sphinx_build.yml'
 
 jobs:
   check-source-changes:
@@ -32,6 +26,7 @@ jobs:
             sphinx_docs_build/source/*.rst
             sphinx_docs_build/source/*.py
             sphinx_docs_build/*.txt
+            .github/workflows/sphinx_build.yml
 
   sphinx_docs_build:
     permissions:

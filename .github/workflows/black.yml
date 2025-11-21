@@ -5,15 +5,9 @@ permissions:
 on:
   push:
     branches: [ main ]
-    paths:
-      - '**.py'
-      - '.github/workflows/black.yml'
 
   pull_request:
     branches: [ main ]
-    paths:
-      - '**.py'
-      - '.github/workflows/black.yml'
 
 jobs:
   check-source-changes:
@@ -34,6 +28,7 @@ jobs:
             tests/*.txt
             setup.py
             setup.cfg
+            .github/workflows/black.yml
 
   black:
     runs-on: ubuntu-latest

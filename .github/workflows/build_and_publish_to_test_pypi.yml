@@ -8,10 +8,6 @@ concurrency: build_and_publish_to_test_pypi
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'setup.py'
-      - 'setup.cfg'
-      - '.github/workflows/build_and_publish_to_test_pypi.yml'
 
 jobs:
   check-source-changes:
