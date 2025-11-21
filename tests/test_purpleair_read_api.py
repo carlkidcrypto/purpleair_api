@@ -249,7 +249,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
     def test_request_members_data(self):
         # Setup
         fake_url_request = (
-            " https://api.purpleair.com/v1/groups/4321/members?fields=name"
+            "https://api.purpleair.com/v1/groups/4321/members?fields=name"
         )
 
         # Action and Expected Result

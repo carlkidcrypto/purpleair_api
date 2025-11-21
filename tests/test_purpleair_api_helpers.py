@@ -19,9 +19,6 @@ from purpleair_api.PurpleAirAPIHelpers import *
 
 
 class PurpleAirAPIHelpersTest(unittest.TestCase):
-    @unittest.skip(
-        "Skipping debug_log test due to Python 3.9/3.10 cross-platform issues"
-    )
     def test_debug_log_no_exception(self):
         """
         Test that debug_log doesn't raise an exception when called
