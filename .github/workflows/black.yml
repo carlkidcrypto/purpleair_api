@@ -36,4 +36,4 @@ jobs:
     if: needs.check-source-changes.outputs.run_job == 'true'
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: psf/black@stable
+      - uses: psf/black@4888ca3af6fd4a80c97224b963e0616ef1b1e9e3 # 24.10.0

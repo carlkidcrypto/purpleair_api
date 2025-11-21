@@ -45,7 +45,7 @@ jobs:
           cache: 'pip'
 
       - name: Install python3/os requirements...
-        uses: carlkidcrypto/os-specific-runner@v2.1.1
+        uses: carlkidcrypto/os-specific-runner@2c04ab1b4323ccfd8f0b17030f0fb0f992969da6 # v2.1.1
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/ &&
                  python -m pip install --upgrade wheel &&
@@ -55,7 +55,7 @@ jobs:
                  python -m pip install . --user;
 
       - name: Run sphinx...
-        uses: carlkidcrypto/os-specific-runner@v2.1.1
+        uses: carlkidcrypto/os-specific-runner@2c04ab1b4323ccfd8f0b17030f0fb0f992969da6 # v2.1.1
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/sphinx_docs_build;
                  mkdir source/_static;
