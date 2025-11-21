@@ -28,7 +28,11 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
 
         # Action and Expected Result - No exception should be raised
         with patch("builtins.print") as mock_print:
-            with patch("purpleair_api.PurpleAirAPIHelpers.PRINT_DEBUG_MSGS", False):
+            # Patch the constant in the module where it's used
+            with patch.dict(
+                "purpleair_api.PurpleAirAPIHelpers.__dict__",
+                {"PRINT_DEBUG_MSGS": False},
+            ):
                 debug_log(msg_str)
                 mock_print.assert_not_called()
 
@@ -42,7 +46,11 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
 
         # Action and Expected Result
         with patch("builtins.print") as mock_print:
-            with patch("purpleair_api.PurpleAirAPIHelpers.PRINT_DEBUG_MSGS", True):
+            # Patch the constant in the module where it's used
+            with patch.dict(
+                "purpleair_api.PurpleAirAPIHelpers.__dict__",
+                {"PRINT_DEBUG_MSGS": True},
+            ):
                 debug_log(msg_str)
                 mock_print.assert_called_once()
                 # Check that the message was printed with ANSI color codes
