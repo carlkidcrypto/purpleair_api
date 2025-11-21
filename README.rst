@@ -159,7 +159,7 @@ Refer to the test `README <tests/README.rst>`_
 Documentation
 -------------
 
-Full API documentation is available at the `docs directory <docs/html/index.html>`_
+Full API documentation is available at https://carlkidcrypto.github.io/purpleair_api/
 
 ----
 

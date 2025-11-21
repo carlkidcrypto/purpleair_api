@@ -48,7 +48,7 @@ Open ``html/index.html`` in your web browser:
 GitHub Pages
 ~~~~~~~~~~~~
 
-If this repository has GitHub Pages enabled, the documentation may be available at:
+The documentation is available on GitHub Pages at:
 https://carlkidcrypto.github.io/purpleair_api/
 
 Rebuilding Documentation
