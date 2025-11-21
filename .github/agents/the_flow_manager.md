@@ -34,6 +34,6 @@ Focus on the following instructions:
     sphinx documentation to attach to published releases
 - Ensure that `.github/workflows/tests.yml` focuses on running
     `tests` using native dependencies. Comments on PRs whether success
-    or failure of all uts
+    or failure of all unit tests
 - Ensure that workflows cache items that are commonly downloaded like pip updates/packages.
 - Ensure that workflows all trigger when they are updated.
