@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PurpleAirLocalAPI module &mdash; PurpleAir API V1.3.1 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
@@ -42,7 +42,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">purpleair_api</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPI.html">PurpleAirAPI module</a></li>
@@ -50,8 +50,9 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIError.html">PurpleAirAPIError module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIHelpers.html">PurpleAirAPIHelpers module</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirLocalAPI module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#PurpleAirLocalAPI.PurpleAirLocalAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirLocalAPI</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#PurpleAirLocalAPI.PurpleAirLocalAPI.request_local_sensor_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirLocalAPI.request_local_sensor_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-PurpleAirLocalAPI">API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirLocalAPI.PurpleAirLocalAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirLocalAPI</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -87,8 +88,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-PurpleAirLocalAPI">
-<span id="purpleairlocalapi-module"></span><h1>PurpleAirLocalAPI module<a class="headerlink" href="#module-PurpleAirLocalAPI" title="Link to this heading"></a></h1>
+  <section id="purpleairlocalapi-module">
+<h1>PurpleAirLocalAPI module<a class="headerlink" href="#purpleairlocalapi-module" title="Link to this heading"></a></h1>
+<p>Provides direct access to PurpleAir sensors on the local network without requiring API keys.
+This allows for faster queries and avoids cloud API rate limiting.</p>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">purpleair_api.PurpleAirLocalAPI</span> <span class="kn">import</span> <span class="n">PurpleAirLocalAPI</span>
+
+<span class="c1"># Initialize with local sensor IP addresses</span>
+<span class="n">local_api</span> <span class="o">=</span> <span class="n">PurpleAirLocalAPI</span><span class="p">(</span><span class="n">ipv4_address</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;192.168.1.100&quot;</span><span class="p">,</span> <span class="s2">&quot;192.168.1.101&quot;</span><span class="p">])</span>
+
+<span class="c1"># Request data from local sensor</span>
+<span class="n">sensor_data</span> <span class="o">=</span> <span class="n">local_api</span><span class="o">.</span><span class="n">request_local_sensor_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="module-PurpleAirLocalAPI">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-PurpleAirLocalAPI" title="Link to this heading"></a></h2>
 <p>Copyright 2024 carlkidcrypto, All rights reserved.
 A python3 class designed to fetch data from Purple Air’s new API.
 This class will handle all <cite>local</cite> requests
@@ -113,6 +130,7 @@ local network requests. It can work with one or many IPv4 addresses.</p>
 </dd></dl>
 
 </section>
+</section>
 
 
            </div>
@@ -125,7 +143,7 @@ local network requests. It can work with one or many IPv4 addresses.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, carlkidcrypto.</p>
+    <p>&#169; Copyright 2024-2025, carlkidcrypto.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
