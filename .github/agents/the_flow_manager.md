@@ -26,8 +26,6 @@ Focus on the following instructions:
 - Ensure that `.github/workflows/build_and_publish_to_test_pypi.yml` focuses on
     building and publishing packages to test pypi after building them with
     cibuildwheel
-- Ensure that `.github/workflows/clang_format.yml` focuses on
-    linting/formatting c++ code with clang-format
 - Ensure that `.github/workflows/codeql.yml` focuses on running GitHub
     codeql
 - Ensure that `.github/workflows/sphinx_build.yml` focuses on building the
