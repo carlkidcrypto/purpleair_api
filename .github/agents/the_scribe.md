@@ -11,15 +11,12 @@ code files.
 Focus on the following instructions:
 - Create and update .rst files for the project in sphinx_docs_build using the
     sphinx tool
-- Create and update doxygen files for the project in doxygen_docs_build using
-    the doxygen tool
+- Convert any markdown documentation files to .rst format where applicable
 - Create and maintain README.rst files in folders under this project
 - Ensure proper links between relevant files
 - Ensure to maintain various versions of documentation under docs/. For
     example, html is the current release, html_v1.1.0 is the v1.1.0 release, and
     html_v2.0.1 is the v2.0.1 release.
-- Ensure to run doxygen first since sphinx requires doxygen output for cpp
-    files.
 - Do not edit the html directly, rather use the sphinx command `make html`
     inside `sphinx_docs_build` to generate it for you.
 - Add the following footer to all created or updated README.rst files:

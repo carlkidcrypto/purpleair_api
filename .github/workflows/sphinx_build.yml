@@ -58,8 +58,8 @@ jobs:
         uses: carlkidcrypto/os-specific-runner@2c04ab1b4323ccfd8f0b17030f0fb0f992969da6 # v2.1.1
         with:
           linux: cd /home/runner/work/purpleair_api/purpleair_api/sphinx_docs_build;
-                 mkdir source/_static;
-                 mkdir source/_templates;
+                 mkdir -p source/_static;
+                 mkdir -p source/_templates;
                  make clean && make html SPHINXOPTS="-W"
 
       - uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.4.3
