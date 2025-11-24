@@ -2,6 +2,7 @@
 #include "PurpleAirAPIHelpers.hpp"
 #include "PurpleAirAPIError.hpp"
 #include <iostream>
+#include <algorithm>
 
 namespace PurpleAirAPI {
 
@@ -71,8 +72,7 @@ bool PurpleAirAPI::_check_an_api_key(const std::string& api_key_to_check) {
         if (end == std::string::npos) end = response.find("}", start);
         std::string value = response.substr(start, end - start);
         // Remove quotes and whitespace
-        value.erase(std::remove(value.begin(), value.end(), '"'), value.end());
-        value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
+        value.erase(std::remove_if(value.begin(), value.end(), [](char c) { return c == '"' || c == ' '; }), value.end());
         _api_versions[api_key_to_check] = value;
     }
     
@@ -81,8 +81,7 @@ bool PurpleAirAPI::_check_an_api_key(const std::string& api_key_to_check) {
         size_t end = response.find(",", start);
         if (end == std::string::npos) end = response.find("}", start);
         std::string value = response.substr(start, end - start);
-        value.erase(std::remove(value.begin(), value.end(), '"'), value.end());
-        value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
+        value.erase(std::remove_if(value.begin(), value.end(), [](char c) { return c == '"' || c == ' '; }), value.end());
         _api_keys_last_checked[api_key_to_check] = value;
     }
     
@@ -91,8 +90,7 @@ bool PurpleAirAPI::_check_an_api_key(const std::string& api_key_to_check) {
         size_t end = response.find(",", start);
         if (end == std::string::npos) end = response.find("}", start);
         std::string value = response.substr(start, end - start);
-        value.erase(std::remove(value.begin(), value.end(), '"'), value.end());
-        value.erase(std::remove(value.begin(), value.end(), ' '), value.end());
+        value.erase(std::remove_if(value.begin(), value.end(), [](char c) { return c == '"' || c == ' '; }), value.end());
         _api_key_types[api_key_to_check] = value;
     }
     
