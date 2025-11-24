@@ -85,9 +85,9 @@ Multi-Language Support
 The repository is structured to support multiple languages:
 
 - **Python**: ``cd python && python -m pip install .``
-- **JavaScript/Node.js**: See `javascript/README.md <javascript/README.md>`_
-- **C#**: See `csharp/README.md <csharp/README.md>`_
-- **Native C++**: See `swig/README.md <swig/README.md>`_
+- **JavaScript/Node.js**: See `javascript/README.rst <javascript/README.rst>`_
+- **C#**: See `csharp/README.rst <csharp/README.rst>`_
+- **Native C++**: See `swig/README.rst <swig/README.rst>`_
 
 PurpleAirAPI Usage Example
 ---------------------------
