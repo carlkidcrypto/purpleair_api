@@ -1,5 +1,5 @@
-#ifndef PURPLEAIR_API_HELPERS_HPP
-#define PURPLEAIR_API_HELPERS_HPP
+#ifndef PURPLEAIR_API_HELPERS_H
+#define PURPLEAIR_API_HELPERS_H
 
 #include <string>
 #include <map>
@@ -68,4 +68,4 @@ std::string send_url_delete_request(
 
 } // namespace PurpleAirAPI
 
-#endif // PURPLEAIR_API_HELPERS_HPP
+#endif // PURPLEAIR_API_HELPERS_H

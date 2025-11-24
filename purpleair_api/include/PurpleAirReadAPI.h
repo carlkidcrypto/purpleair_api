@@ -1,5 +1,5 @@
-#ifndef PURPLEAIR_READ_API_HPP
-#define PURPLEAIR_READ_API_HPP
+#ifndef PURPLEAIR_READ_API_H
+#define PURPLEAIR_READ_API_H
 
 #include <string>
 
@@ -84,4 +84,4 @@ public:
 
 } // namespace PurpleAirAPI
 
-#endif // PURPLEAIR_READ_API_HPP
+#endif // PURPLEAIR_READ_API_H

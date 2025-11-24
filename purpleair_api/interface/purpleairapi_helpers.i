@@ -6,11 +6,11 @@
 %include "purpleairapi_error.i"
 
 %{
-#include "PurpleAirAPIHelpers.hpp"
+#include "PurpleAirAPIHelpers.h"
 %}
 
 // Tell SWIG about our map types
 %template(StringMap) std::map<std::string, std::string>;
 
 // Include the header file
-%include "../include/PurpleAirAPIHelpers.hpp"
+%include "../include/PurpleAirAPIHelpers.h"

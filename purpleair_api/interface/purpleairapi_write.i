@@ -9,8 +9,8 @@
 %feature("python:annotations", "c");
 
 %{
-#include "PurpleAirWriteAPI.hpp"
+#include "PurpleAirWriteAPI.h"
 %}
 
 // Include the header file
-%include "../include/PurpleAirWriteAPI.hpp"
+%include "../include/PurpleAirWriteAPI.h"

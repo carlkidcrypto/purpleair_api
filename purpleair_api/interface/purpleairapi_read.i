@@ -12,8 +12,8 @@
 %feature("python:annotations", "c");
 
 %{
-#include "PurpleAirReadAPI.hpp"
+#include "PurpleAirReadAPI.h"
 %}
 
 // Include the header file
-%include "../include/PurpleAirReadAPI.hpp"
+%include "../include/PurpleAirReadAPI.h"

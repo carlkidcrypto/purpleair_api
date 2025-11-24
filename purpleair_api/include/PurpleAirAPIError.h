@@ -1,5 +1,5 @@
-#ifndef PURPLEAIR_API_ERROR_HPP
-#define PURPLEAIR_API_ERROR_HPP
+#ifndef PURPLEAIR_API_ERROR_H
+#define PURPLEAIR_API_ERROR_H
 
 #include <exception>
 #include <string>
@@ -39,4 +39,4 @@ public:
 
 } // namespace PurpleAirAPI
 
-#endif // PURPLEAIR_API_ERROR_HPP
+#endif // PURPLEAIR_API_ERROR_H

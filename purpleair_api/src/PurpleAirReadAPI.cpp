@@ -1,5 +1,5 @@
-#include "PurpleAirReadAPI.hpp"
-#include "PurpleAirAPIHelpers.hpp"
+#include "PurpleAirReadAPI.h"
+#include "PurpleAirAPIHelpers.h"
 #include <sstream>
 
 namespace PurpleAirAPI {

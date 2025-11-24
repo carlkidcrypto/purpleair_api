@@ -1,5 +1,5 @@
-#ifndef PURPLEAIR_LOCAL_API_HPP
-#define PURPLEAIR_LOCAL_API_HPP
+#ifndef PURPLEAIR_LOCAL_API_H
+#define PURPLEAIR_LOCAL_API_H
 
 #include <string>
 #include <vector>
@@ -31,4 +31,4 @@ public:
 
 } // namespace PurpleAirAPI
 
-#endif // PURPLEAIR_LOCAL_API_HPP
+#endif // PURPLEAIR_LOCAL_API_H

@@ -1,5 +1,5 @@
-#include "PurpleAirAPIHelpers.hpp"
-#include "PurpleAirAPIError.hpp"
+#include "PurpleAirAPIHelpers.h"
+#include "PurpleAirAPIError.h"
 #include <curl/curl.h>
 #include <iostream>
 #include <sstream>

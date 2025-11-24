@@ -1,5 +1,5 @@
-#ifndef PURPLEAIR_WRITE_API_HPP
-#define PURPLEAIR_WRITE_API_HPP
+#ifndef PURPLEAIR_WRITE_API_H
+#define PURPLEAIR_WRITE_API_H
 
 #include <string>
 
@@ -39,4 +39,4 @@ public:
 
 } // namespace PurpleAirAPI
 
-#endif // PURPLEAIR_WRITE_API_HPP
+#endif // PURPLEAIR_WRITE_API_H

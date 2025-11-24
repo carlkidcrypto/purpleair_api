@@ -1,6 +1,6 @@
-#include "PurpleAirLocalAPI.hpp"
-#include "PurpleAirAPIHelpers.hpp"
-#include "PurpleAirAPIError.hpp"
+#include "PurpleAirLocalAPI.h"
+#include "PurpleAirAPIHelpers.h"
+#include "PurpleAirAPIError.h"
 
 namespace PurpleAirAPI {
 

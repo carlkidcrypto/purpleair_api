@@ -5,7 +5,7 @@
 %include <exception.i>
 
 %{
-#include "PurpleAirAPIError.hpp"
+#include "PurpleAirAPIError.h"
 %}
 
 // Handle C++ exceptions in Python
@@ -22,4 +22,4 @@
 }
 
 // Include the header file
-%include "../include/PurpleAirAPIError.hpp"
+%include "../include/PurpleAirAPIError.h"

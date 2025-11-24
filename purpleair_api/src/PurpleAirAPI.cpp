@@ -1,6 +1,6 @@
-#include "PurpleAirAPI.hpp"
-#include "PurpleAirAPIHelpers.hpp"
-#include "PurpleAirAPIError.hpp"
+#include "PurpleAirAPI.h"
+#include "PurpleAirAPIHelpers.h"
+#include "PurpleAirAPIError.h"
 #include <iostream>
 #include <algorithm>
 

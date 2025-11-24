@@ -1,9 +1,9 @@
-#ifndef PURPLEAIR_API_HPP
-#define PURPLEAIR_API_HPP
+#ifndef PURPLEAIR_API_H
+#define PURPLEAIR_API_H
 
-#include "PurpleAirReadAPI.hpp"
-#include "PurpleAirWriteAPI.hpp"
-#include "PurpleAirLocalAPI.hpp"
+#include "PurpleAirReadAPI.h"
+#include "PurpleAirWriteAPI.h"
+#include "PurpleAirLocalAPI.h"
 #include <string>
 #include <map>
 
@@ -61,4 +61,4 @@ public:
 
 } // namespace PurpleAirAPI
 
-#endif // PURPLEAIR_API_HPP
+#endif // PURPLEAIR_API_H

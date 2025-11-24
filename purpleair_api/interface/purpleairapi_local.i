@@ -10,11 +10,11 @@
 %feature("python:annotations", "c");
 
 %{
-#include "PurpleAirLocalAPI.hpp"
+#include "PurpleAirLocalAPI.h"
 %}
 
 // Tell SWIG about our vector types
 %template(StringVector) std::vector<std::string>;
 
 // Include the header file
-%include "../include/PurpleAirLocalAPI.hpp"
+%include "../include/PurpleAirLocalAPI.h"
