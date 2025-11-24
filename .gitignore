@@ -9,3 +9,13 @@ test*/coverage_reports/**
 test*/purpleair_api_coverage_reports/**
 **venv**
 **/doctrees/**
+
+# SWIG generated files
+purpleair_api/purpleairapi_base.py
+purpleair_api/interface/*_wrap.cpp
+purpleair_api/*.so
+*.so
+*.pyc
+__pycache__/
+build/
+*.egg-info/
