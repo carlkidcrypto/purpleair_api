@@ -36,7 +36,7 @@ PurpleAirAPI::PurpleAirAPI(
 
     if (retval_api_read_key) {
         if (_api_key_types[your_api_read_key] == "READ") {
-            std::cout << "PurpleAirAPI: Successfully authenticated read key" << std::endl;
+            std::cout << "PurpleAirAPI: Successfully authenticated read key." << std::endl;
         } else {
             throw PurpleAirAPIError("Ensure 'your_api_read_key' is a read key.");
         }
@@ -44,9 +44,9 @@ PurpleAirAPI::PurpleAirAPI(
 
     if (retval_api_write_key) {
         if (_api_key_types[your_api_write_key] == "WRITE") {
-            std::cout << "PurpleAirAPI: Successfully authenticated write key" << std::endl;
+            std::cout << "PurpleAirAPI: Successfully authenticated write key." << std::endl;
         } else {
-            throw PurpleAirAPIError("Ensure 'your_api_write_key' is a write key");
+            throw PurpleAirAPIError("Ensure 'your_api_write_key' is a write key.");
         }
     }
 
@@ -60,7 +60,9 @@ bool PurpleAirAPI::_check_an_api_key(const std::string& api_key_to_check) {
     std::string request_url = "https://api.purpleair.com/v1/keys";
     std::string response = send_url_get_request(request_url, api_key_to_check);
     
-    // Simple JSON parsing - in production, use a proper JSON library
+    // TODO: Replace with proper JSON library (e.g., nlohmann/json or rapidjson)
+    // Current implementation uses simple string parsing which works for this specific
+    // API response format but may be fragile if the format changes.
     // For now, we'll do basic string parsing
     size_t api_version_pos = response.find("\"api_version\"");
     size_t time_stamp_pos = response.find("\"time_stamp\"");

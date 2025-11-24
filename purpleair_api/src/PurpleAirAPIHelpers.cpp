@@ -68,7 +68,14 @@ std::string send_url_get_request(
                 if (!first) {
                     full_url += "&";
                 }
-                full_url += param.first + "=" + param.second;
+                // URL-encode parameter values to handle special characters
+                char* encoded_value = curl_easy_escape(nullptr, param.second.c_str(), param.second.length());
+                if (encoded_value) {
+                    full_url += param.first + "=" + std::string(encoded_value);
+                    curl_free(encoded_value);
+                } else {
+                    full_url += param.first + "=" + param.second;
+                }
                 first = false;
             }
         }
