@@ -1,0 +1,23 @@
+{
+  "name": "purpleair-api",
+  "version": "1.4.0-alpha.1",
+  "description": "PurpleAir API Node.js bindings with C++ backend",
+  "main": "index.js",
+  "scripts": {
+    "install": "node-gyp rebuild",
+    "test": "jest"
+  },
+  "keywords": [
+    "purpleair",
+    "api",
+    "air-quality",
+    "sensor"
+  ],
+  "author": "Carlos Santos",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "node-gyp": "^10.0.0"
+  },
+  "gypfile": true
+}

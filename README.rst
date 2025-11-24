@@ -77,9 +77,17 @@ You can also install PurpleAir API by cloning down this repo:
 
    git clone https://github.com/carlkidcrypto/purple_air_api.git
    cd purple_air_api
-   python3 setup.py install
+   python -m pip install .
 
-For detailed build instructions for C++, JavaScript, and C# bindings, see `BUILD_CPP.md <BUILD_CPP.md>`_.
+Multi-Language Support
+~~~~~~~~~~~~~~~~~~~~~~
+
+The repository is structured to support multiple languages:
+
+- **Python**: ``cd python && python -m pip install .``
+- **JavaScript/Node.js**: See `javascript/README.md <javascript/README.md>`_
+- **C#**: See `csharp/README.md <csharp/README.md>`_
+- **Native C++**: See `swig/README.md <swig/README.md>`_
 
 PurpleAirAPI Usage Example
 ---------------------------
