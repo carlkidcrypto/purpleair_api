@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PurpleAirWriteAPI module &mdash; PurpleAir API V1.3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c42f47bd"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="PurpleAirReadAPI module" href="PurpleAirReadAPI.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PurpleAir API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">API Reference:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">purpleair_api</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPI.html">PurpleAirAPI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIConstants.html">PurpleAirAPIConstants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIError.html">PurpleAirAPIError module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirAPIHelpers.html">PurpleAirAPIHelpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirReadAPI.html">PurpleAirReadAPI module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">PurpleAirWriteAPI module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-PurpleAirWriteAPI">API Reference</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PurpleAir API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">purpleair_api</a></li>
+      <li class="breadcrumb-item active">PurpleAirWriteAPI module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/PurpleAirWriteAPI.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="purpleairwriteapi-module">
+<h1>PurpleAirWriteAPI module<a class="headerlink" href="#purpleairwriteapi-module" title="Link to this heading"></a></h1>
+<p>Provides write access to the PurpleAir API for managing sensors, members, and configurations.
+Requires a write API key with appropriate permissions.</p>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">purpleair_api.PurpleAirWriteAPI</span> <span class="kn">import</span> <span class="n">PurpleAirWriteAPI</span>
+
+<span class="c1"># Initialize with write key</span>
+<span class="n">write_api</span> <span class="o">=</span> <span class="n">PurpleAirWriteAPI</span><span class="p">(</span><span class="n">api_write_key</span><span class="o">=</span><span class="s2">&quot;your_write_key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a new member</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">write_api</span><span class="o">.</span><span class="n">post_create_member</span><span class="p">(</span><span class="n">sensor_index</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="module-PurpleAirWriteAPI">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-PurpleAirWriteAPI" title="Link to this heading"></a></h2>
+<p>Copyright 2024 carlkidcrypto, All rights reserved.
+A python3 class designed to fetch data from Purple Air’s new API.
+This class will handle all <cite>write</cite> requests
+<a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PurpleAirWriteAPI.</span></span><span class="sig-name descname"><span class="pre">PurpleAirWriteAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_write_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The PurpleAirWriteAPI class designed to send valid
+write requests.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_group_data">
+<span class="sig-name descname"><span class="pre">post_create_group_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_group_data" title="Link to this definition"></a></dt>
+<dd><p>A method to create a group for sensors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name of the group to create.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_member">
+<span class="sig-name descname"><span class="pre">post_create_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner_email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_member" title="Link to this definition"></a></dt>
+<dd><p>Using a sensor_id (Parameters Option 1)
+The sensor_id should be exactly as printed on the label on the sensor. When no owner_email is provided, the sensor has to be marked as public.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to add a member to. This group must be owned by the api_key.</p></li>
+<li><p><strong>sensor_id</strong> (<em>str</em>) – The sensor_id of the new member sensor. This must be AS PRINTED on the sensor’s label.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Using a sensor_index (Parameters Option 2)
+The sensor_index can be found in lists for example from a /sensors api call. When no owner_email is provided, the sensor has to be marked as public.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to add a member to. This group must be owned by the api_key.</p></li>
+<li><p><strong>sensor_index</strong> (<em>int</em>) – The sensor_index of the new member as found in the JSON for this specific sensor.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Using sensor_id with a private sensor by specifying owner_email and optionally location_type. (Parameters Option 3)
+This example will produce an error if any provided value does not match the current configuration of the sensor. Note, too many incorrect attempts may disable your API key, so do not try guessing the email!!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to add a member to. This group must be owned by the api_key.</p></li>
+<li><p><strong>sensor_id</strong> (<em>str</em>) – The sensor_id of the new member sensor. This must be AS PRINTED on the sensor’s label.</p></li>
+<li><p><strong>owner_email</strong> (<em>str</em>) – An email address that matches the Owner email as set by previously completing the PurpleAir registration form at www.purpleair.com/register.</p></li>
+<li><p><strong>location_type</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The expected location_type of the new member.
+Possible values are: 0 = Outside or 1 = Inside.
+If the target member is not of this type, an error will result.
+NOTE: This value is required if the sensor in question is marked as ‘private’ on the registration form.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_group">
+<span class="sig-name descname"><span class="pre">post_delete_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_group" title="Link to this definition"></a></dt>
+<dd><p>A method to delete a group for sensors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to delete</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_member">
+<span class="sig-name descname"><span class="pre">post_delete_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_member" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group in which member_id is in.</p></li>
+<li><p><strong>member_id</strong> (<em>int</em>) – The member_id to delete.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PurpleAirReadAPI.html" class="btn btn-neutral float-left" title="PurpleAirReadAPI module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024-2025, carlkidcrypto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
