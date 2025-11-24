@@ -9,7 +9,7 @@ A python with constants with for use in PurpleAirAPI.py
 PRINT_DEBUG_MSGS = False
 
 #: Accepted Error Codes
-ERROR_CODES_LIST = [400, 402, 403, 404, 409, 415]
+ERROR_CODES_LIST = [400, 402, 403, 404, 409, 415, 503]
 
 #: Success Code
 SUCCESS_CODE_LIST = [200, 201, 204]
