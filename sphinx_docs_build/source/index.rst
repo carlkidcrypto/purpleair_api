@@ -23,6 +23,12 @@ Getting Started
 To use the PurpleAir API, you'll need API keys from PurpleAir. You can request them by emailing
 contact@purpleair.com with your first and last name.
 
+Requirements
+~~~~~~~~~~~~
+
+* Python 3.10 or higher (supports Python 3.10, 3.11, 3.12, 3.13, and 3.14)
+* requests library
+
 Installation
 ~~~~~~~~~~~~
 

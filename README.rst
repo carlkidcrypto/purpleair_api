@@ -47,6 +47,12 @@ This package is designed to be used for making tools around the PurpleAir API.
 
 For example, PAA data loggers - https://github.com/carlkidcrypto/purpleair_data_logger
 
+Requirements
+------------
+
+* Python 3.10 or higher (supports Python 3.10, 3.11, 3.12, 3.13, and 3.14)
+* requests library
+
 Installation
 ------------
 
