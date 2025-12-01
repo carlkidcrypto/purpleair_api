@@ -49,7 +49,7 @@ purpleair_api benefits from thoughtful AI-assisted development, but contributors
 
 ## Testing & Review
 
-Before submitting AI assisted code, confirm that:  
+Before submitting AI-assisted code, confirm that:  
 - You understand every line  
 - All tests pass locally (happy path + error cases)  
 - Black formatting is applied (`python -m black .`)  
@@ -104,10 +104,10 @@ git clone https://github.com/carlkidcrypto/purpleair_api.git
 cd purpleair_api
 
 # Create and activate virtual environment
-python3 -m venv python3.12.venv
-source python3.12.venv/bin/activate  # Linux/Mac
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
 # or
-.\python3.12.venv\Scripts\Activate.ps1  # Windows PowerShell
+.\venv\Scripts\Activate.ps1  # Windows PowerShell
 
 # Install dependencies
 pip install --upgrade pip wheel setuptools
