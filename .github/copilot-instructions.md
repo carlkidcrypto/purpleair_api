@@ -43,7 +43,6 @@
 - Error handling: Use `try`/`except` blocks and propagate exceptions with context; avoid bare `except` and do not use `sys.exit()` in library code
 - Async runtime: asyncio
 - See HOWTOAI.md for AI-assisted code standards
-- MCP protocol implementations require extra scrutiny
 
 ## CI Pipeline Context
 
