@@ -1,4 +1,4 @@
-# How to Use AI with purpleair_api  
+# How to Use AI with purpleair_api
 _A practical guide for contributing to purpleair_api using AI coding assistants_
 
 purpleair_api benefits from thoughtful AI-assisted development, but contributors must maintain high standards for code quality, security, and collaboration. Whether you use GitHub Copilot, Cursor, Claude, or other AI tools, this guide will help you contribute effectively.
