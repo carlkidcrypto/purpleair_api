@@ -16,7 +16,7 @@
 - [ ] Other (specify below)
 
 ### AI Assistance
-<!-- great that you got assistance 🔥, just check out the HOWTOAI guidance: https://github.com/carlkidcrypto/purpleair_api/blob/main/HOWTOAI.md-->
+<!-- It's great that you got assistance 🔥; just check out the HOWTOAI guidance: https://github.com/carlkidcrypto/purpleair_api/blob/main/HOWTOAI.md -->
 - [ ] This PR was created or reviewed with AI assistance
 
 ### Testing
