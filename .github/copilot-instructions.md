@@ -39,7 +39,7 @@
 ## Project-Specific Context
 
 - This is a Python 3 project using virtual environments and pip for dependency management
-- Core modules: `purple_air`
+- Core modules: `purpleair_api`
 - Error handling: Use `try`/`except` blocks and propagate exceptions with context; avoid bare `except` and do not use `sys.exit()` in library code
 - Async runtime: asyncio
 - See HOWTOAI.md for AI-assisted code standards
