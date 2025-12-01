@@ -230,9 +230,7 @@ Then: "How does error handling work in purpleair_api?"
 
 **Step 2 - Ask AI to draft your new method:**
 ```
-Prompt: "PurpleAir added a new endpoint GET /v1/sensors/:sensor_id/history 
-that returns historical data. Based on the pattern in get_sensor_data, 
-draft the implementation for a get_sensor_history method."
+Prompt: "PurpleAir added a new endpoint GET /v1/sensors/:sensor_id/history that returns historical data. Based on the pattern in get_sensor_data, draft the implementation for a get_sensor_history method."
 ```
 
 **Step 3 - Validate with AI:**
