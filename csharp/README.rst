@@ -3,11 +3,6 @@ PurpleAir API - C# Bindings
 
 C# bindings for the PurpleAir API using the native C++ library via SWIG.
 
-Status
-------
-
-✅ **Bindings Generated** - SWIG wrapper code created, ready to build
-
 Building
 --------
 
@@ -32,7 +27,7 @@ Running Tests
 
 .. code-block:: bash
 
-   cd Tests
+   cd tests
    dotnet test
 
 Tests are written using xUnit and migrated from the Python test suite.

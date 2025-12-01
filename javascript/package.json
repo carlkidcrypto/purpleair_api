@@ -1,6 +1,6 @@
 {
   "name": "purpleair-api",
-  "version": "1.4.0-alpha.1",
+  "version": "1.4.0-a1",
   "description": "PurpleAir API Node.js bindings with C++ backend",
   "main": "index.js",
   "scripts": {

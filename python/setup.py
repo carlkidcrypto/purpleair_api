@@ -1,62 +1,150 @@
 #!/usr/bin/env python3
+"""
+Setup script for purpleair_api Python bindings.
+Supports macOS, Linux, and Windows.
+"""
 
 import os
 import sys
-import configparser
+import platform
 from subprocess import check_output, CalledProcessError
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
-# Read version from parent setup.cfg
-config = configparser.ConfigParser()
-config.read('../setup.cfg')
-VERSION = config.get('metadata', 'version')
+
+def get_version():
+    """Read version from pyproject.toml."""
+    return "1.4.0a1"
+
+
+def get_swig_base():
+    """Get absolute path to swig directory."""
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'swig'))
+
 
 def get_include_dirs():
-    """Get include directories for compilation."""
-    swig_base = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'swig'))
-    include_dirs = [
-        os.path.join(swig_base, 'include'),
-        "/usr/include",
-        "/usr/local/include"
-    ]
+    """Get include directories for compilation based on platform."""
+    swig_base = get_swig_base()
+    include_dirs = [os.path.join(swig_base, 'include')]
     
-    # Check for curl include directory
-    try:
-        curl_config = check_output(["pkg-config", "--cflags-only-I", "libcurl"]).decode().strip()
-        if curl_config:
-            curl_includes = [i[2:] for i in curl_config.split() if i.startswith("-I")]
-            include_dirs.extend(curl_includes)
-    except (CalledProcessError, FileNotFoundError):
-        pass
+    system = platform.system()
     
-    return include_dirs
+    if system == 'Linux':
+        include_dirs.extend(["/usr/include", "/usr/local/include"])
+        # Try pkg-config for libcurl
+        try:
+            curl_config = check_output(["pkg-config", "--cflags-only-I", "libcurl"]).decode().strip()
+            if curl_config:
+                curl_includes = [i[2:] for i in curl_config.split() if i.startswith("-I")]
+                include_dirs.extend(curl_includes)
+        except (CalledProcessError, FileNotFoundError):
+            pass
+            
+    elif system == 'Darwin':  # macOS
+        # Homebrew paths
+        include_dirs.extend([
+            "/usr/local/include",
+            "/opt/homebrew/include",
+            "/opt/homebrew/opt/curl/include",
+        ])
+        # Try pkg-config for libcurl
+        try:
+            curl_config = check_output(["pkg-config", "--cflags-only-I", "libcurl"]).decode().strip()
+            if curl_config:
+                curl_includes = [i[2:] for i in curl_config.split() if i.startswith("-I")]
+                include_dirs.extend(curl_includes)
+        except (CalledProcessError, FileNotFoundError):
+            pass
+            
+    elif system == 'Windows':
+        # vcpkg or manual curl installation paths
+        vcpkg_root = os.environ.get('VCPKG_ROOT', 'C:\\vcpkg')
+        include_dirs.extend([
+            os.path.join(vcpkg_root, 'installed', 'x64-windows', 'include'),
+            'C:\\curl\\include',
+        ])
+    
+    return [d for d in include_dirs if os.path.exists(d) or d == os.path.join(swig_base, 'include')]
+
 
 def get_library_dirs():
-    """Get library directories for linking."""
-    library_dirs = [
-        "/usr/lib",
-        "/usr/local/lib",
-        "/usr/lib/x86_64-linux-gnu"
-    ]
+    """Get library directories for linking based on platform."""
+    library_dirs = []
+    system = platform.system()
     
-    # Check for curl library directory
-    try:
-        curl_config = check_output(["pkg-config", "--libs-only-L", "libcurl"]).decode().strip()
-        if curl_config:
-            curl_libs = [i[2:] for i in curl_config.split() if i.startswith("-L")]
-            library_dirs.extend(curl_libs)
-    except (CalledProcessError, FileNotFoundError):
-        pass
+    if system == 'Linux':
+        library_dirs.extend([
+            "/usr/lib",
+            "/usr/local/lib",
+            "/usr/lib/x86_64-linux-gnu",
+            "/usr/lib/aarch64-linux-gnu",
+        ])
+        try:
+            curl_config = check_output(["pkg-config", "--libs-only-L", "libcurl"]).decode().strip()
+            if curl_config:
+                curl_libs = [i[2:] for i in curl_config.split() if i.startswith("-L")]
+                library_dirs.extend(curl_libs)
+        except (CalledProcessError, FileNotFoundError):
+            pass
+            
+    elif system == 'Darwin':  # macOS
+        library_dirs.extend([
+            "/usr/local/lib",
+            "/opt/homebrew/lib",
+            "/opt/homebrew/opt/curl/lib",
+        ])
+        try:
+            curl_config = check_output(["pkg-config", "--libs-only-L", "libcurl"]).decode().strip()
+            if curl_config:
+                curl_libs = [i[2:] for i in curl_config.split() if i.startswith("-L")]
+                library_dirs.extend(curl_libs)
+        except (CalledProcessError, FileNotFoundError):
+            pass
+            
+    elif system == 'Windows':
+        vcpkg_root = os.environ.get('VCPKG_ROOT', 'C:\\vcpkg')
+        library_dirs.extend([
+            os.path.join(vcpkg_root, 'installed', 'x64-windows', 'lib'),
+            'C:\\curl\\lib',
+        ])
     
-    return library_dirs
+    return [d for d in library_dirs if os.path.exists(d)]
+
 
 def get_libraries():
-    """Get libraries to link against."""
-    return ["curl"]
+    """Get libraries to link against based on platform."""
+    system = platform.system()
+    
+    if system == 'Windows':
+        return ["libcurl"]
+    else:
+        return ["curl"]
+
+
+def get_extra_compile_args():
+    """Get extra compile arguments based on platform."""
+    system = platform.system()
+    
+    if system == 'Windows':
+        return ['/std:c++17', '/EHsc']
+    else:
+        return ['-std=c++17', '-fPIC']
+
+
+def get_extra_link_args():
+    """Get extra link arguments based on platform."""
+    system = platform.system()
+    
+    if system == 'Darwin':  # macOS
+        return ['-stdlib=libc++']
+    elif system == 'Windows':
+        return []
+    else:
+        return []
+
 
 class CustomBuildExt(build_ext):
-    """Custom build_ext command to handle SWIG."""
+    """Custom build_ext command to handle SWIG and cross-platform builds."""
     
     def run(self):
         # Run SWIG to generate wrapper code
@@ -67,10 +155,9 @@ class CustomBuildExt(build_ext):
         # Continue with normal build
         build_ext.run(self)
 
+
 # Define the C++ extension module
-# Use absolute paths to avoid build directory issues
-import os
-swig_base = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'swig'))
+swig_base = get_swig_base()
 
 purpleairapi_extension = Extension(
     name='_purpleairapi_base',
@@ -93,13 +180,14 @@ purpleairapi_extension = Extension(
         '-I' + os.path.join(swig_base, 'include'),
         '-outdir', 'purpleair_api',
     ],
-    extra_compile_args=['-std=c++17', '-fPIC'],
+    extra_compile_args=get_extra_compile_args(),
+    extra_link_args=get_extra_link_args(),
     language='c++',
 )
 
 setup(
     name='purpleair_api',
-    version=VERSION,
+    version=get_version(),
     author='Carlos Santos',
     author_email='dose.lucky.sake@cloak.id',
     description='PurpleAir API wrapper with C++ backend and SWIG bindings',
@@ -110,18 +198,22 @@ setup(
     ext_modules=[purpleairapi_extension],
     cmdclass={'build_ext': CustomBuildExt},
     install_requires=['requests'],
-    python_requires='>=3.9,<3.14',
+    python_requires='>=3.10,<3.15',
     license='MIT',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
         'Programming Language :: C++',
+        'Operating System :: OS Independent',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: MacOS',
     ],
 )
