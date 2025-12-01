@@ -168,8 +168,7 @@ New to the PurpleAir API? Here are key questions to ask your AI tool:
 
 **"Explain the purpleair_api package structure"**
 ```
-Ask: "I'm looking at the purpleair_api repository. Can you explain the purpose of each 
-module in the purpleair_api/ directory and how they relate to each other?"
+Ask: "I'm looking at the purpleair_api repository. Can you explain the purpose of each module in the purpleair_api/ directory and how they relate to each other?"
 
 Key insight: purpleair_api is organized into specialized modules:
 - PurpleAirAPI: Main API wrapper class
