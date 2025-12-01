@@ -49,7 +49,7 @@ purpleair_api benefits from thoughtful AI-assisted development, but contributors
 
 ## Testing & Review
 
-Before submitting AI assisted code, confirm that:  
+Before submitting AI-assisted code, confirm that:  
 - You understand every line  
 - All tests pass locally (happy path + error cases)  
 - Black formatting is applied (`python -m black .`)  
