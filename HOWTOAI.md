@@ -1,7 +1,7 @@
-# How to Use AI with goose  
-_A practical guide for contributing to goose using AI coding assistants_
+# How to Use AI with purpleair_api  
+_A practical guide for contributing to purpleair_api using AI coding assistants_
 
-goose benefits from thoughtful AI-assisted development, but contributors must maintain high standards for code quality, security, and collaboration. Whether you use goose itself, GitHub Copilot, Cursor, Claude, or other AI tools, this guide will help you contribute effectively.
+purpleair_api benefits from thoughtful AI-assisted development, but contributors must maintain high standards for code quality, security, and collaboration. Whether you use GitHub Copilot, Cursor, Claude, or other AI tools, this guide will help you contribute effectively.
 
 ---
 
@@ -27,22 +27,23 @@ goose benefits from thoughtful AI-assisted development, but contributors must ma
 **❌ Avoid AI For**  
 
 - Complex business logic without thorough review  
-- Security critical authentication/authorization code  
-- Code you don’t fully understand  
+- Security critical authentication/authorization code (API key handling)  
+- Code you don't fully understand  
 - Large architectural changes  
-- Database migrations or schema changes  
+- Breaking changes to public API  
 
 **Workflow Tips**  
 
-- Start small and validate often. Build, lint, and test incrementally  
+- Start small and validate often. Run tests and Black formatting incrementally  
 - Study existing patterns before generating new code  
 - Always ask: "Is this secure? Does it follow project patterns? What edge cases need testing?"
 
 **Security Considerations**  
 
-- Extra review required for MCP servers, network code, file system ops, user input, and credential handling  
-- Never expose secrets in prompts  
-- Sanitize inputs/outputs and follow goose’s security patterns  
+- Extra review required for API key handling, network code, HTTP requests, user input validation  
+- Never expose API keys or secrets in prompts or code  
+- Sanitize inputs/outputs and follow purpleair_api's security patterns  
+- Be cautious with exception handling that might leak sensitive data
 
 ---
 
@@ -51,28 +52,28 @@ goose benefits from thoughtful AI-assisted development, but contributors must ma
 Before submitting AI assisted code, confirm that:  
 - You understand every line  
 - All tests pass locally (happy path + error cases)  
-- Docs are updated and accurate  
+- Black formatting is applied (`python -m black .`)  
+- Sphinx documentation is updated if needed  
 - Code follows existing patterns  
 
 **Always get human review** for: 
 
-- Security sensitive code  
+- Security sensitive code (API key handling, authentication)  
 - Core architecture changes  
-- Async/concurrency logic  
-- MCP protocol implementations  
-- Large refactors or anything you’re unsure about  
+- API endpoint implementations  
+- Breaking changes to public interfaces  
+- Large refactors or anything you're unsure about
 
 ---
 
-## Using goose for goose development
+## Development Best Practices
 
-- Protect sensitive files with `.gooseignore` (e.g., `.env*`, `*.key`, `target/`, `.git/`)  
-- Guide goose with `.goosehints` (patterns, error handling, formatting, tests, docs)  
-- Use `/plan` to structure work, and choose modes wisely:  
-  - **Chat** for understanding  
-  - **Smart Approval** for most dev work  
-  - **Approval** for critical areas  
-  - **Autonomous** only with safety nets  
+- Never commit API keys or secrets (use environment variables or config files not in git)  
+- Follow Black code formatting (line length: 100, target: py310-py314)  
+- Run tests across Python 3.10-3.14 to ensure compatibility  
+- Update Sphinx documentation in `sphinx_docs_build/` when adding features  
+- Use `try`/`except` blocks with proper context propagation  
+- Avoid bare `except` clauses and don't use `sys.exit()` in library code  
 
 ---
 
@@ -86,9 +87,9 @@ Before submitting AI assisted code, confirm that:
 
 ## Remember
 
-AI is a powerful assistant, not a replacement for your judgment. Use it to speed up development; while keeping your brain engaged, your standards high, and goose secure.  
+AI is a powerful assistant, not a replacement for your judgment. Use it to speed up development while keeping your brain engaged, your standards high, and purpleair_api secure.  
 
-Questions? Join our [Discord](https://discord.gg/goose-oss) or [GitHub Discussions](https://github.com/block/goose/discussions) to talk more about responsible AI development.  
+Questions? Open an issue on [GitHub](https://github.com/carlkidcrypto/purpleair_api/issues) to discuss AI-assisted development practices.  
 
 ---
 
@@ -96,222 +97,253 @@ Questions? Join our [Discord](https://discord.gg/goose-oss) or [GitHub Discussio
 
 ### Quick Setup
 
-**Using goose (meta!):**
+**Setting up your development environment:**
 ```bash
-# Install goose
-curl -fsSL https://github.com/block/goose/releases/latest/download/install.sh | bash
+# Clone the repository
+git clone https://github.com/carlkidcrypto/purpleair_api.git
+cd purpleair_api
 
-# Navigate to your goose clone
-cd /path/to/goose
+# Create and activate virtual environment
+python3 -m venv python3.12.venv
+source python3.12.venv/bin/activate  # Linux/Mac
+# or
+.\python3.12.venv\Scripts\Activate.ps1  # Windows PowerShell
 
-# Start goose in the repo
-goose
+# Install dependencies
+pip install --upgrade pip wheel setuptools
+pip install black coverage requests_mock
+pip install -r sphinx_docs_build/requirements.txt
 ```
 
 **Using GitHub Copilot:**
 - Install the [GitHub Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) for VS Code
-- Enable Copilot for Rust files in your settings
-- Recommended: Also install [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer) for better code intelligence
+- Enable Copilot for Python files in your settings
+- Recommended: Install [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) for better code intelligence
 
 **Using Cursor:**
 - Download [Cursor](https://cursor.sh/) (VS Code fork with built-in AI)
-- Open the goose repository
+- Open the purpleair_api repository
 - Use Cmd/Ctrl+K for inline AI editing, Cmd/Ctrl+L for chat
 
 **Using Claude or ChatGPT:**
 - Copy relevant code sections into the chat interface
-- Provide context about the goose architecture (see below)
+- Provide context about the purpleair_api architecture (see below)
 - Always test generated code locally before committing
 
-### Rust-Specific Configuration
+### Python-Specific Configuration
 
-If you're new to Rust, configure your AI tool to help you learn:
+Configure your AI tool to follow project standards:
 
 **VS Code settings.json:**
 ```json
 {
-  "rust-analyzer.checkOnSave.command": "clippy",
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": ["--line-length", "100"],
+  "python.testing.unittestEnabled": true,
+  "python.testing.unittestArgs": ["-v", "-s", "./tests", "-p", "test_*.py"],
   "github.copilot.enable": {
-    "rust": true
+    "python": true
   }
 }
 ```
 
 **Cursor Rules (.cursorrules in repo root):**
 ```
-This is a Rust project using cargo workspaces.
-- Follow existing error handling patterns using anyhow::Result
-- Use async/await for I/O operations
-- Follow the project's clippy lints (see clippy-baselines/)
-- Run cargo fmt before committing
+This is a Python 3 project using pip and virtual environments.
+- Follow Black formatting (line-length=100, target py310-py314)
+- Use try/except blocks with proper exception propagation
+- Avoid bare except clauses and sys.exit() in library code
+- Run tests with: cd tests && coverage run -m unittest
+- Build docs with: cd sphinx_docs_build && make html
+- Python version support: 3.10, 3.11, 3.12, 3.13, 3.14
 ```
 
 ---
 
-## Understanding goose's Architecture
+## Understanding purpleair_api's Architecture
 
-New to AI agents? Here are key questions to ask your AI tool:
+New to the PurpleAir API? Here are key questions to ask your AI tool:
 
 ### Essential Concepts
 
-**"Explain the goose crate structure"**
+**"Explain the purpleair_api package structure"**
 ```
-Ask: "I'm looking at the goose repository. Can you explain the purpose of each crate 
-in the crates/ directory and how they relate to each other?"
+Ask: "I'm looking at the purpleair_api repository. Can you explain the purpose of each 
+module in the purpleair_api/ directory and how they relate to each other?"
 
-Key insight: goose uses a workspace with specialized crates:
-- goose: Core agent logic
-- goose-cli: Command-line interface
-- goose-server: Backend for desktop app (goosed)
-- goose-mcp: MCP server implementations
-```
-
-**"How does the MCP protocol work in goose?"**
-```
-Ask: "What is the Model Context Protocol (MCP) and how does goose implement it? 
-Show me an example from crates/goose-mcp/"
-
-Key insight: MCP allows goose to connect to external tools and data sources. 
-Each MCP server provides specific capabilities (developer tools, file access, etc.)
+Key insight: purpleair_api is organized into specialized modules:
+- PurpleAirAPI: Main API wrapper class
+- PurpleAirReadAPI: Read-only operations (get sensor data, etc.)
+- PurpleAirWriteAPI: Write operations (requires write API key)
+- PurpleAirLocalAPI: Local sensor communication
+- PurpleAirAPIConstants: API endpoints and field definitions
+- PurpleAirAPIHelpers: Utility functions
+- PurpleAirAPIError: Custom exception classes
 ```
 
-**"What's the agent execution flow?"**
+**"How does the API authentication work?"**
 ```
-Ask: "Walk me through what happens when a user sends a message to goose. 
-Start from crates/goose-cli/src/main.rs"
+Ask: "How does purpleair_api handle API keys? Show me examples from PurpleAirReadAPI.py"
 
-Key insight: Message → Agent → Provider (LLM) → Tool execution → Response
+Key insight: The API requires read and/or write keys passed during initialization.
+Keys are stored securely and included in request headers for authentication.
+```
+
+**"What's the request flow?"**
+```
+Ask: "Walk me through what happens when a user requests sensor data from PurpleAir."
+
+Key insight: User call → API method → HTTP request with auth → Response parsing → Return data
 ```
 
 ### Navigating the Codebase with AI
 
 **Finding the right file:**
 ```
-# Use ripgrep with AI assistance
-Ask: "I want to add a new shell command tool. Where should I look?"
-AI might suggest: rg "shell" crates/goose-mcp/ -l
+# Use grep or file search with AI assistance
+Ask: "I want to add support for a new API endpoint. Where should I look?"
+AI might suggest: Check PurpleAirReadAPI.py or PurpleAirWriteAPI.py depending on the operation
 
-Then ask: "Explain the structure of crates/goose-mcp/src/developer/tools/shell.rs"
+Then ask: "Explain the structure of the get_sensor_data method in PurpleAirReadAPI.py"
 ```
 
 **Understanding patterns:**
 ```
-Ask: "Show me the pattern for implementing a new Provider in goose"
-Then: "What's the difference between streaming and non-streaming providers?"
+Ask: "Show me the pattern for implementing a new API endpoint method"
+Then: "How does error handling work in purpleair_api?"
 ```
 
 ---
 
 ## Practical Examples
 
-### Example 1: Understanding How to Add a New MCP Tool
+### Example 1: Understanding How to Add a New API Endpoint
 
-**Scenario:** You want to add a new tool to the developer MCP server.
+**Scenario:** PurpleAir adds a new API endpoint and you want to add support for it.
 
-**Step 1 - Explore existing tools:**
+**Step 1 - Explore existing methods:**
 ```bash
-# Ask AI: "Show me the structure of an existing MCP tool"
-ls crates/goose-mcp/src/developer/tools/
+# Ask AI: "Show me the structure of an existing API endpoint method"
+# Look at PurpleAirReadAPI.py or PurpleAirWriteAPI.py
 
-# Pick a simple one to study
-# Ask AI: "Explain this tool implementation line by line"
-cat crates/goose-mcp/src/developer/tools/shell.rs
+# Ask AI: "Explain the get_sensor_data method implementation line by line"
 ```
 
-**Step 2 - Ask AI to draft your new tool:**
+**Step 2 - Ask AI to draft your new method:**
 ```
-Prompt: "I want to add a new MCP tool called 'git_status' that runs git status 
-and returns the output. Based on the pattern in shell.rs, draft the implementation."
+Prompt: "PurpleAir added a new endpoint GET /v1/sensors/:sensor_id/history 
+that returns historical data. Based on the pattern in get_sensor_data, 
+draft the implementation for a get_sensor_history method."
 ```
 
 **Step 3 - Validate with AI:**
 ```
 Ask: "Review this code for:
-1. Proper error handling using anyhow::Result
-2. Security concerns (command injection, etc.)
-3. Async/await patterns matching the codebase
-4. Test coverage needs"
+1. Proper error handling with try/except
+2. API key handling and authentication
+3. Input validation and sanitization
+4. Test coverage needs
+5. Sphinx docstring completeness"
 ```
 
 **Step 4 - Test locally:**
 ```bash
-# Build and test
-cargo build -p goose-mcp
-cargo test -p goose-mcp
+# Format with Black
+python -m black purpleair_api/
 
-# Run clippy
-./scripts/clippy-lint.sh
+# Run tests
+cd tests
+coverage run -m unittest
+coverage report
+
+# Build docs
+cd ../sphinx_docs_build
+make html
 ```
 
-### Example 2: Fixing a Rust Compiler Error
+### Example 2: Fixing a Python Exception
 
-**Scenario:** You're getting a lifetime error you don't understand.
+**Scenario:** You're getting an unexpected exception during API calls.
 
-**Step 1 - Copy the full error:**
+**Step 1 - Copy the full traceback:**
 ```bash
-cargo build 2>&1 | pbcopy  # macOS
-cargo build 2>&1 | xclip    # Linux
+# Run your test and capture the error
+python -m unittest tests.test_purpleair_read_api 2>&1 | clip  # Windows
+python -m unittest tests.test_purpleair_read_api 2>&1 | pbcopy  # macOS
 ```
 
 **Step 2 - Ask AI with context:**
 ```
-Prompt: "I'm getting this Rust compiler error in the goose project:
+Prompt: "I'm getting this Python exception in the purpleair_api project:
 
-[paste error]
+[paste traceback]
 
 Here's the relevant code:
 [paste code section]
 
-Explain what's wrong and how to fix it following Rust best practices."
+Explain what's wrong and how to fix it following Python best practices 
+and the project's error handling patterns."
 ```
 
 **Step 3 - Understand the fix:**
 ```
-Ask: "Explain why this fix works and what I should learn about Rust lifetimes"
+Ask: "Explain why this fix works and what I should know about exception 
+handling in API wrapper libraries."
 ```
 
 **Step 4 - Apply and verify:**
 ```bash
 # Apply the fix
-# Then verify it compiles and tests pass
-cargo build
-cargo test
+# Format code
+python -m black purpleair_api/
+
+# Run specific test
+python -m unittest tests.test_purpleair_read_api.TestClassName.test_method
+
+# Run all tests
+cd tests && coverage run -m unittest
 ```
 
-### Example 3: Adding a Feature to the CLI
+### Example 3: Adding a Helper Function
 
-**Scenario:** You want to add a new command-line flag to goose-cli.
+**Scenario:** You need a utility function to parse PurpleAir sensor fields.
 
-**Step 1 - Find the CLI argument parsing:**
+**Step 1 - Find existing helpers:**
 ```bash
-# Ask AI: "Where does goose-cli parse command line arguments?"
-rg "clap" crates/goose-cli/src/ -l
+# Ask AI: "What helper functions already exist in PurpleAirAPIHelpers.py?"
+# Review the file
 ```
 
 **Step 2 - Study the pattern:**
 ```
-Ask: "Explain how goose-cli uses clap for argument parsing. 
-Show me how existing flags are defined."
+Ask: "Explain how existing helper functions in PurpleAirAPIHelpers.py are structured. 
+Show me the docstring format and error handling patterns."
 ```
 
 **Step 3 - Draft your addition:**
 ```
-Prompt: "I want to add a --verbose flag that enables debug logging. 
-Based on the existing patterns in goose-cli, show me:
-1. How to add the flag to the CLI args struct
-2. How to pass it to the goose core
-3. How to use it to control log levels"
+Prompt: "I want to add a helper function that validates sensor field names 
+against the allowed fields in PurpleAirAPIConstants. Based on existing patterns, show me:
+1. The function signature and docstring
+2. Input validation
+3. Return value format
+4. Unit tests needed"
 ```
 
 **Step 4 - Implement with validation:**
 ```bash
-# Make changes
-# Build both crates
-cargo build -p goose-cli -p goose
+# Make changes to PurpleAirAPIHelpers.py
+# Add tests to tests/test_purpleair_api_helpers.py
 
-# Test the new flag
-./target/debug/goose --verbose session
+# Format code
+python -m black purpleair_api/ tests/
 
 # Run tests
-cargo test -p goose-cli
+cd tests
+coverage run -m unittest test_purpleair_api_helpers
+coverage report
+
+# Update docs if needed
+cd ../sphinx_docs_build
+make html
 ```
