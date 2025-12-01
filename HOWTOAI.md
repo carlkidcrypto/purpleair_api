@@ -104,10 +104,10 @@ git clone https://github.com/carlkidcrypto/purpleair_api.git
 cd purpleair_api
 
 # Create and activate virtual environment
-python3 -m venv python3.12.venv
-source python3.12.venv/bin/activate  # Linux/Mac
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
 # or
-.\python3.12.venv\Scripts\Activate.ps1  # Windows PowerShell
+.\venv\Scripts\Activate.ps1  # Windows PowerShell
 
 # Install dependencies
 pip install --upgrade pip wheel setuptools
