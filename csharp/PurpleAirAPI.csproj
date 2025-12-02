@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>PurpleAirAPI</RootNamespace>
+    <AssemblyName>PurpleAirAPI</AssemblyName>
+    <Version>1.4.0-a1</Version>
+    <Authors>Carlos Santos</Authors>
+    <Description>PurpleAir API C# bindings with C++ backend</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/carlkidcrypto/purpleair_api</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="*.cs" />
+  </ItemGroup>
+
+</Project>
