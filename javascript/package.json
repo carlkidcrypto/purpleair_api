@@ -4,8 +4,13 @@
   "description": "PurpleAir API Node.js bindings with C++ backend",
   "main": "index.js",
   "scripts": {
+    "swig": "swig -javascript -node -c++ -I../swig/interface -I../swig/include -outdir . -o purpleairapi_base_wrap.cxx ../swig/interface/purpleairapi_base.i",
+    "prebuild": "npm run swig",
+    "build": "node-gyp rebuild",
+    "preinstall": "npm run swig",
     "install": "node-gyp rebuild",
-    "test": "jest"
+    "test": "jest",
+    "clean": "rm -f purpleairapi_base_wrap.cxx && node-gyp clean"
   },
   "keywords": [
     "purpleair",

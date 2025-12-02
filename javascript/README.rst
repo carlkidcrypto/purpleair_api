@@ -6,24 +6,44 @@ JavaScript bindings for the PurpleAir API using the native C++ library via SWIG.
 Prerequisites
 -------------
 
-.. code-block:: bash
-
-   npm install
+- SWIG 4.x or later
+- Node.js 14.x or later
+- npm
+- g++ with C++17 support (or Xcode on macOS)
+- libcurl development headers
 
 Building
 --------
 
-The Node.js addon is built automatically on install via node-gyp:
+The build process automatically generates SWIG wrapper code on the fly.
+
+Install dependencies and build:
 
 .. code-block:: bash
 
    npm install
+
+This runs SWIG to generate the JavaScript bindings and then compiles the
+native addon via node-gyp.
 
 Or manually rebuild:
 
 .. code-block:: bash
 
-   node-gyp rebuild
+   npm run build
+
+To regenerate SWIG bindings only:
+
+.. code-block:: bash
+
+   npm run swig
+
+Clean generated files
+~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   npm run clean
 
 Running Tests
 -------------
