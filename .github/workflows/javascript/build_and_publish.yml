@@ -1,7 +1,7 @@
 # Build and publish JavaScript/Node.js bindings to npm
 # https://docs.npmjs.com/cli/v10/commands/npm-publish
 
-name: npm Distributions
+name: javascript/build_and_publish
 permissions:
   contents: read
   id-token: write
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/build_and_publish_javascript.yml'
+      - '.github/workflows/javascript/build_and_publish.yml'
 
 jobs:
   build_and_test:

@@ -1,4 +1,4 @@
-name: Black
+name: python/black
 permissions:
   contents: read
 
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
     paths:
       - 'python/**/*.py'
-      - '.github/workflows/black.yml'
+      - '.github/workflows/python/black.yml'
 
   pull_request:
     branches: [ main ]
@@ -27,7 +27,7 @@ jobs:
         with:
           files: |
             python/**/*.py
-            .github/workflows/black.yml
+            .github/workflows/python/black.yml
 
   black:
     runs-on: ubuntu-latest

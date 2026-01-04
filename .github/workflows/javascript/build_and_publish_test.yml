@@ -1,16 +1,16 @@
-# Build and test C# bindings (test on main pushes)
+# Build and publish JavaScript/Node.js bindings to npm test registry
 
-name: NuGet Test Distributions
+name: javascript/build_and_publish_test
 permissions:
   contents: read
-concurrency: build_and_publish_csharp_test
+concurrency: build_and_publish_javascript_test
 on:
   push:
     branches: [ main ]
     paths:
-      - 'csharp/**'
+      - 'javascript/**'
       - 'swig/**'
-      - '.github/workflows/build_and_publish_csharp_test.yml'
+      - '.github/workflows/javascript/build_and_publish_test.yml'
 
 jobs:
   check-source-changes:
@@ -21,14 +21,14 @@ jobs:
       - name: Checkout Sourcecode
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Check for changes in C# source
+      - name: Check for changes in JavaScript source
         id: changed-files
         uses: tj-actions/changed-files@c3a1bb2c992d77180ae65be6ae6c166cf40f857c # v46.0.1
         with:
           files: |
-            csharp/**
+            javascript/**
             swig/**
-            .github/workflows/build_and_publish_csharp_test.yml
+            .github/workflows/javascript/build_and_publish_test.yml
 
   build_and_test:
     name: Build and test on ${{ matrix.os }}
@@ -38,41 +38,42 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        dotnet-version: ['6.0.x', '8.0.x']
+        node-version: ['18.x', '20.x', '22.x']
 
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Setup .NET ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@3e891b0cb619bf60e2c25674b222b8940e2c1c25 # v4.1.0
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: javascript/package-lock.json
 
       - name: Install system dependencies (Linux)
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev swig build-essential mono-complete
+          sudo apt-get install -y libcurl4-openssl-dev swig build-essential
 
       - name: Install system dependencies (macOS)
         if: runner.os == 'macOS'
         run: |
-          brew install curl swig mono || true
+          brew install curl swig || true
 
       - name: Install system dependencies (Windows)
         if: runner.os == 'Windows'
         run: |
           choco install swig curl || true
 
-      - name: Build with Makefile (Linux/macOS)
-        if: runner.os != 'Windows'
-        working-directory: ./csharp
-        run: make
+      - name: Install dependencies
+        working-directory: ./javascript
+        run: npm ci || npm install
 
-      - name: Build with dotnet
-        working-directory: ./csharp
-        run: dotnet build --configuration Release
+      - name: Build native addon
+        working-directory: ./javascript
+        run: npm run build
 
       - name: Run tests
-        working-directory: ./csharp/tests
-        run: dotnet test --configuration Release
+        working-directory: ./javascript
+        run: npm test

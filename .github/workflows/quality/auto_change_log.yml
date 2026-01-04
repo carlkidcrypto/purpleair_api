@@ -1,4 +1,4 @@
-name: Auto Changelog
+name: quality/auto_change_log
 
 permissions:
   contents: write

@@ -1,7 +1,7 @@
 # Build and publish C# bindings to NuGet
 # https://learn.microsoft.com/en-us/nuget/quickstart/create-and-publish-a-package-using-the-dotnet-cli
 
-name: NuGet Distributions
+name: csharp/build_and_publish
 permissions:
   contents: read
 concurrency: build_and_publish_csharp
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/build_and_publish_csharp.yml'
+      - '.github/workflows/csharp/build_and_publish.yml'
 
 jobs:
   build_and_test:
