@@ -9,3 +9,40 @@ test*/coverage_reports/**
 test*/purpleair_api_coverage_reports/**
 **venv**
 **/doctrees/**
+
+# SWIG generated files - Python
+python/purpleair_api/purpleairapi_base.py
+python/purpleair_api/*_wrap.cpp
+python/purpleair_api/*.so
+
+# SWIG generated files - JavaScript
+javascript/*_wrap.cxx
+javascript/build/
+
+# SWIG generated files - C#
+csharp/*_wrap.cxx
+csharp/purpleairapi_base.cs
+csharp/purpleairapi_basePINVOKE.cs
+csharp/StringMap.cs
+csharp/_string_vector.cs
+csharp/PurpleAirAPIError.cs
+csharp/PurpleAirLocalAPI.cs
+csharp/PurpleAirReadAPI.cs
+csharp/PurpleAirWriteAPI.cs
+csharp/bin/
+csharp/obj/
+
+# SWIG generated files - swig/interface
+swig/interface/*_wrap.cpp
+swig/interface/*_wrap.cxx
+
+# Common build artifacts
+*.so
+*.dll
+*.pyd
+*.pyc
+__pycache__/
+build/
+*.egg-info/
+node_modules/
+

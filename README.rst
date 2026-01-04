@@ -1,9 +1,11 @@
 purple_air_api (PAA)
 ====================
 
-This is a python3 wrapper for the new PurpleAirAPI (PAA). Details of the API can be found using this link: https://api.purpleair.com/#api-welcome
+This is a python3 wrapper for the new PurpleAirAPI (PAA) with a **C++ backend and SWIG bindings** for Python3, JavaScript, and C#. Details of the API can be found using this link: https://api.purpleair.com/#api-welcome
 
 To use the PurpleAirAPI (PAA) api keys are required. You can get API keys by sending an email to ``contact@purpleair.com`` with a first and last name to assign them to.
+
+**New in v2.0**: The library now uses a high-performance C++ backend with SWIG bindings, providing native performance while maintaining full backward compatibility with existing Python code.
 
 .. image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml
@@ -54,11 +56,26 @@ Requirements
 Installation
 ------------
 
+Prerequisites
+~~~~~~~~~~~~~
+
+The C++ backend requires:
+
+- **Linux/Ubuntu**: ``sudo apt-get install build-essential libcurl4-openssl-dev swig``
+- **macOS**: ``brew install curl swig``
+- **Windows**: Visual Studio C++, SWIG, and curl library
+
+Installation via pip
+~~~~~~~~~~~~~~~~~~~~
+
 You can install the PurpleAir API via pip:
 
 .. code-block:: bash
 
    python3 -m pip install purple_air_api
+
+Installation from source
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can also install PurpleAir API by cloning down this repo:
 
@@ -66,7 +83,17 @@ You can also install PurpleAir API by cloning down this repo:
 
    git clone https://github.com/carlkidcrypto/purple_air_api.git
    cd purple_air_api
-   python3 setup.py install
+   python -m pip install .
+
+Multi-Language Support
+~~~~~~~~~~~~~~~~~~~~~~
+
+The repository is structured to support multiple languages:
+
+- **Python**: ``cd python && python -m pip install .``
+- **JavaScript/Node.js**: See `javascript/README.rst <javascript/README.rst>`_
+- **C#**: See `csharp/README.rst <csharp/README.rst>`_
+- **Native C++**: See `swig/README.rst <swig/README.rst>`_
 
 PurpleAirAPI Usage Example
 ---------------------------
