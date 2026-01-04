@@ -6,7 +6,7 @@ permissions:
 concurrency: build_and_publish_csharp_test
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/swig ]
     paths:
       - 'csharp/**'
       - 'swig/**'

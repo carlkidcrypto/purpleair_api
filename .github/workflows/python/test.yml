@@ -4,14 +4,14 @@ permissions:
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/swig ]
     paths:
       - 'python/**'
       - 'swig/**'
       - '.github/workflows/python/test.yml'
 
   pull_request:
-    branches: [ main ]
+    branches: [ main, feature/swig ]
 
 jobs:
   check-source-changes:

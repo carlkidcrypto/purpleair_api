@@ -2,16 +2,16 @@ name: quality/codeql
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/swig ]
     paths:
       - 'python/**/*.py'
       - 'javascript/**/*.js'
       - 'csharp/**/*.cs'
       - 'swig/**/*.cpp'
       - 'swig/**/*.h'
-      - '.github/workflows/codeql.yml'
+      - '.github/workflows/quality/codeql.yml'
   pull_request:
-    branches: [ main ]
+    branches: [ main, feature/swig ]
   schedule:
     - cron: '30 2 * * 1'  # Run every Monday at 2:30 AM UTC
   workflow_dispatch:
