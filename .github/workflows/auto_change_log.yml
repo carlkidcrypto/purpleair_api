@@ -1,0 +1,43 @@
+name: Auto Changelog
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'changelog.md'
+      - 'CHANGELOG.md'
+      - '.github/workflows/auto_change_log.yml'
+
+  workflow_dispatch:
+
+jobs:
+  update-changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Update Changelog
+        uses: stefanzweifel/changelog-updater-action@a70e05c4f7f680634c9de2dd566b44dba37fbdfa # v1.12.2
+        with:
+          latest-version: '2.0.0a0'
+          release-notes: |
+            ## What's Changed
+            * Migrated to C++ backend with SWIG bindings for Python, JavaScript, and C#
+            * Added multi-platform support (Linux, macOS, Windows)
+            * Improved performance with native C++ implementation
+            * Added cibuildwheel for Python package distribution
+            * Added npm support for JavaScript/Node.js bindings
+            * Added NuGet support for C# bindings
+
+      - name: Commit updated CHANGELOG
+        uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 # v5.0.1
+        with:
+          commit_message: 'chore: update CHANGELOG.md for v2.0.0a0'
+          file_pattern: 'CHANGELOG.md changelog.md'
