@@ -14,7 +14,7 @@ from setuptools.command.build_ext import build_ext
 
 def get_version():
     """Read version from pyproject.toml."""
-    return "1.4.0a1"
+    return "2.0.0a0"
 
 
 def get_swig_base():

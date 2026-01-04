@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "purpleair_api"
-version = "1.4.0a1"
+version = "2.0.0a0"
 description = "PurpleAir API wrapper with C++ backend and SWIG bindings"
 readme = "../README.rst"
 license = {text = "MIT"}

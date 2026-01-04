@@ -1,0 +1,80 @@
+name: javascript/test
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main, feature/swig ]
+    paths:
+      - 'javascript/**'
+      - 'swig/**'
+      - '.github/workflows/javascript/test.yml'
+
+  pull_request:
+    branches: [ main, feature/swig ]
+
+jobs:
+  check-source-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      run_job: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - name: Checkout Sourcecode
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Check for changes in JavaScript source code
+        id: changed-files
+        uses: tj-actions/changed-files@c3a1bb2c992d77180ae65be6ae6c166cf40f857c # v46.0.1
+        with:
+          files: |
+            javascript/**
+            swig/**
+            .github/workflows/javascript/test.yml
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: ['18.x', '20.x', '22.x']
+    needs: check-source-changes
+    if: needs.check-source-changes.outputs.run_job == 'true'
+    steps:    
+      - name: Check out repository code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: javascript/package-lock.json
+
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev swig build-essential
+
+      - name: Install system dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install curl swig || true
+
+      - name: Install system dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          choco install swig curl || true
+
+      - name: Install dependencies
+        working-directory: ./javascript
+        run: npm ci || npm install
+
+      - name: Build native addon
+        working-directory: ./javascript
+        run: npm run build
+
+      - name: Run tests
+        working-directory: ./javascript
+        run: npm test

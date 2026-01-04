@@ -1,11 +1,15 @@
-name: "Pull Request Sphinx Docs Check"
+name: python/sphinx_build
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, feature/swig ]
+    paths:
+      - 'sphinx_docs_build/**'
+      - 'python/**'
+      - '.github/workflows/python/sphinx_build.yml'
 
   pull_request:
-    branches: [ main ]
+    branches: [ main, feature/swig ]
 
 jobs:
   check-source-changes:
@@ -26,7 +30,8 @@ jobs:
             sphinx_docs_build/source/*.rst
             sphinx_docs_build/source/*.py
             sphinx_docs_build/*.txt
-            .github/workflows/sphinx_build.yml
+            python/**
+            .github/workflows/python/sphinx_build.yml
 
   sphinx_docs_build:
     permissions:
@@ -44,6 +49,11 @@ jobs:
           python-version: "3.11"
           cache: 'pip'
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev swig
+
       - name: Install python3/os requirements...
         uses: carlkidcrypto/os-specific-runner@2c04ab1b4323ccfd8f0b17030f0fb0f992969da6 # v2.1.1
         with:
@@ -52,7 +62,7 @@ jobs:
                  python -m pip install --upgrade setuptools &&
                  python -m pip install --upgrade pip &&
                  python -m pip install -r sphinx_docs_build/requirements.txt &&
-                 python -m pip install . --user;
+                 python -m pip install ./python --user;
 
       - name: Run sphinx...
         uses: carlkidcrypto/os-specific-runner@2c04ab1b4323ccfd8f0b17030f0fb0f992969da6 # v2.1.1
