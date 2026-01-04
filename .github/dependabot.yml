@@ -5,15 +5,68 @@
 
 version: 2
 updates:
-  # Maintain dependencies for github-actions
+  # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      # Check for updates to GitHub Actions every weekday
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
 
-  # Maintain dependencies for pip
+  # Maintain Python dependencies
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "/python"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # Maintain JavaScript/Node.js dependencies
+  - package-ecosystem: "npm"
+    directory: "/javascript"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "javascript"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    versioning-strategy: increase
+
+  # Maintain C#/.NET dependencies
+  - package-ecosystem: "nuget"
+    directory: "/csharp"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "csharp"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # Maintain Sphinx documentation dependencies
+  - package-ecosystem: "pip"
+    directory: "/sphinx_docs_build"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "documentation"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
