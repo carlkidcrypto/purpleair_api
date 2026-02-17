@@ -72,9 +72,7 @@ Versioned Documentation
 Future versions of the documentation can be maintained alongside the current version:
 
 * ``html/`` - Current release
-* ``html_v1.4.0.a1/`` - Version 1.4.0.a1 release (alpha)
 * ``html_v1.3.1/`` - Version 1.3.1 release
-* ``html_v2.0.0/`` - Version 2.0.0 release (when available)
 
 This allows users to reference documentation for specific versions of the package.
 
