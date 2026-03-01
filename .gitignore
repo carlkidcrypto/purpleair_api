@@ -36,7 +36,13 @@ csharp/obj/
 swig/interface/*_wrap.cpp
 swig/interface/*_wrap.cxx
 
-# Common build artifacts
+# SWIG generated files - Go
+go/purpleairapi/purpleairapi.go
+go/purpleairapi/purpleairapi_wrap.cxx
+go/purpleairapi/libpurpleairapi.a
+go/*.o
+go/go.sum
+
 *.so
 *.dll
 *.pyd

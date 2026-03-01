@@ -58,6 +58,19 @@ updates:
       prefix: "chore(deps)"
       include: "scope"
 
+  # Maintain Go dependencies
+  - package-ecosystem: "gomod"
+    directory: "/go"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "go"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
   # Maintain Sphinx documentation dependencies
   - package-ecosystem: "pip"
     directory: "/sphinx_docs_build"
