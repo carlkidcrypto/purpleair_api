@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "swig": "swig -javascript -node -c++ -I../swig/interface -I../swig/include -outdir . -o purpleairapi_base_wrap.cxx ../swig/interface/purpleairapi_base.i",
+    "build-gyp": "node-gyp rebuild",
     "prebuild": "npm run swig",
-    "build": "node-gyp rebuild",
+    "build": "npm run build-gyp",
     "preinstall": "npm run swig",
     "install": "node-gyp rebuild",
     "test": "jest",

@@ -10,6 +10,16 @@ test*/purpleair_api_coverage_reports/**
 **venv**
 **/doctrees/**
 
+# Meson / Ninja build artifacts
+builddir/
+build/
+_build/
+.mesonpy/
+*.mesonpy.*
+meson-private/
+meson-info/
+meson-logs/
+
 # SWIG generated files - Python
 python/purpleair_api/purpleairapi_base.py
 python/purpleair_api/*_wrap.cpp
@@ -51,4 +61,3 @@ __pycache__/
 build/
 *.egg-info/
 node_modules/
-

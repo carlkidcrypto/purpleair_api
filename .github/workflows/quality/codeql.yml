@@ -64,10 +64,9 @@ jobs:
     - name: Build C++ code
       if: matrix.language == 'c-cpp'
       run: |
-        cd swig/src
-        g++ -std=c++17 -fPIC -I../include -c *.cpp
-        cd ../../python
-        python setup.py build_ext --inplace || true
+        pip install meson ninja
+        meson setup builddir -Dcsharp_bindings=false -Dgo_bindings=false -Djavascript_bindings=false
+        ninja -C builddir
 
     - if: matrix.build-mode == 'autobuild'
       name: Autobuild

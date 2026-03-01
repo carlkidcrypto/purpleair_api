@@ -9,10 +9,33 @@
     <Description>PurpleAir API C# bindings with C++ backend</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/carlkidcrypto/purpleair_api</RepositoryUrl>
+    <!--
+      GeneratedSourcesDir: where SWIG-generated *.cs files live.
+      Default is the project directory (supports manual / legacy builds where
+      SWIG is invoked manually and files land in csharp/).
+      When building via Meson/Ninja, pass the Meson build sub-directory:
+        dotnet build -p:GeneratedSourcesDir=<builddir>/csharp/
+    -->
+    <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == ''">$(MSBuildThisFileDirectory)</GeneratedSourcesDir>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="*.cs" />
+    <Compile Include="$(GeneratedSourcesDir)purpleairapi_base.cs"
+             Condition="Exists('$(GeneratedSourcesDir)purpleairapi_base.cs')" />
+    <Compile Include="$(GeneratedSourcesDir)purpleairapi_basePINVOKE.cs"
+             Condition="Exists('$(GeneratedSourcesDir)purpleairapi_basePINVOKE.cs')" />
+    <Compile Include="$(GeneratedSourcesDir)PurpleAirAPIError.cs"
+             Condition="Exists('$(GeneratedSourcesDir)PurpleAirAPIError.cs')" />
+    <Compile Include="$(GeneratedSourcesDir)PurpleAirLocalAPI.cs"
+             Condition="Exists('$(GeneratedSourcesDir)PurpleAirLocalAPI.cs')" />
+    <Compile Include="$(GeneratedSourcesDir)PurpleAirReadAPI.cs"
+             Condition="Exists('$(GeneratedSourcesDir)PurpleAirReadAPI.cs')" />
+    <Compile Include="$(GeneratedSourcesDir)PurpleAirWriteAPI.cs"
+             Condition="Exists('$(GeneratedSourcesDir)PurpleAirWriteAPI.cs')" />
+    <Compile Include="$(GeneratedSourcesDir)StringMap.cs"
+             Condition="Exists('$(GeneratedSourcesDir)StringMap.cs')" />
+    <Compile Include="$(GeneratedSourcesDir)_string_vector.cs"
+             Condition="Exists('$(GeneratedSourcesDir)_string_vector.cs')" />
   </ItemGroup>
 
 </Project>

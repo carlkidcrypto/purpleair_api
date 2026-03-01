@@ -46,18 +46,22 @@ jobs:
         run: |
           choco install swig curl || true
 
-      - name: Build with Makefile (Linux/macOS)
-        if: runner.os != 'Windows'
-        working-directory: ./csharp
-        run: make
+      - name: Install Meson and Ninja
+        run: pip install meson ninja
+
+      - name: Configure with Meson
+        run: meson setup builddir -Dgo_bindings=false -Djavascript_bindings=false
+
+      - name: Build with Ninja
+        run: ninja -C builddir
 
       - name: Build with dotnet
         working-directory: ./csharp
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release -p:GeneratedSourcesDir=${{ github.workspace }}/builddir/csharp/
 
       - name: Run tests
         working-directory: ./csharp/tests
-        run: dotnet test --configuration Release
+        run: dotnet test --configuration Release -p:GeneratedSourcesDir=${{ github.workspace }}/builddir/csharp/
 
   publish:
     name: Publish to NuGet
@@ -76,13 +80,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev swig build-essential mono-complete
 
-      - name: Build with Makefile
-        working-directory: ./csharp
-        run: make
+      - name: Install Meson and Ninja
+        run: pip install meson ninja
+
+      - name: Configure with Meson
+        run: meson setup builddir -Dgo_bindings=false -Djavascript_bindings=false
+
+      - name: Build with Ninja
+        run: ninja -C builddir
 
       - name: Pack NuGet package
         working-directory: ./csharp
-        run: dotnet pack --configuration Release --output ./nupkg
+        run: dotnet pack --configuration Release --output ./nupkg -p:GeneratedSourcesDir=${{ github.workspace }}/builddir/csharp/
 
       - name: Publish to NuGet
         working-directory: ./csharp

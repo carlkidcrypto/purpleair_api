@@ -61,9 +61,14 @@ jobs:
         run: |
           brew install curl swig || true
 
-      - name: Generate SWIG wrappers and build static library
-        working-directory: ./go
-        run: make all
+      - name: Install Meson and Ninja
+        run: pip install meson ninja
+
+      - name: Configure with Meson
+        run: meson setup builddir -Dcsharp_bindings=false -Djavascript_bindings=false
+
+      - name: Build with Ninja
+        run: ninja -C builddir
 
       - name: Run Go tests
         working-directory: ./go
