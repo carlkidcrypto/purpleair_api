@@ -10,9 +10,11 @@ Directory Structure
 
    docs/
    ├── html/              # Current release documentation (HTML format)
+   ├── html_v1.4.0/       # Version 1.4.0 documentation (HTML format)
+   ├── html_v1.3.1/       # Version 1.3.1 documentation (HTML format)
    ├── doctrees/          # Sphinx build cache (not committed to git)
    ├── .nojekyll          # Disables Jekyll processing for GitHub Pages
-   └── index.html         # Redirect to html/modules.html
+   └── index.html         # Landing page with links to all versions
 
 Generated Documentation
 -----------------------
@@ -69,9 +71,10 @@ For more information about building documentation, see the
 Versioned Documentation
 -----------------------
 
-Future versions of the documentation can be maintained alongside the current version:
+Versions of the documentation are maintained alongside the current version:
 
-* ``html/`` - Current release
+* ``html/`` - Current release (1.4.0 stable)
+* ``html_v1.4.0/`` - Version 1.4.0 release
 * ``html_v1.3.1/`` - Version 1.3.1 release
 
 This allows users to reference documentation for specific versions of the package.
