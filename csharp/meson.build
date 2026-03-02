@@ -56,7 +56,7 @@ csharp_swig = custom_target(
 # Compile the SWIG C++ wrapper + core C++ sources into libpurpleairapi.so.
 # dotnet loads this at runtime via P/Invoke.
 shared_library(
-  'purpleairapi',
+  'purpleairapi_base',
   [csharp_swig[0]] + purpleair_sources,
   include_directories: purpleair_inc,
   dependencies: [libcurl_dep],

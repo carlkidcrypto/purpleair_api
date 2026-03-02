@@ -16,4 +16,26 @@
   <ItemGroup>
     <ProjectReference Include="../PurpleAirAPI.csproj" />
   </ItemGroup>
+
+  <!--
+    Copy the SWIG native library (libpurpleairapi_base.so / .dylib / .dll)
+    from the Meson build directory to the test output directory so that the
+    .NET runtime can find it via P/Invoke at test execution time.
+    GeneratedSourcesDir is passed on the dotnet test command line, e.g.:
+      dotnet test -p:GeneratedSourcesDir=<builddir>/csharp/
+  -->
+  <Target
+    Name="CopyNativeLibrary"
+    AfterTargets="Build"
+    Condition="'$(GeneratedSourcesDir)' != '' And Exists('$(GeneratedSourcesDir)')"
+  >
+    <ItemGroup>
+      <_NativeLibFiles Include="$(GeneratedSourcesDir)*purpleairapi_base.*" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(_NativeLibFiles)"
+      DestinationFolder="$(OutputPath)"
+      Condition="'@(_NativeLibFiles)' != ''"
+    />
+  </Target>
 </Project>
