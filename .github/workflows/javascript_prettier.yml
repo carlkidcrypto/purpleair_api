@@ -9,7 +9,7 @@ on:
     paths:
       - 'javascript/**/*.js'
       - 'javascript/**/*.json'
-      - '.github/workflows/javascript/prettier.yml'
+      - '.github/workflows/javascript_prettier.yml'
 
   pull_request:
     branches: [ main, feature/swig ]
@@ -30,7 +30,7 @@ jobs:
           files: |
             javascript/**/*.js
             javascript/**/*.json
-            .github/workflows/javascript/prettier.yml
+            .github/workflows/javascript_prettier.yml
 
   prettier:
     runs-on: ubuntu-latest

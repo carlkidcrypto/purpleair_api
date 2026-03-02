@@ -8,7 +8,7 @@ on:
     paths:
       - 'python/**'
       - 'swig/**'
-      - '.github/workflows/python/test.yml'
+      - '.github/workflows/python_test.yml'
 
   pull_request:
     branches: [ main, feature/swig ]
@@ -29,7 +29,7 @@ jobs:
           files: |
             python/**
             swig/**
-            .github/workflows/python/test.yml
+            .github/workflows/python_test.yml
 
   tests:
     runs-on: ${{ matrix.os }}

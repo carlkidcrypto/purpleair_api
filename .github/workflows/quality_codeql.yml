@@ -9,7 +9,7 @@ on:
       - 'csharp/**/*.cs'
       - 'swig/**/*.cpp'
       - 'swig/**/*.h'
-      - '.github/workflows/quality/codeql.yml'
+      - '.github/workflows/quality_codeql.yml'
   pull_request:
     branches: [ main, feature/swig ]
   schedule:

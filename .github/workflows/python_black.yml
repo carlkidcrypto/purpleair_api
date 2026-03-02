@@ -7,7 +7,7 @@ on:
     branches: [ main, feature/swig ]
     paths:
       - 'python/**/*.py'
-      - '.github/workflows/python/black.yml'
+      - '.github/workflows/python_black.yml'
 
   pull_request:
     branches: [ main, feature/swig ]
@@ -27,7 +27,7 @@ jobs:
         with:
           files: |
             python/**/*.py
-            .github/workflows/python/black.yml
+            .github/workflows/python_black.yml
 
   black:
     runs-on: ubuntu-latest

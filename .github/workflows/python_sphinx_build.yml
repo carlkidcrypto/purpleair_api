@@ -6,7 +6,7 @@ on:
     paths:
       - 'sphinx_docs_build/**'
       - 'python/**'
-      - '.github/workflows/python/sphinx_build.yml'
+      - '.github/workflows/python_sphinx_build.yml'
 
   pull_request:
     branches: [ main, feature/swig ]
@@ -31,7 +31,7 @@ jobs:
             sphinx_docs_build/source/*.py
             sphinx_docs_build/*.txt
             python/**
-            .github/workflows/python/sphinx_build.yml
+            .github/workflows/python_sphinx_build.yml
 
   sphinx_docs_build:
     permissions:

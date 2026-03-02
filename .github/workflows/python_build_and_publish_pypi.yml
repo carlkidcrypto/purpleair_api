@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/python/build_and_publish_pypi.yml'
+      - '.github/workflows/python_build_and_publish_pypi.yml'
 
 jobs:
   build_wheels:
