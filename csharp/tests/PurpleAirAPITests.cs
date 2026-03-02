@@ -4,8 +4,8 @@
  */
 
 using System;
-using Xunit;
 using PurpleAirAPI;
+using Xunit;
 
 namespace PurpleAirAPI.Tests
 {
@@ -92,7 +92,7 @@ namespace PurpleAirAPI.Tests
         {
             var ipList = new _string_vector();
             var api = new PurpleAirLocalAPI(ipList);
-            Assert.Throws<PurpleAirAPIError>(() => { api.request_local_sensor_data(); });
+            Assert.Throws<PurpleAirAPIError>((Action)(() => api.request_local_sensor_data()));
         }
     }
 
