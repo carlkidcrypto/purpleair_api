@@ -4,7 +4,6 @@
 Copyright 2023 carlkidcrypto, All rights reserved.
 """
 
-
 import unittest
 from random import choice
 from copy import deepcopy

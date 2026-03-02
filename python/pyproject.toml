@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel", "swig"]
-build-backend = "setuptools.build_meta"
+requires = ["meson-python", "meson>=0.64.0", "ninja", "swig"]
+build-backend = "mesonpy"
 
 [project]
 name = "purpleair_api"
@@ -53,12 +53,6 @@ dev = [
     "black",
     "coverage",
 ]
-
-[tool.setuptools]
-packages = ["purpleair_api"]
-
-[tool.setuptools.package-data]
-purpleair_api = ["*.so", "*.pyd", "*.dll"]
 
 [tool.black]
 line-length = 100

@@ -10,6 +10,16 @@ test*/purpleair_api_coverage_reports/**
 **venv**
 **/doctrees/**
 
+# Meson / Ninja build artifacts
+builddir/
+build/
+_build/
+.mesonpy/
+*.mesonpy.*
+meson-private/
+meson-info/
+meson-logs/
+
 # SWIG generated files - Python
 python/purpleair_api/purpleairapi_base.py
 python/purpleair_api/*_wrap.cpp
@@ -29,14 +39,20 @@ csharp/PurpleAirAPIError.cs
 csharp/PurpleAirLocalAPI.cs
 csharp/PurpleAirReadAPI.cs
 csharp/PurpleAirWriteAPI.cs
-csharp/bin/
-csharp/obj/
+csharp/**/bin/
+csharp/**/obj/
 
 # SWIG generated files - swig/interface
 swig/interface/*_wrap.cpp
 swig/interface/*_wrap.cxx
 
-# Common build artifacts
+# SWIG generated files - Go
+go/purpleairapi/purpleairapi.go
+go/purpleairapi/purpleairapi_wrap.cxx
+go/purpleairapi/libpurpleairapi.a
+go/*.o
+go/go.sum
+
 *.so
 *.dll
 *.pyd
@@ -45,4 +61,3 @@ __pycache__/
 build/
 *.egg-info/
 node_modules/
-

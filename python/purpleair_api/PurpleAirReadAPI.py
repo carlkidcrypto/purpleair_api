@@ -140,9 +140,7 @@ class PurpleAirReadAPI:
         :return A python dictionary containing the payload response
         """
 
-        request_url = (
-            self._base_api_v1_request_string + "sensors/" + f"?fields={fields}"
-        )
+        request_url = self._base_api_v1_request_string + "sensors/" + f"?fields={fields}"
 
         # Add to the request_url string depending on what optional parameters are
         # passed in. Turn them into a dict of optional parameters
@@ -328,9 +326,7 @@ class PurpleAirReadAPI:
             For field descriptions, please see the 'sensor data fields'. section.
         """
 
-        request_url = (
-            self._base_api_v1_request_string + f"groups/{group_id}/members/{member_id}"
-        )
+        request_url = self._base_api_v1_request_string + f"groups/{group_id}/members/{member_id}"
 
         # Add to the request_url string depending on what optional parameters are
         # passed in. Turn them into a dict of optional parameters
@@ -504,8 +500,7 @@ class PurpleAirReadAPI:
         """
 
         request_url = (
-            self._base_api_v1_request_string
-            + f"groups/{group_id}/members?fields={fields}"
+            self._base_api_v1_request_string + f"groups/{group_id}/members?fields={fields}"
         )
 
         # Add to the request_url string depending on what optional parameters are

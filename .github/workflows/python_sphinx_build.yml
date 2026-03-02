@@ -6,7 +6,7 @@ on:
     paths:
       - 'sphinx_docs_build/**'
       - 'python/**'
-      - '.github/workflows/python/sphinx_build.yml'
+      - '.github/workflows/python_sphinx_build.yml'
 
   pull_request:
     branches: [ main, feature/swig ]
@@ -31,7 +31,7 @@ jobs:
             sphinx_docs_build/source/*.py
             sphinx_docs_build/*.txt
             python/**
-            .github/workflows/python/sphinx_build.yml
+            .github/workflows/python_sphinx_build.yml
 
   sphinx_docs_build:
     permissions:
@@ -43,10 +43,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Set up Python 3.11 env for sphinx...
+      - name: Set up Python 3.12 env for sphinx...
         uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           cache: 'pip'
 
       - name: Install system dependencies

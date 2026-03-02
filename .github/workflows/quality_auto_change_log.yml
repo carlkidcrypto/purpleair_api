@@ -10,7 +10,7 @@ on:
     paths-ignore:
       - 'changelog.md'
       - 'CHANGELOG.md'
-      - '.github/workflows/auto_change_log.yml'
+      - '.github/workflows/quality_auto_change_log.yml'
 
   workflow_dispatch:
 

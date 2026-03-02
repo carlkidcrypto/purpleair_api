@@ -8,7 +8,7 @@ on:
     paths:
       - 'javascript/**'
       - 'swig/**'
-      - '.github/workflows/javascript/test.yml'
+      - '.github/workflows/javascript_test.yml'
 
   pull_request:
     branches: [ main, feature/swig ]
@@ -29,7 +29,7 @@ jobs:
           files: |
             javascript/**
             swig/**
-            .github/workflows/javascript/test.yml
+            .github/workflows/javascript_test.yml
 
   test:
     runs-on: ${{ matrix.os }}
@@ -71,9 +71,18 @@ jobs:
         working-directory: ./javascript
         run: npm ci || npm install
 
+      - name: Install Meson and Ninja
+        run: pip install meson ninja
+
+      - name: Configure with Meson
+        run: meson setup builddir -Dcsharp_bindings=false -Dgo_bindings=false
+
+      - name: Build SWIG wrapper with Ninja
+        run: ninja -C builddir javascript_swig javascript_copy_cxx
+
       - name: Build native addon
         working-directory: ./javascript
-        run: npm run build
+        run: npm run build-gyp
 
       - name: Run tests
         working-directory: ./javascript

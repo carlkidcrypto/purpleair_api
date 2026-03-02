@@ -119,8 +119,7 @@ def send_url_get_request(
 
                 if opt_param_count == 1:
                     request_url = (
-                        request_url
-                        + f"{first_optional_parameter_separator}{opt_param}={str(val)}"
+                        request_url + f"{first_optional_parameter_separator}{opt_param}={str(val)}"
                     )
 
                 elif opt_param_count >= 2:

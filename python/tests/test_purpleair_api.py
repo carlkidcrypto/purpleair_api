@@ -4,7 +4,6 @@
 Copyright 2023 carlkidcrypto, All rights reserved.
 """
 
-
 import unittest
 import requests_mock
 import sys
@@ -117,9 +116,7 @@ class PurpleAirAPITest(unittest.TestCase):
                 status_code=200,
             )
 
-            PurpleAirAPI(
-                your_api_write_key="123456789", your_ipv4_address=["192.168.1.2"]
-            )
+            PurpleAirAPI(your_api_write_key="123456789", your_ipv4_address=["192.168.1.2"])
 
         with requests_mock.Mocker() as m:
             m.get(
@@ -128,9 +125,7 @@ class PurpleAirAPITest(unittest.TestCase):
                 status_code=200,
             )
 
-            PurpleAirAPI(
-                your_api_read_key="123456789", your_ipv4_address=["192.168.1.2"]
-            )
+            PurpleAirAPI(your_api_read_key="123456789", your_ipv4_address=["192.168.1.2"])
 
     def test_purpleairapi_getters(self):
         """

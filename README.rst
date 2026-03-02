@@ -61,9 +61,9 @@ Prerequisites
 
 The C++ backend requires:
 
-- **Linux/Ubuntu**: ``sudo apt-get install build-essential libcurl4-openssl-dev swig``
-- **macOS**: ``brew install curl swig``
-- **Windows**: Visual Studio C++, SWIG, and curl library
+- **Linux/Ubuntu**: ``sudo apt-get install build-essential libcurl4-openssl-dev swig meson ninja-build``
+- **macOS**: ``brew install curl swig meson ninja``
+- **Windows**: Visual Studio C++, SWIG, curl library, Meson, and Ninja
 
 Installation via pip
 ~~~~~~~~~~~~~~~~~~~~
@@ -91,8 +91,19 @@ Multi-Language Support
 The repository is structured to support multiple languages:
 
 - **Python**: ``cd python && python -m pip install .``
-- **JavaScript/Node.js**: See `javascript/README.rst <javascript/README.rst>`_
-- **C#**: See `csharp/README.rst <csharp/README.rst>`_
+- **JavaScript/Node.js**, **C#**, and **Go** use Meson/Ninja to build the
+  native parts first:
+
+  .. code-block:: bash
+
+     meson setup builddir && ninja -C builddir
+
+  Then follow the language-specific steps in each binding's README:
+
+  - `javascript/README.rst <javascript/README.rst>`_
+  - `csharp/README.rst <csharp/README.rst>`_
+  - `go/README.rst <go/README.rst>`_
+
 - **Native C++**: See `swig/README.rst <swig/README.rst>`_
 
 PurpleAirAPI Usage Example

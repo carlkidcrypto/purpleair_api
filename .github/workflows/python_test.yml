@@ -8,7 +8,7 @@ on:
     paths:
       - 'python/**'
       - 'swig/**'
-      - '.github/workflows/python/test.yml'
+      - '.github/workflows/python_test.yml'
 
   pull_request:
     branches: [ main, feature/swig ]
@@ -29,7 +29,7 @@ jobs:
           files: |
             python/**
             swig/**
-            .github/workflows/python/test.yml
+            .github/workflows/python_test.yml
 
   tests:
     runs-on: ${{ matrix.os }}
@@ -73,20 +73,17 @@ jobs:
                python -m pip install --upgrade wheel ;
                python -m pip install --upgrade setuptools ;
                python -m pip install --upgrade pip ;
-               python -m pip install coverage ;
-               python -m pip install requests_mock ;
+               python -m pip install -r python/tests/requirements.txt ;
             macos: cd /Users/runner/work/purpleair_api/purpleair_api/ ;
                python -m pip install --upgrade wheel ;
                python -m pip install --upgrade setuptools ;
                python -m pip install --upgrade pip ;
-               python -m pip install coverage ;
-               python -m pip install requests_mock ;
+               python -m pip install -r python/tests/requirements.txt ;
             windows: cd D:\a\purpleair_api\purpleair_api\ ;
                  python -m pip install --upgrade wheel ;
                  python -m pip install --upgrade setuptools ;
                  python -m pip install --upgrade pip ;
-                 python -m pip install coverage ;
-                 python -m pip install requests_mock ;
+                 python -m pip install -r python/tests/requirements.txt ;
 
       - name: Run unit tests...
         uses: carlkidcrypto/os-specific-runner@2c04ab1b4323ccfd8f0b17030f0fb0f992969da6 # v2.1.1
