@@ -39,8 +39,8 @@ csharp/PurpleAirAPIError.cs
 csharp/PurpleAirLocalAPI.cs
 csharp/PurpleAirReadAPI.cs
 csharp/PurpleAirWriteAPI.cs
-csharp/bin/
-csharp/obj/
+csharp/**/bin/
+csharp/**/obj/
 
 # SWIG generated files - swig/interface
 swig/interface/*_wrap.cpp
