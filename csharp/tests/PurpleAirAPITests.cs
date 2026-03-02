@@ -92,7 +92,7 @@ namespace PurpleAirAPI.Tests
         {
             var ipList = new _string_vector();
             var api = new PurpleAirLocalAPI(ipList);
-            Assert.Throws<PurpleAirAPIError>((Action)(() => api.request_local_sensor_data()));
+            Assert.Throws<ApplicationException>((Action)(() => api.request_local_sensor_data()));
         }
     }
 

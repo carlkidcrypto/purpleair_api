@@ -63,17 +63,23 @@ custom_target(
   output: 'go_pkg_setup.stamp',
   command: [
     python, '-c',
-    'import shutil, subprocess, os, sys, pathlib, tempfile; '
+    'import shutil, subprocess, os, sys, pathlib, tempfile\n'
     + '[shutil.copy(s, d) for s, d in ['
     + '(sys.argv[1], sys.argv[3] + "/purpleairapi_wrap.cxx"), '
     + '(sys.argv[2], sys.argv[3] + "/purpleairapi.go")'
-    + ']]; '
-    + 'lib=sys.argv[5]; dst=sys.argv[3]+"/libpurpleairapi.a"; '
-    + 'tmp=tempfile.mkdtemp(); '
-    + 'subprocess.run(["ar","-x",lib],cwd=tmp,check=True); '
-    + 'objs=[os.path.join(r,f) for r,ds,fs in os.walk(tmp) for f in fs if f.endswith(".o")]; '
-    + 'subprocess.run(["ar","-crs",dst]+sorted(objs),check=True); '
-    + 'shutil.rmtree(tmp); '
+    + ']]\n'
+    + 'lib=sys.argv[5]; dst=sys.argv[3]+"/libpurpleairapi.a"\n'
+    + 'with open(lib,"rb") as _f: thin=(_f.read(8)==b"!<thin>\\n")\n'
+    + 'if thin:\n'
+    + '  out=subprocess.run(["ar","-t",lib],capture_output=True,text=True,check=True).stdout\n'
+    + '  objs=[os.path.normpath(l) for l in out.splitlines() if l.endswith(".o")]\n'
+    + '  subprocess.run(["ar","-crs",dst]+sorted(objs),check=True)\n'
+    + 'else:\n'
+    + '  tmp=tempfile.mkdtemp()\n'
+    + '  subprocess.run(["ar","-x",lib],cwd=tmp,check=True)\n'
+    + '  objs=[os.path.join(r,f) for r,ds,fs in os.walk(tmp) for f in fs if f.endswith(".o")]\n'
+    + '  subprocess.run(["ar","-crs",dst]+sorted(objs),check=True)\n'
+    + '  shutil.rmtree(tmp)\n'
     + 'pathlib.Path(sys.argv[4]).touch()',
     '@INPUT0@',
     '@INPUT1@',
