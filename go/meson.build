@@ -63,12 +63,14 @@ custom_target(
   output: 'go_pkg_setup.stamp',
   command: [
     python, '-c',
-    'import shutil, sys, pathlib; '
+    'import shutil, subprocess, os, sys, pathlib; '
     + '[shutil.copy(s, d) for s, d in ['
     + '(sys.argv[1], sys.argv[3] + "/purpleairapi_wrap.cxx"), '
-    + '(sys.argv[2], sys.argv[3] + "/purpleairapi.go"), '
-    + '(sys.argv[5], sys.argv[3] + "/libpurpleairapi.a")'
-    + ']]; pathlib.Path(sys.argv[4]).touch()',
+    + '(sys.argv[2], sys.argv[3] + "/purpleairapi.go")'
+    + ']]; '
+    + 'lib=sys.argv[5]; lib_dir=os.path.dirname(lib); dst=sys.argv[3]+"/libpurpleairapi.a"; '
+    + '(subprocess.run(["ar","-crs",dst]+subprocess.check_output(["ar","-t",lib]).decode().split(),cwd=lib_dir,check=True) if open(lib,"rb").read(8)==b"!<thin>\\n" else shutil.copy(lib,dst)); '
+    + 'pathlib.Path(sys.argv[4]).touch()',
     '@INPUT0@',
     '@INPUT1@',
     go_pkg_src,

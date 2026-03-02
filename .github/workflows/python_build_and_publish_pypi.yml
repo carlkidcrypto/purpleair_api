@@ -43,6 +43,7 @@ jobs:
           # Install system dependencies
           CIBW_BEFORE_ALL_LINUX: "yum install -y libcurl-devel swig || apt-get update && apt-get install -y libcurl4-openssl-dev swig"
           CIBW_BEFORE_ALL_MACOS: "brew install curl swig || true"
+          CIBW_ENVIRONMENT_MACOS: PKG_CONFIG_PATH="$(brew --prefix curl)/lib/pkgconfig"
           CIBW_BEFORE_ALL_WINDOWS: "choco install swig curl || true"
           # Build dependencies
           CIBW_BUILD_VERBOSITY: 1
