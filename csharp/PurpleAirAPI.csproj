@@ -19,6 +19,11 @@
     <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == ''">$(MSBuildThisFileDirectory)</GeneratedSourcesDir>
   </PropertyGroup>
 
+  <!-- Exclude the tests sub-project from the main assembly's implicit compile glob -->
+  <ItemGroup>
+    <Compile Remove="tests/**/*.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Include="$(GeneratedSourcesDir)purpleairapi_base.cs"
              Condition="Exists('$(GeneratedSourcesDir)purpleairapi_base.cs')" />

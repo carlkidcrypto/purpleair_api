@@ -19,9 +19,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
     PurpleAirAPI requests.
     """
 
-    def __init__(
-        self, your_api_read_key=None, your_api_write_key=None, your_ipv4_address=None
-    ):
+    def __init__(self, your_api_read_key=None, your_api_write_key=None, your_ipv4_address=None):
         """
         :param str your_api_read_key: A valid PurpleAirAPI Read key
         :param str your_api_write_key: A valid PurpleAirAPI Write key
@@ -29,11 +27,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
         """
 
         # We can not have all three parameters be empty
-        if (
-            your_api_read_key is None
-            and your_api_write_key is None
-            and your_ipv4_address is None
-        ):
+        if your_api_read_key is None and your_api_write_key is None and your_ipv4_address is None:
             raise PurpleAirAPIError(
                 "Ensure that the right combination of parameters have been provided! "
                 + "`your_api_read_key` or `your_api_write_key` for external internet requests. Or "
@@ -84,9 +78,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
 
         # Avoid logging sensitive API keys in debug output
         debug_log(f"_api_versions contains {len(self._api_versions)} key(s)")
-        debug_log(
-            f"_api_keys_last_checked contains {len(self._api_keys_last_checked)} key(s)"
-        )
+        debug_log(f"_api_keys_last_checked contains {len(self._api_keys_last_checked)} key(s)")
         debug_log(f"_api_key_types contains {len(self._api_key_types)} key(s)")
         debug_log(your_ipv4_address)
 
@@ -104,15 +96,9 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
         )
 
         # We good :) get the request information
-        self._api_versions[str_api_key_to_check] = the_request_text_as_json[
-            "api_version"
-        ]
-        self._api_keys_last_checked[str_api_key_to_check] = the_request_text_as_json[
-            "time_stamp"
-        ]
-        self._api_key_types[str_api_key_to_check] = the_request_text_as_json[
-            "api_key_type"
-        ]
+        self._api_versions[str_api_key_to_check] = the_request_text_as_json["api_version"]
+        self._api_keys_last_checked[str_api_key_to_check] = the_request_text_as_json["time_stamp"]
+        self._api_key_types[str_api_key_to_check] = the_request_text_as_json["api_key_type"]
 
         return True
 
