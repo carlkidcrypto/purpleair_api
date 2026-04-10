@@ -13,26 +13,26 @@ permissions:
   actions: read
   contents: read
 
-safe-outputs: true
-
-create-pull-request:
-  title-prefix: "[changelog]"
-  labels:
-    - documentation
-    - automated-pr
-  draft: false
-  preserve-branch-name: true
-  if-no-changes: ignore
+safe-outputs:
+  create-pull-request:
+    title-prefix: "[changelog]"
+    labels:
+      - documentation
+      - automated-pr
+    draft: false
+    preserve-branch-name: true
+    if-no-changes: ignore
 
 timeout-minutes: 30
+
+network: defaults
+
+tools:
+  bash: true
 
 engine:
   id: copilot
   model: auto
-  network: allowed
-  defaults: github
-  tools:
-    bash: true
 ---
 
 ## Smart Changelog Update

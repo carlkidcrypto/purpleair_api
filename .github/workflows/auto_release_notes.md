@@ -19,19 +19,19 @@ permissions:
   actions: read
   contents: read
 
-safe-outputs: true
-
-update-release: true
+safe-outputs:
+  update-release:
 
 timeout-minutes: 60
+
+network: defaults
+
+tools:
+  bash: true
 
 engine:
   id: copilot
   model: auto
-  network: allowed
-  defaults: github
-  tools:
-    bash: true
 ---
 
 ## Auto Update Release Notes

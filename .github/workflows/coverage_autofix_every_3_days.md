@@ -5,40 +5,33 @@ on:
   schedule:
     - cron: "0 9 */3 * *"
   workflow_dispatch:
-
-skip-if-match:
-  query: "is:pr is:open head:automation/coverage-autofix-every-3-days label:automated-pr"
+  skip-if-match:
+    query: "is:pr is:open head:automation/coverage-autofix-every-3-days label:automated-pr"
 
 permissions:
   actions: read
   contents: read
 
-safe-outputs: true
-
-create-pull-request:
-  add-labels: true
-  title-prefix: "[coverage-autofix]"
-  labels:
-    - automated-pr
-  draft: true
-  preserve-branch-name: true
-  if-no-changes: ignore
-
-target:
-  allowed: "*"
-  coverage: tests
-  python: 4
+safe-outputs:
+  create-pull-request:
+    title-prefix: "[coverage-autofix]"
+    labels:
+      - automated-pr
+    draft: true
+    preserve-branch-name: true
+    if-no-changes: ignore
 
 timeout-minutes: 45
+
+network: defaults
+
+tools:
+  edit:
+  bash: true
 
 engine:
   id: copilot
   model: auto
-  network: allowed
-  defaults: python
-  tools:
-    edit: true
-    bash: true
 ---
 
 ## Coverage Checks And Suggested Fixes
