@@ -5,24 +5,22 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 9 */3 * *"
-
-skip-if-match:
-  query: "is:pr is:open head:automation/docs-continuous-improvement label:documentation label:automated-pr"
+  skip-if-match:
+    query: "is:pr is:open head:automation/docs-continuous-improvement label:documentation label:automated-pr"
 
 permissions:
   actions: read
   contents: read
 
-safe-outputs: true
-
-create-pull-request:
-  title-prefix: "[docs-improvement]"
-  labels:
-    - documentation
-    - automated-pr
-  draft: true
-  preserve-branch-name: true
-  if-no-changes: ignore
+safe-outputs:
+  create-pull-request:
+    title-prefix: "[docs-improvement]"
+    labels:
+      - documentation
+      - automated-pr
+    draft: true
+    preserve-branch-name: true
+    if-no-changes: ignore
 
 timeout-minutes: 45
 
