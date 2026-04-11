@@ -4,7 +4,6 @@
 Copyright 2023 carlkidcrypto, All rights reserved.
 """
 
-
 import unittest
 from random import choice
 from copy import deepcopy
@@ -31,6 +30,19 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
             debug_log(msg_str)
         except Exception as e:
             self.fail(f"debug_log raised an exception: {e}")
+
+    def test_debug_log_prints_when_enabled(self):
+        """
+        Test that debug_log prints a message when PRINT_DEBUG_MSGS is True
+        """
+        # Setup
+        msg_str = "debug enabled message"
+
+        # Action and Expected Result - patch PRINT_DEBUG_MSGS to True and verify print is called
+        with patch.object(helpers_module, "PRINT_DEBUG_MSGS", True):
+            with patch("builtins.print") as mock_print:
+                debug_log(msg_str)
+                mock_print.assert_called_once_with("\033[1;31m" + msg_str + "\x1b[0m")
 
     def test_verify_request_status_code_true(self):
         """
