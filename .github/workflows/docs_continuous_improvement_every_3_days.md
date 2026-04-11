@@ -24,6 +24,12 @@ safe-outputs:
 
 timeout-minutes: 45
 
+network: defaults
+
+tools:
+  edit:
+  bash: true
+
 engine:
   id: copilot
   model: auto
