@@ -154,6 +154,14 @@ class PurpleAirAPITest(unittest.TestCase):
         self.assertEqual(paa.get_api_key_type["123456789"], "WRITE")
         self.assertEqual(paa.get_api_versions["123456789"], "1.1.1")
 
+    def test_purpleairapi_ipv4_only(self):
+        """
+        Test that we can create a PurpleAirAPI with only an IPv4 address (local network mode).
+        """
+
+        paa = PurpleAirAPI(your_ipv4_address=["192.168.1.5"])
+        self.assertIsNotNone(paa)
+
 
 if __name__ == "__main__":
     unittest.main()
