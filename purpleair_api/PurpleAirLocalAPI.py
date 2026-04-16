@@ -20,7 +20,7 @@ class PurpleAirLocalAPI:
     """
 
     def __init__(self, ipv4_address_list=None):
-        # Create the vase API request string for local networks.
+        # Create the base API request string for local networks.
         error_msg = (
             "Must provide the IPv4 address list for the sensor(s) on your local network"
         )
@@ -43,7 +43,7 @@ class PurpleAirLocalAPI:
 
     def request_local_sensor_data(self) -> dict:
         """
-        A method to request a local sensors data. This sensor must be in a netork that is accessible
+        A method to request local sensor data. The sensor(s) must be on a network that is accessible.
         """
 
         retval = {}

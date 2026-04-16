@@ -64,8 +64,8 @@ You can also install PurpleAir API by cloning down this repo:
 
 .. code-block:: bash
 
-   git clone https://github.com/carlkidcrypto/purple_air_api.git
-   cd purple_air_api
+   git clone https://github.com/carlkidcrypto/purpleair_api.git
+   cd purpleair_api
    python3 setup.py install
 
 PurpleAirAPI Usage Example
