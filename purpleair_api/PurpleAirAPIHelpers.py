@@ -47,14 +47,14 @@ def verify_request_status_codes(status_code) -> bool:
         return False
 
     else:
-        raise PurpleAirAPIError(f"Unkown status code - {status_code}!")
+        raise PurpleAirAPIError(f"Unknown status code - {status_code}!")
 
 
 def convert_requests_text_to_json(text=None) -> dict:
     """
     A helper to convert request.text to json.
 
-    :param str text: The request.txt to convert to json
+    :param str text: The request.text to convert to json
 
     :return dict
     """
@@ -156,10 +156,11 @@ def send_url_get_request(
 
 def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
     """
-    A class helper to send the url request. It can also add onto the
-    'request_url' string if 'optional_parameters_dict' are provided.
+    Send a POST request to the given URL.
 
-    :param str request_url: The constructed string url request string.
+    :param str request_url: The constructed URL request string.
+    :param str api_key_to_use: The API key to include in the request header.
+    :param dict json_post_parameters: Optional JSON body parameters to include in the request.
     """
 
     debug_log(request_url)
@@ -191,10 +192,11 @@ def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
 
 def send_url_delete_request(request_url, api_key_to_use, json_post_parameters={}):
     """
-    A class helper to send the url request. It can also add onto the
-    'request_url' string if 'optional_parameters_dict' are provided.
+    Send a DELETE request to the given URL.
 
-    :param str request_url: The constructed string url request string.
+    :param str request_url: The constructed URL request string.
+    :param str api_key_to_use: The API key to include in the request header.
+    :param dict json_post_parameters: Optional JSON body parameters to include in the request.
     """
 
     debug_log(request_url)
