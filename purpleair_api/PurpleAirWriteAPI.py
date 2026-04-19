@@ -130,6 +130,8 @@ class PurpleAirWriteAPI:
 
     def post_delete_member(self, group_id, member_id):
         """
+        Delete a member from a group.
+
         :param int group_id: The group_id of the group in which member_id is in.
         :param int member_id: The member_id to delete.
         """
