@@ -38,8 +38,8 @@ Install via pip::
 
 Or clone from GitHub::
 
-    git clone https://github.com/carlkidcrypto/purple_air_api.git
-    cd purple_air_api
+    git clone https://github.com/carlkidcrypto/purpleair_api.git
+    cd purpleair_api
     python3 setup.py install
 
 Quick Example
