@@ -156,7 +156,7 @@ def send_url_get_request(
 
 def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
     """
-    A helper to send a POST request to the given URL.
+    Send a POST request to the given URL.
 
     :param str request_url: The constructed URL request string.
     :param str api_key_to_use: The API key to include in the request header.
