@@ -355,7 +355,7 @@ class PurpleAirReadAPI:
         average=None,
     ):
         """
-        A method to get a members' historic data from a group to which said member belongs too.
+        A method to get a member's historic data from a group to which said member belongs.
 
         :param int group_id: Groups unique ID.
 
@@ -442,7 +442,7 @@ class PurpleAirReadAPI:
         selat=None,
     ):
         """
-        A method to get multiple members' data from from a group to which said members belong too.
+        A method to get multiple members' data from a group to which said members belong.
 
         :param int group_id: The group_id of the requested group. This group must be owned by the api_key.
 
