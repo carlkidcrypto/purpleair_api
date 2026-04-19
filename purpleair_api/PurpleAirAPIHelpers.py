@@ -192,7 +192,7 @@ def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
 
 def send_url_delete_request(request_url, api_key_to_use, json_post_parameters={}):
     """
-    A helper to send a DELETE request to the given URL.
+    Send a DELETE request to the given URL.
 
     :param str request_url: The constructed URL request string.
     :param str api_key_to_use: The API key to include in the request header.
