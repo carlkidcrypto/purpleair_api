@@ -158,9 +158,9 @@ def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
     """
     A helper to send a POST request to the given URL.
 
-    :param str request_url: The constructed string url request string.
+    :param str request_url: The constructed URL request string.
     :param str api_key_to_use: The API key to include in the request header.
-    :param dict json_post_parameters: Optional JSON body parameters for the POST request.
+    :param dict json_post_parameters: Optional JSON body parameters to include in the request.
     """
 
     debug_log(request_url)
@@ -194,9 +194,9 @@ def send_url_delete_request(request_url, api_key_to_use, json_post_parameters={}
     """
     A helper to send a DELETE request to the given URL.
 
-    :param str request_url: The constructed string url request string.
+    :param str request_url: The constructed URL request string.
     :param str api_key_to_use: The API key to include in the request header.
-    :param dict json_post_parameters: Optional JSON body parameters for the DELETE request.
+    :param dict json_post_parameters: Optional JSON body parameters to include in the request.
     """
 
     debug_log(request_url)
