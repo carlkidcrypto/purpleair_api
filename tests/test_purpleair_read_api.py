@@ -234,7 +234,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
     def test_request_member_historic_data(self):
         # Setup
         fake_url_request = (
-            "https://api.purpleair.com/v1/groups/4321/members/1234/history/?fields=name"
+            "https://api.purpleair.com/v1/groups/4321/members/1234/history?fields=name"
         )
 
         # Action and Expected Result
@@ -327,7 +327,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = "https://api.purpleair.com/v1/sensors/1234/history?fields=name,humidity&read_key=mykey&privacy=auto&start_timestamp=1000000&end_timestamp=2000000&modified_since=2000000&average=10"
+        fake_url_request = "https://api.purpleair.com/v1/sensors/1234/history?fields=name,humidity&read_key=mykey&privacy=auto&start_timestamp=1000000&end_timestamp=2000000&average=10"
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:
@@ -352,7 +352,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members/1234/history/?fields=name&privacy=public&start_timestamp=1000000&end_timestamp=2000000&average=30"
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members/1234/history?fields=name&privacy=public&start_timestamp=1000000&end_timestamp=2000000&average=30"
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:

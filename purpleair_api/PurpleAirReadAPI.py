@@ -258,7 +258,6 @@ class PurpleAirReadAPI:
             "privacy": privacy,
             "start_timestamp": start_timestamp,
             "end_timestamp": end_timestamp,
-            "modified_since": end_timestamp,
             "average": average,
         }
 
@@ -407,7 +406,7 @@ class PurpleAirReadAPI:
 
         request_url = (
             self._base_api_v1_request_string
-            + f"groups/{group_id}/members/{member_id}/history/?fields={fields}"
+            + f"groups/{group_id}/members/{member_id}/history?fields={fields}"
         )
 
         # Add to the request_url string depending on what optional parameters are

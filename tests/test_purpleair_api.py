@@ -161,6 +161,11 @@ class PurpleAirAPITest(unittest.TestCase):
 
         paa = PurpleAirAPI(your_ipv4_address=["192.168.1.5"])
         self.assertIsNotNone(paa)
+        self.assertIn("192.168.1.5", paa._base_api_local_network_request_string_dict)
+        self.assertEqual(
+            paa._base_api_local_network_request_string_dict["192.168.1.5"],
+            "http://192.168.1.5/json",
+        )
 
 
 if __name__ == "__main__":
