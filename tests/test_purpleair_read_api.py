@@ -234,7 +234,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
     def test_request_member_historic_data(self):
         # Setup
         fake_url_request = (
-            "https://api.purpleair.com/v1/groups/4321/members/1234/history/?fields=name"
+            "https://api.purpleair.com/v1/groups/4321/members/1234/history?fields=name"
         )
 
         # Action and Expected Result
@@ -295,6 +295,32 @@ class PurpleAirReadAPITest(unittest.TestCase):
             )
             self.para.request_member_data(4321, 1234, fields="name, temperature")
 
+    def test_request_members_data_with_geo_parameters(self):
+        """
+        Test that we can request multiple members data with optional parameters.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members?fields=name&location_type=0&max_age=3600&nwlng=10&nwlat=50&selng=20&selat=40"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            self.para.request_members_data(
+                4321,
+                "name",
+                location_type=0,
+                max_age=3600,
+                nwlng=10,
+                nwlat=50,
+                selng=20,
+                selat=40,
+            )
+
     def test_request_sensor_historic_data_with_optional_parameters(self):
         """
         Test that we can request historic sensor data with all optional parameters.
@@ -326,7 +352,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members/1234/history/?fields=name&privacy=auto&start_timestamp=100&end_timestamp=200&average=10"
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members/1234/history?fields=name&privacy=auto&start_timestamp=100&end_timestamp=200&average=10"
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:
