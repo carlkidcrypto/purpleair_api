@@ -278,6 +278,96 @@ class PurpleAirReadAPITest(unittest.TestCase):
             )
             self.para.request_group_list_data()
 
+    def test_request_member_data_with_fields(self):
+        """
+        Test that we can request member data with the optional fields parameter.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members/1234?fields=name,temperature"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            self.para.request_member_data(4321, 1234, fields="name, temperature")
+
+    def test_request_sensor_historic_data_with_optional_parameters(self):
+        """
+        Test that we can request historic sensor data with all optional parameters.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/sensors/1234/history?fields=name,field1&read_key=abc&privacy=auto&start_timestamp=100&end_timestamp=200&average=10"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            self.para.request_sensor_historic_data(
+                sensor_index=1234,
+                fields="name, field1",
+                read_key="abc",
+                privacy="auto",
+                start_timestamp=100,
+                end_timestamp=200,
+                average=10,
+            )
+
+    def test_request_member_historic_data_with_optional_parameters(self):
+        """
+        Test that we can request member historic data with all optional parameters.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members/1234/history/?fields=name&privacy=auto&start_timestamp=100&end_timestamp=200&average=10"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            self.para.request_member_historic_data(
+                4321,
+                1234,
+                "name",
+                privacy="auto",
+                start_timestamp=100,
+                end_timestamp=200,
+                average=10,
+            )
+
+    def test_request_members_data_with_optional_parameters(self):
+        """
+        Test that we can request members data with optional parameters.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members?fields=name&location_type=1&show_only=123,456&max_age=100"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            self.para.request_members_data(
+                4321,
+                "name",
+                location_type=1,
+                show_only="123, 456",
+                max_age=100,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

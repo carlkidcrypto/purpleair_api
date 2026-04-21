@@ -258,7 +258,6 @@ class PurpleAirReadAPI:
             "privacy": privacy,
             "start_timestamp": start_timestamp,
             "end_timestamp": end_timestamp,
-            "modified_since": end_timestamp,
             "average": average,
         }
 
