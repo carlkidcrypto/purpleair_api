@@ -43,7 +43,9 @@ class PurpleAirLocalAPI:
 
     def request_local_sensor_data(self) -> dict:
         """
-        A method to request a local sensor's data. This sensor must be on a network that is accessible.
+        A method to request data from one or more local sensors. Each sensor must be accessible on the local network.
+
+        :return dict: A dictionary mapping each IPv4 address to its sensor data payload.
         """
 
         retval = {}

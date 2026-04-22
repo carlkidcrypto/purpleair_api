@@ -81,7 +81,7 @@ Next we need to make an instance of PAA:
 
 .. code-block:: python
 
-   my_paa = PurpleAirAPI(your_api_read_key, your_api_write_key, your_ipv4_address)
+   my_paa = PurpleAirAPI(your_api_read_key, your_api_write_key, [your_ipv4_address])
 
 Now you can use that PAA instance to do things like:
 

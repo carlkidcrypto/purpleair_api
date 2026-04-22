@@ -36,8 +36,11 @@ def debug_log(debug_msg_string):
 def verify_request_status_codes(status_code) -> bool:
     """
     A helper to check those status codes.
-    True if in SUCCESS_CODE_LIST
-    False if in ERROR_CODES_LIST
+
+    :param int status_code: The HTTP status code to verify.
+
+    :return bool: True if in SUCCESS_CODE_LIST, False if in ERROR_CODES_LIST.
+    :raises PurpleAirAPIError: If the status code is not in either list.
     """
 
     if status_code in SUCCESS_CODE_LIST:
