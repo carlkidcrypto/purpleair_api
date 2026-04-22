@@ -427,6 +427,33 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
                     json_post_parameters=fake_json_post_params,
                 )
 
+    def test_send_url_get_request_all_optional_params_none(self):
+        """
+        Test that when optional_parameters_dict has all None values the URL is unchanged.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/keys"
+        fake_api_key_to_use = "1111-222-333-4444-5555-6666-7777"
+        fake_first_optional_parameter_separator = "?"
+        optional_parameters_dict = {"param_1": None, "param_2": None}
+
+        # Action and Expected Result — URL should not have any params appended
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+                headers={"X-API-Key": str(fake_api_key_to_use)},
+            )
+            result = send_url_get_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+                first_optional_parameter_separator=fake_first_optional_parameter_separator,
+                optional_parameters_dict=optional_parameters_dict,
+            )
+        self.assertEqual(result, {"test": 5})
+
 
 if __name__ == "__main__":
     unittest.main()
