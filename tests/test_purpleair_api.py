@@ -4,7 +4,6 @@
 Copyright 2023 carlkidcrypto, All rights reserved.
 """
 
-
 import unittest
 import requests_mock
 import sys
@@ -191,7 +190,9 @@ class PurpleAirAPITest(unittest.TestCase):
                     },
                 ],
             )
-            paa = PurpleAirAPI(your_api_read_key="readkey123", your_api_write_key="writekey456")
+            paa = PurpleAirAPI(
+                your_api_read_key="readkey123", your_api_write_key="writekey456"
+            )
 
         self.assertEqual(paa.get_api_key_type["readkey123"], "READ")
         self.assertEqual(paa.get_api_key_type["writekey456"], "WRITE")

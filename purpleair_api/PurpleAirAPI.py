@@ -68,7 +68,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
 
         if retval_api_read_key is not None:
             if self._api_key_types[your_api_read_key] == "READ":
-                PurpleAirWriteAPI.__init__(self, api_write_key=your_api_write_key)
+                PurpleAirReadAPI.__init__(self, api_read_key=your_api_read_key)
                 print("PurpleAirAPI: Successfully authenticated read key")
 
             else:
@@ -76,7 +76,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
 
         if retval_api_write_key is not None:
             if self._api_key_types[your_api_write_key] == "WRITE":
-                PurpleAirReadAPI.__init__(self, api_read_key=your_api_read_key)
+                PurpleAirWriteAPI.__init__(self, api_write_key=your_api_write_key)
                 print("PurpleAirAPI: Successfully authenticated write key")
 
             else:

@@ -444,7 +444,6 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
                 fake_url_request,
                 text='{"test": 5}',
                 status_code=200,
-                headers={"X-API-Key": str(fake_api_key_to_use)},
             )
             result = send_url_get_request(
                 request_url=fake_url_request,

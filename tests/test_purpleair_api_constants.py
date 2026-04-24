@@ -59,11 +59,18 @@ class PurpleAirAPIConstantsTest(unittest.TestCase):
 
     def test_accepted_field_names_dict_contains_core_fields(self):
         """
-        Test that ACCEPTED_FIELD_NAMES_DICT contains expected sensor fields.
+        Test that ACCEPTED_FIELD_NAMES_DICT contains expected sensor fields with correct default values.
         """
-        expected_fields = ["name", "latitude", "longitude", "humidity", "temperature"]
-        for field in expected_fields:
+        expected_fields = {
+            "name": "",
+            "latitude": 0.0,
+            "longitude": 0.0,
+            "humidity": 0,
+            "temperature": 0,
+        }
+        for field, expected_value in expected_fields.items():
             self.assertIn(field, ACCEPTED_FIELD_NAMES_DICT)
+            self.assertEqual(ACCEPTED_FIELD_NAMES_DICT[field], expected_value)
 
 
 if __name__ == "__main__":
