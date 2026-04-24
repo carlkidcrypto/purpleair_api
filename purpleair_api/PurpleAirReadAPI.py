@@ -496,9 +496,9 @@ class PurpleAirReadAPI:
 
         :param (optional) int nwlat: A north west latitude for the bounding box.
 
-         :param (optional) int selng: A south east longitude for the bounding box.
+        :param (optional) int selng: A south east longitude for the bounding box.
 
-         :param (optional) int selat: A south east latitude for the bounding box.
+        :param (optional) int selat: A south east latitude for the bounding box.
 
         """
 
