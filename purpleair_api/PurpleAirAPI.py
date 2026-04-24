@@ -25,7 +25,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
         """
         :param str your_api_read_key: A valid PurpleAirAPI Read key
         :param str your_api_write_key: A valid PurpleAirAPI Write key
-        :param str your_ipv4_address: The IPv4 address of your PurpleAir.
+        :param list your_ipv4_address: A list of IPv4 address strings for your PurpleAir sensor(s).
         """
 
         # We can not have all three parameters be empty
