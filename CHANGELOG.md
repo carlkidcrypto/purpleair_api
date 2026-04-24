@@ -2,8 +2,8 @@ Last Updated: 2026-04-22T14:59:20Z
 
 # Changelog
 
-<a name="v1.4.1a0"></a>
-## [v1.4.1a0](https://github.com/carlkidcrypto/purpleair_api/compare/v1.4.0...v1.4.1a0) (2026-04-22)
+<a name="v1.4.1"></a>
+## [v1.4.1](https://github.com/carlkidcrypto/purpleair_api/compare/v1.4.0...v1.4.1) (2026-04-22)
 
 ### Changes
 
@@ -17,7 +17,7 @@ Last Updated: 2026-04-22T14:59:20Z
 - docs: fix typos, grammar, and misleading docstrings (#214)
 
 #### Maintenance
-- Bump version to 1.4.1a0 and add PurpleAir API watcher workflow (#218)
+- Bump version to 1.4.1 and add PurpleAir API watcher workflow (#218)
 - chore: add agentic workflow md files adapted for purpleair_api (#202)
 - Bump coverage from 7.13.4 to 7.13.5 (#200)
 - Bump black from 26.1.0 to 26.3.1 (#198)
