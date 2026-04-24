@@ -1,9 +1,9 @@
-Last Updated: 2026-04-22T14:59:20Z
+Last Updated: 2026-04-24T13:47:18Z
 
 # Changelog
 
 <a name="v1.4.1"></a>
-## [v1.4.1](https://github.com/carlkidcrypto/purpleair_api/compare/v1.4.0...v1.4.1) (2026-04-22)
+## [v1.4.1](https://github.com/carlkidcrypto/purpleair_api/compare/v1.4.0...v1.4.1) (2026-04-24)
 
 ### Changes
 
@@ -14,15 +14,19 @@ Last Updated: 2026-04-22T14:59:20Z
 - fix: use README.rst for PyPI long description (#201)
 
 #### Documentation Updates
+- docs: fix inaccurate type hint, theme name, and docstring improvements (#220)
 - docs: fix typos, grammar, and misleading docstrings (#214)
 
 #### Maintenance
-- Bump version to 1.4.1 and add PurpleAir API watcher workflow (#218)
+- chore: bump version from 1.4.1a0 to 1.4.1 (#222)
+- chore(docs): update changelog (#221)
+- Bump version to 1.4.1a0 and add PurpleAir API watcher workflow (#218)
 - chore: add agentic workflow md files adapted for purpleair_api (#202)
 - Bump coverage from 7.13.4 to 7.13.5 (#200)
 - Bump black from 26.1.0 to 26.3.1 (#198)
 
 #### Other Changes
+- [coverage-autofix] Add missing test coverage for constants, error class, and uncovered branches (#219)
 - [coverage-autofix] Add missing test coverage for uncovered branches (#217)
 - [docs-improvement] Fix typos, stale config, and misleading docstrings (#215)
 - [coverage-autofix] Bring PurpleAirAPIHelpers to 100% line coverage (#206)
