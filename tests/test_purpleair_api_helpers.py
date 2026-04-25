@@ -453,6 +453,73 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
             )
         self.assertEqual(result, {"test": 5})
 
+    def test_send_url_get_request_single_non_none_optional_param(self):
+        """
+        Test that when optional_parameters_dict has exactly one non-None value,
+        only that param is appended (exercises opt_param_count == 1 without hitting >= 2 branch).
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/keys"
+        expected_fake_url = "https://api.purpleair.com/v1/keys?only_param=hello"
+        fake_api_key_to_use = "1111-222-333-4444"
+        fake_first_optional_parameter_separator = "?"
+        optional_parameters_dict = {"only_param": "hello", "missing_param": None}
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                expected_fake_url,
+                text='{"result": 1}',
+                status_code=200,
+            )
+            result = send_url_get_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+                first_optional_parameter_separator=fake_first_optional_parameter_separator,
+                optional_parameters_dict=optional_parameters_dict,
+            )
+        self.assertEqual(result, {"result": 1})
+
+    def test_convert_requests_text_to_json_with_debug_enabled(self):
+        """
+        Test that convert_requests_text_to_json logs debug messages when PRINT_DEBUG_MSGS is True.
+        """
+
+        # Setup
+        input_text = '{"debug_key": "debug_value"}'
+
+        # Action and Expected Result — both debug_log calls inside the function should fire
+        with patch.object(helpers_module, "PRINT_DEBUG_MSGS", True):
+            with patch("builtins.print") as mock_print:
+                result = convert_requests_text_to_json(input_text)
+                self.assertEqual(mock_print.call_count, 2)
+
+        self.assertDictEqual(result, {"debug_key": "debug_value"})
+
+    def test_send_url_get_request_no_optional_params_dict(self):
+        """
+        Test that send_url_get_request works correctly when optional_parameters_dict is None
+        (no optional params path — URL is sent as-is).
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/organization"
+        fake_api_key_to_use = "test-key-123"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"org": "test"}',
+                status_code=200,
+            )
+            result = send_url_get_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+            )
+        self.assertEqual(result, {"org": "test"})
+
 
 if __name__ == "__main__":
     unittest.main()
