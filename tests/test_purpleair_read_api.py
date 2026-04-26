@@ -452,10 +452,11 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.para.request_multiple_sensors_data(
+            result = self.para.request_multiple_sensors_data(
                 fields="name",
                 modified_since=1700000000,
             )
+            self.assertEqual(result, {"test": 5})
 
     def test_request_sensor_historic_data_csv_with_optional_parameters(self):
         """
