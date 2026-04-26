@@ -473,13 +473,14 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.para.request_sensor_historic_data(
+            result = self.para.request_sensor_historic_data(
                 sensor_index=9999,
                 fields="humidity",
                 csv_data_format=True,
                 read_key="mykey",
                 average=60,
             )
+            self.assertEqual(result, {"test": 5})
 
 
 if __name__ == "__main__":
