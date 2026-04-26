@@ -429,12 +429,13 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 500}',
                 status_code=200,
             )
-            self.para.request_members_data(
+            result = self.para.request_members_data(
                 4321,
                 "name",
                 read_keys="abc123",
                 modified_since=1700000000,
             )
+            self.assertEqual(result, {"test": 500})
 
     def test_request_multiple_sensors_data_with_modified_since(self):
         """
