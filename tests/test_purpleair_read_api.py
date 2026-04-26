@@ -411,7 +411,8 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.para.request_sensor_data(1234, fields="name, temperature")
+            result = self.para.request_sensor_data(1234, fields="name, temperature")
+            self.assertEqual(result, {"test": 5})
 
     def test_request_members_data_with_read_keys_and_modified_since(self):
         """
