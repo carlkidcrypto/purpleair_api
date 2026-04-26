@@ -59,7 +59,7 @@ def convert_requests_text_to_json(text=None) -> dict:
 
     :param str text: The request.text to convert to json
 
-    :return dict
+    :return dict | None: The parsed JSON as a dictionary, or None if text is empty.
     """
 
     the_request_text_as_json = None
@@ -100,6 +100,7 @@ def send_url_get_request(
     'request_url' string if 'optional_parameters_dict' are provided.
 
     :param str request_url: The constructed string url request string.
+    :param str api_key_to_use: An optional API key included in the request header as 'X-API-Key'.
     :param str first_optional_parameter_separator: The separator between first parameter
                                                     in optional_parameters_dict. i.e '?' or '&'.
     :param dict optional_parameters_dict: Optional parameters that can be added onto the
