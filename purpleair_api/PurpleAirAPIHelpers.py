@@ -59,7 +59,7 @@ def convert_requests_text_to_json(text=None) -> dict:
 
     :param str text: The request.text to convert to json
 
-    :return dict: The parsed JSON as a dictionary, or None if text is empty.
+    :return dict | None: The parsed JSON as a dictionary, or None if text is empty.
     """
 
     the_request_text_as_json = None
