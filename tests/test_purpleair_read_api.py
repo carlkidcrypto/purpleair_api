@@ -395,5 +395,93 @@ class PurpleAirReadAPITest(unittest.TestCase):
             )
 
 
+    def test_request_sensor_data_with_fields_only(self):
+        """
+        Test that we can request sensor data with only the fields parameter (no read_key).
+        Exercises the URL path where read_key=None is skipped and fields becomes the first param.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/sensors/1234?fields=name,temperature"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            result = self.para.request_sensor_data(1234, fields="name, temperature")
+            self.assertEqual(result, {"test": 5})
+
+    def test_request_members_data_with_read_keys_and_modified_since(self):
+        """
+        Test that we can request members data with read_keys and modified_since optional parameters.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members?fields=name&read_keys=abc123&modified_since=1700000000"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 500}',
+                status_code=200,
+            )
+            result = self.para.request_members_data(
+                4321,
+                "name",
+                read_keys="abc123",
+                modified_since=1700000000,
+            )
+            self.assertEqual(result, {"test": 500})
+
+    def test_request_multiple_sensors_data_with_modified_since(self):
+        """
+        Test that we can request multiple sensors data using only the modified_since optional parameter.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/sensors/?fields=name&modified_since=1700000000"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            result = self.para.request_multiple_sensors_data(
+                fields="name",
+                modified_since=1700000000,
+            )
+            self.assertEqual(result, {"test": 5})
+
+    def test_request_sensor_historic_data_csv_with_optional_parameters(self):
+        """
+        Test requesting historic CSV data with optional parameters (read_key and average).
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/sensors/9999/history/csv?fields=humidity&read_key=mykey&average=60"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            result = self.para.request_sensor_historic_data(
+                sensor_index=9999,
+                fields="humidity",
+                csv_data_format=True,
+                read_key="mykey",
+                average=60,
+            )
+            self.assertEqual(result, {"test": 5})
+
+
 if __name__ == "__main__":
     unittest.main()
