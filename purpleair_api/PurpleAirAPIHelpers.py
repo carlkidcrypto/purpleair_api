@@ -80,6 +80,8 @@ def sanitize_sensor_data_from_paa(paa_return_data) -> dict:
     We access the "sensor" key inside this function.
 
     :param dict paa_return_data: A dictionary with paa return data
+
+    :return dict: The sanitized paa_return_data with all expected fields present.
     """
 
     for key_str in ACCEPTED_FIELD_NAMES_DICT.keys():
@@ -105,6 +107,10 @@ def send_url_get_request(
                                                     in optional_parameters_dict. i.e '?' or '&'.
     :param dict optional_parameters_dict: Optional parameters that can be added onto the
                                             request_url.
+
+    :return dict: The parsed JSON response as a dictionary.
+    :raises PurpleAirAPIError: If the request URL is None, the separator is invalid, or the
+                               response contains an error status code.
     """
 
     if request_url is None:
@@ -165,6 +171,9 @@ def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
     :param str request_url: The constructed URL request string.
     :param str api_key_to_use: The API key to include in the request header.
     :param dict json_post_parameters: Optional JSON body parameters to include in the request.
+
+    :return dict: The parsed JSON response as a dictionary.
+    :raises PurpleAirAPIError: If the response contains an error status code.
     """
 
     debug_log(request_url)
@@ -201,6 +210,9 @@ def send_url_delete_request(request_url, api_key_to_use, json_post_parameters={}
     :param str request_url: The constructed URL request string.
     :param str api_key_to_use: The API key to include in the request header.
     :param dict json_post_parameters: Optional JSON body parameters to include in the request.
+
+    :return dict: The parsed JSON response as a dictionary.
+    :raises PurpleAirAPIError: If the response contains an error status code.
     """
 
     debug_log(request_url)

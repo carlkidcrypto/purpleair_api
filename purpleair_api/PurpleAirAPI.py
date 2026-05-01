@@ -96,7 +96,8 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
 
         :param str str_api_key_to_check: A valid PurpleAirAPI key to check
 
-        :return True, if an API key can be successfully verified.
+        :return bool: True if the API key can be successfully verified.
+        :raises PurpleAirAPIError: If the key validation request fails.
         """
         request_url = self._base_api_v1_request_string + "keys"
         the_request_text_as_json = send_url_get_request(
