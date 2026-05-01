@@ -72,6 +72,23 @@ class PurpleAirLocalAPITest(unittest.TestCase):
         with self.assertRaises(PurpleAirAPIError):
             PurpleAirLocalAPI(["192.168.1.100000"])
 
+    def test_request_local_sensor_data_empty_list(self):
+        """
+        Test that an empty list is accepted (no validation error) and that
+        request_local_sensor_data returns an empty dict.
+        """
+
+        # Setup — empty list passes type check and for-loop body never executes
+        pala = PurpleAirLocalAPI([])
+
+        # Action
+        retval = pala.request_local_sensor_data()
+
+        # Expected Result
+        self.assertIsInstance(pala._base_api_local_network_request_string_dict, dict)
+        self.assertEqual(len(pala._base_api_local_network_request_string_dict), 0)
+        self.assertEqual(retval, {})
+
     def test_request_local_sensor_data_multiple_ips(self):
         """
         Test that we can request data from multiple sensors at once.
