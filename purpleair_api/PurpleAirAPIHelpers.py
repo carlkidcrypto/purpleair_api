@@ -108,7 +108,7 @@ def send_url_get_request(
     :param dict optional_parameters_dict: Optional parameters that can be added onto the
                                             request_url.
 
-    :return dict: The parsed JSON response as a dictionary.
+    :return dict | None: The parsed JSON response as a dictionary.
     :raises PurpleAirAPIError: If the request URL is None, the separator is invalid, or the
                                response contains an error status code.
     """
@@ -172,7 +172,7 @@ def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
     :param str api_key_to_use: The API key to include in the request header.
     :param dict json_post_parameters: Optional JSON body parameters to include in the request.
 
-    :return dict: The parsed JSON response as a dictionary.
+    :return dict | None: The parsed JSON response as a dictionary.
     :raises PurpleAirAPIError: If the response contains an error status code.
     """
 
@@ -211,7 +211,7 @@ def send_url_delete_request(request_url, api_key_to_use, json_post_parameters={}
     :param str api_key_to_use: The API key to include in the request header.
     :param dict json_post_parameters: Optional JSON body parameters to include in the request.
 
-    :return dict: The parsed JSON response as a dictionary.
+    :return dict | None: The parsed JSON response as a dictionary.
     :raises PurpleAirAPIError: If the response contains an error status code.
     """
 
