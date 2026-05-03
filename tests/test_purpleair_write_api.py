@@ -111,11 +111,13 @@ class PurpleAirWriteAPITest(unittest.TestCase):
                 text='{"test": 9999}',
                 status_code=200,
             )
-            self.pawa.post_create_member(
+            retval = self.pawa.post_create_member(
                 group_id=9999,
                 sensor_id="PRIV_SENSOR",
                 owner_email="owner@example.com",
             )
+            self.assertEqual(retval, {"test": 9999})
+            self.assertEqual(m.request_history[0].json().get("location_type"), None)
 
     def test_post_create_member_with_invalid_params(self):
         """
