@@ -275,7 +275,7 @@ class PurpleAirReadAPI:
 
         :param int group_id: The group_id of the requested group. This group must be owned by the api_key.
 
-        :return dict: A dictionary containing the group detail payload response.
+        :return dict | None: A dictionary containing the group detail payload response.
         """
 
         request_url = self._base_api_v1_request_string + f"groups/{group_id}"
