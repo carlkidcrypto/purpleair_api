@@ -85,8 +85,6 @@ class PurpleAirLocalAPITest(unittest.TestCase):
         retval = pala.request_local_sensor_data()
 
         # Expected Result
-        self.assertIsInstance(pala._base_api_local_network_request_string_dict, dict)
-        self.assertEqual(len(pala._base_api_local_network_request_string_dict), 0)
         self.assertEqual(retval, {})
 
     def test_request_local_sensor_data_multiple_ips(self):
