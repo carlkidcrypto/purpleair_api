@@ -76,8 +76,8 @@ class PurpleAirWriteAPI:
                                              If the target member is not of this type, an error will result.
                                              NOTE: This value is required if the sensor in question is marked as ‘private’ on the registration form.
 
-        :return dict: A dictionary containing the created member data.
-        :raises PurpleAirAPIError: If an invalid combination of parameters is provided.
+        :return dict | None: A dictionary containing the created member data.
+        :raises PurpleAirAPIError: If an invalid combination of parameters is provided or the API request fails.
         """
 
         post_url = self._base_api_v1_request_string + f"groups/{group_id}/members"
