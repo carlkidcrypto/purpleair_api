@@ -16,6 +16,8 @@ from purpleair_api.matter import (
     MatterAirQualityRating,
     fahrenheit_to_celsius,
     pressure_psi_to_kpa,
+    _safe_float,
+    _safe_temperature_fahrenheit,
     MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR,
     MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT,
     MATTER_CLUSTER_TEMP_MEASUREMENT,
@@ -199,6 +201,30 @@ class UnitConversionTest(unittest.TestCase):
 # =============================================================================
 # PurpleAirMatterConverter Tests
 # =============================================================================
+
+
+class SafeFloatHelperTest(unittest.TestCase):
+    """Tests for _safe_float and _safe_temperature_fahrenheit helpers."""
+
+    def test_safe_float_with_none(self):
+        """None falls back to default."""
+        self.assertEqual(_safe_float(None, 42.0), 42.0)
+
+    def test_safe_float_with_valid_float(self):
+        """Valid float is returned unchanged."""
+        self.assertEqual(_safe_float(3.14, 0.0), 3.14)
+
+    def test_safe_float_with_non_numeric_string_excepts(self):
+        """Non-numeric string falls through to except and returns default."""
+        self.assertEqual(_safe_float("not_a_number", 99.0), 99.0)
+
+    def test_safe_temperature_fahrenheit_with_none(self):
+        """None temperature falls back to 32.0 °F (ambient fallback)."""
+        self.assertEqual(_safe_temperature_fahrenheit(None), 32.0)
+
+    def test_safe_temperature_fahrenheit_with_non_numeric_string_excepts(self):
+        """Non-numeric string falls through to except and returns 32.0 °F."""
+        self.assertEqual(_safe_temperature_fahrenheit("bad_input"), 32.0)
 
 
 class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
