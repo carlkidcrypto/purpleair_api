@@ -156,7 +156,10 @@ class MatterAirQualityRatingTest(unittest.TestCase):
         self.assertEqual(MatterAirQualityRating.from_aqi(250), MatterAirQualityRating.VERY_POOR)
 
     def test_from_aqi_extremely_poor(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(400), MatterAirQualityRating.EXTREMELY_POOR)
+         self.assertEqual(
+             MatterAirQualityRating.from_aqi(400),
+             MatterAirQualityRating.EXTREMELY_POOR,
+         )
 
     def test_from_aqi_zero_unknown(self):
         self.assertEqual(MatterAirQualityRating.from_aqi(0), MatterAirQualityRating.UNKNOWN)
