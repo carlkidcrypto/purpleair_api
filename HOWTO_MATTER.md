@@ -3,7 +3,7 @@
 ## What is this?
 
 The `purpleair_api.matter` module maps raw PurpleAir sensor readings to
-**Matter-compatible device type structures** per [Matter 1.6 Core Specification]
+**Matter-compatible device type structures** per [Matter 1.5.1 Core Specification]
 (Connectivity Standards Alliance, 2024).
 
 This lets you expose PurpleAir sensors through any Matter-compatible ecosystem:
@@ -36,7 +36,7 @@ raw = pa.request_sensor_data(282168)
 device = PurpleAirMatterConverter.to_air_quality_sensor(raw)
 
 print(device["device_type"])
-# {'id': 45, 'label': 'Air Quality Sensor', 'matter_version': '1.6', ...}
+# {'id': 45, 'label': 'Air Quality Sensor', 'matter_version': '1.5.1', ...}
 
 print(device["air_quality_summary"])
 # {'epa_aqi': 68, 'epa_category': 'Moderate',
@@ -159,7 +159,7 @@ matter_bridge.add_device(device)
 
 | Resource | URL |
 |---|---|
-| Matter 1.6 Core Spec | https://csa-iot.org/developer-resource/specifications/ |
+| Matter 1.5.1 Core Spec | https://csa-iot.org/developer-resource/specifications/ |
 | Air Quality Measurement Cluster (0x005D) | https://github.com/project-chip/matter |
 | Temperature Measurement Cluster (0x0402) | https://github.com/project-chip/matter |
 | Humidity Measurement Cluster (0x0405) | https://github.com/project-chip/matter |
