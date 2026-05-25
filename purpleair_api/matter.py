@@ -466,7 +466,7 @@ class PurpleAirMatterConverter:
                     "references": [
                         "Matter 1.5.1 CD — Air Quality Measurement Cluster (0x005D)",
                         "Matter Spec DCL — AirQuality Attribute (Attribute 0x0007)",
-                        "Matter Spec DCL — AirQualityRating Attribute (Attribute 0x0008)",
+                        "Matter Spec DCL — AirQualityRating Attribute (0x0008)",
                     ],
                 },
                 # ---- Temperature Measurement (optional, 0x0402) ----
@@ -494,7 +494,7 @@ class PurpleAirMatterConverter:
                     },
                     "_raw_percent": humidity,
                     "references": [
-                        "Matter 1.5.1 CD — Relative Humidity Measurement Cluster (0x0405)",
+                        "Matter 1.5.1 CD — Relative Humidity Measurement (0x0405)",
                         "Matter Spec DCL — MeasuredValue Attribute",
                     ],
                 },
@@ -509,7 +509,7 @@ class PurpleAirMatterConverter:
                     "_raw_kpa": pressure_kpa,
                     "_raw_psi": pressure_psi,
                     "references": [
-                        "Matter 1.5.1 CD — Barometric Pressure Measurement Cluster (0x0403)",
+                        "Matter 1.5.1 CD — Barometric Pressure Measurement (0x0403)",
                         "Matter Spec DCL — MeasuredValue Attribute",
                     ],
                 },
@@ -542,7 +542,8 @@ class PurpleAirMatterConverter:
         :return: Matter Temperature Sensor endpoint structure.
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
-        temp_c = fahrenheit_to_celsius(_safe_temperature_fahrenheit(data.get("temperature")))
+        temp_f = _safe_temperature_fahrenheit(data.get("temperature"))
+        temp_c = fahrenheit_to_celsius(temp_f)
         device_name = sensor_name or data.get("name") or "PurpleAir Temperature"
 
         return {
@@ -563,7 +564,9 @@ class PurpleAirMatterConverter:
                         "maxMeasuredValue": 20000,
                     },
                     "_raw_celsius": temp_c,
-                    "_raw_fahrenheit": _safe_temperature_fahrenheit(data.get("temperature")),
+                    "_raw_fahrenheit": _safe_temperature_fahrenheit(
+                        data.get("temperature")
+                    ),
                     "references": [
                         "Matter 1.5.1 CD — Temperature Measurement Cluster (0x0402)",
                     ],
@@ -588,7 +591,8 @@ class PurpleAirMatterConverter:
         :return: Matter Environmental Sensor endpoint structure.
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
-        temp_c = fahrenheit_to_celsius(_safe_temperature_fahrenheit(data.get("temperature")))
+        temp_f = _safe_temperature_fahrenheit(data.get("temperature"))
+        temp_c = fahrenheit_to_celsius(temp_f)
         humidity = _safe_float(data.get("humidity"))
         pressure_kpa = pressure_psi_to_kpa(_safe_float(data.get("pressure")))
         device_name = sensor_name or data.get("name") or "PurpleAir Environmental"
