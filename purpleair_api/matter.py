@@ -103,7 +103,7 @@ class MatterAirQualityRating(Enum):
         :param aqi: EPA AQI value.
         :return: Nearest :class:`MatterAirQualityRating` enum member.
         """
-        if aqi <= 0:
+        if aqi < 0:
             return cls.UNKNOWN
         if aqi <= 50:
             return cls.EXCELLENT
@@ -171,6 +171,10 @@ class EpaAqiCalculator:
         """
         if pm25 < 0:
             raise ValueError(f"PM2.5 concentration cannot be negative; got {pm25}")
+
+        # Round PM2.5 to the nearest 0.1 µg/m³ per EPA guidelines
+        # to eliminate breakpoint gaps (e.g. 12.05 falls between 12.0 and 12.1).
+        pm25 = round(pm25, 1)
 
         # Below lowest breakpoint — clamp to Good
         if pm25 <= 0.0:
@@ -564,9 +568,7 @@ class PurpleAirMatterConverter:
                         "maxMeasuredValue": 20000,
                     },
                     "_raw_celsius": temp_c,
-                    "_raw_fahrenheit": _safe_temperature_fahrenheit(
-                        data.get("temperature")
-                    ),
+                    "_raw_fahrenheit": temp_f,
                     "references": [
                         "Matter 1.5.1 CD — Temperature Measurement Cluster (0x0402)",
                     ],

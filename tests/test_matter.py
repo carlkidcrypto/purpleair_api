@@ -111,6 +111,13 @@ class EpaAqiCalculatorTest(unittest.TestCase):
         aqi = EpaAqiCalculator.pm25_to_aqi(35.4)
         self.assertLessEqual(aqi, 100)
 
+    def test_pm25_to_aqi_gap_value(self):
+        """PM2.5 = 12.05 (in the gap between 12.0 and 12.1) should round
+        and return a valid AQI, not 500."""
+        aqi = EpaAqiCalculator.pm25_to_aqi(12.05)
+        self.assertLessEqual(aqi, 51)
+        self.assertGreaterEqual(aqi, 0)
+
     def test_aqi_to_epa_category_good(self):
         self.assertEqual(EpaAqiCalculator.aqi_to_epa_category(30), "Good")
 
@@ -161,8 +168,8 @@ class MatterAirQualityRatingTest(unittest.TestCase):
              MatterAirQualityRating.EXTREMELY_POOR,
          )
 
-    def test_from_aqi_zero_unknown(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(0), MatterAirQualityRating.UNKNOWN)
+    def test_from_aqi_zero_excellent(self):
+        self.assertEqual(MatterAirQualityRating.from_aqi(0), MatterAirQualityRating.EXCELLENT)
 
     def test_from_aqi_negative_unknown(self):
         self.assertEqual(MatterAirQualityRating.from_aqi(-1), MatterAirQualityRating.UNKNOWN)
@@ -250,7 +257,7 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
     def test_device_type_label(self):
         self.assertEqual(self.result["device_type"]["label"], "Air Quality Sensor")
 
-    def test_matter_version_1_6(self):
+    def test_matter_version_1_5_1(self):
         self.assertEqual(self.result["device_type"]["matter_version"], "1.5.1")
 
     def test_sensor_index_preserved(self):
