@@ -262,6 +262,49 @@ def aqi_to_matter_descriptor(aqi: float) -> dict[str, Any]:
     }
 
 
+def _safe_float(value: Any, default: float = 0.0) -> float:
+    """
+    Safely convert a value to float, returning ``default`` for None or
+    other non-numeric values.
+
+    Distinguishes between a missing key (returns ``default``) and a key
+    whose value is explicitly ``None`` in the PurpleAir API response
+    (e.g., from an offline sensor — returns ``default``).
+
+    Unlike ``data.get(key, default)``, this also handles the case where
+    ``data.get(key)`` returns ``None`` (key present, value is null).
+
+    :param value: Any value, possibly None.
+    :param default: Fallback value when ``value`` is None or non-numeric.
+    :return: Float value, or ``default``.
+    """
+    if value is None:
+        return default
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_temperature_fahrenheit(value: Any) -> float:
+    """
+    Safely extract temperature in Fahrenheit from a PurpleAir field.
+
+    Defaults to 32 °F (0 °C) for missing or None values — a sensible
+    "unknown / ambient" fallback that avoids the −17.78 °C artefact
+    that ``float(None) or 0`` would produce.
+
+    :param value: Temperature value from PurpleAir (may be None).
+    :return: Temperature in degrees Fahrenheit.
+    """
+    if value is None:
+        return 32.0  # 0 °C in Fahrenheit — ambient fallback
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return 32.0
+
+
 # =============================================================================
 # Primary Converter Class
 # =============================================================================
@@ -351,14 +394,17 @@ class PurpleAirMatterConverter:
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
 
-        # Extract and convert primary measurements
-        pm25_raw = float(data.get("pm2.5", 0))
-        pm10_raw = float(data.get("pm10.0", 0))
-        pm1_raw = float(data.get("pm1.0", 0))
-        voc_raw = float(data.get("voc", 0))
-        temp_f = float(data.get("temperature", 0))
-        humidity = float(data.get("humidity", 0))
-        pressure_psi = float(data.get("pressure", 0))
+        # Extract and convert primary measurements.
+        # Use _safe_float so that null/None values from the API also fall back
+        # to 0 rather than raising TypeError when passed to float().
+        # Temperature uses _safe_temperature_fahrenheit (defaults to 32 °F / 0 °C).
+        pm25_raw = _safe_float(data.get("pm2.5"))
+        pm10_raw = _safe_float(data.get("pm10.0"))
+        pm1_raw = _safe_float(data.get("pm1.0"))
+        voc_raw = _safe_float(data.get("voc"))
+        temp_f = _safe_temperature_fahrenheit(data.get("temperature"))
+        humidity = _safe_float(data.get("humidity"))
+        pressure_psi = _safe_float(data.get("pressure"))
 
         # Compute EPA AQI from PM2.5
         aqi = EpaAqiCalculator.pm25_to_aqi(pm25_raw)
@@ -495,7 +541,7 @@ class PurpleAirMatterConverter:
         :return: Matter Temperature Sensor endpoint structure.
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
-        temp_c = fahrenheit_to_celsius(float(data.get("temperature", 0)))
+        temp_c = fahrenheit_to_celsius(_safe_temperature_fahrenheit(data.get("temperature")))
         device_name = sensor_name or data.get("name") or "PurpleAir Temperature"
 
         return {
@@ -516,7 +562,7 @@ class PurpleAirMatterConverter:
                         "maxMeasuredValue": 20000,
                     },
                     "_raw_celsius": temp_c,
-                    "_raw_fahrenheit": float(data.get("temperature", 0)),
+                    "_raw_fahrenheit": _safe_temperature_fahrenheit(data.get("temperature")),
                     "references": [
                         "Matter 1.5.1 CD — Temperature Measurement Cluster (0x0402)",
                     ],
@@ -541,9 +587,9 @@ class PurpleAirMatterConverter:
         :return: Matter Environmental Sensor endpoint structure.
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
-        temp_c = fahrenheit_to_celsius(float(data.get("temperature", 0)))
-        humidity = float(data.get("humidity", 0))
-        pressure_kpa = pressure_psi_to_kpa(float(data.get("pressure", 0)))
+        temp_c = fahrenheit_to_celsius(_safe_temperature_fahrenheit(data.get("temperature")))
+        humidity = _safe_float(data.get("humidity"))
+        pressure_kpa = pressure_psi_to_kpa(_safe_float(data.get("pressure")))
         device_name = sensor_name or data.get("name") or "PurpleAir Environmental"
 
         return {
@@ -593,7 +639,7 @@ class PurpleAirMatterConverter:
     # -------------------------------------------------------------------------
 
     @staticmethod
-    def _normalise(raw: dict[str, Any]) -> dict[str, Any]:
+    def _normalise(raw: dict[str, Any] | Any) -> dict[str, Any]:
         """
         Normalise a PurpleAir sensor data payload so field names are
         consistent regardless of which API response format was used.
@@ -601,10 +647,18 @@ class PurpleAirMatterConverter:
         Handles the ``["sensor"]`` wrapper that the
         :meth:`PurpleAirReadAPI.request_sensor_data` returns.
 
+        Gracefully handles non-dict inputs (e.g., error strings, None)
+        by returning an empty dict rather than raising AttributeError.
+
         :param raw: Raw API response dictionary.
         :return: Flat sensor data dictionary with canonical field names.
         """
+        # Guard against non-dict inputs (API errors, None, etc.)
+        if not isinstance(raw, dict):
+            raw = {}
         inner = raw.get("sensor", raw)
+        if not isinstance(inner, dict):
+            inner = {}
         # Merge ACCEPTED_FIELD_NAMES_DICT defaults, then overlay real values
         result: dict[str, Any] = {}
         for key, default in ACCEPTED_FIELD_NAMES_DICT.items():
