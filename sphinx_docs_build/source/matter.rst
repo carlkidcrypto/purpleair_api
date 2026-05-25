@@ -9,7 +9,7 @@ Overview
 --------
 
 The ``purpleair_api.matter`` module maps PurpleAir sensor readings to
-Matter-compatible device type structures per the **Matter 1.6 Core
+Matter-compatible device type structures per the **Matter 1.5.1 Core
 Specification** (Connectivity Standards Alliance, 2024).
 
 This enables PurpleAir sensors to be exposed through any Matter-compatible
@@ -27,7 +27,7 @@ consume.
 References
 ----------
 
--  `Matter 1.6 Core Specification <https://csa-iot.org/developer-resource/specifications/>`_
+-  `Matter 1.5.1 Core Specification <https://csa-iot.org/developer-resource/specifications/>`_
    — Connectivity Standards Alliance, 2024.
 -  `Matter Air Quality Sensor Device Type
    <https://github.com/project-chip/matter.js/blob/main/docs/API.md>`_
@@ -239,7 +239,7 @@ Constants
    :type: int
    :value: 0x002D
 
-   Matter 1.6 Air Quality Sensor device type identifier (decimal 45).
+   Matter 1.5.1 Air Quality Sensor device type identifier (decimal 45).
 
 .. py:data:: MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT
    :type: int
