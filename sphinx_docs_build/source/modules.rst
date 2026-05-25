@@ -11,3 +11,4 @@ purpleair_api
    PurpleAirLocalAPI
    PurpleAirReadAPI
    PurpleAirWriteAPI
+   matter
