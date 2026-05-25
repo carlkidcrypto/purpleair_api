@@ -522,7 +522,8 @@ class PurpleAirMatterConverter:
                 "matter_air_quality_rating_value": rating.value,
                 "references": [
                     "EPA AQI Technical Assistance Document (2012 revision)",
-                    "<https://www.airnow.gov/sites/default/files/2022-05/AQI-Basics-Calculation.pdf>",
+                    "<https://www.airnow.gov/sites/default/files/2022-05/AQI-"
+                    "Basics-Calculation.pdf>",
                 ],
             },
         }
