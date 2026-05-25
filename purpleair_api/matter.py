@@ -5,10 +5,10 @@ Copyright 2024 carlkidcrypto, All rights reserved.
 Matter Device Converter for PurpleAir Sensors.
 
 Maps PurpleAir sensor readings to Matter device type structures per the
-Connectivity Standards Alliance Matter 1.6 Specification.
+Connectivity Standards Alliance Matter 1.5.1 Specification.
 
 References:
-  - Matter 1.6 Core Specification (CSA, 2024)
+  - Matter 1.5.1 Core Specification (CSA, 2024)
     <https://csa-iot.org/developer-resource/specifications/>
   - Air Quality Sensor Device Type (Section 11.3, Device Library)
   - Air Quality Measurement Cluster (Cluster 0x005D / 93)
@@ -33,7 +33,7 @@ from typing import Any
 from purpleair_api.PurpleAirAPIConstants import ACCEPTED_FIELD_NAMES_DICT
 
 # =============================================================================
-# Matter 1.6 — Air Quality Sensor Device Type
+# Matter 1.5.1 — Air Quality Sensor Device Type
 # Device Type ID: 0x002D (45) — Air Quality Sensor
 # Primary Clusters:
 #   - Air Quality Measurement  (0x005D / 93)   — required
@@ -43,28 +43,28 @@ from purpleair_api.PurpleAirAPIConstants import ACCEPTED_FIELD_NAMES_DICT
 #   - Carbon Dioxide Concen.   (0x040D / 1037)  — optional
 # =============================================================================
 
-#: Matter 1.6 Air Quality Sensor Device Type identifier (decimal 45).
+#: Matter 1.5.1 Air Quality Sensor Device Type identifier (decimal 45).
 MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR = 0x002D
 
-#: Matter 1.6 Temperature Measurement cluster ID.
+#: Matter 1.5.1 Temperature Measurement cluster ID.
 MATTER_CLUSTER_TEMP_MEASUREMENT = 0x0402
 
-#: Matter 1.6 Relative Humidity Measurement cluster ID.
+#: Matter 1.5.1 Relative Humidity Measurement cluster ID.
 MATTER_CLUSTER_HUMIDITY_MEASUREMENT = 0x0405
 
-#: Matter 1.6 Barometric Pressure Measurement cluster ID.
+#: Matter 1.5.1 Barometric Pressure Measurement cluster ID.
 MATTER_CLUSTER_PRESSURE_MEASUREMENT = 0x0403
 
-#: Matter 1.6 Air Quality Measurement cluster ID.
+#: Matter 1.5.1 Air Quality Measurement cluster ID.
 MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT = 0x005D
 
-#: Matter 1.6 Carbon Dioxide Measurement cluster ID.
+#: Matter 1.5.1 Carbon Dioxide Measurement cluster ID.
 MATTER_CLUSTER_CO2_MEASUREMENT = 0x040D
 
 
 # =============================================================================
 # Air Quality Rating enumeration
-# Ref: Matter 1.6 Device Library — Air Quality Sensor Device Type
+# Ref: Matter 1.5.1 Device Library — Air Quality Sensor Device Type
 # =============================================================================
 
 
@@ -72,7 +72,7 @@ class MatterAirQualityRating(Enum):
     """
     Matter Air Quality Rating (attribute 0x0008 of Air Quality Measurement).
 
-    These match the Matter 1.6 specification values.
+    These match the Matter 1.5.1 specification values.
 
     ===========  =====  ===============
     Label        Value  AQI Range
@@ -270,7 +270,7 @@ def aqi_to_matter_descriptor(aqi: float) -> dict[str, Any]:
 class PurpleAirMatterConverter:
     """
     Converts raw PurpleAir API sensor data into Matter-compatible device
-    structures per Matter Specification 1.6 (CSA, 2024).
+    structures per Matter Specification 1.5.1 (CSA, 2024).
 
     Example — Air Quality Sensor::
 
@@ -289,7 +289,7 @@ class PurpleAirMatterConverter:
     """
 
     DEFAULT_SENSOR_INDEX: int = -1
-    MATTER_VERSION: str = "1.6"
+    MATTER_VERSION: str = "1.5.1"
 
     def __init__(self, purpleair_sensor_data: dict[str, Any] | None = None) -> None:
         """
@@ -324,7 +324,7 @@ class PurpleAirMatterConverter:
     ) -> dict[str, Any]:
         """
         Convert PurpleAir sensor data into a **Matter Air Quality Sensor**
-        device type structure (Matter 1.6, Device Type 0x002D).
+        device type structure (Matter 1.5.1, Device Type 0x002D).
 
         Maps the following PurpleAir fields to Matter clusters:
 
@@ -385,7 +385,7 @@ class PurpleAirMatterConverter:
                 "label": "Air Quality Sensor",
                 "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
                 "spec_reference": (
-                    "Matter 1.6 Core Spec — Air Quality Sensor Device Type "
+                    "Matter 1.5.1 Core Spec — Air Quality Sensor Device Type "
                     "(Section 11.3, CSA 2024)"
                 ),
             },
@@ -418,7 +418,7 @@ class PurpleAirMatterConverter:
                         "voc_ug_m3": voc_raw,
                     },
                     "references": [
-                        "Matter 1.6 CD — Air Quality Measurement Cluster (0x005D)",
+                        "Matter 1.5.1 CD — Air Quality Measurement Cluster (0x005D)",
                         "Matter Spec DCL — AirQuality Attribute (Attribute 0x0007)",
                         "Matter Spec DCL — AirQualityRating Attribute (Attribute 0x0008)",
                     ],
@@ -434,7 +434,7 @@ class PurpleAirMatterConverter:
                     "_raw_celsius": temp_c,
                     "_raw_fahrenheit": temp_f,
                     "references": [
-                        "Matter 1.6 CD — Temperature Measurement Cluster (0x0402)",
+                        "Matter 1.5.1 CD — Temperature Measurement Cluster (0x0402)",
                         "Matter Spec DCL — MeasuredValue Attribute",
                     ],
                 },
@@ -448,7 +448,7 @@ class PurpleAirMatterConverter:
                     },
                     "_raw_percent": humidity,
                     "references": [
-                        "Matter 1.6 CD — Relative Humidity Measurement Cluster (0x0405)",
+                        "Matter 1.5.1 CD — Relative Humidity Measurement Cluster (0x0405)",
                         "Matter Spec DCL — MeasuredValue Attribute",
                     ],
                 },
@@ -463,7 +463,7 @@ class PurpleAirMatterConverter:
                     "_raw_kpa": pressure_kpa,
                     "_raw_psi": pressure_psi,
                     "references": [
-                        "Matter 1.6 CD — Barometric Pressure Measurement Cluster (0x0403)",
+                        "Matter 1.5.1 CD — Barometric Pressure Measurement Cluster (0x0403)",
                         "Matter Spec DCL — MeasuredValue Attribute",
                     ],
                 },
@@ -488,7 +488,7 @@ class PurpleAirMatterConverter:
     ) -> dict[str, Any]:
         """
         Convert PurpleAir data into a **Matter Temperature Sensor** device
-        type (Matter 1.6, Device Type 0x0302).
+        type (Matter 1.5.1, Device Type 0x0302).
 
         :param purpleair_data: Raw PurpleAir sensor data dict.
         :param sensor_name: Optional display name override.
@@ -503,7 +503,7 @@ class PurpleAirMatterConverter:
                 "id": 0x0302,
                 "label": "Temperature Sensor",
                 "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
-                "spec_reference": "Matter 1.6 CD — Temperature Sensor Device Type",
+                "spec_reference": "Matter 1.5.1 CD — Temperature Sensor Device Type",
             },
             "endpoint": 1,
             "sensor_name": device_name,
@@ -518,7 +518,7 @@ class PurpleAirMatterConverter:
                     "_raw_celsius": temp_c,
                     "_raw_fahrenheit": float(data.get("temperature", 0)),
                     "references": [
-                        "Matter 1.6 CD — Temperature Measurement Cluster (0x0402)",
+                        "Matter 1.5.1 CD — Temperature Measurement Cluster (0x0402)",
                     ],
                 },
             },
@@ -531,7 +531,7 @@ class PurpleAirMatterConverter:
     ) -> dict[str, Any]:
         """
         Convert PurpleAir data into a **Matter Humidity / Environmental
-        Sensor** device type (Matter 1.6, Device Type 0x0307).
+        Sensor** device type (Matter 1.5.1, Device Type 0x0307).
 
         Exposes temperature, humidity, and barometric pressure on a single
         endpoint.
@@ -551,7 +551,7 @@ class PurpleAirMatterConverter:
                 "id": 0x0307,
                 "label": "Environmental Sensor",
                 "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
-                "spec_reference": "Matter 1.6 CD — Environmental Sensor Device Type",
+                "spec_reference": "Matter 1.5.1 CD — Environmental Sensor Device Type",
             },
             "endpoint": 1,
             "sensor_name": device_name,
@@ -582,9 +582,9 @@ class PurpleAirMatterConverter:
                 },
             },
             "references": [
-                "Matter 1.6 CD — Temperature Measurement Cluster (0x0402)",
-                "Matter 1.6 CD — Relative Humidity Measurement Cluster (0x0405)",
-                "Matter 1.6 CD — Barometric Pressure Measurement Cluster (0x0403)",
+                "Matter 1.5.1 CD — Temperature Measurement Cluster (0x0402)",
+                "Matter 1.5.1 CD — Relative Humidity Measurement Cluster (0x0405)",
+                "Matter 1.5.1 CD — Barometric Pressure Measurement Cluster (0x0403)",
             ],
         }
 
