@@ -13,7 +13,7 @@ import unittest
 sys.path.append("../")
 
 
-from purpleair_api.matter import (
+from purpleair_api.PurpleAirMatterConverter import (
     EpaAqiCalculator,
     PurpleAirMatterConverter,
     MatterAirQualityRating,
@@ -239,19 +239,19 @@ class TestNullableFloat(unittest.TestCase):
 
     def test_nullable_float_with_none(self):
         """None returns None (not a default)."""
-        from purpleair_api.matter import _nullable_float
+        from purpleair_api.PurpleAirMatterConverter import _nullable_float
 
         self.assertIsNone(_nullable_float(None))
 
     def test_nullable_float_with_valid_float(self):
         """Valid float is returned unchanged."""
-        from purpleair_api.matter import _nullable_float
+        from purpleair_api.PurpleAirMatterConverter import _nullable_float
 
         self.assertEqual(_nullable_float(3.14), 3.14)
 
     def test_nullable_float_with_non_numeric_string(self):
         """Non-numeric string returns None."""
-        from purpleair_api.matter import _nullable_float
+        from purpleair_api.PurpleAirMatterConverter import _nullable_float
 
         self.assertIsNone(_nullable_float("not_a_number"))
 
