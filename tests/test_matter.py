@@ -5,7 +5,17 @@ Copyright 2023 carlkidcrypto, All rights reserved.
 Tests for the Matter device converter module.
 """
 
+import os
+import sys
 import unittest
+
+# Ensure the parent directory (repo root) is on sys.path so that
+# `purpleair_api` can be imported regardless of whether unittest
+# is invoked from the repo root or the tests/ subdirectory.
+_root = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+if _root not in sys.path:
+    sys.path.insert(0, _root)
+
 from purpleair_api.matter import (
     _safe_float,
     _safe_temperature_fahrenheit,
@@ -15,7 +25,6 @@ from purpleair_api.matter import (
     EpaAqiCalculator,
     MatterAirQualityRating,
 )
-from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
 
 
 class TestSafeHelpers(unittest.TestCase):
