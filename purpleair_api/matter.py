@@ -26,7 +26,6 @@ Repository: <https://github.com/carlkidcrypto/purpleair_api>
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any
 
@@ -241,29 +240,6 @@ def pressure_psi_to_kpa(psi: float) -> float:
     :return: Pressure in kilopascals, rounded to 3 decimal places.
     """
     return round(psi * 6.89476, 3)
-
-
-def aqi_to_matter_descriptor(aqi: float) -> dict[str, Any]:
-    """
-    Build the Air Quality Measurement cluster descriptor dict for Matter.
-
-    Includes:
-      - ``measuredValue``  : raw PM2.5 value in µg/m³ (scaled × 100, Matter convention)
-      - ``measuredValueType``: fixed 0 (Air Quality Measurement)
-      - ``airQuality``      : Matter AirQuality enum (see MatterAirQualityRating)
-      - ``aqiRating``       : Matter AirQualityRating enum value
-
-    Matter Measurement Convention:
-      Measured values are stored as ``round(value * 100)`` (INTEGER) in the
-      Matter data model to avoid floating-point payloads.
-
-    :param aqi: EPA AQI value (used for rating).
-    :return: Dictionary suitable for serialisation into a Matter cluster attribute.
-    """
-    return {
-        "airQuality": MatterAirQualityRating.from_aqi(aqi).value,
-        "aqiRating": MatterAirQualityRating.from_aqi(aqi).value,
-    }
 
 
 def _safe_float(value: Any, default: float = 0.0) -> float:
