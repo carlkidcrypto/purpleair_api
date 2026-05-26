@@ -44,20 +44,20 @@ class TestSafeHelpers(unittest.TestCase):
         self.assertIsNone(_safe_temperature_fahrenheit(None))
 
     def test_psi_to_kpa_conversion(self):
-        self.assertAlmostEqual(_psi_to_kpa(14.696), 101.325)
-        self.assertAlmostEqual(_psi_to_kpa(0.0), 0.0)
+        self.assertAlmostEqual(pressure_psi_to_kpa(14.696), 101.325)
+        self.assertAlmostEqual(pressure_psi_to_kpa(0.0), 0.0)
 
     def test_psi_to_kpa_returns_none_on_null(self):
-        self.assertIsNone(_psi_to_kpa(None))
+        self.assertIsNone(pressure_psi_to_kpa(None))
 
     def test_fahrenheit_to_celsius_conversion(self):
-        self.assertAlmostEqual(_fahrenheit_to_celsius(32.0), 0.0)
+        self.assertAlmostEqual(fahrenheit_to_celsius(32.0), 0.0)
         self.assertAlmostEqual(
-            _fahrenheit_to_celsius(68.0), 20.0
+            fahrenheit_to_celsius(68.0), 20.0
         )
 
     def test_fahrenheit_to_celsius_returns_none_on_null(self):
-        self.assertIsNone(_fahrenheit_to_celsius(None))
+        self.assertIsNone(fahrenheit_to_celsius(None))
 
 
 class TestEpaAqiCalculator(unittest.TestCase):
