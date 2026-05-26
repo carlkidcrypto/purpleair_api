@@ -9,12 +9,8 @@ import os
 import sys
 import unittest
 
-# Ensure the parent directory (repo root) is on sys.path so that
-# `purpleair_api` can be imported regardless of whether unittest
-# is invoked from the repo root or the tests/ subdirectory.
-_root = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-if _root not in sys.path:
-    sys.path.insert(0, _root)
+# Make purpleair_api importable from the repo root.
+sys.path.append("../")
 
 
 from purpleair_api.matter import (
