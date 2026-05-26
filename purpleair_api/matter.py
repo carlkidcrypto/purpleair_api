@@ -29,8 +29,6 @@ from __future__ import annotations
 from enum import Enum
 from typing import Any
 
-from purpleair_api.PurpleAirAPIConstants import ACCEPTED_FIELD_NAMES_DICT
-
 # =============================================================================
 # Matter 1.5.1 — Air Quality Sensor Device Type
 # Device Type ID: 0x002D (45) — Air Quality Sensor
@@ -165,7 +163,7 @@ class EpaAqiCalculator:
             AQI = ((I_high - I_low) / (C_high - C_low)) * (C - C_low) + I_low
 
         :param pm25: 24-hour average PM2.5 concentration in µg/m³.
-        :return: EPA AQI value, rounded to the nearest integer.
+        :return: EPA AQI value rounded to the nearest integer (int).
         :raises ValueError: if ``pm25`` is negative.
         """
         if pm25 < 0:
@@ -225,9 +223,9 @@ def fahrenheit_to_celsius(fahrenheit: float) -> float:
     Formula: °C = (°F − 32) × 5/9
 
     :param fahrenheit: Temperature in degrees Fahrenheit.
-    :return: Temperature in degrees Celsius, rounded to 2 decimal places.
+    :return: Temperature in degrees Celsius (unrounded; caller rounds as needed).
     """
-    return round((fahrenheit - 32) * 5 / 9, 2)
+    return (fahrenheit - 32) * 5 / 9
 
 
 def pressure_psi_to_kpa(psi: float) -> float:
@@ -239,50 +237,28 @@ def pressure_psi_to_kpa(psi: float) -> float:
     :param psi: Pressure in pounds per square inch.
     :return: Pressure in kilopascals, rounded to 3 decimal places.
     """
-    return round(psi * 6.89476, 3)
+    return psi * 6.89476
 
 
-def _safe_float(value: Any, default: float = 0.0) -> float:
+def _nullable_float(value: Any) -> float | None:
     """
-    Safely convert a value to float, returning ``default`` for None or
-    other non-numeric values.
+    Safely parse any value to float, or return None if absent/missing.
 
-    Distinguishes between a missing key (returns ``default``) and a key
-    whose value is explicitly ``None`` in the PurpleAir API response
-    (e.g., from an offline sensor — returns ``default``).
+    Returns ``None`` (not 0) for missing sensor fields so that the Matter
+    converter can distinguish "no reading" from "zero reading".
 
-    Unlike ``data.get(key, default)``, this also handles the case where
-    ``data.get(key)`` returns ``None`` (key present, value is null).
-
-    :param value: Any value, possibly None.
-    :param default: Fallback value when ``value`` is None or non-numeric.
-    :return: Float value, or ``default``.
+    :param value: Any value from a PurpleAir field (may be None or absent).
+    :return: Parsed float, or None if the field is not present.
     """
     if value is None:
-        return default
+        return None
     try:
         return float(value)
     except (TypeError, ValueError):
-        return default
+        return None
 
 
-def _safe_temperature_fahrenheit(value: Any) -> float:
-    """
-    Safely extract temperature in Fahrenheit from a PurpleAir field.
 
-    Defaults to 32 °F (0 °C) for missing or None values — a sensible
-    "unknown / ambient" fallback that avoids the −17.78 °C artefact
-    that ``float(None) or 0`` would produce.
-
-    :param value: Temperature value from PurpleAir (may be None).
-    :return: Temperature in degrees Fahrenheit.
-    """
-    if value is None:
-        return 32.0  # 0 °C in Fahrenheit — ambient fallback
-    try:
-        return float(value)
-    except (TypeError, ValueError):
-        return 32.0
 
 
 # =============================================================================
@@ -374,26 +350,27 @@ class PurpleAirMatterConverter:
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
 
-        # Extract and convert primary measurements.
-        # Use _safe_float so that null/None values from the API also fall back
-        # to 0 rather than raising TypeError when passed to float().
-        # Temperature uses _safe_temperature_fahrenheit (defaults to 32 °F / 0 °C).
-        pm25_raw = _safe_float(data.get("pm2.5"))
-        pm10_raw = _safe_float(data.get("pm10.0"))
-        pm1_raw = _safe_float(data.get("pm1.0"))
-        voc_raw = _safe_float(data.get("voc"))
-        temp_f = _safe_temperature_fahrenheit(data.get("temperature"))
-        humidity = _safe_float(data.get("humidity"))
-        pressure_psi = _safe_float(data.get("pressure"))
+        # All sensor fields are nullable — use _nullable_float so that
+        # absent/None values remain None (not coerced to 0), letting the
+        # Matter ecosystem report "unavailable" instead of "0 °C / 0 %".
+        # PM/VOC defaults to 0.0 only after _normalise confirms the field exists;
+        # None fields are excluded from AQI calculation (pm25_to_aqi handles it).
+        pm25_raw = _nullable_float(data.get("pm2.5"))
+        pm10_raw = _nullable_float(data.get("pm10.0"))
+        pm1_raw = _nullable_float(data.get("pm1.0"))
+        voc_raw = _nullable_float(data.get("voc"))
+        temp_f = _nullable_float(data.get("temperature"))
+        humidity = _nullable_float(data.get("humidity"))
+        pressure_psi = _nullable_float(data.get("pressure"))
 
         # Compute EPA AQI from PM2.5
-        aqi = EpaAqiCalculator.pm25_to_aqi(pm25_raw)
+        aqi = EpaAqiCalculator.pm25_to_aqi(pm25_raw if pm25_raw is not None else 0.0)
         aqi_category = EpaAqiCalculator.aqi_to_epa_category(aqi)
         rating = MatterAirQualityRating.from_aqi(aqi)
 
         # Unit conversions
-        temp_c = fahrenheit_to_celsius(temp_f)
-        pressure_kpa = pressure_psi_to_kpa(pressure_psi)
+        temp_c = fahrenheit_to_celsius(temp_f) if temp_f is not None else None
+        pressure_kpa = pressure_psi_to_kpa(pressure_psi) if pressure_psi is not None else None
 
         device_name = sensor_name or data.get("name") or "PurpleAir Sensor"
         sensor_index = data.get(
@@ -428,10 +405,10 @@ class PurpleAirMatterConverter:
                     "cluster_id": MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT,
                     "attributes": {
                         # Matter stores µg/m³ × 100 as INTEGER
-                        "measuredValue": int(round(pm25_raw * 100)),
-                        "pm1Density": int(round(pm1_raw * 100)),
-                        "pm10Density": int(round(pm10_raw * 100)),
-                        "vocDensity": int(round(voc_raw * 100)),
+                        "measuredValue": int(round(pm25_raw * 100)) if pm25_raw is not None else None,
+                        "pm1Density": int(round(pm1_raw * 100)) if pm1_raw is not None else None,
+                        "pm10Density": int(round(pm10_raw * 100)) if pm10_raw is not None else None,
+                        "vocDensity": int(round(voc_raw * 100)) if voc_raw is not None else None,
                         # airQuality: Matter::AirQuality enum (0x0007), mapped from AQI
                         "airQuality": rating.value,
                         # aqiRating: Matter::AirQualityRating enum (0x0008)
@@ -453,7 +430,7 @@ class PurpleAirMatterConverter:
                 "temperature_measurement": {
                     "cluster_id": MATTER_CLUSTER_TEMP_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": int(round(temp_c * 100)),
+                        "measuredValue": int(round(temp_c * 100)) if temp_c is not None else None,
                         "minMeasuredValue": -27315,  # -273.15 °C
                         "maxMeasuredValue": 20000,   # 200.00 °C
                     },
@@ -468,7 +445,7 @@ class PurpleAirMatterConverter:
                 "humidity_measurement": {
                     "cluster_id": MATTER_CLUSTER_HUMIDITY_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": int(round(humidity * 100)),
+                        "measuredValue": int(round(humidity * 100)) if humidity is not None else None,
                         "minMeasuredValue": 0,
                         "maxMeasuredValue": 10000,  # 100.00 %
                     },
@@ -482,7 +459,7 @@ class PurpleAirMatterConverter:
                 "pressure_measurement": {
                     "cluster_id": MATTER_CLUSTER_PRESSURE_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": int(round(pressure_kpa * 10)),
+                        "measuredValue": int(round(pressure_kpa * 10)) if pressure_kpa is not None else None,
                         "minMeasuredValue": 0,    # 0 kPa
                         "maxMeasuredValue": 11500,  # 1150.0 kPa
                     },
@@ -522,8 +499,8 @@ class PurpleAirMatterConverter:
         :return: Matter Temperature Sensor endpoint structure.
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
-        temp_f = _safe_temperature_fahrenheit(data.get("temperature"))
-        temp_c = fahrenheit_to_celsius(temp_f)
+        temp_f = _nullable_float(data.get("temperature"))
+        temp_c = fahrenheit_to_celsius(temp_f) if temp_f is not None else None
         device_name = sensor_name or data.get("name") or "PurpleAir Temperature"
 
         return {
@@ -539,7 +516,7 @@ class PurpleAirMatterConverter:
                 "temperature_measurement": {
                     "cluster_id": MATTER_CLUSTER_TEMP_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": int(round(temp_c * 100)),
+                        "measuredValue": int(round(temp_c * 100)) if temp_c is not None else None,
                         "minMeasuredValue": -27315,
                         "maxMeasuredValue": 20000,
                     },
@@ -569,10 +546,11 @@ class PurpleAirMatterConverter:
         :return: Matter Environmental Sensor endpoint structure.
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
-        temp_f = _safe_temperature_fahrenheit(data.get("temperature"))
-        temp_c = fahrenheit_to_celsius(temp_f)
-        humidity = _safe_float(data.get("humidity"))
-        pressure_kpa = pressure_psi_to_kpa(_safe_float(data.get("pressure")))
+        temp_f = _nullable_float(data.get("temperature"))
+        temp_c = fahrenheit_to_celsius(temp_f) if temp_f is not None else None
+        humidity = _nullable_float(data.get("humidity"))
+        pressure_psi = _nullable_float(data.get("pressure"))
+        pressure_kpa = pressure_psi_to_kpa(pressure_psi) if pressure_psi is not None else None
         device_name = sensor_name or data.get("name") or "PurpleAir Environmental"
 
         return {
@@ -588,26 +566,31 @@ class PurpleAirMatterConverter:
                 "temperature_measurement": {
                     "cluster_id": MATTER_CLUSTER_TEMP_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": int(round(temp_c * 100)),
+                        "measuredValue": int(round(temp_c * 100)) if temp_c is not None else None,
                         "minMeasuredValue": -27315,
                         "maxMeasuredValue": 20000,
                     },
+                    "_raw_celsius": temp_c,
+                    "_raw_fahrenheit": temp_f,
                 },
                 "humidity_measurement": {
                     "cluster_id": MATTER_CLUSTER_HUMIDITY_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": int(round(humidity * 100)),
+                        "measuredValue": int(round(humidity * 100)) if humidity is not None else None,
                         "minMeasuredValue": 0,
                         "maxMeasuredValue": 10000,
                     },
+                    "_raw_percent": humidity,
                 },
                 "pressure_measurement": {
                     "cluster_id": MATTER_CLUSTER_PRESSURE_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": int(round(pressure_kpa * 10)),
+                        "measuredValue": int(round(pressure_kpa * 10)) if pressure_kpa is not None else None,
                         "minMeasuredValue": 0,
                         "maxMeasuredValue": 11500,
                     },
+                    "_raw_kpa": pressure_kpa,
+                    "_raw_psi": pressure_psi,
                 },
             },
             "references": [
@@ -642,16 +625,13 @@ class PurpleAirMatterConverter:
         inner = raw.get("sensor", raw)
         if not isinstance(inner, dict):
             inner = {}
-        # Merge ACCEPTED_FIELD_NAMES_DICT defaults, then overlay real values
-        result: dict[str, Any] = {}
-        for key, default in ACCEPTED_FIELD_NAMES_DICT.items():
-            result[key] = inner.get(key, default)
 
-        # Ensure canonical fields always exist
-        for key in ("pm2.5", "pm1.0", "pm10.0", "voc", "temperature", "humidity",
-                    "pressure", "name", "latitude", "longitude",
-                    "firmware_version", "hardware", "sensor_index"):
-            if key in inner:
-                result[key] = inner[key]
-
-        return result
+        # Only ever copy the 13 canonical fields — absent fields stay absent
+        # (not defaulted to 0 / 0.0) so the converter can distinguish
+        # "no reading" from "zero reading".
+        _CANONICAL_FIELDS = (
+            "pm2.5", "pm1.0", "pm10.0", "voc", "temperature", "humidity",
+            "pressure", "name", "latitude", "longitude",
+            "firmware_version", "hardware", "sensor_index",
+        )
+        return {key: inner[key] for key in _CANONICAL_FIELDS if key in inner}
