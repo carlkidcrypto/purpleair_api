@@ -426,13 +426,14 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
         )
         # temperature=None → 32 °F → 0 °C → scaled ×100 = 0
         self.assertEqual(
-            result["clusters"]["temperature_measurement"]["attributes"]["measuredValue"],
-            0,
-        )
+            result["clusters"]["temperature_measurement"]
+            ["attributes"]["measuredValue"],
         )
         # pressure=None → 0 PSI → 0 kPa → scaled ×10 = 0
+        # pressure=None → 0 PSI → 0 kPa → scaled ×10 = 0
         self.assertEqual(
-            result["clusters"]["pressure_measurement"]["attributes"]["measuredValue"], 0
+        pres_attrs = result["clusters"]["pressure_measurement"]["attributes"]
+        self.assertEqual(pres_attrs["measuredValue"], 0)
         )
 
     def test_non_dict_input_handled_gracefully(self):
