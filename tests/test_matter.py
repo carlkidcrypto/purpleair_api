@@ -410,31 +410,26 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
                 "pm10.0": None,
                 "voc": None,
                 "humidity": None,
-                "temperature": None,  # → 32 °F (ambient fallback) → 0 °C → 0
+                "temperature": None,  # → 32 °F ambient fallback
                 "pressure": None,
             }
         }
         # Must not raise TypeError
         result = PurpleAirMatterConverter.to_air_quality_sensor(sensor_with_nones)
         aq_attrs = result["clusters"]["air_quality_measurement"]["attributes"]
-        self.assertEqual(aq_attrs["measuredValue"], 0)   # pm2.5=None → 0
+        self.assertEqual(aq_attrs["measuredValue"], 0)
         self.assertEqual(aq_attrs["pm1Density"], 0)
         self.assertEqual(aq_attrs["pm10Density"], 0)
         self.assertEqual(aq_attrs["vocDensity"], 0)
-        self.assertEqual(
-            result["clusters"]["humidity_measurement"]["attributes"]["measuredValue"], 0
-        )
-        # temperature=None → 32 °F → 0 °C → scaled ×100 = 0
-        self.assertEqual(
-            result["clusters"]["temperature_measurement"]
-            ["attributes"]["measuredValue"],
-        )
+        hum_attrs = result["clusters"]["humidity_measurement"]["attributes"]
+        self.assertEqual(hum_attrs["measuredValue"], 0)
+        # temperature=None → 32 °F ambient → 0 °C → scaled ×100 = 0
+        tmp_attrs = result["clusters"]["temperature_measurement"]["attributes"]
+        self.assertEqual(tmp_attrs["measuredValue"], 0)
         # pressure=None → 0 PSI → 0 kPa → scaled ×10 = 0
-        # pressure=None → 0 PSI → 0 kPa → scaled ×10 = 0
-        self.assertEqual(
         pres_attrs = result["clusters"]["pressure_measurement"]["attributes"]
         self.assertEqual(pres_attrs["measuredValue"], 0)
-        )
+
 
     def test_non_dict_input_handled_gracefully(self):
         """Non-dict input (None, string, list) to _normalise returns empty dict."""
