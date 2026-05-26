@@ -9,8 +9,8 @@ import unittest
 from purpleair_api.matter import (
     _safe_float,
     _safe_temperature_fahrenheit,
-    _psi_to_kpa,
-    _fahrenheit_to_celsius,
+    pressure_psi_to_kpa,
+    fahrenheit_to_celsius,
     PurpleAirMatterConverter,
     EpaAqiCalculator,
     MatterAirQualityRating,
