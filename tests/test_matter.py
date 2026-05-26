@@ -155,19 +155,34 @@ class MatterAirQualityRatingTest(unittest.TestCase):
     """Tests for :class:`MatterAirQualityRating`."""
 
     def test_from_aqi_excellent(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(25), MatterAirQualityRating.EXCELLENT)
+        self.assertEqual(
+            MatterAirQualityRating.from_aqi(25),
+            MatterAirQualityRating.EXCELLENT,
+        )
 
     def test_from_aqi_good(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(75), MatterAirQualityRating.GOOD)
+        self.assertEqual(
+            MatterAirQualityRating.from_aqi(75),
+            MatterAirQualityRating.GOOD,
+        )
 
     def test_from_aqi_fair(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(125), MatterAirQualityRating.FAIR)
+        self.assertEqual(
+            MatterAirQualityRating.from_aqi(125),
+            MatterAirQualityRating.FAIR,
+        )
 
     def test_from_aqi_poor(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(175), MatterAirQualityRating.POOR)
+        self.assertEqual(
+            MatterAirQualityRating.from_aqi(175),
+            MatterAirQualityRating.POOR,
+        )
 
     def test_from_aqi_very_poor(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(250), MatterAirQualityRating.VERY_POOR)
+        self.assertEqual(
+            MatterAirQualityRating.from_aqi(250),
+            MatterAirQualityRating.VERY_POOR,
+        )
 
     def test_from_aqi_extremely_poor(self):
          self.assertEqual(
@@ -176,10 +191,16 @@ class MatterAirQualityRatingTest(unittest.TestCase):
          )
 
     def test_from_aqi_zero_excellent(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(0), MatterAirQualityRating.EXCELLENT)
+        self.assertEqual(
+            MatterAirQualityRating.from_aqi(0),
+            MatterAirQualityRating.EXCELLENT,
+        )
 
     def test_from_aqi_negative_unknown(self):
-        self.assertEqual(MatterAirQualityRating.from_aqi(-1), MatterAirQualityRating.UNKNOWN)
+        self.assertEqual(
+            MatterAirQualityRating.from_aqi(-1),
+            MatterAirQualityRating.UNKNOWN,
+        )
 
 
 # =============================================================================
@@ -297,7 +318,9 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
         self.assertEqual(attrs["pm10Density"], 1840)
 
     def test_air_quality_rating_is_valid_enum_value(self):
-        rating = self.result["clusters"]["air_quality_measurement"]["attributes"]["airQuality"]
+        rating = self.result[
+            "clusters"
+        ]["air_quality_measurement"]["attributes"]["airQuality"]
         self.assertIn(rating, [e.value for e in MatterAirQualityRating])
 
     def test_aqi_rating_matches_air_quality(self):
@@ -403,7 +426,9 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
         )
         # temperature=None → 32 °F → 0 °C → scaled ×100 = 0
         self.assertEqual(
-            result["clusters"]["temperature_measurement"]["attributes"]["measuredValue"], 0
+            result["clusters"]["temperature_measurement"]["attributes"]["measuredValue"],
+            0,
+        )
         )
         # pressure=None → 0 PSI → 0 kPa → scaled ×10 = 0
         self.assertEqual(
