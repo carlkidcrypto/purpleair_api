@@ -6,8 +6,8 @@
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="PurpleAirAPIConstants module" href="PurpleAirAPIConstants.html"><link rel="prev" title="purpleair_api" href="modules.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>PurpleAirAPI module - PurpleAir API V1.4.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=acfd86a5" />
+        <title>PurpleAirAPI module - PurpleAir API V1.4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.4.0 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API V1.4.1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.4.0 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API V1.4.1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -200,6 +200,7 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirReadAPI.html">PurpleAirReadAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirWriteAPI.html">PurpleAirWriteAPI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="matter.html">Matter Device Converter</a></li>
 </ul>
 </li>
 </ul>
@@ -247,7 +248,7 @@ the appropriate submodules (Read, Write, Local) based on the API keys and config
 provided during initialization.</p>
 <section id="usage-example">
 <h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">purpleair_api.PurpleAirAPI</span> <span class="kn">import</span> <span class="n">PurpleAirAPI</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirAPI</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirAPI</span>
 
 <span class="c1"># Initialize with all API types</span>
 <span class="n">paa</span> <span class="o">=</span> <span class="n">PurpleAirAPI</span><span class="p">(</span>
@@ -261,8 +262,37 @@ provided during initialization.</p>
 </pre></div>
 </div>
 </section>
-<section id="api-reference">
-<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h2>
+<section id="module-PurpleAirAPI">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-PurpleAirAPI" title="Link to this heading">¶</a></h2>
+<p>Copyright 2024 carlkidcrypto, All rights reserved.
+A python3 class designed to fetch data from Purple Air’s new API.
+<a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">PurpleAirAPI.</span></span><span class="sig-name descname"><span class="pre">PurpleAirAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">your_api_read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">your_api_write_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">your_ipv4_address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirReadAPI</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirWriteAPI</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirLocalAPI</span></code></p>
+<p>The PurpleAirAPI class designed to send valid
+PurpleAirAPI requests.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_api_key_last_checked</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked" title="Link to this definition">¶</a></dt>
+<dd><p>A method to return the timestamp of when the API read/write keys were last checked.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI.get_api_key_type">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_api_key_type</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_type" title="Link to this definition">¶</a></dt>
+<dd><p>A method to return the API key types being used.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="PurpleAirAPI.PurpleAirAPI.get_api_versions">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_api_versions</span></span><a class="headerlink" href="#PurpleAirAPI.PurpleAirAPI.get_api_versions" title="Link to this definition">¶</a></dt>
+<dd><p>A method to return the API versions being used for both read/write keys.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 </section>
 
@@ -323,7 +353,15 @@ provided during initialization.</p>
             <ul>
 <li><a class="reference internal" href="#">PurpleAirAPI module</a><ul>
 <li><a class="reference internal" href="#usage-example">Usage Example</a></li>
-<li><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li><a class="reference internal" href="#module-PurpleAirAPI">API Reference</a><ul>
+<li><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI</span></code></a><ul>
+<li><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_last_checked"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_key_last_checked</span></code></a></li>
+<li><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_key_type"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_key_type</span></code></a></li>
+<li><a class="reference internal" href="#PurpleAirAPI.PurpleAirAPI.get_api_versions"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.get_api_versions</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -335,7 +373,7 @@ provided during initialization.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=ee0c326a"></script>
+</div><script src="_static/documentation_options.js?v=4a74b673"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
