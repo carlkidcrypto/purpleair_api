@@ -222,7 +222,7 @@ class EpaAqiCalculator:
         return 500.0
 
     @classmethod
-    def aqi_to_epa_category(cls, aqi: float) -> str:
+    def aqi_to_epa_category(cls, aqi: int) -> str:
         """
         Return the EPA AQI category name for a given AQI value.
 
