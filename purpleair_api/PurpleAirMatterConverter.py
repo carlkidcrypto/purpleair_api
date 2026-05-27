@@ -240,6 +240,31 @@ def pressure_psi_to_kpa(psi: float) -> float:
     return psi * 6.89476
 
 
+def _safe_float(value: Any, default: float = 0.0) -> float:
+    """
+    Convert any value to float, returning a default on failure.
+
+    :param value: Any value from a PurpleAir field.
+    :param default: Fallback value when conversion fails (default 0.0).
+    :return: Parsed float, or default if conversion fails.
+    """
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_temperature_fahrenheit(value: Any) -> float:
+    """
+    Safe-convert any value to Fahrenheit, defaulting to ambient 32 °F
+    for missing sensor readings.
+
+    :param value: Any value from a PurpleAir field (may be None or absent).
+    :return: Temperature in °F, or 32.0 °F when the field is unavailable.
+    """
+    return _safe_float(value, 32.0)
+
+
 def _nullable_float(value: Any) -> float | None:
     """
     Safely parse any value to float, or return None if absent/missing.
@@ -352,13 +377,13 @@ class PurpleAirMatterConverter:
         # Matter ecosystem report "unavailable" instead of "0 °C / 0 %".
         # PM/VOC defaults to 0.0 only after _normalise confirms the field exists;
         # None fields are excluded from AQI calculation (pm25_to_aqi handles it).
-        pm25_raw = _nullable_float(data.get("pm2.5"))
-        pm10_raw = _nullable_float(data.get("pm10.0"))
-        pm1_raw = _nullable_float(data.get("pm1.0"))
-        voc_raw = _nullable_float(data.get("voc"))
-        temp_f = _nullable_float(data.get("temperature"))
-        humidity = _nullable_float(data.get("humidity"))
-        pressure_psi = _nullable_float(data.get("pressure"))
+        pm25_raw = _safe_float(data.get("pm2.5"))
+        pm10_raw = _safe_float(data.get("pm10.0"))
+        pm1_raw = _safe_float(data.get("pm1.0"))
+        voc_raw = _safe_float(data.get("voc"))
+        temp_f = _safe_temperature_fahrenheit(data.get("temperature"))
+        humidity = _safe_float(data.get("humidity"))
+        pressure_psi = _safe_float(data.get("pressure"))
 
         # Compute EPA AQI from PM2.5
         aqi = EpaAqiCalculator.pm25_to_aqi(pm25_raw if pm25_raw is not None else 0.0)
@@ -385,7 +410,7 @@ class PurpleAirMatterConverter:
             "device_type": {
                 "id": MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR,
                 "label": "Air Quality Sensor",
-                "matter_version": PurpleAirMatterConverter.PurpleAirMatterConverter_VERSION,
+                "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
                 "spec_reference": (
                     "Matter 1.5.1 Core Spec — Air Quality Sensor Device Type "
                     "(Section 11.3, CSA 2024)"
@@ -522,7 +547,7 @@ class PurpleAirMatterConverter:
             "device_type": {
                 "id": 0x0302,
                 "label": "Temperature Sensor",
-                "matter_version": PurpleAirMatterConverter.PurpleAirMatterConverter_VERSION,
+                "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
                 "spec_reference": "Matter 1.5.1 CD — Temperature Sensor Device Type",
             },
             "endpoint": 1,
@@ -576,7 +601,7 @@ class PurpleAirMatterConverter:
             "device_type": {
                 "id": 0x0307,
                 "label": "Environmental Sensor",
-                "matter_version": PurpleAirMatterConverter.PurpleAirMatterConverter_VERSION,
+                "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
                 "spec_reference": "Matter 1.5.1 CD — Environmental Sensor Device Type",
             },
             "endpoint": 1,
