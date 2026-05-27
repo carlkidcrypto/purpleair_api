@@ -271,7 +271,7 @@ class PurpleAirMatterConverter:
     Example — Air Quality Sensor::
 
         from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
-        from purpleair_api.matter import PurpleAirMatterConverter
+        from purpleair_api.PurpleAirMatterConverter import PurpleAirMatterConverter
 
         pa = PurpleAirReadAPI("YOUR_READ_API_KEY")
         raw = pa.request_sensor_data(282168)
@@ -385,7 +385,7 @@ class PurpleAirMatterConverter:
             "device_type": {
                 "id": MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR,
                 "label": "Air Quality Sensor",
-                "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
+                "matter_version": PurpleAirMatterConverter.PurpleAirMatterConverter_VERSION,
                 "spec_reference": (
                     "Matter 1.5.1 Core Spec — Air Quality Sensor Device Type "
                     "(Section 11.3, CSA 2024)"
@@ -522,7 +522,7 @@ class PurpleAirMatterConverter:
             "device_type": {
                 "id": 0x0302,
                 "label": "Temperature Sensor",
-                "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
+                "matter_version": PurpleAirMatterConverter.PurpleAirMatterConverter_VERSION,
                 "spec_reference": "Matter 1.5.1 CD — Temperature Sensor Device Type",
             },
             "endpoint": 1,
@@ -576,7 +576,7 @@ class PurpleAirMatterConverter:
             "device_type": {
                 "id": 0x0307,
                 "label": "Environmental Sensor",
-                "matter_version": PurpleAirMatterConverter.MATTER_VERSION,
+                "matter_version": PurpleAirMatterConverter.PurpleAirMatterConverter_VERSION,
                 "spec_reference": "Matter 1.5.1 CD — Environmental Sensor Device Type",
             },
             "endpoint": 1,

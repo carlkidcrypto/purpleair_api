@@ -183,7 +183,7 @@ and Environmental Sensor device types with full EPA AQI calculation.
 .. code-block:: python
 
    from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
-   from purpleair_api.matter import PurpleAirMatterConverter
+   from purpleair_api.PurpleAirMatterConverter import PurpleAirMatterConverter
 
    pa = PurpleAirReadAPI("YOUR_READ_API_KEY")
    raw = pa.request_sensor_data(282168)

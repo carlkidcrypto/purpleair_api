@@ -224,7 +224,7 @@ Classes
    :members:
    :noindex:
 
-.. autoclass:: purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating
+.. autoclass:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverterAirQualityRating
    :members:
 
 Functions
@@ -239,31 +239,31 @@ Functions
 Constants
 ~~~~~~~~~
 
-.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_DEVICE_TYPE_AIR_QUALITY_SENSOR
    :type: int
    :value: 0x002D
 
    Matter 1.5.1 Air Quality Sensor device type identifier (decimal 45).
 
-.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_AIR_QUALITY_MEASUREMENT
    :type: int
    :value: 0x005D
 
    Air Quality Measurement cluster ID (decimal 93).
 
-.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_TEMP_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_TEMP_MEASUREMENT
    :type: int
    :value: 0x0402
 
    Temperature Measurement cluster ID (decimal 1026).
 
-.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_HUMIDITY_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_HUMIDITY_MEASUREMENT
    :type: int
    :value: 0x0405
 
    Relative Humidity Measurement cluster ID (decimal 1029).
 
-.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_PRESSURE_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_PRESSURE_MEASUREMENT
    :type: int
    :value: 0x0403
 
