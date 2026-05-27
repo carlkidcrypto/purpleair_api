@@ -13,7 +13,7 @@ import unittest
 sys.path.append("../")
 
 
-from purpleair_api.matter import (
+from purpleair_api.PurpleAirMatterConverter import (
     EpaAqiCalculator,
     PurpleAirMatterConverter,
     MatterAirQualityRating,
