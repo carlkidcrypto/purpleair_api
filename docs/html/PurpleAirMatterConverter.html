@@ -643,7 +643,7 @@ document (revised 2012).</p>
 structures per Matter Specification 1.5.1 (CSA, 2024).</p>
 <p>Example — Air Quality Sensor:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirReadAPI</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirReadAPI</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirMatterConverter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.matter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
 
 <span class="n">pa</span> <span class="o">=</span> <span class="n">PurpleAirReadAPI</span><span class="p">(</span><span class="s2">&quot;YOUR_READ_API_KEY&quot;</span><span class="p">)</span>
 <span class="n">raw</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">request_sensor_data</span><span class="p">(</span><span class="mi">282168</span><span class="p">)</span>
@@ -782,7 +782,7 @@ Allows chaining without mutation.</p>
 structures per Matter Specification 1.5.1 (CSA, 2024).</p>
 <p>Example — Air Quality Sensor:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirReadAPI</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirReadAPI</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirMatterConverter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.matter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
 
 <span class="n">pa</span> <span class="o">=</span> <span class="n">PurpleAirReadAPI</span><span class="p">(</span><span class="s2">&quot;YOUR_READ_API_KEY&quot;</span><span class="p">)</span>
 <span class="n">raw</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">request_sensor_data</span><span class="p">(</span><span class="mi">282168</span><span class="p">)</span>
