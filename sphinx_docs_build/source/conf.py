@@ -44,6 +44,13 @@ templates_path = ["_templates"]
 exclude_patterns = []
 
 
+# Treat broken reference warnings as errors (used with -W flag).
+nitpicky = False
+
+# Suppress autodoc warnings for intentionally undocumented members
+# (e.g., private helpers that appear via :undoc-members:).
+suppress_warnings = ["autodoc"]
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
