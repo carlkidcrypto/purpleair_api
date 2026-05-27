@@ -208,7 +208,7 @@ Matter Air Quality Rating is then derived from the computed AQI:
 API Reference
 -------------
 
-.. automodule:: PurpleAirMatterConverter
+.. automodule:: purpleair_api.PurpleAirMatterConverter
    :members:
    :undoc-members:
    :show-inheritance:
@@ -216,50 +216,54 @@ API Reference
 Classes
 ~~~~~~~
 
-.. autoclass:: PurpleAirMatterConverter
+.. autoclass:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter
    :members:
+   :noindex:
 
-.. autoclass:: EpaAqiCalculator
+.. autoclass:: purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator
    :members:
+   :noindex:
 
-.. autoclass:: MatterAirQualityRating
+.. autoclass:: purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating
    :members:
 
 Functions
 ~~~~~~~~~
 
-.. autofunction:: fahrenheit_to_celsius
+.. autofunction:: purpleair_api.PurpleAirMatterConverter.fahrenheit_to_celsius
+   :noindex:
 
-.. autofunction:: pressure_psi_to_kpa
+.. autofunction:: purpleair_api.PurpleAirMatterConverter.pressure_psi_to_kpa
+   :noindex:
 
 Constants
 ~~~~~~~~~
 
-.. py:data:: MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR
+.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR
    :type: int
    :value: 0x002D
 
    Matter 1.5.1 Air Quality Sensor device type identifier (decimal 45).
 
-.. py:data:: MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT
    :type: int
    :value: 0x005D
 
    Air Quality Measurement cluster ID (decimal 93).
 
-.. py:data:: MATTER_CLUSTER_TEMP_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_TEMP_MEASUREMENT
    :type: int
    :value: 0x0402
 
    Temperature Measurement cluster ID (decimal 1026).
 
-.. py:data:: MATTER_CLUSTER_HUMIDITY_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_HUMIDITY_MEASUREMENT
    :type: int
    :value: 0x0405
 
    Relative Humidity Measurement cluster ID (decimal 1029).
 
-.. py:data:: MATTER_CLUSTER_PRESSURE_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_PRESSURE_MEASUREMENT
    :type: int
    :value: 0x0403
 
