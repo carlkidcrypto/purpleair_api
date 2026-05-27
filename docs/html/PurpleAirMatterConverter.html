@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="PurpleAirWriteAPI module" href="PurpleAirWriteAPI.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>PurpleAirMatterConverter module - PurpleAir API V1.4.1 documentation</title>
+        <title>PurpleAirMatterConverter module - PurpleAir API V1.5.0a0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.4.1 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API V1.5.0a0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.4.1 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API V1.5.0a0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -255,7 +255,7 @@
 <li><p><a class="reference internal" href="#epa-aqi-computation" id="id7">EPA AQI Computation</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#api-reference" id="id8">API Reference</a></p>
+<li><p><a class="reference internal" href="#module-purpleair_api.PurpleAirMatterConverter" id="id8">API Reference</a></p>
 <ul>
 <li><p><a class="reference internal" href="#classes" id="id9">Classes</a></p></li>
 <li><p><a class="reference internal" href="#functions" id="id10">Functions</a></p></li>
@@ -305,7 +305,7 @@ required to actually commission and serve these devices on a Matter network.</p>
 </section>
 <section id="installation">
 <h2><a class="toc-backref" href="#id3" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">purpleair_api.matter</span></code> is included with the <code class="docutils literal notranslate"><span class="pre">purpleair_api</span></code> package.
+<p><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter</span></code> is included with the <code class="docutils literal notranslate"><span class="pre">purpleair_api</span></code> package.
 No additional dependencies are required beyond <code class="docutils literal notranslate"><span class="pre">requests</span></code>.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>purpleair_api
 </pre></div>
@@ -314,7 +314,7 @@ No additional dependencies are required beyond <code class="docutils literal not
 <section id="quick-start">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">Quick Start</a><a class="headerlink" href="#quick-start" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirReadAPI</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirReadAPI</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.matter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirMatterConverter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
 
 <span class="c1"># Fetch sensor data from PurpleAir</span>
 <span class="n">pa</span> <span class="o">=</span> <span class="n">PurpleAirReadAPI</span><span class="p">(</span><span class="s2">&quot;YOUR_PURPLEAIR_READ_API_KEY&quot;</span><span class="p">)</span>
@@ -465,43 +465,523 @@ values for debugging and display purposes.</p>
 </div>
 </section>
 </section>
-<section id="api-reference">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">API Reference</a><a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h2>
+<section id="module-purpleair_api.PurpleAirMatterConverter">
+<span id="api-reference"></span><h2><a class="toc-backref" href="#id8" role="doc-backlink">API Reference</a><a class="headerlink" href="#module-purpleair_api.PurpleAirMatterConverter" title="Link to this heading">¶</a></h2>
+<p>Copyright 2024 carlkidcrypto, All rights reserved.</p>
+<p>Matter Device Converter for PurpleAir Sensors.</p>
+<p>Maps PurpleAir sensor readings to Matter device type structures per the
+Connectivity Standards Alliance Matter 1.5.1 Specification.</p>
+<dl class="simple">
+<dt>References:</dt><dd><ul class="simple">
+<li><p>Matter 1.5.1 Core Specification (CSA, 2024)
+&lt;<a class="reference external" href="https://csa-iot.org/developer-resource/specifications/">https://csa-iot.org/developer-resource/specifications/</a>&gt;</p></li>
+<li><p>Air Quality Sensor Device Type (Section 11.3, Device Library)</p></li>
+<li><p>Air Quality Measurement Cluster (Cluster 0x005D / 93)</p></li>
+<li><p>Temperature Measurement Cluster (Cluster 0x0402 / 1026)</p></li>
+<li><p>Relative Humidity Measurement Cluster (Cluster 0x0405 / 1029)</p></li>
+<li><p>Barometric Pressure Measurement Cluster (Cluster 0x0403 / 1027)</p></li>
+<li><p>PM1.0, PM2.5, PM10.0 Matter Air Quality Measured Values
+&lt;<a class="reference external" href="https://github.com/project-chip/matter.js">https://github.com/project-chip/matter.js</a>&gt;</p></li>
+<li><p>EPA AQI Calculation
+&lt;<a class="reference external" href="https://www.airnow.gov/sites/default/files/2022-05/AQI-Basics-Calculation.pdf">https://www.airnow.gov/sites/default/files/2022-05/AQI-Basics-Calculation.pdf</a>&gt;</p></li>
+</ul>
+</dd>
+</dl>
+<p>Author: carlkidcrypto
+Repository: &lt;<a class="reference external" href="https://github.com/carlkidcrypto/purpleair_api">https://github.com/carlkidcrypto/purpleair_api</a>&gt;</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">EpaAqiCalculator</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Converts a PM2.5 concentration (µg/m³) to an EPA AQI value using the
+piecewise-linear table defined in the EPA’s AQI Technical Assistance
+document (revised 2012).</p>
+<dl class="simple">
+<dt>Breakpoints are taken from the official EPA table:</dt><dd><p>&lt;<a class="reference external" href="https://airnow.gov/sites/default/files/2021-03/AQI-Breakpoints.pdf">https://airnow.gov/sites/default/files/2021-03/AQI-Breakpoints.pdf</a>&gt;</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.BREAKPOINTS">
+<span class="sig-name descname"><span class="pre">BREAKPOINTS</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[(0.0,</span> <span class="pre">12.0,</span> <span class="pre">0,</span> <span class="pre">50),</span> <span class="pre">(12.1,</span> <span class="pre">35.4,</span> <span class="pre">51,</span> <span class="pre">100),</span> <span class="pre">(35.5,</span> <span class="pre">55.4,</span> <span class="pre">101,</span> <span class="pre">150),</span> <span class="pre">(55.5,</span> <span class="pre">150.4,</span> <span class="pre">151,</span> <span class="pre">200),</span> <span class="pre">(150.5,</span> <span class="pre">250.4,</span> <span class="pre">201,</span> <span class="pre">300),</span> <span class="pre">(250.5,</span> <span class="pre">500.4,</span> <span class="pre">301,</span> <span class="pre">500)]</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.BREAKPOINTS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.aqi_to_epa_category">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">aqi_to_epa_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aqi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.aqi_to_epa_category" title="Link to this definition">¶</a></dt>
+<dd><p>Return the EPA AQI category name for a given AQI value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>aqi</strong> – EPA AQI value.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Human-readable category string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.pm25_to_aqi">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">pm25_to_aqi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pm25</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.pm25_to_aqi" title="Link to this definition">¶</a></dt>
+<dd><p>Convert a 24-hour average PM2.5 concentration to an EPA AQI.</p>
+<p>Uses the EPA formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AQI</span> <span class="o">=</span> <span class="p">((</span><span class="n">I_high</span> <span class="o">-</span> <span class="n">I_low</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">C_high</span> <span class="o">-</span> <span class="n">C_low</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">C</span> <span class="o">-</span> <span class="n">C_low</span><span class="p">)</span> <span class="o">+</span> <span class="n">I_low</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pm25</strong> – 24-hour average PM2.5 concentration in µg/m³.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>EPA AQI value rounded to the nearest integer (int).</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if <code class="docutils literal notranslate"><span class="pre">pm25</span></code> is negative.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">93</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dd><p>Matter 1.5.1 Air Quality Measurement cluster ID.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_CO2_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">MATTER_CLUSTER_CO2_MEASUREMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1037</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_CO2_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dd><p>Matter 1.5.1 Carbon Dioxide Measurement cluster ID.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_HUMIDITY_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">MATTER_CLUSTER_HUMIDITY_MEASUREMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1029</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_HUMIDITY_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dd><p>Matter 1.5.1 Relative Humidity Measurement cluster ID.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_PRESSURE_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">MATTER_CLUSTER_PRESSURE_MEASUREMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1027</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_PRESSURE_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dd><p>Matter 1.5.1 Barometric Pressure Measurement cluster ID.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_TEMP_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">MATTER_CLUSTER_TEMP_MEASUREMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1026</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_TEMP_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dd><p>Matter 1.5.1 Temperature Measurement cluster ID.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">45</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR" title="Link to this definition">¶</a></dt>
+<dd><p>Matter 1.5.1 Air Quality Sensor Device Type identifier (decimal 45).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">MatterAirQualityRating</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Matter Air Quality Rating (attribute 0x0008 of Air Quality Measurement).</p>
+<p>These match the Matter 1.5.1 specification values.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.EXCELLENT">
+<span class="sig-name descname"><span class="pre">EXCELLENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.EXCELLENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.EXTREMELY_POOR">
+<span class="sig-name descname"><span class="pre">EXTREMELY_POOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.EXTREMELY_POOR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.FAIR">
+<span class="sig-name descname"><span class="pre">FAIR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.FAIR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.GOOD">
+<span class="sig-name descname"><span class="pre">GOOD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.GOOD" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.POOR">
+<span class="sig-name descname"><span class="pre">POOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.POOR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.UNKNOWN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.VERY_POOR">
+<span class="sig-name descname"><span class="pre">VERY_POOR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.VERY_POOR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.from_aqi">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_aqi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aqi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating" title="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating"><span class="pre">MatterAirQualityRating</span></a></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.from_aqi" title="Link to this definition">¶</a></dt>
+<dd><p>Derive a Matter Air Quality Rating from an EPA AQI value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>aqi</strong> – EPA AQI value.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Nearest <a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating" title="purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatterAirQualityRating</span></code></a> enum member.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">PurpleAirMatterConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">purpleair_sensor_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Converts raw PurpleAir API sensor data into Matter-compatible device
+structures per Matter Specification 1.5.1 (CSA, 2024).</p>
+<p>Example — Air Quality Sensor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirReadAPI</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirReadAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.matter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
+
+<span class="n">pa</span> <span class="o">=</span> <span class="n">PurpleAirReadAPI</span><span class="p">(</span><span class="s2">&quot;YOUR_READ_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">request_sensor_data</span><span class="p">(</span><span class="mi">282168</span><span class="p">)</span>
+
+<span class="n">matter_device</span> <span class="o">=</span> <span class="n">PurpleAirMatterConverter</span><span class="o">.</span><span class="n">to_air_quality_sensor</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matter_device</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>DEFAULT_SENSOR_INDEX (int): Default sensor index value.
+MATTER_VERSION (str): Supported Matter specification version.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.DEFAULT_SENSOR_INDEX">
+<span class="sig-name descname"><span class="pre">DEFAULT_SENSOR_INDEX</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.DEFAULT_SENSOR_INDEX" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.MATTER_VERSION">
+<span class="sig-name descname"><span class="pre">MATTER_VERSION</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1.5.1'</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.MATTER_VERSION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_air_quality_sensor">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">to_air_quality_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">purpleair_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_air_quality_sensor" title="Link to this definition">¶</a></dt>
+<dd><p>Convert PurpleAir sensor data into a <strong>Matter Air Quality Sensor</strong>
+device type structure (Matter 1.5.1, Device Type 0x002D).</p>
+<p>Maps the following PurpleAir fields to Matter clusters:</p>
+<p>EPA AQI is computed from the PM2.5 concentration using
+<a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator" title="purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator"><code class="xref py py-class docutils literal notranslate"><span class="pre">EpaAqiCalculator</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>purpleair_data</strong> – Raw PurpleAir sensor data dict.</p></li>
+<li><p><strong>sensor_name</strong> – Optional display name override for the device.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing a Matter Air Quality Sensor endpoint.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_environmental_sensor">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">to_environmental_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">purpleair_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_environmental_sensor" title="Link to this definition">¶</a></dt>
+<dd><p>Convert PurpleAir data into a <strong>Matter Humidity / Environmental
+Sensor</strong> device type (Matter 1.5.1, Device Type 0x0307).</p>
+<p>Exposes temperature, humidity, and barometric pressure on a single
+endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>purpleair_data</strong> – Raw PurpleAir sensor data dict.</p></li>
+<li><p><strong>sensor_name</strong> – Optional display name override.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matter Environmental Sensor endpoint structure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_temperature_sensor">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">to_temperature_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">purpleair_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_temperature_sensor" title="Link to this definition">¶</a></dt>
+<dd><p>Convert PurpleAir data into a <strong>Matter Temperature Sensor</strong> device
+type (Matter 1.5.1, Device Type 0x0302).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>purpleair_data</strong> – Raw PurpleAir sensor data dict.</p></li>
+<li><p><strong>sensor_name</strong> – Optional display name override.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matter Temperature Sensor endpoint structure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.with_data">
+<span class="sig-name descname"><span class="pre">with_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter" title="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter"><span class="pre">PurpleAirMatterConverter</span></a></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.with_data" title="Link to this definition">¶</a></dt>
+<dd><p>Return a new converter instance populated with <code class="docutils literal notranslate"><span class="pre">data</span></code>.
+Allows chaining without mutation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Raw PurpleAir sensor data dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New <a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter" title="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirMatterConverter</span></code></a> instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.fahrenheit_to_celsius">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">fahrenheit_to_celsius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fahrenheit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.fahrenheit_to_celsius" title="Link to this definition">¶</a></dt>
+<dd><p>Convert Fahrenheit temperature to Celsius.</p>
+<p>Formula: °C = (°F − 32) × 5/9</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fahrenheit</strong> – Temperature in degrees Fahrenheit.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Temperature in degrees Celsius (unrounded; caller rounds as needed).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.pressure_psi_to_kpa">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">pressure_psi_to_kpa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">psi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.pressure_psi_to_kpa" title="Link to this definition">¶</a></dt>
+<dd><p>Convert pressure in PSI to kPa.</p>
+<p>1 PSI = 6.89476 kPa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>psi</strong> – Pressure in pounds per square inch.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pressure in kilopascals, rounded to 3 decimal places.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <section id="classes">
 <h3><a class="toc-backref" href="#id9" role="doc-backlink">Classes</a><a class="headerlink" href="#classes" title="Link to this heading">¶</a></h3>
+<dl class="py class">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">PurpleAirMatterConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">purpleair_sensor_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Converts raw PurpleAir API sensor data into Matter-compatible device
+structures per Matter Specification 1.5.1 (CSA, 2024).</p>
+<p>Example — Air Quality Sensor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirReadAPI</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirReadAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.matter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
+
+<span class="n">pa</span> <span class="o">=</span> <span class="n">PurpleAirReadAPI</span><span class="p">(</span><span class="s2">&quot;YOUR_READ_API_KEY&quot;</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">request_sensor_data</span><span class="p">(</span><span class="mi">282168</span><span class="p">)</span>
+
+<span class="n">matter_device</span> <span class="o">=</span> <span class="n">PurpleAirMatterConverter</span><span class="o">.</span><span class="n">to_air_quality_sensor</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matter_device</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>DEFAULT_SENSOR_INDEX (int): Default sensor index value.
+MATTER_VERSION (str): Supported Matter specification version.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">to_air_quality_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">purpleair_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Convert PurpleAir sensor data into a <strong>Matter Air Quality Sensor</strong>
+device type structure (Matter 1.5.1, Device Type 0x002D).</p>
+<p>Maps the following PurpleAir fields to Matter clusters:</p>
+<p>EPA AQI is computed from the PM2.5 concentration using
+<a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator" title="purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator"><code class="xref py py-class docutils literal notranslate"><span class="pre">EpaAqiCalculator</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>purpleair_data</strong> – Raw PurpleAir sensor data dict.</p></li>
+<li><p><strong>sensor_name</strong> – Optional display name override for the device.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dictionary representing a Matter Air Quality Sensor endpoint.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">to_environmental_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">purpleair_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Convert PurpleAir data into a <strong>Matter Humidity / Environmental
+Sensor</strong> device type (Matter 1.5.1, Device Type 0x0307).</p>
+<p>Exposes temperature, humidity, and barometric pressure on a single
+endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>purpleair_data</strong> – Raw PurpleAir sensor data dict.</p></li>
+<li><p><strong>sensor_name</strong> – Optional display name override.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matter Environmental Sensor endpoint structure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">to_temperature_sensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">purpleair_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Convert PurpleAir data into a <strong>Matter Temperature Sensor</strong> device
+type (Matter 1.5.1, Device Type 0x0302).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>purpleair_data</strong> – Raw PurpleAir sensor data dict.</p></li>
+<li><p><strong>sensor_name</strong> – Optional display name override.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matter Temperature Sensor endpoint structure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">with_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter" title="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter"><span class="pre">PurpleAirMatterConverter</span></a></span></span></dt>
+<dd><p>Return a new converter instance populated with <code class="docutils literal notranslate"><span class="pre">data</span></code>.
+Allows chaining without mutation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – Raw PurpleAir sensor data dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New <a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter" title="purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter"><code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirMatterConverter</span></code></a> instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">EpaAqiCalculator</span></span></dt>
+<dd><p>Converts a PM2.5 concentration (µg/m³) to an EPA AQI value using the
+piecewise-linear table defined in the EPA’s AQI Technical Assistance
+document (revised 2012).</p>
+<dl class="simple">
+<dt>Breakpoints are taken from the official EPA table:</dt><dd><p>&lt;<a class="reference external" href="https://airnow.gov/sites/default/files/2021-03/AQI-Breakpoints.pdf">https://airnow.gov/sites/default/files/2021-03/AQI-Breakpoints.pdf</a>&gt;</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">aqi_to_epa_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aqi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span></dt>
+<dd><p>Return the EPA AQI category name for a given AQI value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>aqi</strong> – EPA AQI value.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Human-readable category string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">pm25_to_aqi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pm25</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span></dt>
+<dd><p>Convert a 24-hour average PM2.5 concentration to an EPA AQI.</p>
+<p>Uses the EPA formula:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AQI</span> <span class="o">=</span> <span class="p">((</span><span class="n">I_high</span> <span class="o">-</span> <span class="n">I_low</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">C_high</span> <span class="o">-</span> <span class="n">C_low</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">C</span> <span class="o">-</span> <span class="n">C_low</span><span class="p">)</span> <span class="o">+</span> <span class="n">I_low</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pm25</strong> – 24-hour average PM2.5 concentration in µg/m³.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>EPA AQI value rounded to the nearest integer (int).</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – if <code class="docutils literal notranslate"><span class="pre">pm25</span></code> is negative.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="functions">
 <h3><a class="toc-backref" href="#id10" role="doc-backlink">Functions</a><a class="headerlink" href="#functions" title="Link to this heading">¶</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">fahrenheit_to_celsius</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fahrenheit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span></dt>
+<dd><p>Convert Fahrenheit temperature to Celsius.</p>
+<p>Formula: °C = (°F − 32) × 5/9</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fahrenheit</strong> – Temperature in degrees Fahrenheit.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Temperature in degrees Celsius (unrounded; caller rounds as needed).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">pressure_psi_to_kpa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">psi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span></dt>
+<dd><p>Convert pressure in PSI to kPa.</p>
+<p>1 PSI = 6.89476 kPa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>psi</strong> – Pressure in pounds per square inch.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pressure in kilopascals, rounded to 3 decimal places.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="constants">
 <h3><a class="toc-backref" href="#id11" role="doc-backlink">Constants</a><a class="headerlink" href="#constants" title="Link to this heading">¶</a></h3>
 <dl class="py data">
-<dt class="sig sig-object py" id="MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR">
-<span class="sig-name descname"><span class="pre">MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x002D</span></span><a class="headerlink" href="#MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_DEVICE_TYPE_AIR_QUALITY_SENSOR">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">PurpleAirMatterConverter_DEVICE_TYPE_AIR_QUALITY_SENSOR</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x002D</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_DEVICE_TYPE_AIR_QUALITY_SENSOR" title="Link to this definition">¶</a></dt>
 <dd><p>Matter 1.5.1 Air Quality Sensor device type identifier (decimal 45).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT">
-<span class="sig-name descname"><span class="pre">MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x005D</span></span><a class="headerlink" href="#MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_AIR_QUALITY_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">PurpleAirMatterConverter_CLUSTER_AIR_QUALITY_MEASUREMENT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x005D</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_AIR_QUALITY_MEASUREMENT" title="Link to this definition">¶</a></dt>
 <dd><p>Air Quality Measurement cluster ID (decimal 93).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="MATTER_CLUSTER_TEMP_MEASUREMENT">
-<span class="sig-name descname"><span class="pre">MATTER_CLUSTER_TEMP_MEASUREMENT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x0402</span></span><a class="headerlink" href="#MATTER_CLUSTER_TEMP_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_TEMP_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">PurpleAirMatterConverter_CLUSTER_TEMP_MEASUREMENT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x0402</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_TEMP_MEASUREMENT" title="Link to this definition">¶</a></dt>
 <dd><p>Temperature Measurement cluster ID (decimal 1026).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="MATTER_CLUSTER_HUMIDITY_MEASUREMENT">
-<span class="sig-name descname"><span class="pre">MATTER_CLUSTER_HUMIDITY_MEASUREMENT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x0405</span></span><a class="headerlink" href="#MATTER_CLUSTER_HUMIDITY_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_HUMIDITY_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">PurpleAirMatterConverter_CLUSTER_HUMIDITY_MEASUREMENT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x0405</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_HUMIDITY_MEASUREMENT" title="Link to this definition">¶</a></dt>
 <dd><p>Relative Humidity Measurement cluster ID (decimal 1029).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="MATTER_CLUSTER_PRESSURE_MEASUREMENT">
-<span class="sig-name descname"><span class="pre">MATTER_CLUSTER_PRESSURE_MEASUREMENT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x0403</span></span><a class="headerlink" href="#MATTER_CLUSTER_PRESSURE_MEASUREMENT" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_PRESSURE_MEASUREMENT">
+<span class="sig-prename descclassname"><span class="pre">purpleair_api.PurpleAirMatterConverter.</span></span><span class="sig-name descname"><span class="pre">PurpleAirMatterConverter_CLUSTER_PRESSURE_MEASUREMENT</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0x0403</span></span><a class="headerlink" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_PRESSURE_MEASUREMENT" title="Link to this definition">¶</a></dt>
 <dd><p>Barometric Pressure Measurement cluster ID (decimal 1027).</p>
 </dd></dl>
 
@@ -510,7 +990,7 @@ values for debugging and display purposes.</p>
 <section id="example-all-device-types">
 <h2><a class="toc-backref" href="#id12" role="doc-backlink">Example — All Device Types</a><a class="headerlink" href="#example-all-device-types" title="Link to this heading">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirReadAPI</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirReadAPI</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.matter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirMatterConverter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PurpleAirMatterConverter</span>
 
 <span class="n">pa</span> <span class="o">=</span> <span class="n">PurpleAirReadAPI</span><span class="p">(</span><span class="s2">&quot;YOUR_READ_API_KEY&quot;</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pa</span><span class="o">.</span><span class="n">request_sensor_data</span><span class="p">(</span><span class="mi">282168</span><span class="p">)</span>
@@ -525,7 +1005,7 @@ values for debugging and display purposes.</p>
 <span class="n">env</span> <span class="o">=</span> <span class="n">PurpleAirMatterConverter</span><span class="o">.</span><span class="n">to_environmental_sensor</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 <span class="c1"># EPA AQI directly</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.matter</span><span class="w"> </span><span class="kn">import</span> <span class="n">EpaAqiCalculator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">purpleair_api.PurpleAirMatterConverter</span><span class="w"> </span><span class="kn">import</span> <span class="n">EpaAqiCalculator</span>
 <span class="n">aqi</span> <span class="o">=</span> <span class="n">EpaAqiCalculator</span><span class="o">.</span><span class="n">pm25_to_aqi</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;sensor&quot;</span><span class="p">][</span><span class="s2">&quot;pm2.5&quot;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AQI: </span><span class="si">{</span><span class="n">aqi</span><span class="si">}</span><span class="s2"> — </span><span class="si">{</span><span class="n">EpaAqiCalculator</span><span class="o">.</span><span class="n">aqi_to_epa_category</span><span class="p">(</span><span class="n">aqi</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
@@ -590,15 +1070,49 @@ values for debugging and display purposes.</p>
 <li><a class="reference internal" href="#epa-aqi-computation">EPA AQI Computation</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#api-reference">API Reference</a><ul>
+<li><a class="reference internal" href="#module-purpleair_api.PurpleAirMatterConverter">API Reference</a><ul>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator"><code class="docutils literal notranslate"><span class="pre">EpaAqiCalculator</span></code></a><ul>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.BREAKPOINTS"><code class="docutils literal notranslate"><span class="pre">EpaAqiCalculator.BREAKPOINTS</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.aqi_to_epa_category"><code class="docutils literal notranslate"><span class="pre">EpaAqiCalculator.aqi_to_epa_category()</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator.pm25_to_aqi"><code class="docutils literal notranslate"><span class="pre">EpaAqiCalculator.pm25_to_aqi()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_CO2_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_CO2_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_HUMIDITY_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_HUMIDITY_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_PRESSURE_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_PRESSURE_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MATTER_CLUSTER_TEMP_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_TEMP_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR"><code class="docutils literal notranslate"><span class="pre">MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating</span></code></a><ul>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.EXCELLENT"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.EXCELLENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.EXTREMELY_POOR"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.EXTREMELY_POOR</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.FAIR"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.FAIR</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.GOOD"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.GOOD</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.POOR"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.POOR</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.UNKNOWN</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.VERY_POOR"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.VERY_POOR</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating.from_aqi"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.from_aqi()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter</span></code></a><ul>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.DEFAULT_SENSOR_INDEX"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.DEFAULT_SENSOR_INDEX</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.MATTER_VERSION"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.MATTER_VERSION</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_air_quality_sensor"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.to_air_quality_sensor()</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_environmental_sensor"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.to_environmental_sensor()</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.to_temperature_sensor"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.to_temperature_sensor()</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter.with_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.with_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.fahrenheit_to_celsius"><code class="docutils literal notranslate"><span class="pre">fahrenheit_to_celsius()</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.pressure_psi_to_kpa"><code class="docutils literal notranslate"><span class="pre">pressure_psi_to_kpa()</span></code></a></li>
 <li><a class="reference internal" href="#classes">Classes</a></li>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#constants">Constants</a><ul>
-<li><a class="reference internal" href="#MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR"><code class="docutils literal notranslate"><span class="pre">MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR</span></code></a></li>
-<li><a class="reference internal" href="#MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT</span></code></a></li>
-<li><a class="reference internal" href="#MATTER_CLUSTER_TEMP_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_TEMP_MEASUREMENT</span></code></a></li>
-<li><a class="reference internal" href="#MATTER_CLUSTER_HUMIDITY_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_HUMIDITY_MEASUREMENT</span></code></a></li>
-<li><a class="reference internal" href="#MATTER_CLUSTER_PRESSURE_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_PRESSURE_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_DEVICE_TYPE_AIR_QUALITY_SENSOR"><code class="docutils literal notranslate"><span class="pre">purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_DEVICE_TYPE_AIR_QUALITY_SENSOR</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_AIR_QUALITY_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_AIR_QUALITY_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_TEMP_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_TEMP_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_HUMIDITY_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_HUMIDITY_MEASUREMENT</span></code></a></li>
+<li><a class="reference internal" href="#purpleair_api.PurpleAirMatterConverter.purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_PRESSURE_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_PRESSURE_MEASUREMENT</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -615,7 +1129,7 @@ values for debugging and display purposes.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=4a74b673"></script>
+</div><script src="_static/documentation_options.js?v=056ff36c"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

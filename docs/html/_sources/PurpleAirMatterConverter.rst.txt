@@ -53,7 +53,7 @@ References
 Installation
 ------------
 
-``purpleair_api.matter`` is included with the ``purpleair_api`` package.
+``PurpleAirMatterConverter`` is included with the ``purpleair_api`` package.
 No additional dependencies are required beyond ``requests``.
 
 .. code-block:: bash
@@ -66,7 +66,7 @@ Quick Start
 .. code-block:: python
 
    from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
-   from purpleair_api.matter import PurpleAirMatterConverter
+   from purpleair_api.PurpleAirMatterConverter import PurpleAirMatterConverter
 
    # Fetch sensor data from PurpleAir
    pa = PurpleAirReadAPI("YOUR_PURPLEAIR_READ_API_KEY")
@@ -208,7 +208,7 @@ Matter Air Quality Rating is then derived from the computed AQI:
 API Reference
 -------------
 
-.. automodule:: purpleair_api.matter
+.. automodule:: purpleair_api.PurpleAirMatterConverter
    :members:
    :undoc-members:
    :show-inheritance:
@@ -216,50 +216,54 @@ API Reference
 Classes
 ~~~~~~~
 
-.. autoclass:: PurpleAirMatterConverter
+.. autoclass:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter
    :members:
+   :noindex:
 
-.. autoclass:: EpaAqiCalculator
+.. autoclass:: purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator
    :members:
+   :noindex:
 
-.. autoclass:: MatterAirQualityRating
+.. autoclass:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverterAirQualityRating
    :members:
 
 Functions
 ~~~~~~~~~
 
-.. autofunction:: fahrenheit_to_celsius
+.. autofunction:: purpleair_api.PurpleAirMatterConverter.fahrenheit_to_celsius
+   :noindex:
 
-.. autofunction:: pressure_psi_to_kpa
+.. autofunction:: purpleair_api.PurpleAirMatterConverter.pressure_psi_to_kpa
+   :noindex:
 
 Constants
 ~~~~~~~~~
 
-.. py:data:: MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_DEVICE_TYPE_AIR_QUALITY_SENSOR
    :type: int
    :value: 0x002D
 
    Matter 1.5.1 Air Quality Sensor device type identifier (decimal 45).
 
-.. py:data:: MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_AIR_QUALITY_MEASUREMENT
    :type: int
    :value: 0x005D
 
    Air Quality Measurement cluster ID (decimal 93).
 
-.. py:data:: MATTER_CLUSTER_TEMP_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_TEMP_MEASUREMENT
    :type: int
    :value: 0x0402
 
    Temperature Measurement cluster ID (decimal 1026).
 
-.. py:data:: MATTER_CLUSTER_HUMIDITY_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_HUMIDITY_MEASUREMENT
    :type: int
    :value: 0x0405
 
    Relative Humidity Measurement cluster ID (decimal 1029).
 
-.. py:data:: MATTER_CLUSTER_PRESSURE_MEASUREMENT
+.. py:data:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter_CLUSTER_PRESSURE_MEASUREMENT
    :type: int
    :value: 0x0403
 
@@ -271,7 +275,7 @@ Example — All Device Types
 .. code-block:: python
 
    from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
-   from purpleair_api.matter import PurpleAirMatterConverter
+   from purpleair_api.PurpleAirMatterConverter import PurpleAirMatterConverter
 
    pa = PurpleAirReadAPI("YOUR_READ_API_KEY")
    data = pa.request_sensor_data(282168)
@@ -286,6 +290,6 @@ Example — All Device Types
    env = PurpleAirMatterConverter.to_environmental_sensor(data)
 
    # EPA AQI directly
-   from purpleair_api.matter import EpaAqiCalculator
+   from purpleair_api.PurpleAirMatterConverter import EpaAqiCalculator
    aqi = EpaAqiCalculator.pm25_to_aqi(data["sensor"]["pm2.5"])
    print(f"AQI: {aqi} — {EpaAqiCalculator.aqi_to_epa_category(aqi)}")

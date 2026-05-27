@@ -4,7 +4,7 @@ HOWTO: Use the Matter Device Converter
 What is this?
 -------------
 
-The ``purpleair_api.matter`` module maps raw PurpleAir sensor readings to
+The ``purpleair_api.PurpleAirMatterConverter`` module maps raw PurpleAir sensor readings to
 **Matter-compatible device type structures** per the `Matter 1.5.1 Core Specification <https://csa-iot.org/developer-resource/specifications/>`_
 (Connectivity Standards Alliance, 2024).
 
@@ -34,7 +34,7 @@ Quick Start
 .. code-block:: python
 
     from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
-    from purpleair_api.matter import PurpleAirMatterConverter
+    from purpleair_api.PurpleAirMatterConverter import PurpleAirMatterConverter
     
     # Fetch sensor data
     pa = PurpleAirReadAPI("YOUR_READ_API_KEY")
@@ -137,7 +137,7 @@ from PM2.5 using the official piecewise-linear formula:
 
 .. code-block:: python
 
-    from purpleair_api.matter import EpaAqiCalculator
+    from purpleair_api.PurpleAirMatterConverter import EpaAqiCalculator
     
     pm25 = 25.0  # µg/m³
     aqi = EpaAqiCalculator.pm25_to_aqi(pm25)
@@ -221,7 +221,7 @@ Example bridge snippet (conceptual):
 .. code-block:: python
 
     from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
-    from purpleair_api.matter import PurpleAirMatterConverter
+    from purpleair_api.PurpleAirMatterConverter import PurpleAirMatterConverter
     import matter_server  # python-matter-server
     
     pa = PurpleAirReadAPI("KEY")

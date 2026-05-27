@@ -75,12 +75,12 @@ class MatterAirQualityRating(Enum):
     Label        Value  AQI Range
     ===========  =====  ===============
     Unknown          0  sensor unavailable
-    Excellent        1  0–50
-    Good             2  51–100
-    Fair             3  101–150
-    Poor             4  151–200
-    Very Poor        5  201–300
-    Extremely Poor   6  301–500
+    Excellent        1  0-50
+    Good             2  51-100
+    Fair             3  101-150
+    Poor             4  151-200
+    Very Poor        5  201-300
+    Extremely Poor   6  301-500
     ===========  =====  ===============
     """
 
@@ -130,17 +130,17 @@ class EpaAqiCalculator:
     Breakpoints are taken from the official EPA table:
         <https://airnow.gov/sites/default/files/2021-03/AQI-Breakpoints.pdf>
 
-    =============  ===============  ================
-    AQI Category   PM2.5 (µg/m³)    AQI Range
-    =============  ===============  ================
-    Good           0.0 – 12.0        0 – 50
-    Moderate       12.1 – 35.4       51 – 100
+    ===============  ===============  ================
+    AQI Category      PM2.5 (µg/m³)    AQI Range
+    ===============  ===============  ================
+    Good              0.0 - 12.0        0 - 50
+    Moderate          12.1 - 35.4       51 - 100
     Unhealthy
-      for Sensitive  35.5 – 55.4    101 – 150
-    Unhealthy       55.5 – 150.4    151 – 200
-    Very Unhealthy 150.5 – 250.4    201 – 300
-    Hazardous      250.5 – 500.4    301 – 500
-    =============  ===============  ================
+      for Sensitive  35.5 - 55.4    101 - 150
+    Unhealthy         55.5 - 150.4    151 - 200
+    Very Unhealthy   150.5 - 250.4    201 - 300
+    Hazardous        250.5 - 500.4    301 - 500
+    ===============  ===============  ================
     """
 
     # (C_low, C_high, I_low, I_high)
@@ -240,6 +240,31 @@ def pressure_psi_to_kpa(psi: float) -> float:
     return psi * 6.89476
 
 
+def _safe_float(value: Any, default: float = 0.0) -> float:
+    """
+    Convert any value to float, returning a default on failure.
+
+    :param value: Any value from a PurpleAir field.
+    :param default: Fallback value when conversion fails (default 0.0).
+    :return: Parsed float, or default if conversion fails.
+    """
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _safe_temperature_fahrenheit(value: Any) -> float:
+    """
+    Safe-convert any value to Fahrenheit, defaulting to ambient 32 °F
+    for missing sensor readings.
+
+    :param value: Any value from a PurpleAir field (may be None or absent).
+    :return: Temperature in °F, or 32.0 °F when the field is unavailable.
+    """
+    return _safe_float(value, 32.0)
+
+
 def _nullable_float(value: Any) -> float | None:
     """
     Safely parse any value to float, or return None if absent/missing.
@@ -271,7 +296,7 @@ class PurpleAirMatterConverter:
     Example — Air Quality Sensor::
 
         from purpleair_api.PurpleAirReadAPI import PurpleAirReadAPI
-        from purpleair_api.matter import PurpleAirMatterConverter
+        from purpleair_api.PurpleAirMatterConverter import PurpleAirMatterConverter
 
         pa = PurpleAirReadAPI("YOUR_READ_API_KEY")
         raw = pa.request_sensor_data(282168)
@@ -352,13 +377,13 @@ class PurpleAirMatterConverter:
         # Matter ecosystem report "unavailable" instead of "0 °C / 0 %".
         # PM/VOC defaults to 0.0 only after _normalise confirms the field exists;
         # None fields are excluded from AQI calculation (pm25_to_aqi handles it).
-        pm25_raw = _nullable_float(data.get("pm2.5"))
-        pm10_raw = _nullable_float(data.get("pm10.0"))
-        pm1_raw = _nullable_float(data.get("pm1.0"))
-        voc_raw = _nullable_float(data.get("voc"))
-        temp_f = _nullable_float(data.get("temperature"))
-        humidity = _nullable_float(data.get("humidity"))
-        pressure_psi = _nullable_float(data.get("pressure"))
+        pm25_raw = _safe_float(data.get("pm2.5"))
+        pm10_raw = _safe_float(data.get("pm10.0"))
+        pm1_raw = _safe_float(data.get("pm1.0"))
+        voc_raw = _safe_float(data.get("voc"))
+        temp_f = _safe_temperature_fahrenheit(data.get("temperature"))
+        humidity = _safe_float(data.get("humidity"))
+        pressure_psi = _safe_float(data.get("pressure"))
 
         # Compute EPA AQI from PM2.5
         aqi = EpaAqiCalculator.pm25_to_aqi(pm25_raw if pm25_raw is not None else 0.0)

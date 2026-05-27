@@ -19,6 +19,8 @@ from purpleair_api.PurpleAirMatterConverter import (
     MatterAirQualityRating,
     fahrenheit_to_celsius,
     pressure_psi_to_kpa,
+    _safe_float,
+    _safe_temperature_fahrenheit,
     MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR,
     MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT,
     MATTER_CLUSTER_TEMP_MEASUREMENT,
@@ -234,26 +236,28 @@ class UnitConversionTest(unittest.TestCase):
 # =============================================================================
 
 
-class TestNullableFloat(unittest.TestCase):
-    """Tests for _nullable_float helper."""
+class SafeFloatHelperTest(unittest.TestCase):
+    """Tests for _safe_float and _safe_temperature_fahrenheit helpers."""
 
-    def test_nullable_float_with_none(self):
-        """None returns None (not a default)."""
-        from purpleair_api.PurpleAirMatterConverter import _nullable_float
+    def test_safe_float_with_none(self):
+        """None falls back to default."""
+        self.assertEqual(_safe_float(None, 42.0), 42.0)
 
-        self.assertIsNone(_nullable_float(None))
-
-    def test_nullable_float_with_valid_float(self):
+    def test_safe_float_with_valid_float(self):
         """Valid float is returned unchanged."""
-        from purpleair_api.PurpleAirMatterConverter import _nullable_float
+        self.assertEqual(_safe_float(3.14, 0.0), 3.14)
 
-        self.assertEqual(_nullable_float(3.14), 3.14)
+    def test_safe_float_with_non_numeric_string_excepts(self):
+        """Non-numeric string falls through to except and returns default."""
+        self.assertEqual(_safe_float("not_a_number", 99.0), 99.0)
 
-    def test_nullable_float_with_non_numeric_string(self):
-        """Non-numeric string returns None."""
-        from purpleair_api.PurpleAirMatterConverter import _nullable_float
+    def test_safe_temperature_fahrenheit_with_none(self):
+        """None temperature falls back to 32.0 °F (ambient fallback)."""
+        self.assertEqual(_safe_temperature_fahrenheit(None), 32.0)
 
-        self.assertIsNone(_nullable_float("not_a_number"))
+    def test_safe_temperature_fahrenheit_with_non_numeric_string_excepts(self):
+        """Non-numeric string falls through to except and returns 32.0 °F."""
+        self.assertEqual(_safe_temperature_fahrenheit("bad_input"), 32.0)
 
 
 class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
@@ -388,8 +392,8 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
         attrs = result["clusters"]["air_quality_measurement"]["attributes"]
         self.assertEqual(attrs["measuredValue"], 750)  # pm2.5=7.5 → ×100
 
-    def test_none_field_values_stay_none(self):
-        """Fields with None/null values stay None in Matter attributes."""
+    def test_none_field_values_default_to_zero(self):
+        """Fields with None/null values fall back to 0, not TypeError."""
         sensor_with_nones = {
             "sensor": {
                 "sensor_index": 99999,
@@ -399,25 +403,25 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
                 "pm10.0": None,
                 "voc": None,
                 "humidity": None,
-                "temperature": None,
+                "temperature": None,  # → 32 °F ambient fallback
                 "pressure": None,
             }
         }
         # Must not raise TypeError
         result = PurpleAirMatterConverter.to_air_quality_sensor(sensor_with_nones)
         aq_attrs = result["clusters"]["air_quality_measurement"]["attributes"]
-        self.assertIsNone(aq_attrs["measuredValue"])
-        self.assertIsNone(aq_attrs["pm1Density"])
-        self.assertIsNone(aq_attrs["pm10Density"])
-        self.assertIsNone(aq_attrs["vocDensity"])
+        self.assertEqual(aq_attrs["measuredValue"], 0)
+        self.assertEqual(aq_attrs["pm1Density"], 0)
+        self.assertEqual(aq_attrs["pm10Density"], 0)
+        self.assertEqual(aq_attrs["vocDensity"], 0)
         hum_attrs = result["clusters"]["humidity_measurement"]["attributes"]
-        self.assertIsNone(hum_attrs["measuredValue"])
+        self.assertEqual(hum_attrs["measuredValue"], 0)
         # temperature=None → 32 °F ambient → 0 °C → scaled ×100 = 0
         tmp_attrs = result["clusters"]["temperature_measurement"]["attributes"]
-        self.assertIsNone(tmp_attrs["measuredValue"])
+        self.assertEqual(tmp_attrs["measuredValue"], 0)
         # pressure=None → 0 PSI → 0 kPa → scaled ×10 = 0
         pres_attrs = result["clusters"]["pressure_measurement"]["attributes"]
-        self.assertIsNone(pres_attrs["measuredValue"])
+        self.assertEqual(pres_attrs["measuredValue"], 0)
 
     def test_non_dict_input_handled_gracefully(self):
         """Non-dict input (None, string, list) to _normalise returns empty dict."""
