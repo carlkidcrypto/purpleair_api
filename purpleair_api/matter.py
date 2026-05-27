@@ -112,7 +112,7 @@ class MatterAirQualityRating(Enum):
     EXTREMELY_POOR = 6
 
     @classmethod
-    def from_aqi(cls, aqi: float) -> "MatterAirQualityRating":
+    def from_aqi(cls, aqi: int) -> "MatterAirQualityRating":
         """
         Derive a Matter Air Quality Rating from an EPA AQI value.
 
