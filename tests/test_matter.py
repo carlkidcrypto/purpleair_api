@@ -28,7 +28,6 @@ from purpleair_api.matter import (
     MATTER_CLUSTER_PRESSURE_MEASUREMENT,
 )
 
-
 # =============================================================================
 # Fixtures
 # =============================================================================
@@ -47,7 +46,7 @@ SAMPLE_RAW_SENSOR = {
     "voc": 0.123,
     "humidity": 45.6,
     "temperature": 83.0,  # Fahrenheit
-    "pressure": 13.247,   # PSI
+    "pressure": 13.247,  # PSI
 }
 
 SAMPLE_SENSOR_WRAPPED = {"sensor": SAMPLE_RAW_SENSOR}
@@ -181,10 +180,10 @@ class MatterAirQualityRatingTest(unittest.TestCase):
         )
 
     def test_from_aqi_extremely_poor(self):
-         self.assertEqual(
-             MatterAirQualityRating.from_aqi(400),
-             MatterAirQualityRating.EXTREMELY_POOR,
-         )
+        self.assertEqual(
+            MatterAirQualityRating.from_aqi(400),
+            MatterAirQualityRating.EXTREMELY_POOR,
+        )
 
     def test_from_aqi_zero_excellent(self):
         self.assertEqual(
@@ -265,9 +264,7 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
     """Tests for :meth:`PurpleAirMatterConverter.to_air_quality_sensor`."""
 
     def setUp(self) -> None:
-        self.result = PurpleAirMatterConverter.to_air_quality_sensor(
-            SAMPLE_RAW_SENSOR
-        )
+        self.result = PurpleAirMatterConverter.to_air_quality_sensor(SAMPLE_RAW_SENSOR)
 
     def test_returns_dict(self):
         self.assertIsInstance(self.result, dict)
@@ -314,9 +311,9 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
         self.assertEqual(attrs["pm10Density"], 1840)
 
     def test_air_quality_rating_is_valid_enum_value(self):
-        rating = self.result[
-            "clusters"
-        ]["air_quality_measurement"]["attributes"]["airQuality"]
+        rating = self.result["clusters"]["air_quality_measurement"]["attributes"][
+            "airQuality"
+        ]
         self.assertIn(rating, [e.value for e in MatterAirQualityRating])
 
     def test_aqi_rating_matches_air_quality(self):
@@ -425,7 +422,6 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
         # pressure=None → 0 PSI → 0 kPa → scaled ×10 = 0
         pres_attrs = result["clusters"]["pressure_measurement"]["attributes"]
         self.assertEqual(pres_attrs["measuredValue"], 0)
-
 
     def test_non_dict_input_handled_gracefully(self):
         """Non-dict input (None, string, list) to _normalise returns empty dict."""

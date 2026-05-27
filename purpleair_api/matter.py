@@ -507,7 +507,7 @@ class PurpleAirMatterConverter:
                     "attributes": {
                         "measuredValue": int(round(temp_c * 100)),
                         "minMeasuredValue": -27315,  # -273.15 °C
-                        "maxMeasuredValue": 20000,   # 200.00 °C
+                        "maxMeasuredValue": 20000,  # 200.00 °C
                     },
                     "_raw_celsius": temp_c,
                     "_raw_fahrenheit": temp_f,
@@ -535,7 +535,7 @@ class PurpleAirMatterConverter:
                     "cluster_id": MATTER_CLUSTER_PRESSURE_MEASUREMENT,
                     "attributes": {
                         "measuredValue": int(round(pressure_kpa * 10)),
-                        "minMeasuredValue": 0,    # 0 kPa
+                        "minMeasuredValue": 0,  # 0 kPa
                         "maxMeasuredValue": 11500,  # 1150.0 kPa
                     },
                     "_raw_kpa": pressure_kpa,
@@ -700,9 +700,21 @@ class PurpleAirMatterConverter:
             result[key] = inner.get(key, default)
 
         # Ensure canonical fields always exist
-        for key in ("pm2.5", "pm1.0", "pm10.0", "voc", "temperature", "humidity",
-                    "pressure", "name", "latitude", "longitude",
-                    "firmware_version", "hardware", "sensor_index"):
+        for key in (
+            "pm2.5",
+            "pm1.0",
+            "pm10.0",
+            "voc",
+            "temperature",
+            "humidity",
+            "pressure",
+            "name",
+            "latitude",
+            "longitude",
+            "firmware_version",
+            "hardware",
+            "sensor_index",
+        ):
             if key in inner:
                 result[key] = inner[key]
 
