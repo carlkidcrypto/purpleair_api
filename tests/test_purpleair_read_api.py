@@ -4,7 +4,6 @@
 Copyright 2023 carlkidcrypto, All rights reserved.
 """
 
-
 import unittest
 import requests_mock
 import sys
@@ -394,7 +393,6 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 max_age=100,
             )
 
-
     def test_request_sensor_data_with_fields_only(self):
         """
         Test that we can request sensor data with only the fields parameter (no read_key).
@@ -402,7 +400,9 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = "https://api.purpleair.com/v1/sensors/1234?fields=name,temperature"
+        fake_url_request = (
+            "https://api.purpleair.com/v1/sensors/1234?fields=name,temperature"
+        )
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:

@@ -11,4 +11,8 @@ purpleair_api
    PurpleAirLocalAPI
    PurpleAirReadAPI
    PurpleAirWriteAPI
+<<<<<<< fix/sphinx-matter-import-path
    matter
+=======
+   PurpleAirMatterConverter
+>>>>>>> main
