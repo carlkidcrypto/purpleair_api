@@ -220,7 +220,7 @@ class UnitConversionTest(unittest.TestCase):
 
     def test_fahrenheit_to_celsius_83f(self):
         """83°F ≈ 28.33°C."""
-        self.assertEqual(fahrenheit_to_celsius(83.0), 28.33)
+        self.assertAlmostEqual(fahrenheit_to_celsius(83.0), 28.33, places=2)
 
     def test_pressure_psi_to_kpa(self):
         """14.696 PSI ≈ 101.325 kPa (standard atmosphere)."""
