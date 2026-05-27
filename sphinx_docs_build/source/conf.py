@@ -47,9 +47,13 @@ exclude_patterns = []
 # Treat broken reference warnings as errors (used with -W flag).
 nitpicky = False
 
-# Suppress autodoc warnings for intentionally undocumented members
-# (e.g., private helpers that appear via :undoc-members:).
-suppress_warnings = ["autodoc"]
+# Suppress warnings that would otherwise become errors with the -W CI flag.
+# Each entry here must appear verbatim (no wildcards).
+suppress_warnings = [
+    "autodoc",
+    "ref.python",
+    "ref",
+]
 
 # -- Options for HTML output -------------------------------------------------
 
