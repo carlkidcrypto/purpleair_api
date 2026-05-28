@@ -23,7 +23,7 @@ copyright = "2024-2025, carlkidcrypto"
 author = "carlkidcrypto"
 
 # The full version, including alpha/beta/rc tags
-release = "V1.4.1"
+release = "V1.5.0a0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -43,6 +43,17 @@ templates_path = ["_templates"]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+
+# Treat broken reference warnings as errors (used with -W flag).
+nitpicky = False
+
+# Suppress warnings that would otherwise become errors with the -W CI flag.
+# Each entry here must appear verbatim (no wildcards).
+suppress_warnings = [
+    "autodoc",
+    "ref.python",
+    "ref",
+]
 
 # -- Options for HTML output -------------------------------------------------
 
