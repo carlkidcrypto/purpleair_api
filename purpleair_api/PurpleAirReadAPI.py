@@ -274,6 +274,8 @@ class PurpleAirReadAPI:
         A method to retrieve a list of all members of a specified group.
 
         :param int group_id: The group_id of the requested group. This group must be owned by the api_key.
+
+        :return dict | None: A dictionary containing the group detail payload response.
         """
 
         request_url = self._base_api_v1_request_string + f"groups/{group_id}"
@@ -282,6 +284,8 @@ class PurpleAirReadAPI:
     def request_group_list_data(self):
         """
         A method to retrieve a list of all groups owned by the provided api_key.
+
+        :return dict | None: A dictionary containing the list of groups.
         """
 
         request_url = self._base_api_v1_request_string + f"groups/"
