@@ -130,16 +130,16 @@ class EpaAqiCalculator:
     Breakpoints are taken from the official EPA table:
         <https://airnow.gov/sites/default/files/2021-03/AQI-Breakpoints.pdf>
 
-    =============================  ===============  ================
-    AQI Category                   PM2.5 (µg/m³)    AQI Range
-    =============================  ===============  ================
-    Good                          0.0 - 12.0        0 - 50
-    Moderate                      12.1 - 35.4       51 - 100
-    Unhealthy for Sensitive       35.5 - 55.4    101 - 150
-    Unhealthy                     55.5 - 150.4    151 - 200
-    Very Unhealthy               150.5 - 250.4    201 - 300
-    Hazardous                    250.5 - 500.4    301 - 500
-    =============================  ===============  ================
+    ===============================  =================  =================
+    AQI Category                       PM2.5 (µg/m³)         AQI Range
+    ===============================  =================  =================
+    Good                             0.0 - 12.0         0 - 50           
+    Moderate                         12.1 - 35.4        51 - 100         
+    Unhealthy for Sensitive          35.5 - 55.4        101 - 150        
+    Unhealthy                        55.5 - 150.4       151 - 200        
+    Very Unhealthy                   150.5 - 250.4      201 - 300        
+    Hazardous                        250.5 - 500.4      301 - 500        
+    ===============================  =================  =================
     """
 
     # (C_low, C_high, I_low, I_high)
