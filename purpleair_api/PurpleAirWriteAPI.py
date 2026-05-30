@@ -32,7 +32,7 @@ class PurpleAirWriteAPI:
 
         :param str name: The name of the group to create.
 
-        :return dict: A dictionary containing the created group data.
+        :return dict | None: A dictionary containing the created group data.
         """
 
         post_url = self._base_api_v1_request_string + f"groups"
@@ -128,7 +128,7 @@ class PurpleAirWriteAPI:
 
         :param int group_id: The group_id of the group to delete
 
-        :return dict: A dictionary containing the deletion response.
+        :return dict | None: A dictionary containing the deletion response.
         """
 
         post_url = self._base_api_v1_request_string + f"groups/{group_id}"
@@ -142,7 +142,7 @@ class PurpleAirWriteAPI:
         :param int group_id: The group_id of the group in which member_id is in.
         :param int member_id: The member_id to delete.
 
-        :return dict: A dictionary containing the deletion response.
+        :return dict | None: A dictionary containing the deletion response.
         """
 
         post_url = (

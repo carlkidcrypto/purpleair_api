@@ -285,7 +285,7 @@ class PurpleAirReadAPI:
         """
         A method to retrieve a list of all groups owned by the provided api_key.
 
-        :return dict: A dictionary containing the list of groups.
+        :return dict | None: A dictionary containing the list of groups.
         """
 
         request_url = self._base_api_v1_request_string + f"groups/"
