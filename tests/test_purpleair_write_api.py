@@ -94,6 +94,30 @@ class PurpleAirWriteAPITest(unittest.TestCase):
                 location_type=0,
             )
 
+    def test_post_create_member_with_private_sensor_no_location_type(self):
+        """
+        Test option 3 of post_create_member when location_type is omitted (defaults to None).
+        This exercises the option-3 branch with location_type=None sent to the API.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/groups/9999/members"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.post(
+                fake_url_request,
+                text='{"test": 9999}',
+                status_code=200,
+            )
+            retval = self.pawa.post_create_member(
+                group_id=9999,
+                sensor_id="PRIV_SENSOR",
+                owner_email="owner@example.com",
+            )
+            self.assertEqual(retval, {"test": 9999})
+            self.assertEqual(m.request_history[0].json().get("location_type"), None)
+
     def test_post_create_member_with_invalid_params(self):
         """
         Test that invalid parameter combinations raise PurpleAirAPIError.
