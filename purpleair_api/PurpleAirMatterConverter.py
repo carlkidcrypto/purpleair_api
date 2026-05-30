@@ -81,7 +81,7 @@ class MatterAirQualityRating(Enum):
     Poor                4  151-200
     Very Poor           5  201-300
     Extremely Poor      6  301-500
-    ===========  =====  ===============
+    ==============  =====  ===============
     """
 
     UNKNOWN = 0
@@ -348,9 +348,9 @@ class PurpleAirMatterConverter:
 
         Maps the following PurpleAir fields to Matter clusters:
 
-        ==========================  ===========================  =========
+        ==========================  ===========================  ===========
         PurpleAir Field             Matter Cluster / Attribute   Unit
-        ==========================  ===========================  =========
+        ==========================  ===========================  ===========
         pm2.5 (primary)              Air Quality / measuredValue  µg/m³ × 100
         pm1.0                       Air Quality / pm1Density    µg/m³ × 100
         pm10.0                      Air Quality / pm10Density   µg/m³ × 100
@@ -360,7 +360,7 @@ class PurpleAirMatterConverter:
         temperature (°F → °C)       Temperature / measuredValue  °C × 100
         humidity (%)                Humidity / measuredValue    % × 100
         pressure (psi → kPa)         Pressure / measuredValue    kPa × 10
-        ==========================  ===========================  =========
+        ==========================  ===========================  ===========
 
         EPA AQI is computed from the PM2.5 concentration using
         :class:`EpaAqiCalculator`.
