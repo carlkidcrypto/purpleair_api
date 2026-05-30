@@ -520,6 +520,52 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
             )
         self.assertEqual(result, {"org": "test"})
 
+    def test_send_url_get_request_strips_quotes_from_url(self):
+        """
+        Test that send_url_get_request strips embedded double-quotes from the URL
+        before sending the request (exercises the request_url.replace('"', "") path).
+        """
+
+        # The URL after stripping should have no quotes
+        cleaned_url = "https://api.purpleair.com/v1/sensors/1234"
+
+        # Action and Expected Result — mocker registers the cleaned URL
+        with requests_mock.Mocker() as m:
+            m.get(
+                cleaned_url,
+                text='{"stripped": true}',
+                status_code=200,
+            )
+            # Pass a URL that contains embedded quotes
+            result = send_url_get_request(
+                request_url='"https://api.purpleair.com/v1/sensors/1234"',
+                api_key_to_use="testkey",
+            )
+        self.assertEqual(result, {"stripped": True})
+
+    def test_send_url_get_request_strips_spaces_from_url(self):
+        """
+        Test that send_url_get_request strips whitespace from the URL
+        before sending the request (exercises the request_url.replace(" ", "") path).
+        """
+
+        # The URL after stripping should have no spaces
+        cleaned_url = "https://api.purpleair.com/v1/sensors/5678"
+
+        # Action and Expected Result — mocker registers the cleaned URL
+        with requests_mock.Mocker() as m:
+            m.get(
+                cleaned_url,
+                text='{"stripped": true}',
+                status_code=200,
+            )
+            # Pass a URL that contains spaces
+            result = send_url_get_request(
+                request_url="https://api.purpleair.com/v1/sensors/ 5678 ",
+                api_key_to_use="testkey",
+            )
+        self.assertEqual(result, {"stripped": True})
+
 
 if __name__ == "__main__":
     unittest.main()
