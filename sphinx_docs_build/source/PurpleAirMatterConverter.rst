@@ -208,71 +208,10 @@ Matter Air Quality Rating is then derived from the computed AQI:
 API Reference
 -------------
 
-.. automodule:: purpleair_api.PurpleAirMatterConverter
+.. automodule:: PurpleAirAPIHelpers
    :members:
    :undoc-members:
    :show-inheritance:
-
-Classes
-~~~~~~~
-
-.. autoclass:: purpleair_api.PurpleAirMatterConverter.PurpleAirMatterConverter
-   :members:
-   :noindex:
-
-.. autoclass:: purpleair_api.PurpleAirMatterConverter.EpaAqiCalculator
-   :members:
-   :noindex:
-
-.. autoclass:: purpleair_api.PurpleAirMatterConverter.MatterAirQualityRating
-   :members:
-
-Functions
-~~~~~~~~~
-
-.. autofunction:: purpleair_api.PurpleAirMatterConverter.fahrenheit_to_celsius
-   :noindex:
-
-.. autofunction:: purpleair_api.PurpleAirMatterConverter.pressure_psi_to_kpa
-   :noindex:
-
-Constants
-~~~~~~~~~
-
-.. py:data:: MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR
-   :module: purpleair_api.PurpleAirMatterConverter
-   :type: int
-   :value: 0x002D
-
-   Matter 1.5.1 Air Quality Sensor device type identifier (decimal 45).
-
-.. py:data:: MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT
-   :module: purpleair_api.PurpleAirMatterConverter
-   :type: int
-   :value: 0x005D
-
-   Air Quality Measurement cluster ID (decimal 93).
-
-.. py:data:: MATTER_CLUSTER_TEMP_MEASUREMENT
-   :module: purpleair_api.PurpleAirMatterConverter
-   :type: int
-   :value: 0x0402
-
-   Temperature Measurement cluster ID (decimal 1026).
-
-.. py:data:: MATTER_CLUSTER_HUMIDITY_MEASUREMENT
-   :module: purpleair_api.PurpleAirMatterConverter
-   :type: int
-   :value: 0x0405
-
-   Relative Humidity Measurement cluster ID (decimal 1029).
-
-.. py:data:: MATTER_CLUSTER_PRESSURE_MEASUREMENT
-   :module: purpleair_api.PurpleAirMatterConverter
-   :type: int
-   :value: 0x0403
-
-   Barometric Pressure Measurement cluster ID (decimal 1027).
 
 Example — All Device Types
 --------------------------
