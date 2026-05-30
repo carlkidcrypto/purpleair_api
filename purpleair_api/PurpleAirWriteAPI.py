@@ -31,6 +31,8 @@ class PurpleAirWriteAPI:
         A method to create a group for sensors.
 
         :param str name: The name of the group to create.
+
+        :return dict | None: A dictionary containing the created group data.
         """
 
         post_url = self._base_api_v1_request_string + f"groups"
@@ -73,6 +75,9 @@ class PurpleAirWriteAPI:
                                              Possible values are: 0 = Outside or 1 = Inside.
                                              If the target member is not of this type, an error will result.
                                              NOTE: This value is required if the sensor in question is marked as ‘private’ on the registration form.
+
+        :return dict | None: A dictionary containing the created member data.
+        :raises PurpleAirAPIError: If an invalid combination of parameters is provided or the API request fails.
         """
 
         post_url = self._base_api_v1_request_string + f"groups/{group_id}/members"
@@ -122,6 +127,8 @@ class PurpleAirWriteAPI:
         A method to delete a group for sensors.
 
         :param int group_id: The group_id of the group to delete
+
+        :return dict | None: A dictionary containing the deletion response.
         """
 
         post_url = self._base_api_v1_request_string + f"groups/{group_id}"
@@ -134,6 +141,8 @@ class PurpleAirWriteAPI:
 
         :param int group_id: The group_id of the group in which member_id is in.
         :param int member_id: The member_id to delete.
+
+        :return dict | None: A dictionary containing the deletion response.
         """
 
         post_url = (
