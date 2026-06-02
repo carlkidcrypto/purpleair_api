@@ -53,8 +53,7 @@ Monitor the PurpleAir API documentation at https://api.purpleair.com/ for change
 Retrieve the HTML source of the PurpleAir API documentation page:
 
 ```bash
-curl -s "https://api.purpleair.com/" -o /tmp/gh-aw/agent/api_current.html
-```
+curl -fsSL "https://api.purpleair.com/" -o /tmp/gh-aw/agent/api_current.html
 
 If the fetch fails (non-zero exit, empty file, or clear HTTP error response), log the failure, skip all further steps, and end cleanly without opening a PR.
 
