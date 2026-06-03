@@ -3,7 +3,7 @@ name: PurpleAir API Watcher
 
 on:
   schedule:
-    - cron: "0 9 * * 1"
+    - cron: "24 10 * * 1"
   workflow_dispatch:
   skip-if-match:
     query: "is:pr is:open head:automation/purpleair-api-sync label:automated-pr"
@@ -53,8 +53,7 @@ Monitor the PurpleAir API documentation at https://api.purpleair.com/ for change
 Retrieve the HTML source of the PurpleAir API documentation page:
 
 ```bash
-curl -s "https://api.purpleair.com/" -o /tmp/api_current.html
-```
+curl -fsSL "https://api.purpleair.com/" -o /tmp/gh-aw/agent/api_current.html
 
 If the fetch fails (non-zero exit, empty file, or clear HTTP error response), log the failure, skip all further steps, and end cleanly without opening a PR.
 
@@ -64,7 +63,7 @@ Extract the human-readable text content from the HTML (strip tags, collapse whit
 python3 - <<'EOF'
 import re, sys
 
-with open("/tmp/api_current.html", "r", encoding="utf-8", errors="replace") as f:
+with open("/tmp/gh-aw/agent/api_current.html", "r", encoding="utf-8", errors="replace") as f:
     html = f.read()
 
 # Remove scripts and styles
@@ -75,7 +74,7 @@ text = re.sub(r"<[^>]+>", " ", html)
 text = re.sub(r"[ \t]+", " ", text)
 text = re.sub(r"\n\s*\n+", "\n\n", text)
 
-with open("/tmp/api_current_text.txt", "w", encoding="utf-8") as f:
+with open("/tmp/gh-aw/agent/api_current_text.txt", "w", encoding="utf-8") as f:
     f.write(text.strip())
 EOF
 ```
@@ -87,9 +86,9 @@ Check whether a previous snapshot file exists at `docs/purpleair_api_snapshot.tx
 - If the file does not exist yet, treat the entire current content as "new" and proceed to update steps.
 - If the file exists, compute a diff:
   ```bash
-  diff docs/purpleair_api_snapshot.txt /tmp/api_current_text.txt > /tmp/api_diff.txt || true
+  diff docs/purpleair_api_snapshot.txt /tmp/gh-aw/agent/api_current_text.txt > /tmp/gh-aw/agent/api_diff.txt || true
   ```
-  If `/tmp/api_diff.txt` is empty (no diff), log "No API documentation changes detected." and stop cleanly with no file edits.
+  If `/tmp/gh-aw/agent/api_diff.txt` is empty (no diff), log "No API documentation changes detected." and stop cleanly with no file edits.
 
 ### 3. Analyze the diff for actionable changes
 
@@ -112,7 +111,7 @@ If none of these actionable changes are identified from the diff, log "API docum
 
 ### 4. Update the snapshot file
 
-Overwrite `docs/purpleair_api_snapshot.txt` with the contents of `/tmp/api_current_text.txt`. This must happen on every run where the content has changed, regardless of whether code changes were also made.
+Overwrite `docs/purpleair_api_snapshot.txt` with the contents of `/tmp/gh-aw/agent/api_current_text.txt`. This must happen on every run where the content has changed, regardless of whether code changes were also made.
 
 ### 5. Apply code updates
 
