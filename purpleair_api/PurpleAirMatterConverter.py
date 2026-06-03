@@ -81,7 +81,7 @@ class MatterAirQualityRating(Enum):
     Poor                4  151-200
     Very Poor           5  201-300
     Extremely Poor      6  301-500
-    ===========  =====  ===============
+    ==============  =====  ===============
     """
 
     UNKNOWN = 0
@@ -130,16 +130,16 @@ class EpaAqiCalculator:
     Breakpoints are taken from the official EPA table:
         <https://airnow.gov/sites/default/files/2021-03/AQI-Breakpoints.pdf>
 
-    =============================  ===============  ================
-    AQI Category                   PM2.5 (µg/m³)    AQI Range
-    =============================  ===============  ================
-    Good                          0.0 - 12.0        0 - 50
-    Moderate                      12.1 - 35.4       51 - 100
-    Unhealthy for Sensitive       35.5 - 55.4    101 - 150
-    Unhealthy                     55.5 - 150.4    151 - 200
-    Very Unhealthy               150.5 - 250.4    201 - 300
-    Hazardous                    250.5 - 500.4    301 - 500
-    =============================  ===============  ================
+    ==============================  ==============  ================
+    AQI Category                    PM2.5 (µg/m³)   AQI Range
+    ==============================  ==============  ================
+    Good                            0.0 - 12.0      0 - 50
+    Moderate                        12.1 - 35.4     51 - 100
+    Unhealthy for Sensitive Groups  35.5 - 55.4     101 - 150
+    Unhealthy                       55.5 - 150.4    151 - 200
+    Very Unhealthy                  150.5 - 250.4   201 - 300
+    Hazardous                       250.5 - 500.4   301 - 500
+    ==============================  ==============  ================
     """
 
     # (C_low, C_high, I_low, I_high)
@@ -347,20 +347,19 @@ class PurpleAirMatterConverter:
         device type structure (Matter 1.5.1, Device Type 0x002D).
 
         Maps the following PurpleAir fields to Matter clusters:
-
-        ==========================  ===========================  =========
-        PurpleAir Field             Matter Cluster / Attribute   Unit
-        ==========================  ===========================  =========
-        pm2.5 (primary)              Air Quality / measuredValue  µg/m³ × 100
-        pm1.0                       Air Quality / pm1Density    µg/m³ × 100
-        pm10.0                      Air Quality / pm10Density   µg/m³ × 100
-        voc                         Air Quality / vocDensity    µg/m³ × 100
-        (calculated)                Air Quality / airQuality    enum
-        (calculated)                Air Quality / aqiRating    enum
-        temperature (°F → °C)       Temperature / measuredValue  °C × 100
-        humidity (%)                Humidity / measuredValue    % × 100
-        pressure (psi → kPa)         Pressure / measuredValue    kPa × 10
-        ==========================  ===========================  =========
+        ==========================  ===============================  ===========
+        PurpleAir Field             Matter Cluster / Attribute       Unit
+        ==========================  ===============================  ===========
+        pm2.5 (primary)             Air Quality / measuredValue      µg/m³ × 100
+        pm1.0                       Air Quality / pm1Density         µg/m³ × 100
+        pm10.0                      Air Quality / pm10Density        µg/m³ × 100
+        voc                         Air Quality / vocDensity         µg/m³ × 100
+        (calculated)                Air Quality / airQuality         enum
+        (calculated)                Air Quality / aqiRating          enum
+        temperature (°F → °C)       Temperature / measuredValue      °C × 100
+        humidity (%)                Humidity / measuredValue         % × 100
+        pressure (psi → kPa)        Pressure / measuredValue         kPa × 10
+        ==========================  ===============================  ===========
 
         EPA AQI is computed from the PM2.5 concentration using
         :class:`EpaAqiCalculator`.
