@@ -345,14 +345,41 @@
 <li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#epa-aqi-computation">EPA AQI Computation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="PurpleAirMatterConverter.html#module-PurpleAirAPIHelpers">API Reference</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirAPIHelpers.convert_requests_text_to_json"><code class="docutils literal notranslate"><span class="pre">convert_requests_text_to_json()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirAPIHelpers.debug_log"><code class="docutils literal notranslate"><span class="pre">debug_log()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirAPIHelpers.sanitize_sensor_data_from_paa"><code class="docutils literal notranslate"><span class="pre">sanitize_sensor_data_from_paa()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirAPIHelpers.send_url_delete_request"><code class="docutils literal notranslate"><span class="pre">send_url_delete_request()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirAPIHelpers.send_url_get_request"><code class="docutils literal notranslate"><span class="pre">send_url_get_request()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirAPIHelpers.send_url_post_request"><code class="docutils literal notranslate"><span class="pre">send_url_post_request()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirAPIHelpers.verify_request_status_codes"><code class="docutils literal notranslate"><span class="pre">verify_request_status_codes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirMatterConverter.html#module-PurpleAirMatterConverter">API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.EpaAqiCalculator"><code class="docutils literal notranslate"><span class="pre">EpaAqiCalculator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.EpaAqiCalculator.BREAKPOINTS"><code class="docutils literal notranslate"><span class="pre">EpaAqiCalculator.BREAKPOINTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.EpaAqiCalculator.aqi_to_epa_category"><code class="docutils literal notranslate"><span class="pre">EpaAqiCalculator.aqi_to_epa_category()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.EpaAqiCalculator.pm25_to_aqi"><code class="docutils literal notranslate"><span class="pre">EpaAqiCalculator.pm25_to_aqi()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MATTER_CLUSTER_CO2_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_CO2_MEASUREMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MATTER_CLUSTER_HUMIDITY_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_HUMIDITY_MEASUREMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MATTER_CLUSTER_PRESSURE_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_PRESSURE_MEASUREMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MATTER_CLUSTER_TEMP_MEASUREMENT"><code class="docutils literal notranslate"><span class="pre">MATTER_CLUSTER_TEMP_MEASUREMENT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR"><code class="docutils literal notranslate"><span class="pre">MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating.EXCELLENT"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.EXCELLENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating.EXTREMELY_POOR"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.EXTREMELY_POOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating.FAIR"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.FAIR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating.GOOD"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.GOOD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating.POOR"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.POOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating.UNKNOWN"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.UNKNOWN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating.VERY_POOR"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.VERY_POOR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.MatterAirQualityRating.from_aqi"><code class="docutils literal notranslate"><span class="pre">MatterAirQualityRating.from_aqi()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.PurpleAirMatterConverter"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.PurpleAirMatterConverter.DEFAULT_SENSOR_INDEX"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.DEFAULT_SENSOR_INDEX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.PurpleAirMatterConverter.MATTER_VERSION"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.MATTER_VERSION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.PurpleAirMatterConverter.to_air_quality_sensor"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.to_air_quality_sensor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.PurpleAirMatterConverter.to_environmental_sensor"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.to_environmental_sensor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.PurpleAirMatterConverter.to_temperature_sensor"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.to_temperature_sensor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.PurpleAirMatterConverter.with_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter.with_data()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.fahrenheit_to_celsius"><code class="docutils literal notranslate"><span class="pre">fahrenheit_to_celsius()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="PurpleAirMatterConverter.html#PurpleAirMatterConverter.pressure_psi_to_kpa"><code class="docutils literal notranslate"><span class="pre">pressure_psi_to_kpa()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirMatterConverter.html#example-all-device-types">Example — All Device Types</a></li>
