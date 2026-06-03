@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="PurpleAirLocalAPI module" href="PurpleAirLocalAPI.html"><link rel="prev" title="PurpleAirAPIError module" href="PurpleAirAPIError.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>PurpleAirAPIHelpers module - PurpleAir API V1.5.0a0 documentation</title>
+        <title>PurpleAirAPIHelpers module - PurpleAir API V1.5.0a1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.5.0a0 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API V1.5.0a1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.5.0a0 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API V1.5.0a1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -200,6 +200,7 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirReadAPI.html">PurpleAirReadAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirWriteAPI.html">PurpleAirWriteAPI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirMatterConverter.html">PurpleAirMatterConverter module</a></li>
 </ul>
 </li>
 </ul>
@@ -294,6 +295,9 @@ We access the “sensor” key inside this function.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>paa_return_data</strong> (<em>dict</em>) – A dictionary with paa return data</p>
 </dd>
+<dt class="field-even">Return dict<span class="colon">:</span></dt>
+<dd class="field-even"><p>The sanitized paa_return_data with all expected fields present.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -308,6 +312,12 @@ We access the “sensor” key inside this function.</p>
 <li><p><strong>api_key_to_use</strong> (<em>str</em>) – The API key to include in the request header.</p></li>
 <li><p><strong>json_post_parameters</strong> (<em>dict</em>) – Optional JSON body parameters to include in the request.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed JSON response as a dictionary.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If the response contains an error status code.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -328,6 +338,13 @@ in optional_parameters_dict. i.e ‘?’ or ‘&amp;’.</p></li>
 request_url.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed JSON response as a dictionary.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If the request URL is None, the separator is invalid, or the
+response contains an error status code.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -342,6 +359,12 @@ request_url.</p></li>
 <li><p><strong>api_key_to_use</strong> (<em>str</em>) – The API key to include in the request header.</p></li>
 <li><p><strong>json_post_parameters</strong> (<em>dict</em>) – Optional JSON body parameters to include in the request.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed JSON response as a dictionary.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If the response contains an error status code.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -444,7 +467,7 @@ request_url.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=056ff36c"></script>
+</div><script src="_static/documentation_options.js?v=a1177775"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

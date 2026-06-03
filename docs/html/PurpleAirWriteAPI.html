@@ -3,10 +3,10 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="PurpleAirReadAPI module" href="PurpleAirReadAPI.html">
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="PurpleAirMatterConverter module" href="PurpleAirMatterConverter.html"><link rel="prev" title="PurpleAirReadAPI module" href="PurpleAirReadAPI.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>PurpleAirWriteAPI module - PurpleAir API V1.5.0a0 documentation</title>
+        <title>PurpleAirWriteAPI module - PurpleAir API V1.5.0a1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.5.0a0 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API V1.5.0a1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.5.0a0 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API V1.5.0a1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -200,6 +200,7 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirReadAPI.html">PurpleAirReadAPI module</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">PurpleAirWriteAPI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirMatterConverter.html">PurpleAirMatterConverter module</a></li>
 </ul>
 </li>
 </ul>
@@ -276,6 +277,9 @@ write requests.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name of the group to create.</p>
 </dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the created group data.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -316,6 +320,12 @@ If the target member is not of this type, an error will result.
 NOTE: This value is required if the sensor in question is marked as ‘private’ on the registration form.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the created member data.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If an invalid combination of parameters is provided or the API request fails.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -326,6 +336,9 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to delete</p>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the deletion response.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -341,6 +354,9 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
 <li><p><strong>member_id</strong> (<em>int</em>) – The member_id to delete.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the deletion response.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -354,7 +370,15 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="PurpleAirMatterConverter.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">PurpleAirMatterConverter module</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="PurpleAirReadAPI.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -419,7 +443,7 @@ NOTE: This value is required if the sensor in question is marked as ‘private�
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=056ff36c"></script>
+</div><script src="_static/documentation_options.js?v=a1177775"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
