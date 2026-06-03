@@ -135,7 +135,7 @@ class EpaAqiCalculator:
     ===============================  =================  =================
     Good                             0.0 - 12.0         0 - 50
     Moderate                         12.1 - 35.4        51 - 100
-    Unhealthy for Sensitive          35.5 - 55.4        101 - 150
+    Unhealthy for Sensitive Groups  35.5 - 55.4        101 - 150
     Unhealthy                        55.5 - 150.4       151 - 200
     Very Unhealthy                   150.5 - 250.4      201 - 300
     Hazardous                        250.5 - 500.4      301 - 500
