@@ -208,7 +208,7 @@ Matter Air Quality Rating is then derived from the computed AQI:
 API Reference
 -------------
 
-.. automodule:: PurpleAirAPIHelpers
+.. automodule:: PurpleAirMatterConverter
    :members:
    :undoc-members:
    :show-inheritance:
