@@ -31,7 +31,7 @@ tools:
 
 engine:
   id: copilot
-  model: auto
+  model: claude-sonnet-4.6
 ---
 
 ## PurpleAir API Watcher and Auto-Sync
