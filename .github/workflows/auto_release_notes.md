@@ -33,8 +33,6 @@ engine:
   id: copilot
   model: claude-sonnet-4.6
 
-## Auto Update Release Notes
-
 When a new release is published, generate and update its release notes body on GitHub using commit history, PR references, and grouped themes.
 
 ## Goals
@@ -178,4 +176,5 @@ Or browse this release on PyPI: https://pypi.org/project/purpleair_api/<pypi_ver
 - Process backfill releases serially to avoid GitHub API rate limits; add a short delay between requests if throttling is detected.
 - Never choose a prerelease base for a stable release if an earlier stable release exists.
 - Use repository-aware language: mention concrete components (PurpleAir API endpoints, sensor data, read/write/local API, authentication, HTTP request handling, docs publishing) when those areas changed.
+
 

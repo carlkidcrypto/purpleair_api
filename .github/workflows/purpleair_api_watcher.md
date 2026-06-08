@@ -33,8 +33,6 @@ engine:
   id: copilot
   model: claude-sonnet-4.6
 
-## PurpleAir API Watcher and Auto-Sync
-
 Monitor the PurpleAir API documentation at https://api.purpleair.com/ for changes and automatically update the Python package to stay in sync with the upstream API.
 
 ## Goals
@@ -166,4 +164,5 @@ PR body must include:
 - If no actionable code changes are found, still update the snapshot file if the page content changed, but do not open a PR solely for the snapshot update — commit it to the automation branch silently.
 - Keep all Python code Black-formatted with line length 100.
 - Always include the snapshot file update in the same PR as any code changes.
+
 

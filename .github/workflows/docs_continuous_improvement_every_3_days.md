@@ -34,8 +34,6 @@ engine:
   id: copilot
   model: claude-sonnet-4.6
 
-## Documentation Continuous Improvement
-
 Review and improve repository documentation gradually over time.
 
 ## Scope
@@ -76,4 +74,5 @@ PR body must include:
 - Files updated
 - Types of improvements (typos, clarifications, docstrings, etc.)
 - Any follow-up documentation gaps discovered
+
 

@@ -33,8 +33,6 @@ engine:
   id: copilot
   model: claude-sonnet-4.6
 
-## Python Version Watcher and Auto-Sync
-
 Monitor https://devguide.python.org/versions/ for changes to the set of actively supported Python
 versions and automatically update the repository to stay in sync.
 
@@ -189,4 +187,5 @@ PR body must include:
   and log the issue without modifying files. Python typically maintains at least 3 supported
   versions simultaneously, so fewer than 3 results strongly suggests a parsing failure.
 - Keep all Python code Black-formatted with line length 100.
+
 
