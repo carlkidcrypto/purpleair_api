@@ -33,8 +33,6 @@ tools:
 engine:
   id: copilot
   model: claude-sonnet-4.6
-
-- `README.rst`
 - `HOWTOAI.md`
 - `docs/**`
 - `sphinx_docs_build/**` (RST source files, `conf.py`, `index.rst`, etc. — not generated HTML output)
@@ -68,6 +66,7 @@ PR body must include:
 - Files updated
 - Types of improvements (typos, clarifications, docstrings, etc.)
 - Any follow-up documentation gaps discovered
+
 
 
 

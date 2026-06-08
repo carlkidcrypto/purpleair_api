@@ -32,7 +32,6 @@ tools:
 engine:
   id: copilot
   model: claude-sonnet-4.6
-- Keep changes scoped and low-risk.
 - Prefer tests first when improving coverage.
 - Do not open a new pull request if an open automation PR already exists for branch `automation/coverage-autofix-every-3-days`.
 - If no meaningful change is needed, make no file edits and end cleanly.
@@ -86,6 +85,7 @@ After creating the PR, attempt a best-effort follow-up label step:
 - Treat this as non-critical metadata enrichment. If supplemental labeling fails, do not treat the run as a primary failure and do not abandon the created PR.
 
 If no changes are required, report that coverage checks passed without actionable improvements.
+
 
 
 
