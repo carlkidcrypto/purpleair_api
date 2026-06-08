@@ -32,8 +32,6 @@ tools:
 engine:
   id: copilot
   model: claude-sonnet-4.6
-  "prerelease") vs. end-of-life (status = "end-of-life").
-- Update `setup.cfg` (`python_requires` range and `[tool:black]` `target-version` list) to reflect
   the current supported set.
 - Update `.github/workflows/tests.yml` (`python-version` matrix list) to reflect the current
   supported set.
@@ -180,6 +178,7 @@ PR body must include:
   and log the issue without modifying files. Python typically maintains at least 3 supported
   versions simultaneously, so fewer than 3 results strongly suggests a parsing failure.
 - Keep all Python code Black-formatted with line length 100.
+
 
 
 

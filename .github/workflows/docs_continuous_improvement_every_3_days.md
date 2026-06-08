@@ -33,7 +33,6 @@ tools:
 engine:
   id: copilot
   model: claude-sonnet-4.6
-- `HOWTOAI.md`
 - `docs/**`
 - `sphinx_docs_build/**` (RST source files, `conf.py`, `index.rst`, etc. — not generated HTML output)
 - inline docstrings in Python files under `purpleair_api/**`
@@ -66,6 +65,7 @@ PR body must include:
 - Files updated
 - Types of improvements (typos, clarifications, docstrings, etc.)
 - Any follow-up documentation gaps discovered
+
 
 
 

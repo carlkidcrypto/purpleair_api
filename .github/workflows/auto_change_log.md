@@ -33,7 +33,6 @@ tools:
 engine:
   id: copilot
   model: claude-sonnet-4.6
-- Keep one long-lived automation branch for easy updates.
 - Produce a high-signal summary by analyzing commit titles/messages and PR titles.
 - Be resilient to integrity filtering by relying on local git data for commit analysis.
 
@@ -105,6 +104,7 @@ Include:
 - Never choose a prerelease base for a stable release if an earlier stable release exists.
 - Prefer meaningful, user-impacting summaries over dependency/CI churn when both are present.
 - Never fail the run solely because external commit APIs are blocked by integrity filtering; fall back to local git history and continue.
+
 
 
 
