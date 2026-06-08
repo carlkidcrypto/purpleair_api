@@ -31,8 +31,7 @@ tools:
 
 engine:
   id: copilot
-  model: auto
----
+  model: claude-sonnet-4.6
 
 ## Coverage Checks And Suggested Fixes
 
@@ -95,3 +94,4 @@ After creating the PR, attempt a best-effort follow-up label step:
 - Treat this as non-critical metadata enrichment. If supplemental labeling fails, do not treat the run as a primary failure and do not abandon the created PR.
 
 If no changes are required, report that coverage checks passed without actionable improvements.
+
