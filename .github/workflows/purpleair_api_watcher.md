@@ -33,8 +33,6 @@ engine:
   id: copilot
   model: claude-sonnet-4.6
 
-## Goals
-
 - Detect new, removed, or renamed sensor field names from the API documentation.
 - Detect new, removed, or changed API endpoints.
 - Reflect any confirmed changes in `purpleair_api/PurpleAirAPIConstants.py` and related modules.
@@ -162,6 +160,7 @@ PR body must include:
 - If no actionable code changes are found, still update the snapshot file if the page content changed, but do not open a PR solely for the snapshot update — commit it to the automation branch silently.
 - Keep all Python code Black-formatted with line length 100.
 - Always include the snapshot file update in the same PR as any code changes.
+
 
 
 

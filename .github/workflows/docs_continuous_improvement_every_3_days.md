@@ -34,8 +34,6 @@ engine:
   id: copilot
   model: claude-sonnet-4.6
 
-## Scope
-
 Audit and improve:
 
 - `README.rst`
@@ -72,6 +70,7 @@ PR body must include:
 - Files updated
 - Types of improvements (typos, clarifications, docstrings, etc.)
 - Any follow-up documentation gaps discovered
+
 
 
 

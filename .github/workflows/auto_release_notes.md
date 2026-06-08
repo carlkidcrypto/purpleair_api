@@ -33,8 +33,6 @@ engine:
   id: copilot
   model: claude-sonnet-4.6
 
-## Goals
-
 - Produce high-signal, human-readable release notes for every tagged release.
 - Group changes into themes (bug fixes, features, CI/workflows, docs, dependencies, tests, etc.).
 - Reference PR numbers and issue numbers where discoverable from commit messages.
@@ -174,6 +172,7 @@ Or browse this release on PyPI: https://pypi.org/project/purpleair_api/<pypi_ver
 - Process backfill releases serially to avoid GitHub API rate limits; add a short delay between requests if throttling is detected.
 - Never choose a prerelease base for a stable release if an earlier stable release exists.
 - Use repository-aware language: mention concrete components (PurpleAir API endpoints, sensor data, read/write/local API, authentication, HTTP request handling, docs publishing) when those areas changed.
+
 
 
 
