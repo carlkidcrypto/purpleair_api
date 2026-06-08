@@ -34,8 +34,6 @@ engine:
   id: copilot
   model: claude-sonnet-4.6
 
-Audit and improve:
-
 - `README.rst`
 - `HOWTOAI.md`
 - `docs/**`
@@ -70,6 +68,7 @@ PR body must include:
 - Files updated
 - Types of improvements (typos, clarifications, docstrings, etc.)
 - Any follow-up documentation gaps discovered
+
 
 
 
