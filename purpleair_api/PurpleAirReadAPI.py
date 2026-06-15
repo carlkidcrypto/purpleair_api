@@ -45,7 +45,7 @@ class PurpleAirReadAPI:
                                       information:
                                       https://api.purpleair.com/#api-sensors-get-sensor-data
 
-        :return A python dictionary containing the payload response
+        :return dict | None: A python dictionary containing the payload response
         """
 
         request_url = self._base_api_v1_request_string + "sensors/" + f"{sensor_index}"
@@ -103,7 +103,7 @@ class PurpleAirReadAPI:
                             scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deciviews, deciviews_a, deciviews_b, visual_range, visual_range_a, visual_range_b
 
                             Particle count fields:
-                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b
+                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
                             ThingSpeak fields, used to retrieve data from api.thingspeak.com:
                             primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b
@@ -137,7 +137,7 @@ class PurpleAirReadAPI:
 
         :param (optional) int selat: A south east latitude for the bounding box.
 
-        :return A python dictionary containing the payload response
+        :return dict | None: A python dictionary containing the payload response
         """
 
         request_url = (
@@ -234,6 +234,8 @@ class PurpleAirReadAPI:
                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
                            For field descriptions, please see the 'sensor data fields'. section.
+
+        :return dict | None: A python dictionary containing the payload response
         """
 
         history_url_portion = ""
@@ -323,7 +325,7 @@ class PurpleAirReadAPI:
             pm10.0, pm10.0_a, pm10.0_b, pm10.0_atm, pm10.0_atm_a, pm10.0_atm_b, pm10.0_cf_1, pm10.0_cf_1_a, pm10.0_cf_1_b
 
             Particle count fields:
-            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b
+            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
             ThingSpeak fields, used to retrieve data from api.thingspeak.com:
             primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b
@@ -476,7 +478,7 @@ class PurpleAirReadAPI:
                             scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deciviews, deciviews_a, deciviews_b, visual_range, visual_range_a, visual_range_b
 
                             Particle count fields:
-                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b
+                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
                             ThingSpeak fields, used to retrieve data from api.thingspeak.com:
                             primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b
@@ -504,6 +506,7 @@ class PurpleAirReadAPI:
 
         :param (optional) int selat: A south east latitude for the bounding box.
 
+        :return dict | None: A python dictionary containing the payload response
         """
 
         request_url = (
@@ -536,6 +539,8 @@ class PurpleAirReadAPI:
     def request_organization_data(self):
         """
         Retrieves information for the organization using the api key of this class instance.
+
+        :return dict | None: A dictionary containing the organization information.
         """
 
         request_url = self._base_api_v1_request_string + "organization"
