@@ -121,6 +121,18 @@ class EpaAqiCalculatorTest(unittest.TestCase):
         self.assertLessEqual(aqi, 51)
         self.assertGreaterEqual(aqi, 0)
 
+    def test_pm25_to_aqi_usg(self):
+        """PM2.5 = 45.0 µg/m³ → AQI in Unhealthy for Sensitive Groups range (101-150)."""
+        aqi = EpaAqiCalculator.pm25_to_aqi(45.0)
+        self.assertGreaterEqual(aqi, 101)
+        self.assertLessEqual(aqi, 150)
+
+    def test_pm25_to_aqi_hazardous_range(self):
+        """PM2.5 = 300.0 µg/m³ → AQI computed via the Hazardous breakpoint formula (301-500)."""
+        aqi = EpaAqiCalculator.pm25_to_aqi(300.0)
+        self.assertGreaterEqual(aqi, 301)
+        self.assertLessEqual(aqi, 500)
+
     def test_aqi_to_epa_category_good(self):
         self.assertEqual(EpaAqiCalculator.aqi_to_epa_category(30), "Good")
 
