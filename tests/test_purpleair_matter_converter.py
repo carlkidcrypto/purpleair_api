@@ -21,6 +21,7 @@ from purpleair_api.PurpleAirMatterConverter import (
     pressure_psi_to_kpa,
     _safe_float,
     _safe_temperature_fahrenheit,
+    _nullable_float,
     MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR,
     MATTER_CLUSTER_AIR_QUALITY_MEASUREMENT,
     MATTER_CLUSTER_TEMP_MEASUREMENT,
@@ -476,6 +477,116 @@ class PurpleAirMatterConverterInstanceTest(unittest.TestCase):
     def test_init_with_data(self):
         conv = PurpleAirMatterConverter(SAMPLE_RAW_SENSOR)
         self.assertEqual(conv._data.get("sensor_index"), 282168)
+
+
+class NullableFloatHelperTest(unittest.TestCase):
+    """Tests for the _nullable_float helper function."""
+
+    def test_nullable_float_none_returns_none(self):
+        """None input returns None (not 0.0)."""
+        self.assertIsNone(_nullable_float(None))
+
+    def test_nullable_float_valid_number_returns_float(self):
+        """A valid numeric value is converted to float and returned."""
+        self.assertEqual(_nullable_float(3.14), 3.14)
+
+    def test_nullable_float_valid_string_returns_float(self):
+        """A valid numeric string is parsed to float."""
+        self.assertEqual(_nullable_float("42.5"), 42.5)
+
+    def test_nullable_float_non_numeric_string_returns_none(self):
+        """A non-numeric string falls through the except and returns None."""
+        self.assertIsNone(_nullable_float("not_a_number"))
+
+
+class EpaAqiCategoryBeyondHazardousTest(unittest.TestCase):
+    """Test the 'Beyond Hazardous' branch of aqi_to_epa_category."""
+
+    def test_aqi_to_epa_category_beyond_hazardous(self):
+        """AQI > 500 returns 'Beyond Hazardous'."""
+        self.assertEqual(EpaAqiCalculator.aqi_to_epa_category(501), "Beyond Hazardous")
+
+    def test_aqi_to_epa_category_exactly_500_is_hazardous(self):
+        """AQI == 500 returns 'Hazardous' (boundary of the last known range)."""
+        self.assertEqual(EpaAqiCalculator.aqi_to_epa_category(500), "Hazardous")
+
+
+class PurpleAirMatterConverterTemperatureSensorExtraTest(unittest.TestCase):
+    """Additional coverage for to_temperature_sensor."""
+
+    def test_sensor_name_override(self):
+        """sensor_name kwarg overrides the name field from sensor data."""
+        result = PurpleAirMatterConverter.to_temperature_sensor(
+            SAMPLE_RAW_SENSOR, sensor_name="Custom Temp Device"
+        )
+        self.assertEqual(result["sensor_name"], "Custom Temp Device")
+
+    def test_missing_temperature_yields_none_measured_value(self):
+        """When temperature is absent from sensor data, measuredValue is None."""
+        sensor_no_temp = {"sensor": {"name": "No Temp Sensor", "humidity": 55.0}}
+        result = PurpleAirMatterConverter.to_temperature_sensor(sensor_no_temp)
+        cluster = result["clusters"]["temperature_measurement"]
+        self.assertIsNone(cluster["attributes"]["measuredValue"])
+        self.assertIsNone(cluster["_raw_celsius"])
+        self.assertIsNone(cluster["_raw_fahrenheit"])
+
+    def test_default_name_when_no_name_field(self):
+        """When name field is absent and no sensor_name provided, fallback name is used."""
+        sensor_no_name = {"sensor": {"temperature": 75.0}}
+        result = PurpleAirMatterConverter.to_temperature_sensor(sensor_no_name)
+        self.assertEqual(result["sensor_name"], "PurpleAir Temperature")
+
+
+class PurpleAirMatterConverterEnvironmentalSensorExtraTest(unittest.TestCase):
+    """Additional coverage for to_environmental_sensor."""
+
+    def test_sensor_name_override(self):
+        """sensor_name kwarg overrides the name field from sensor data."""
+        result = PurpleAirMatterConverter.to_environmental_sensor(
+            SAMPLE_RAW_SENSOR, sensor_name="Custom Env Device"
+        )
+        self.assertEqual(result["sensor_name"], "Custom Env Device")
+
+    def test_missing_all_fields_yields_none_measured_values(self):
+        """When temperature, humidity, and pressure are all absent, each measuredValue is None."""
+        empty_sensor = {"name": "Sparse Sensor"}
+        result = PurpleAirMatterConverter.to_environmental_sensor(empty_sensor)
+        clusters = result["clusters"]
+        self.assertIsNone(
+            clusters["temperature_measurement"]["attributes"]["measuredValue"]
+        )
+        self.assertIsNone(
+            clusters["humidity_measurement"]["attributes"]["measuredValue"]
+        )
+        self.assertIsNone(
+            clusters["pressure_measurement"]["attributes"]["measuredValue"]
+        )
+
+    def test_default_name_when_no_name_field(self):
+        """When name field is absent and no sensor_name provided, fallback name is used."""
+        sensor_no_name = {"sensor": {"temperature": 75.0}}
+        result = PurpleAirMatterConverter.to_environmental_sensor(sensor_no_name)
+        self.assertEqual(result["sensor_name"], "PurpleAir Environmental")
+
+
+class PurpleAirMatterConverterNormaliseInnerNotDictTest(unittest.TestCase):
+    """Test _normalise when raw['sensor'] exists but is not a dict."""
+
+    def test_sensor_key_is_string_normalises_to_empty(self):
+        """When raw['sensor'] is a string (non-dict), _normalise returns empty-equivalent data."""
+        bad_payload = {"sensor": "this_is_not_a_dict"}
+        result = PurpleAirMatterConverter.to_air_quality_sensor(bad_payload)
+        self.assertIn("device_type", result)
+        self.assertEqual(result["device_type"]["id"], MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR)
+        aq_attrs = result["clusters"]["air_quality_measurement"]["attributes"]
+        self.assertEqual(aq_attrs["measuredValue"], 0)
+
+    def test_sensor_key_is_list_normalises_to_empty(self):
+        """When raw['sensor'] is a list (non-dict), _normalise returns empty-equivalent data."""
+        bad_payload = {"sensor": [1, 2, 3]}
+        result = PurpleAirMatterConverter.to_air_quality_sensor(bad_payload)
+        aq_attrs = result["clusters"]["air_quality_measurement"]["attributes"]
+        self.assertEqual(aq_attrs["measuredValue"], 0)
 
 
 if __name__ == "__main__":
