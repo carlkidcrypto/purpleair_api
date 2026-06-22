@@ -184,9 +184,6 @@ class PurpleAirReadAPI:
                                      True means we use this endpoint https://api.purpleair.com/#api-sensors-get-sensor-history-csv
                                      False means we use this endpoint https://api.purpleair.com/#api-sensors-get-sensor-history
 
-
-        ## What's below is straight from the Purpleair api website...
-
         :param int sensor_index: The sensor_index as found in the JSON for this specific sensor.
 
         :param (optional) str read_key: This read_key is required for private devices. It is separate to the api_key and each sensor has its own read_key. Submit multiple keys by separating them with a comma (,) character for example: key-one,key-two,key-three.

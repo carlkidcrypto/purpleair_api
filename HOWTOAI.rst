@@ -1,6 +1,6 @@
 How to Use AI with purpleair_api
 ================================
-_A practical guide for contributing to purpleair_api using AI coding assistants_
+*A practical guide for contributing to purpleair_api using AI coding assistants*
 
 purpleair_api benefits from thoughtful AI-assisted development, but contributors must maintain high standards for code quality, security, and collaboration. Whether you use GitHub Copilot, Cursor, Claude, or other AI tools, this guide will help you contribute effectively.
 
@@ -168,15 +168,15 @@ Quick Setup
 
 **Using GitHub Copilot:**
 
-Install the [GitHub Copilot extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot) for VS Code
+Install the `GitHub Copilot extension <https://marketplace.visualstudio.com/items?itemName=GitHub.copilot>`_ for VS Code
 
 Enable Copilot for Python files in your settings
 
-Recommended: Install [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) and [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) for better code intelligence
+Recommended: Install the `Python extension <https://marketplace.visualstudio.com/items?itemName=ms-python.python>`_ and `Pylance <https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance>`_ for better code intelligence
 
 **Using Cursor:**
 
-Download [Cursor](https://cursor.sh/) (VS Code fork with built-in AI)
+Download `Cursor <https://cursor.sh/>`_ (VS Code fork with built-in AI)
 
 Open the purpleair_api repository
 
