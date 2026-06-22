@@ -66,7 +66,7 @@ You can also install PurpleAir API by cloning down this repo:
 
    git clone https://github.com/carlkidcrypto/purpleair_api.git
    cd purpleair_api
-   python3 setup.py install
+   pip install .
 
 PurpleAirAPI Usage Example
 ---------------------------
@@ -134,7 +134,7 @@ Now we can use that instance to do things like:
 
 .. code-block:: python
 
-   retval = my_paa.post_create_member(1234)
+   retval = my_paa.post_create_member(group_id=1234, sensor_index=5678)
 
 PurpleAirLocalAPI Usage Example
 --------------------------------
@@ -193,8 +193,8 @@ and Environmental Sensor device types with full EPA AQI calculation.
    # {'epa_aqi': 68, 'epa_category': 'Moderate',
    #  'matter_air_quality_rating': 'GOOD', ...}
 
-See the full documentation at ``sphinx_docs_build/source/matter.rst`` or
-``docs/matter.html`` after building.
+See the full documentation at ``sphinx_docs_build/source/PurpleAirMatterConverter.rst`` or
+``docs/html/PurpleAirMatterConverter.html`` after building.
 
 References:
 
