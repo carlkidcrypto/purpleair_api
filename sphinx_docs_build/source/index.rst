@@ -40,7 +40,7 @@ Or clone from GitHub::
 
     git clone https://github.com/carlkidcrypto/purpleair_api.git
     cd purpleair_api
-    python3 setup.py install
+    pip install .
 
 Quick Example
 ~~~~~~~~~~~~~
