@@ -17,6 +17,9 @@ class PurpleAirReadAPI:
     """
 
     def __init__(self, api_read_key=None):
+        """
+        :param str api_read_key: A valid PurpleAir API read key.
+        """
         # Save off the API key for internal usage
         self._your_api_read_key = api_read_key
         self._base_api_v1_request_string = "https://api.purpleair.com/v1/"
@@ -328,6 +331,8 @@ class PurpleAirReadAPI:
             primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b
 
             For field descriptions, please see the 'sensor data fields'. section.
+
+        :return dict | None: A dictionary containing the member data payload.
         """
 
         request_url = (
@@ -405,6 +410,8 @@ class PurpleAirReadAPI:
                             0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
                             For field descriptions, please see the 'sensor data fields'. section.
+
+        :return dict | None: A dictionary containing the member historic data payload.
         """
 
         request_url = (
