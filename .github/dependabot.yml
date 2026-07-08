@@ -1,12 +1,17 @@
 updates:
 - directory: /
   ignore:
-     - dependency-name: "github/gh-aw-actions" # Managed by gh aw compile. Version-locked to the gh-aw compiler; do not bump.
+    - dependency-name: "github/gh-aw-actions" # Managed by gh aw compile. Version-locked to the gh-aw compiler; do not bump.
   package-ecosystem: github-actions
+  open-pull-requests-limit: 10
   schedule:
     interval: daily
-- directory: /
-  package-ecosystem: pip
+- package-ecosystem: pip
+  directories:
+    - "/"
+    - "/tests"
+    - "/sphinx_docs_build"
+  open-pull-requests-limit: 10
   schedule:
     interval: daily
 version: 2
