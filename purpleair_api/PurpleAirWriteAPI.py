@@ -2,7 +2,7 @@
 
 """
 Copyright 2024 carlkidcrypto, All rights reserved.
-A python3 class designed to fetch data from Purple Air's new API.
+A python3 class designed to send write requests to Purple Air's API.
 This class will handle all `write` requests
 https://api.purpleair.com/#api-welcome
 """

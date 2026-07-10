@@ -13,5 +13,8 @@ class PurpleAirAPIError(Exception):
     """
 
     def __init__(self, message_string):
+        """
+        :param str message_string: A human-readable description of the error.
+        """
         self.message = message_string
         super().__init__(self.message)
