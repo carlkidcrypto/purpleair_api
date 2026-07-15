@@ -2,7 +2,7 @@
 
 """
 Copyright 2024 carlkidcrypto, All rights reserved.
-A python3 class designed to fetch data from Purple Air's new API.
+A python3 class designed to fetch data from PurpleAir sensors on the local network.
 This class will handle all `local` requests
 https://api.purpleair.com/#api-welcome
 """
@@ -15,11 +15,13 @@ class PurpleAirLocalAPI:
     """
     The PurpleAirLocalAPI class designed to send valid
     local network requests. It can work with one or many IPv4 addresses.
-
-    :param list ipv4_address_list: A list of strings with valid IPv4 addresses for your sensors. The addresses don't need a CIDR.
     """
 
     def __init__(self, ipv4_address_list=None):
+        """
+        :param list ipv4_address_list: A list of strings with valid IPv4 addresses for your
+                                       sensors. The addresses do not need a CIDR prefix.
+        """
         # Create the base API request string for local networks.
         error_msg = (
             "Must provide the IPv4 address list for the sensor(s) on your local network"
