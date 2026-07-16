@@ -75,8 +75,8 @@ def sanitize_sensor_data_from_paa(paa_return_data) -> dict:
     """
     A helper function.
     Since not all sensors support all field names we check that the keys exist
-    in the sensor data. If they do not exist we add it in with a NULL
-    equivalent. i.e 0.0, 0, "", etc.
+    in the sensor data. If they do not exist we add it in with a null
+    equivalent (e.g., ``0.0``, ``0``, ``""``).
     We access the "sensor" key inside this function.
 
     :param dict paa_return_data: A dictionary with paa return data
@@ -104,7 +104,7 @@ def send_url_get_request(
     :param str request_url: The constructed string url request string.
     :param str api_key_to_use: An optional API key included in the request header as 'X-API-Key'.
     :param str first_optional_parameter_separator: The separator between first parameter
-                                                    in optional_parameters_dict. i.e '?' or '&'.
+                                                    in optional_parameters_dict. i.e., ``'?'`` or ``'&'``.
     :param dict optional_parameters_dict: Optional parameters that can be added onto the
                                             request_url.
 

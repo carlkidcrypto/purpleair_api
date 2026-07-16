@@ -162,7 +162,7 @@ class EpaAqiCalculator:
             AQI = ((I_high - I_low) / (C_high - C_low)) * (C - C_low) + I_low
 
         :param pm25: 24-hour average PM2.5 concentration in µg/m³.
-        :return: EPA AQI value rounded to the nearest integer (int).
+        :return: EPA AQI value as an ``int`` (or ``float`` at boundary clamps 0.0 and 500.0).
         :raises ValueError: if ``pm25`` is negative.
         """
         if pm25 < 0:
