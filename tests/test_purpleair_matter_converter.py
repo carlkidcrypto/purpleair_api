@@ -133,6 +133,15 @@ class EpaAqiCalculatorTest(unittest.TestCase):
         self.assertGreaterEqual(aqi, 301)
         self.assertLessEqual(aqi, 500)
 
+    def test_pm25_to_aqi_zero_width_breakpoint_returns_low_index(self):
+        """A zero-width breakpoint returns the low AQI index instead of dividing by zero."""
+        original_breakpoints = EpaAqiCalculator.BREAKPOINTS
+        EpaAqiCalculator.BREAKPOINTS = [(10.0, 10.0, 42, 99)]
+        try:
+            self.assertEqual(EpaAqiCalculator.pm25_to_aqi(10.0), 42.0)
+        finally:
+            EpaAqiCalculator.BREAKPOINTS = original_breakpoints
+
     def test_aqi_to_epa_category_good(self):
         self.assertEqual(EpaAqiCalculator.aqi_to_epa_category(30), "Good")
 
@@ -589,7 +598,9 @@ class PurpleAirMatterConverterNormaliseInnerNotDictTest(unittest.TestCase):
         bad_payload = {"sensor": "this_is_not_a_dict"}
         result = PurpleAirMatterConverter.to_air_quality_sensor(bad_payload)
         self.assertIn("device_type", result)
-        self.assertEqual(result["device_type"]["id"], MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR)
+        self.assertEqual(
+            result["device_type"]["id"], MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR
+        )
         aq_attrs = result["clusters"]["air_quality_measurement"]["attributes"]
         self.assertEqual(aq_attrs["measuredValue"], 0)
 
