@@ -30,9 +30,9 @@ tools:
   edit:
   bash: true
 
+model: claude-sonnet-4.6
 engine:
   id: copilot
-  model: claude-sonnet-4.6
 ---
 
 ## PurpleAir API Watcher and Auto-Sync

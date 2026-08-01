@@ -14,6 +14,9 @@ permissions:
   copilot-requests: write
 
 safe-outputs:
+  report-failure-as-issue: false
+  report-incomplete:
+    create-issue: false
   create-pull-request:
     title-prefix: "[coverage-autofix]"
     labels:
@@ -30,9 +33,9 @@ tools:
   edit:
   bash: true
 
+model: claude-sonnet-4.6
 engine:
   id: copilot
-  model: claude-sonnet-4.6
 ---
 
 ## Coverage Checks And Suggested Fixes
@@ -42,6 +45,7 @@ Run an end-to-end coverage health check for the Python test suite, then propose 
 ## Hard Requirements
 
 - Focus only on this repository.
+- Start each run by syncing the automation branch back to the repository default branch (`main`; fallback to `master` only if `main` does not exist).
 - Keep changes scoped and low-risk.
 - Prefer tests first when improving coverage.
 - Do not open a new pull request if an open automation PR already exists for branch `automation/coverage-autofix-every-3-days`.
@@ -49,21 +53,27 @@ Run an end-to-end coverage health check for the Python test suite, then propose 
 
 ## Coverage Check Procedure
 
-1. Prepare Python dependencies and run Python tests with coverage:
+1. Revert automation working state to match default branch before coverage work:
+   - `git fetch origin`
+   - Use `main` as the reset target when available, otherwise `master`.
+   - Ensure the automation branch state matches the selected default branch before making any edits.
+
+2. Prepare Python dependencies and run Python tests with coverage:
    - `python -m pip install --upgrade pip wheel setuptools`
    - `python -m pip install -r tests/requirements.txt`
    - `cd tests && coverage run -m unittest`
    - `coverage json -o coverage.json`
    - Read coverage from `coverage.json` when available.
    - Also generate an XML report for detailed line-level analysis: `coverage xml -o coverage.xml`
+   - If branch/line gaps are still unclear, consult historical reports at `https://app.codecov.io/gh/carlkidcrypto/purpleair_api` and use that history to prioritize missing coverage paths.
 
-2. Identify coverage gaps:
+3. Identify coverage gaps:
    - Parse `coverage.xml` or `coverage.json` to find modules with less than 99% line coverage.
    - Note which specific lines/branches are uncovered.
    - Focus on modules under `purpleair_api/`: `PurpleAirAPI.py`, `PurpleAirReadAPI.py`, `PurpleAirWriteAPI.py`, `PurpleAirLocalAPI.py`, `PurpleAirAPIHelpers.py`, `PurpleAirAPIError.py`, `PurpleAirAPIConstants.py`.
 
-3. Determine if action is needed:
-   - If Python coverage is below 99%, or tests reveal clear reliability gaps, create targeted fixes.
+4. Determine if action is needed:
+   - If Python coverage is below 99%, or any specific uncovered branch/line is identified in the targeted modules (including 99% edge cases), create targeted fixes.
    - If current coverage looks healthy and no concrete improvement is justified, do not change code.
 
 ## Fix Strategy

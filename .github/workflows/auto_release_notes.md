@@ -30,9 +30,9 @@ network: defaults
 tools:
   bash: true
 
+model: claude-sonnet-4.6
 engine:
   id: copilot
-  model: claude-sonnet-4.6
 ---
 
 ## Auto Update Release Notes
