@@ -234,7 +234,7 @@ def pressure_psi_to_kpa(psi: float) -> float:
     1 PSI = 6.89476 kPa.
 
     :param psi: Pressure in pounds per square inch.
-    :return: Pressure in kilopascals, rounded to 3 decimal places.
+    :return: Pressure in kilopascals (unrounded; caller rounds as needed).
     """
     return psi * 6.89476
 
