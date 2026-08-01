@@ -130,15 +130,15 @@ class PurpleAirReadAPI:
                                        number of seconds. Using a value of 0 will match sensors of any age.
                                        Default value: 604800
 
-        :param (optional) int nwlng: A north west longitude for the bounding box. Use a bounding box to limit the sensors
+        :param (optional) float nwlng: A north west longitude for the bounding box. Use a bounding box to limit the sensors
                                      returned to a specific geographic area. The bounding box is defined by two points, a
                                      north west latitude/longitude and a south east latitude/longitude.
 
-        :param (optional) int nwlat: A north west latitude for the bounding box.
+        :param (optional) float nwlat: A north west latitude for the bounding box.
 
-        :param (optional) int selng: A south east longitude for the bounding box.
+        :param (optional) float selng: A south east longitude for the bounding box.
 
-        :param (optional) int selat: A south east latitude for the bounding box.
+        :param (optional) float selat: A south east latitude for the bounding box.
 
         :return dict | None: A python dictionary containing the payload response
         """
