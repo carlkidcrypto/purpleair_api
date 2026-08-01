@@ -1,9 +1,9 @@
 purple_air_api (PAA)
 ====================
 
-This is a python3 wrapper for the new PurpleAirAPI (PAA). Details of the API can be found using this link: https://api.purpleair.com/#api-welcome
+This is a python3 wrapper for the PurpleAirAPI (PAA). Details of the API can be found using this link: https://api.purpleair.com/#api-welcome
 
-To use the PurpleAirAPI (PAA) api keys are required. You can get API keys by sending an email to ``contact@purpleair.com`` with a first and last name to assign them to.
+To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by sending an email to ``contact@purpleair.com`` with a first and last name to assign them to.
 
 .. image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml

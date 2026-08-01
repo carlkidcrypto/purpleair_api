@@ -101,7 +101,7 @@ def send_url_get_request(
     A helper to send the url request. It can also add onto the
     'request_url' string if 'optional_parameters_dict' are provided.
 
-    :param str request_url: The constructed string url request string.
+    :param str request_url: The constructed URL request string.
     :param str api_key_to_use: An optional API key included in the request header as 'X-API-Key'.
     :param str first_optional_parameter_separator: The separator between first parameter
                                                     in optional_parameters_dict. i.e., ``'?'`` or ``'&'``.
