@@ -598,7 +598,9 @@ class PurpleAirMatterConverterNormaliseInnerNotDictTest(unittest.TestCase):
         bad_payload = {"sensor": "this_is_not_a_dict"}
         result = PurpleAirMatterConverter.to_air_quality_sensor(bad_payload)
         self.assertIn("device_type", result)
-        self.assertEqual(result["device_type"]["id"], MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR)
+        self.assertEqual(
+            result["device_type"]["id"], MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR
+        )
         aq_attrs = result["clusters"]["air_quality_measurement"]["attributes"]
         self.assertEqual(aq_attrs["measuredValue"], 0)
 
