@@ -14,6 +14,9 @@ permissions:
   copilot-requests: write
 
 safe-outputs:
+  report-failure-as-issue: false
+  report-incomplete:
+    create-issue: false
   create-pull-request:
     title-prefix: "[coverage-autofix]"
     labels:
