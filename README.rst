@@ -25,8 +25,8 @@ To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by se
    :target: https://github.com/carlkidcrypto/purpleair_api/releases
    :alt: Total download count
 
-.. image:: https://img.shields.io/github/downloads/carlkidcrypto/purpleair_api/v1.5.0a1/total.svg?style=flat-square
-   :target: https://github.com/carlkidcrypto/purpleair_api/releases/tag/v1.5.0a1
+.. image:: https://img.shields.io/github/downloads/carlkidcrypto/purpleair_api/v1.5.0a2/total.svg?style=flat-square
+   :target: https://github.com/carlkidcrypto/purpleair_api/releases/tag/v1.5.0a2
    :alt: Latest release download count
 
 How to Support This Project
