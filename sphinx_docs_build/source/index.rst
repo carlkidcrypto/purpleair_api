@@ -34,7 +34,7 @@ Installation
 
 Install via pip::
 
-    python3 -m pip install purple_air_api
+    python3 -m pip install purpleair_api
 
 Or clone from GitHub::
 
