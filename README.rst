@@ -25,8 +25,8 @@ To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by se
    :target: https://github.com/carlkidcrypto/purpleair_api/releases
    :alt: Total download count
 
-.. image:: https://img.shields.io/github/downloads/carlkidcrypto/purpleair_api/v1.5.0a2/total.svg?style=flat-square
-   :target: https://github.com/carlkidcrypto/purpleair_api/releases/tag/v1.5.0a2
+.. image:: https://img.shields.io/github/downloads/carlkidcrypto/purpleair_api/v1.5.0/total.svg?style=flat-square
+   :target: https://github.com/carlkidcrypto/purpleair_api/releases/tag/v1.5.0
    :alt: Latest release download count
 
 How to Support This Project
@@ -193,8 +193,10 @@ and Environmental Sensor device types with full EPA AQI calculation.
    # {'epa_aqi': 68, 'epa_category': 'Moderate',
    #  'matter_air_quality_rating': 'GOOD', ...}
 
-See the full documentation at ``sphinx_docs_build/source/PurpleAirMatterConverter.rst`` or
-``docs/html/PurpleAirMatterConverter.html`` after building.
+See the Matter implementation guide at ``sphinx_docs_build/source/matter_implementation.rst`` or
+``docs/html/matter_implementation.html`` after building, or read the rendered guide online at
+https://carlkidcrypto.github.io/purpleair_api/matter_implementation.html. The API reference
+remains available at ``sphinx_docs_build/source/PurpleAirMatterConverter.rst``.
 
 References:
 

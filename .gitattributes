@@ -1,4 +1,3 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-
-.github/workflows/*.lock.yml linguist-generated=true merge=ours
+.github/workflows/*.lock.yml linguist-generated=true

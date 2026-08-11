@@ -2,8 +2,7 @@
 name: PurpleAir API Watcher
 
 on:
-  schedule:
-    - cron: "24 10 * * 1"
+  schedule: weekly on monday
   workflow_dispatch:
   skip-if-match:
     query: "is:pr is:open head:automation/purpleair-api-sync label:automated-pr"

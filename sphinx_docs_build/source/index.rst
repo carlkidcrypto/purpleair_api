@@ -64,6 +64,12 @@ Documentation Contents
 
    modules
 
+.. toctree::
+    :maxdepth: 2
+    :caption: Guides:
+
+    matter_implementation
+
 Indices and Tables
 ==================
 
