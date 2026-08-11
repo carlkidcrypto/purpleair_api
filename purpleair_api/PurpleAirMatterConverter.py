@@ -347,6 +347,7 @@ class PurpleAirMatterConverter:
         device type structure (Matter 1.5.1, Device Type 0x002D).
 
         Maps the following PurpleAir fields to Matter clusters:
+
         ==========================  ===============================  ===========
         PurpleAir Field             Matter Cluster / Attribute       Unit
         ==========================  ===============================  ===========
