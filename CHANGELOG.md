@@ -1,7 +1,20 @@
-Last Updated: 2026-08-02T03:58:06Z
+Last Updated: 2026-08-11T05:06:37Z
 
 # Changelog
 
+
+<a name="v1.5.0"></a>
+## [v1.5.0](https://github.com/carlkidcrypto/purpleair_api/compare/v1.5.0a2...v1.5.0) (2026-08-10)
+
+
+
+
+
+
+
+
+
+---
 
 <a name="v1.5.0a2"></a>
 ## [v1.5.0a2](https://github.com/carlkidcrypto/purpleair_api/compare/v1.5.0a1...v1.5.0a2) (2026-08-01)
