@@ -193,8 +193,10 @@ and Environmental Sensor device types with full EPA AQI calculation.
    # {'epa_aqi': 68, 'epa_category': 'Moderate',
    #  'matter_air_quality_rating': 'GOOD', ...}
 
-See the full documentation at ``sphinx_docs_build/source/PurpleAirMatterConverter.rst`` or
-``docs/html/PurpleAirMatterConverter.html`` after building.
+See the Matter implementation guide at ``sphinx_docs_build/source/matter_implementation.rst`` or
+``docs/html/matter_implementation.html`` after building, or read the rendered guide online at
+https://carlkidcrypto.github.io/purpleair_api/matter_implementation.html. The API reference
+remains available at ``sphinx_docs_build/source/PurpleAirMatterConverter.rst``.
 
 References:
 
