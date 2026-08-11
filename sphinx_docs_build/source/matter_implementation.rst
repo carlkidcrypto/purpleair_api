@@ -53,7 +53,7 @@ Use ``to_air_quality_sensor()`` to return all available PurpleAir measurements
 as Matter clusters:
 
 .. list-table::
-   :widths: auto auto auto
+  :widths: 30 40 30
    :header-rows: 1
 
    * - PurpleAir field
@@ -133,7 +133,7 @@ AQI to Matter Rating Mapping
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
-   :widths: auto auto auto
+  :widths: 30 40 30
    :header-rows: 1
 
    * - AQI Range
@@ -165,7 +165,7 @@ Matter protocol stores numbers as scaled integers to avoid floating-point
 complexity. This module encodes values as:
 
 .. list-table::
-   :widths: auto auto
+  :widths: 40 60
    :header-rows: 1
 
    * - Type
@@ -209,7 +209,7 @@ Matter Specification References
 -------------------------------
 
 .. list-table::
-   :widths: auto auto
+  :widths: 40 60
    :header-rows: 1
 
    * - Resource
