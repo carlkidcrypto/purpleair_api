@@ -58,7 +58,7 @@ You can install the PurpleAir API via pip:
 
 .. code-block:: bash
 
-   python3 -m pip install purple_air_api
+   python3 -m pip install purpleair_api
 
 You can also install PurpleAir API by cloning down this repo:
 
