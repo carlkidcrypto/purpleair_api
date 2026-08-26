@@ -10,7 +10,7 @@ Core Principles
 ---------------
 
 
-**Human Oversight**: You are accountable for all code you submit. Never commit code you don’t understand or can’t maintain.
+**Human Oversight**: You are accountable for all code you submit. Never commit code you don't understand or can't maintain.
 
 **Quality Standards**: AI code must meet the same standards as human written code—tests, docs, and patterns included.
 
