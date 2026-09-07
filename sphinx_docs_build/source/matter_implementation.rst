@@ -37,7 +37,8 @@ Quick Start
     device = PurpleAirMatterConverter.to_air_quality_sensor(raw)
 
     print(device["device_type"])
-    # {'id': 45, 'label': 'Air Quality Sensor', 'matter_version': '1.5.1', ...}
+    # {'id': 45, 'label': 'Air Quality Sensor', 'matter_version': '1.5.1',
+    #  'spec_reference': 'Matter 1.5.1 Core Spec — Air Quality Sensor Device Type ...'}
 
     print(device["air_quality_summary"])
     # {'epa_aqi': 68, 'epa_category': 'Moderate',
@@ -54,7 +55,7 @@ as Matter clusters:
 
 .. list-table::
     :widths: 30 40 30
-   :header-rows: 1
+    :header-rows: 1
 
    * - PurpleAir field
      - Matter cluster
@@ -127,14 +128,14 @@ from PM2.5 using the official piecewise-linear formula:
     category = EpaAqiCalculator.aqi_to_epa_category(aqi)
 
     print(f"AQI: {aqi} ({category})")
-    # AQI: 74 (Moderate)
+    # AQI: 78 (Moderate)
 
 AQI to Matter Rating Mapping
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
     :widths: 30 40 30
-   :header-rows: 1
+    :header-rows: 1
 
    * - AQI Range
      - EPA Category
@@ -166,7 +167,7 @@ complexity. This module encodes values as:
 
 .. list-table::
     :widths: 40 60
-   :header-rows: 1
+    :header-rows: 1
 
    * - Type
      - Formula
@@ -210,7 +211,7 @@ Matter Specification References
 
 .. list-table::
     :widths: 40 60
-   :header-rows: 1
+    :header-rows: 1
 
    * - Resource
      - URL
