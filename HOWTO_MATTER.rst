@@ -144,7 +144,7 @@ from PM2.5 using the official piecewise-linear formula:
     category = EpaAqiCalculator.aqi_to_epa_category(aqi)
     
     print(f"AQI: {aqi} ({category})")
-    # AQI: 74 (Moderate)
+    # AQI: 78 (Moderate)
 
 
 AQI → Matter Rating Mapping
