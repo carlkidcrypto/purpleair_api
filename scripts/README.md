@@ -57,6 +57,9 @@ The script deliberately excludes:
 - Build output under `build/`
 - The local `python3.12.venv/` environment
 - Generated agentic workflow lock files under `.github/workflows/`
+- Helper scripts and release-notes generator under `.github/scripts/`
+- Documentation examples under `scripts/README.md`
+- Unit tests and fixtures under `tests/`
 
 After an actual bump, the script checks that no old-version references remain in the active tracked scope. It exits without changes when the requested version is already current.
 

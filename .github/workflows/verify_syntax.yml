@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - '.github/workflows/*.yml'
+      - '!.github/workflows/*.lock.yml'
   pull_request:
     paths:
       - '.github/workflows/*.yml'
+      - '!.github/workflows/*.lock.yml'
   workflow_call:
   workflow_dispatch:
 
@@ -29,4 +31,3 @@ jobs:
           echo "Linting workflow YAML files (excluding lock and agentics maintenance files) in .github/workflows/ ..."
           find .github/workflows/ -name "*.yml" ! -name "*.lock.yml" ! -name "agentics-maintenance.yml" | xargs yamllint -d "{extends: relaxed, rules: {line-length: {max: 200}}}"
           echo "All workflow YAML files passed linting."
-
