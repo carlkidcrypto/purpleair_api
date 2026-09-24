@@ -371,11 +371,12 @@ class PurpleAirMatterConverter:
         """
         data = PurpleAirMatterConverter._normalise(purpleair_data)
 
-        # All sensor fields are nullable — use _nullable_float so that
-        # absent/None values remain None (not coerced to 0), letting the
-        # Matter ecosystem report "unavailable" instead of "0 °C / 0 %".
-        # PM/VOC defaults to 0.0 only after _normalise confirms the field exists;
-        # None fields are excluded from AQI calculation (pm25_to_aqi handles it).
+        # This full-endpoint conversion uses _safe_float, which coerces
+        # absent/None values to 0.0 (see _safe_temperature_fahrenheit for the
+        # temperature equivalent). Unlike to_temperature_sensor() and
+        # to_environmental_sensor(), which use _nullable_float to preserve
+        # "unavailable" as None, missing fields here default to 0.0 so the
+        # combined Air Quality Sensor endpoint always reports a value.
         pm25_raw = _safe_float(data.get("pm2.5"))
         pm10_raw = _safe_float(data.get("pm10.0"))
         pm1_raw = _safe_float(data.get("pm1.0"))
