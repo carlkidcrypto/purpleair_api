@@ -1,42 +1,40 @@
 ---
 name: Auto Update Release Notes
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
   job-discriminator: ${{ github.run_id }}
-
 on:
   release:
     types: [published]
   workflow_dispatch:
     inputs:
       backfill_all:
-        description: "Backfill release notes for ALL existing releases"
+        description: 'Backfill release notes for ALL existing releases'
         required: false
-        default: false
-
+        default: 'false'
+      additional_context:
+        description: 'Optional extra context or instructions to incorporate when generating release notes (e.g. "PyPI link format was fixed in this push")'
+        required: false
+        default: ''
 permissions:
   actions: read
   contents: read
   copilot-requests: write
-
 safe-outputs:
   update-release:
-
-timeout-minutes: 60
-
-network: defaults
-
-tools:
-  bash: true
-
+timeout-minutes: 20
+max-ai-credits: 40
 model: claude-sonnet-5
 engine:
   id: copilot
+network:
+  allowed: [defaults, github, python]
+tools:
+  bash: true
 ---
 
-## Auto Update Release Notes
+# Auto Update Release Notes
 
 When a new release is published, generate and update its release notes body on GitHub using commit history, PR references, and grouped themes.
 
@@ -52,10 +50,33 @@ When a new release is published, generate and update its release notes body on G
 
 ## Steps
 
-0. Determine the run mode:
-   - If triggered by `release: published`, process only the triggering release tag.
-   - If triggered by `workflow_dispatch` with `backfill_all: true`, fetch all releases via the GitHub API and process each one in chronological order (oldest first). For each release, follow steps 1–5 below.
-   - If triggered by `workflow_dispatch` with `backfill_all: false` or unset, stop with a message explaining that `backfill_all` must be set to `true` for manual runs.
+0. **Token & AIC Optimization (Helper Script)**:
+   Use the deterministic helper script `.github/scripts/generate_release_notes.py` to minimize token consumption and AI Credit (AIC) usage. The script automatically executes base tag resolution, commit range extraction, theme grouping into the 9 categories, active verb title formatting, PyPI version linking, and skip-protected checks.
+
+   - If triggered by `release: published`:
+     Determine the published tag name from the release event, then execute:
+     ```bash
+     mkdir -p /tmp/gh-aw/agent
+     python3 .github/scripts/generate_release_notes.py --tag <tag_name> --output-file /tmp/gh-aw/agent/release_notes.md
+     ```
+     (Pass `--additional-context "<context>"` if `additional_context` input is provided).
+     Review `/tmp/gh-aw/agent/release_notes.md` and use the `update_release` tool (or run with `--publish`) to update the release.
+
+   - If triggered by `workflow_dispatch` with `backfill_all: true`:
+     Execute:
+     ```bash
+     python3 .github/scripts/generate_release_notes.py --backfill --publish
+     ```
+     (Append `--additional-context "<context>"` if `additional_context` input is provided).
+
+   - If triggered by `workflow_dispatch` with `backfill_all: false` or unset:
+     Execute:
+     ```bash
+     python3 .github/scripts/generate_release_notes.py --latest --publish
+     ```
+     (Append `--additional-context "<context>"` if `additional_context` input is provided).
+
+   The steps below document the underlying deterministic specification implemented by the helper script:
 
 1. Identify the release context:
    - Determine the tag name from the release being processed.
@@ -71,13 +92,12 @@ When a new release is published, generate and update its release notes body on G
    - Validate that base and current are different; if equal, walk backward one more release/tag.
    - Log the selected base clearly: `Selected base for <current_tag>: <base_tag_or_root_commit>`.
 
-2. Extract commits in the release range:
-   - Run: `git log <base_tag_or_root>..<current_tag> --pretty=format:"%H %s"` to get commit hashes and titles.
-   - For each commit, also retrieve the full message body with: `git log -1 --pretty=format:"%b" <hash>`
-   - For each commit, collect changed files with: `git show --name-only --pretty="" <hash>`.
-   - Use changed-file paths to improve categorization and to identify user-facing code changes (for example `purpleair_api/PurpleAirReadAPI.py`, `purpleair_api/PurpleAirWriteAPI.py`, `purpleair_api/PurpleAirLocalAPI.py`) vs process-only changes (for example `.github/workflows/`).
+2. Extract commits in the release range (Batching — Token Optimization):
+   - Run a single batched git command: `git log <base_tag_or_root>..<current_tag> --name-only --format="COMMIT:%H%x09%s"`
+   - Use changed-file paths to improve categorization and to identify user-facing code changes (for example `purpleair_api/PurpleAirReadAPI.py`, `purpleair_api/PurpleAirWriteAPI.py`, `purpleair_api/PurpleAirLocalAPI.py`, `purpleair_api/PurpleAirMatterConverter.py`) vs process-only changes (for example `.github/workflows/`).
    - Collect any PR numbers referenced (patterns: `(#NNN)`, `#NNN`, `Closes #NNN`, `Fixes #NNN`, `Resolves #NNN`).
    - Collect any issue numbers referenced using the same patterns.
+   - Avoid running per-commit `git log` or `git show` commands in loops.
 
 3. Group commits into themes. Use these categories (add others if clearly needed):
    - **Features / Enhancements** — new functionality or improvements to existing features.
@@ -120,9 +140,9 @@ Compared to: <base_tag_or_root_commit>
 
 ## Install / Upgrade
 
-\`\`\`bash
+```bash
 pip install purpleair_api==<pypi_version>
-\`\`\`
+```
 
 Or browse this release on PyPI: https://pypi.org/project/purpleair_api/<pypi_version>/
 

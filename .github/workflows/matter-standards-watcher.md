@@ -29,7 +29,8 @@ safe-outputs:
       - docs/**
       - sphinx_docs_build/source/**
 
-timeout-minutes: 45
+timeout-minutes: 30
+max-ai-credits: 40
 
 network:
   allowed:
