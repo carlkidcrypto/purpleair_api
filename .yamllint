@@ -1,0 +1,14 @@
+extends: relaxed
+
+rules:
+  line-length:
+    max: 200
+
+ignore: |
+  *.lock.yml
+  *.lock.yaml
+  .github/workflows/*.lock.yml
+  .github/workflows/*.lock.yaml
+  .github/workflows/agentics-maintenance.yml
+  .github/aw/
+  *.json

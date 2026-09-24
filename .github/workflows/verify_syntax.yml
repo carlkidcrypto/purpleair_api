@@ -4,11 +4,21 @@ on:
   push:
     paths:
       - '.github/workflows/*.yml'
+      - '.github/workflows/*.yaml'
       - '!.github/workflows/*.lock.yml'
+      - '!.github/workflows/*.lock.yaml'
+      - '!.github/workflows/agentics-maintenance.yml'
+      - '!.github/aw/**'
+      - '!**/*.json'
   pull_request:
     paths:
       - '.github/workflows/*.yml'
+      - '.github/workflows/*.yaml'
       - '!.github/workflows/*.lock.yml'
+      - '!.github/workflows/*.lock.yaml'
+      - '!.github/workflows/agentics-maintenance.yml'
+      - '!.github/aw/**'
+      - '!**/*.json'
   workflow_call:
   workflow_dispatch:
 
@@ -28,6 +38,12 @@ jobs:
       - name: Lint workflow YAML files
         run: |
           set -e
-          echo "Linting workflow YAML files (excluding lock and agentics maintenance files) in .github/workflows/ ..."
-          find .github/workflows/ -name "*.yml" ! -name "*.lock.yml" ! -name "agentics-maintenance.yml" | xargs yamllint -d "{extends: relaxed, rules: {line-length: {max: 200}}}"
+          echo "Linting workflow YAML files (excluding gh-aw lock/workflow files and json) in .github/workflows/ ..."
+          find .github/workflows/ \( -name "*.yml" -o -name "*.yaml" \) \
+            ! -name "*.lock.yml" \
+            ! -name "*.lock.yaml" \
+            ! -name "agentics-maintenance.yml" \
+            ! -name "*.json" \
+            ! -path "*/.github/aw/*" \
+            -print0 | xargs -0 yamllint -c .yamllint
           echo "All workflow YAML files passed linting."
