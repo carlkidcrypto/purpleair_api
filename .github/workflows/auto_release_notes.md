@@ -1,7 +1,7 @@
 ---
 name: Auto Update Release Notes
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: auto_release_notes
   cancel-in-progress: false
   job-discriminator: ${{ github.run_id }}
 on:

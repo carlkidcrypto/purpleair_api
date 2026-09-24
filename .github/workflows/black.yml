@@ -1,5 +1,9 @@
 name: Black
 
+concurrency:
+  group: black
+  cancel-in-progress: true
+
 on:
   push:
     branches: [ main ]
@@ -7,6 +11,7 @@ on:
       - '**/*.py'
       - '*.py'
       - 'setup.cfg'
+      - 'pyproject.toml'
       - '.github/workflows/black.yml'
   pull_request:
     branches: [ main ]
@@ -14,6 +19,7 @@ on:
       - '**/*.py'
       - '*.py'
       - 'setup.cfg'
+      - 'pyproject.toml'
       - '.github/workflows/black.yml'
   workflow_dispatch:
 

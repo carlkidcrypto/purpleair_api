@@ -1,13 +1,34 @@
 name: Tests
+concurrency:
+  group: tests
+  cancel-in-progress: true
 permissions:
   contents: read
 
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '.github/workflows/*.md'
+      - '.github/workflows/*.lock.yml'
+      - '.github/aw/**'
+      - '.github/*.md'
+      - '**/*.md'
+      - '**/*.rst'
+      - 'docs/**'
+      - 'sphinx_docs_build/**'
 
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - '.github/workflows/*.md'
+      - '.github/workflows/*.lock.yml'
+      - '.github/aw/**'
+      - '.github/*.md'
+      - '**/*.md'
+      - '**/*.rst'
+      - 'docs/**'
+      - 'sphinx_docs_build/**'
 
 jobs:
   check-source-changes:
@@ -28,6 +49,7 @@ jobs:
             tests/*.txt
             setup.py
             setup.cfg
+            pyproject.toml
             .github/workflows/tests.yml
 
   tests:

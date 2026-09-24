@@ -1,11 +1,25 @@
 name: "Pull Request Sphinx Docs Check"
 
+concurrency:
+  group: sphinx_build
+  cancel-in-progress: true
+
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '.github/workflows/*.md'
+      - '.github/workflows/*.lock.yml'
+      - '.github/aw/**'
+      - '.github/*.md'
 
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - '.github/workflows/*.md'
+      - '.github/workflows/*.lock.yml'
+      - '.github/aw/**'
+      - '.github/*.md'
 
 jobs:
   check-source-changes:

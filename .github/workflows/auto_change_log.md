@@ -2,7 +2,7 @@
 name: Update Changelog
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: auto_change_log
   cancel-in-progress: false
 
 on:

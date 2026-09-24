@@ -56,9 +56,15 @@ pathspecs=(
     ':(exclude)docs/doctrees/**'
     ':(exclude)docs/html/**/_sources/**'
     ':(exclude).github/workflows/*.lock.yml'
+    ':(exclude).github/scripts/**'
+    ':(exclude)scripts/README.md'
+    ':(exclude)tests/**'
 )
 
-mapfile -t files < <(git grep -Il -F -- "$old_version" -- . "${pathspecs[@]}" || true)
+files=()
+while IFS= read -r line; do
+    [[ -n "$line" ]] && files+=("$line")
+done < <(git grep -Il -F -- "$old_version" -- . "${pathspecs[@]}" || true)
 
 required_files=(
     setup.cfg
