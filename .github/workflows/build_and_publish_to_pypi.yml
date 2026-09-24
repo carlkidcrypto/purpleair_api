@@ -5,7 +5,9 @@ name: PyPI Distributions
 permissions:
   contents: read
   id-token: write
-concurrency: build_and_publish_to_pypi
+concurrency:
+  group: build_and_publish_to_pypi
+  cancel-in-progress: true
 on:
   release:
     types: [published]

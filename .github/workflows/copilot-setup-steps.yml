@@ -1,6 +1,10 @@
 name: "Copilot Setup Steps"
 
 # This workflow configures the environment for GitHub Copilot Agent with gh-aw MCP server
+concurrency:
+  group: copilot-setup-steps
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
   push:

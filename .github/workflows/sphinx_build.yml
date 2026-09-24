@@ -1,5 +1,9 @@
 name: "Pull Request Sphinx Docs Check"
 
+concurrency:
+  group: sphinx_build
+  cancel-in-progress: true
+
 on:
   push:
     branches: [ main ]

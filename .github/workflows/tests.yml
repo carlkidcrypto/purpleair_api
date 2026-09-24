@@ -1,4 +1,7 @@
 name: Tests
+concurrency:
+  group: tests
+  cancel-in-progress: true
 permissions:
   contents: read
 
@@ -46,6 +49,7 @@ jobs:
             tests/*.txt
             setup.py
             setup.cfg
+            pyproject.toml
             .github/workflows/tests.yml
 
   tests:
