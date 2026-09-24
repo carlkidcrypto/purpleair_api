@@ -1,0 +1,120 @@
+---
+name: Coverage Autofix Python
+on:
+  schedule:
+    - cron: "0 9 */3 * *"
+  workflow_dispatch:
+  skip-if-match:
+    query: 'is:pr is:open head:automation/coverage-autofix-python label:automated-pr'
+permissions:
+  actions: read
+  contents: read
+  copilot-requests: write
+safe-outputs:
+  create-pull-request:
+    title-prefix: "[coverage-autofix-py] "
+    labels: [automated-pr]
+    draft: true
+    preserve-branch-name: true
+    if-no-changes: "ignore"
+    allowed-base-branches: [main]
+  add-labels:
+    target: "*"
+    allowed: [coverage, tests, python]
+    max: 3
+timeout-minutes: 20
+max-ai-credits: 40
+model: claude-sonnet-5
+engine:
+  id: copilot
+network:
+  allowed: [defaults, python]
+tools:
+  edit:
+  bash: true
+---
+
+# Coverage Checks And Suggested Fixes
+
+Run an end-to-end coverage health check for Python tests, then propose and
+implement minimal, safe fixes that improve coverage and reliability.
+
+## Hard Requirements
+
+- Focus only on this repository.
+- Keep changes scoped and low-risk. Limit each run to at most 1 target test file (1–3 focused test cases).
+- Prefer tests first when improving coverage.
+- Do not open a new pull request if an open automation PR already exists for
+  branch `automation/coverage-autofix-python`.
+- If no meaningful change is needed, make no file edits and end cleanly.
+- **Bounded file reads (Token Optimization)**:
+  Files larger than 20 KB must **not** be read in full. Use targeted `grep`, `head`,
+  `tail`, or line-range views. Avoid dumping full source or test files into context.
+
+## Coverage Check Procedure
+
+0. **Token & AIC Optimization (Gap Analysis Helper)**:
+   Run the static coverage gap analyzer first to identify callable functions/methods
+   lacking direct test coverage without executing full suites:
+   ```bash
+   python3 .github/scripts/analyze_python_coverage_gaps.py
+   ```
+
+1. Prepare Python dependencies and run tests with coverage:
+   - `python -m pip install --upgrade pip`
+   - `python -m pip install -r tests/requirements.txt`
+   - `python -m pip install coverage requests_mock`
+   - `cd tests && coverage run -m unittest`
+   - `coverage xml -o coverage.xml`
+   - `coverage report`
+   - Read coverage from `coverage.xml` when available.
+
+2. Evaluate coverage results:
+   - Parse `coverage.xml` to determine overall line and branch coverage percentages.
+   - Identify specific uncovered lines or branches in `purpleair_api/*.py`.
+   - Note any test failures or errors encountered during the run.
+
+3. Determine if action is needed:
+   - If Python coverage is below 99%, or tests reveal clear reliability gaps,
+     create targeted fixes.
+   - If current coverage looks healthy and no concrete improvement is justified,
+     do not change code.
+
+## Fix Strategy
+
+- Prioritize:
+  - Adding missing test coverage for uncovered branches/paths in
+    `purpleair_api/*.py`.
+  - Fixing brittle or flaky tests in `tests/`.
+  - Small correctness fixes discovered while writing tests.
+- Test files live in `tests/` (unittest style, e.g. `tests/test_purpleair_read_api.py`).
+- Use `requests_mock` for mocking HTTP calls to the PurpleAir API.
+- Avoid broad refactors or unrelated formatting churn.
+- Run `black` on all modified Python files before creating the PR:
+  ```bash
+  python -m pip install black
+  black <modified_files>
+  ```
+- Keep commits coherent and reviewable.
+
+## Pull Request Output
+
+When changes exist, create exactly one PR using this fixed branch name:
+
+- Branch: `automation/coverage-autofix-python`
+- Base: `main`
+- Title style: `[coverage-autofix-py] <short summary>`
+- PR body must include:
+  - Python coverage before/after (if measurable)
+  - Summary of tests added/updated
+  - Any limitations or follow-up recommendations
+
+After creating the PR, attempt a best-effort follow-up label step:
+
+- Add supplemental labels to the created PR when possible: `coverage`, `tests`,
+  `python`.
+- Treat this as non-critical metadata enrichment. If supplemental labeling fails,
+  do not treat the run as a primary failure and do not abandon the created PR.
+
+If no changes are required, report that coverage checks passed without actionable improvements.
+
