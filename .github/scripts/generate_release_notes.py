@@ -668,11 +668,50 @@ def build_release_notes(
 
     lines.append("---")
     lines.append("")
-    lines.append(
-        f"**Full Changelog**: https://github.com/{repo}/compare/{base_tag}...{tag}"
-    )
+    if (
+        base_tag == "repository root"
+        or base_tag.startswith("repository root")
+        or len(base_tag) == 40
+    ):
+        lines.append(f"**Full Changelog**: https://github.com/{repo}/commits/{tag}")
+    else:
+        lines.append(
+            f"**Full Changelog**: https://github.com/{repo}/compare/{base_tag}...{tag}"
+        )
 
     return "\n".join(lines).strip() + "\n"
+
+
+def patch_github_release(release_id: int, body: str, repo: str = DEFAULT_REPO) -> bool:
+    """Update release body on GitHub using gh api."""
+    payload = json.dumps({"body": body})
+    cmd = [
+        "gh",
+        "api",
+        "-X",
+        "PATCH",
+        f"repos/{repo}/releases/{release_id}",
+        "--input",
+        "-",
+    ]
+    effective_env = os.environ.copy()
+    if "/opt/homebrew/bin" not in effective_env.get("PATH", ""):
+        effective_env["PATH"] = f"/opt/homebrew/bin:{effective_env.get('PATH', '')}"
+
+    res = subprocess.run(
+        cmd,
+        input=payload,
+        capture_output=True,
+        text=True,
+        env=effective_env,
+    )
+    if res.returncode != 0:
+        print(
+            f"Error patching release {release_id}: {res.stderr}",
+            file=sys.stderr,
+        )
+        return False
+    return True
 
 
 def process_release(
@@ -710,20 +749,10 @@ def process_release(
     if publish:
         rel_id = release["id"]
         print(f"Publishing release notes for {tag} (ID: {rel_id})...")
-        payload = json.dumps({"body": notes})
-        run_cmd(
-            [
-                "gh",
-                "api",
-                "--method",
-                "PATCH",
-                f"/repos/{repo}/releases/{rel_id}",
-                "--input",
-                "-",
-            ],
-            env={"GH_PAYLOAD": payload},
-        )
-        print(f"Successfully updated release {tag} on GitHub.")
+        if patch_github_release(rel_id, notes, repo=repo):
+            print(f"Successfully updated release {tag} on GitHub.")
+        else:
+            return False
     else:
         print(f"\n--- [DRY-RUN] Release Notes for {tag} ---")
         print(notes)
