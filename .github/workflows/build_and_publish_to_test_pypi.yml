@@ -39,7 +39,7 @@ jobs:
             setup.py
             setup.cfg
             pyproject.toml
-            .github/actions/build-and-publish-distribution/action.yml
+            .github/actions/build-distribution/action.yml
             .github/workflows/build_and_publish_to_test_pypi.yml
 
   build-n-publish-test-pypi:
@@ -52,7 +52,12 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Build and publish distribution
-        uses: ./.github/actions/build-and-publish-distribution
+      - name: Build distribution
+        uses: ./.github/actions/build-distribution
+
+      - name: Publish distribution 📦 to Test PyPI
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1.14
         with:
-          target: test_pypi
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
+          print-hash: true

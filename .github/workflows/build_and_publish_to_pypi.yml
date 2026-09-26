@@ -22,7 +22,10 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Build and publish distribution
-        uses: ./.github/actions/build-and-publish-distribution
+      - name: Build distribution
+        uses: ./.github/actions/build-distribution
+
+      - name: Publish distribution 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # release/v1.14
         with:
-          target: pypi
+          print-hash: true
