@@ -9,7 +9,11 @@ import sys
 
 sys.path.append("../")
 
-from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
+from purpleair_api.PurpleAirAPIError import (
+    PurpleAirAPIError,
+    PurpleAirDeviceError,
+    PurpleAirDeviceOfflineError,
+)
 
 
 class PurpleAirAPIErrorTest(unittest.TestCase):
@@ -52,6 +56,22 @@ class PurpleAirAPIErrorTest(unittest.TestCase):
         error_msg_str = "string representation test"
         error = PurpleAirAPIError(error_msg_str)
         self.assertEqual(str(error), error_msg_str)
+
+    def test_device_error_hierarchy(self):
+        """
+        Test that PurpleAirDeviceError and PurpleAirDeviceOfflineError subclass PurpleAirAPIError.
+        """
+        self.assertTrue(issubclass(PurpleAirDeviceError, PurpleAirAPIError))
+        self.assertTrue(issubclass(PurpleAirDeviceOfflineError, PurpleAirDeviceError))
+        self.assertTrue(issubclass(PurpleAirDeviceOfflineError, PurpleAirAPIError))
+
+    def test_device_offline_error_can_be_caught_as_api_error(self):
+        """
+        Test that PurpleAirDeviceOfflineError can be caught by PurpleAirAPIError handlers.
+        """
+        with self.assertRaises(PurpleAirAPIError) as ctx:
+            raise PurpleAirDeviceOfflineError("Device at 192.168.1.2 is offline")
+        self.assertIn("192.168.1.2", str(ctx.exception))
 
 
 if __name__ == "__main__":
