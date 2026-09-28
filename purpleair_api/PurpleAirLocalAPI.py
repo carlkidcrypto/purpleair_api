@@ -8,7 +8,7 @@ https://api.purpleair.com/#api-welcome
 """
 
 from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
-from purpleair_api.PurpleAirAPIHelpers import send_url_get_request
+from purpleair_api.PurpleAirAPIHelpers import debug_log, send_url_get_request
 
 
 class PurpleAirLocalAPI:
@@ -52,7 +52,10 @@ class PurpleAirLocalAPI:
 
         retval = {}
         for key, value in self._base_api_local_network_request_string_dict.items():
-            request_value = send_url_get_request(value)
-            retval[key] = request_value
+            try:
+                request_value = send_url_get_request(value)
+                retval[key] = request_value
+            except Exception as exc:
+                debug_log(f"Failed to fetch data for local sensor {key}: {exc}")
 
         return retval
