@@ -30,4 +30,3 @@ class PurpleAirDeviceOfflineError(PurpleAirDeviceError):
     """
     Custom Exception raised when a PurpleAir device/sensor is offline or unreachable on the network.
     """
-

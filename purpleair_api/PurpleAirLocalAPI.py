@@ -64,7 +64,9 @@ class PurpleAirLocalAPI:
                     f"IPv4 address {ipv4_address} was not provided during initialization"
                 )
             target_dict = {
-                ipv4_address: self._base_api_local_network_request_string_dict[ipv4_address]
+                ipv4_address: self._base_api_local_network_request_string_dict[
+                    ipv4_address
+                ]
             }
         else:
             target_dict = self._base_api_local_network_request_string_dict
