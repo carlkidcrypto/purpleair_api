@@ -10,7 +10,11 @@ import sys
 
 sys.path.append("../")
 
-from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
+from purpleair_api.PurpleAirAPIError import (
+    PurpleAirAPIError,
+    PurpleAirDeviceError,
+    PurpleAirDeviceOfflineError,
+)
 from purpleair_api.PurpleAirLocalAPI import PurpleAirLocalAPI
 
 
@@ -106,27 +110,46 @@ class PurpleAirLocalAPITest(unittest.TestCase):
         self.assertIn("192.168.1.2", retval)
         self.assertIn("192.168.1.3", retval)
 
-    def test_request_local_sensor_data_partial_failure(self):
+    def test_request_local_sensor_data_single_ip_success(self):
         """
-        Test that when one sensor fails to respond, other responding sensors are still returned.
+        Test querying a specific configured IP successfully.
         """
         pala = PurpleAirLocalAPI(["192.168.1.2", "192.168.1.3"])
-        fake_url_1 = "http://192.168.1.2/json"
-        fake_url_2 = "http://192.168.1.3/json"
+        fake_url = "http://192.168.1.3/json"
 
         with requests_mock.Mocker() as m:
-            m.get(fake_url_1, exc=Exception("Connection refused"))
-            m.get(fake_url_2, text='{"sensor": 2}', status_code=200)
-            retval = pala.request_local_sensor_data()
+            m.get(fake_url, text='{"sensor": 3}', status_code=200)
+            retval = pala.request_local_sensor_data("192.168.1.3")
 
-        self.assertEqual(len(retval), 1)
-        self.assertNotIn("192.168.1.2", retval)
-        self.assertIn("192.168.1.3", retval)
-        self.assertEqual(retval["192.168.1.3"], {"sensor": 2})
+        self.assertEqual(retval, {"192.168.1.3": {"sensor": 3}})
 
-    def test_request_local_sensor_data_all_failures(self):
+    def test_request_local_sensor_data_unconfigured_ip(self):
         """
-        Test that when all sensors fail to respond, an empty dictionary is returned without raising.
+        Test querying an IP address not provided during initialization raises PurpleAirAPIError.
+        """
+        pala = PurpleAirLocalAPI(["192.168.1.2"])
+        with self.assertRaises(PurpleAirAPIError):
+            pala.request_local_sensor_data("192.168.1.99")
+
+    def test_request_local_sensor_data_offline_raises_device_offline_error(self):
+        """
+        Test that an unreachable sensor raises PurpleAirDeviceOfflineError.
+        """
+        pala = PurpleAirLocalAPI(["192.168.1.2"])
+        fake_url = "http://192.168.1.2/json"
+
+        with requests_mock.Mocker() as m:
+            m.get(fake_url, exc=Exception("Connection refused"))
+            with self.assertRaises(PurpleAirDeviceOfflineError) as ctx:
+                pala.request_local_sensor_data("192.168.1.2")
+
+        self.assertIn("192.168.1.2", str(ctx.exception))
+        self.assertIsInstance(ctx.exception, PurpleAirDeviceError)
+        self.assertIsInstance(ctx.exception, PurpleAirAPIError)
+
+    def test_request_local_sensor_data_bulk_offline_raises_device_offline_error(self):
+        """
+        Test that an unreachable sensor in a bulk poll raises PurpleAirDeviceOfflineError.
         """
         pala = PurpleAirLocalAPI(["192.168.1.2", "192.168.1.3"])
         fake_url_1 = "http://192.168.1.2/json"
@@ -134,10 +157,9 @@ class PurpleAirLocalAPITest(unittest.TestCase):
 
         with requests_mock.Mocker() as m:
             m.get(fake_url_1, exc=Exception("No route to host"))
-            m.get(fake_url_2, exc=Exception("Connection timed out"))
-            retval = pala.request_local_sensor_data()
-
-        self.assertEqual(retval, {})
+            m.get(fake_url_2, text='{"sensor": 2}', status_code=200)
+            with self.assertRaises(PurpleAirDeviceOfflineError):
+                pala.request_local_sensor_data()
 
 
 if __name__ == "__main__":
