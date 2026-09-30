@@ -70,6 +70,12 @@ Documentation Contents
 
     matter_implementation
 
+.. toctree::
+    :maxdepth: 2
+    :caption: Specifications:
+
+    software_requirements
+
 Indices and Tables
 ==================
 
