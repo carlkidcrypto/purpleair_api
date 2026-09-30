@@ -18,3 +18,15 @@ class PurpleAirAPIError(Exception):
         """
         self.message = message_string
         super().__init__(self.message)
+
+
+class PurpleAirDeviceError(PurpleAirAPIError):
+    """
+    Custom Exception for PurpleAir device errors.
+    """
+
+
+class PurpleAirDeviceOfflineError(PurpleAirDeviceError):
+    """
+    Custom Exception raised when a PurpleAir device/sensor is offline or unreachable on the network.
+    """

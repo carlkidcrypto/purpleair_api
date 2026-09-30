@@ -7,7 +7,11 @@ This class will handle all `local` requests
 https://api.purpleair.com/#api-welcome
 """
 
-from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
+from purpleair_api.PurpleAirAPIError import (
+    PurpleAirAPIError,
+    PurpleAirDeviceError,
+    PurpleAirDeviceOfflineError,
+)
 from purpleair_api.PurpleAirAPIHelpers import send_url_get_request
 
 
@@ -48,11 +52,17 @@ class PurpleAirLocalAPI:
         A method to request data from one or more local sensors. Each sensor must be accessible on the local network.
 
         :return dict: A dictionary mapping each IPv4 address to its sensor data payload.
+        :raises PurpleAirDeviceOfflineError: If a sensor is offline or unreachable on the network.
         """
 
         retval = {}
         for key, value in self._base_api_local_network_request_string_dict.items():
-            request_value = send_url_get_request(value)
-            retval[key] = request_value
+            try:
+                request_value = send_url_get_request(value)
+                retval[key] = request_value
+            except Exception as exc:
+                raise PurpleAirDeviceOfflineError(
+                    f"Device at {key} is offline or unreachable: {exc}"
+                ) from exc
 
         return retval
