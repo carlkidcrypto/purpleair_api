@@ -3,7 +3,18 @@
   <head><meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Official Python 3 client library for the PurpleAir air quality sensor API. Retrieve real-time and historical PM2.5, temperature, humidity, and atmospheric data." name="description" />
+<meta content="purpleair api, purpleair_api, purple air api, purpleair python, purpleair sensor api, purpleair data, air quality api, pm2.5 sensor python, carlkidcrypto" name="keywords" />
+<meta content="Carlos (&#64;carlkidcrypto)" name="author" />
+<meta content="PurpleAir API (PAA) — Python 3 Wrapper for PurpleAir Sensors" property="og:title" />
+<meta content="Modern, well-maintained Python 3 wrapper for the official PurpleAir air quality sensor data API." property="og:description" />
+<meta content="website" property="og:type" />
+<meta content="https://carlkidcrypto.github.io/purpleair_api/" property="og:url" />
+<meta content="summary" name="twitter:card" />
+<meta content="PurpleAir API (PAA) — Python 3 Wrapper" name="twitter:title" />
+<meta content="Official Python 3 client library for PurpleAir air quality sensors and API." name="twitter:description" />
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html">
+        <link rel="canonical" href="https://carlkidcrypto.github.io/purpleair_api/index.html">
 
     <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
         <title>PurpleAir API Documentation</title>
@@ -34,7 +45,40 @@
       }
     }
   }
-</style></head>
+</style>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://carlkidcrypto.github.io/purpleair_api/#software",
+        "name": "PurpleAir API",
+        "alternateName": ["purpleair_api", "purpleair api", "PAA"],
+        "description": "Modern Python 3 wrapper for official PurpleAir air quality sensors and the PurpleAir sensor data API.",
+        "url": "https://carlkidcrypto.github.io/purpleair_api/",
+        "codeRepository": "https://github.com/carlkidcrypto/purpleair_api",
+        "programmingLanguage": "Python",
+        "operatingSystem": ["Linux", "macOS", "Windows"],
+        "author": {
+          "@type": "Person",
+          "name": "Carlos",
+          "alternateName": "carlkidcrypto",
+          "url": "https://carlkidcrypto.github.io/"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://carlkidcrypto.github.io/purpleair_api/#website",
+        "url": "https://carlkidcrypto.github.io/purpleair_api/",
+        "name": "PurpleAir API Documentation",
+        "description": "Official documentation and API reference for the PurpleAir API Python wrapper."
+      }
+    ]
+  }
+  </script>
+</head>
   <body>
     
     <script>
@@ -172,7 +216,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
@@ -222,13 +266,28 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
           <section id="purpleair-api-documentation">
 <h1>PurpleAir API Documentation<a class="headerlink" href="#purpleair-api-documentation" title="Link to this heading">¶</a></h1>
+<p>The <strong>PurpleAir API (PAA)</strong> library is a modern, robust, and well-maintained Python 3 wrapper
+for the official <a class="reference external" href="https://www2.purpleair.com/">PurpleAir</a> sensors and air quality sensor data API.
+It simplifies querying real-time and historical air quality metrics (PM1.0, PM2.5, PM10,
+temperature, humidity, and atmospheric pressure) with built-in rate-limiting and error handling.</p>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Comprehensive API Coverage:</strong> Query single sensors, multiple sensors, and historical sensor data.</p></li>
+<li><p><strong>Automatic Rate Limiting:</strong> Built-in request pacing to comply with PurpleAir API rate limits.</p></li>
+<li><p><strong>Error Isolation:</strong> Resilient network handling and custom exception hierarchies for dependable air monitoring.</p></li>
+<li><p><strong>Typing &amp; Validation:</strong> Fully typed with Python dataclasses and validation checks.</p></li>
+</ul>
+</section>
+<section id="select-a-version">
+<h2>Select a Version<a class="headerlink" href="#select-a-version" title="Link to this heading">¶</a></h2>
 <p>Select a version of the documentation to browse:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="./html/index.html">Latest Version</a></p></li>
@@ -239,8 +298,16 @@
 <li><p><a class="reference external" href="./html_v1.4.0/index.html">v1.4.0</a></p></li>
 <li><p><a class="reference external" href="./html_v1.3.1/index.html">v1.3.1</a></p></li>
 </ul>
-<p>For general project information, installation instructions, and source code,
-see the <a class="reference external" href="https://github.com/carlkidcrypto/purpleair_api">PurpleAir API GitHub repository</a>.</p>
+</section>
+<section id="project-links">
+<h2>Project Links<a class="headerlink" href="#project-links" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Source Code:</strong> <a class="reference external" href="https://github.com/carlkidcrypto/purpleair_api">GitHub Repository</a></p></li>
+<li><p><strong>Package:</strong> <a class="reference external" href="https://pypi.org/project/purpleair-api/">PyPI Package</a></p></li>
+<li><p><strong>Data Logger:</strong> <a class="reference external" href="https://carlkidcrypto.github.io/purpleair_data_logger/">PurpleAir Data Logger</a></p></li>
+<li><p><strong>Maintainer:</strong> <a class="reference external" href="https://carlkidcrypto.github.io/">Carlos (&#64;carlkidcrypto)</a></p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -254,7 +321,7 @@ see the <a class="reference external" href="https://github.com/carlkidcrypto/pur
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2024-2025, carlkidcrypto
+                Copyright &#169; 2024-2026, carlkidcrypto
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -268,8 +335,29 @@ see the <a class="reference external" href="https://github.com/carlkidcrypto/pur
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">PurpleAir API Documentation</a><ul>
+<li><a class="reference internal" href="#key-features">Key Features</a></li>
+<li><a class="reference internal" href="#select-a-version">Select a Version</a></li>
+<li><a class="reference internal" href="#project-links">Project Links</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
