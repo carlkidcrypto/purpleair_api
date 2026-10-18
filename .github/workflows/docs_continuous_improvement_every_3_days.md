@@ -11,6 +11,8 @@ permissions:
   contents: read
   copilot-requests: write
 safe-outputs:
+  noop:
+    report-as-issue: true
   create-pull-request:
     title-prefix: "[docs-improvement] "
     labels: [documentation, automated-pr]
@@ -20,7 +22,7 @@ safe-outputs:
     allowed-base-branches: [main]
 timeout-minutes: 15
 max-ai-credits: 25
-model: gpt-6.1-sol
+model: sonnet
 engine:
   id: copilot
 tools:

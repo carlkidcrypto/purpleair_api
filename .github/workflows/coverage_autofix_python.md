@@ -11,6 +11,8 @@ permissions:
   contents: read
   copilot-requests: write
 safe-outputs:
+  noop:
+    report-as-issue: true
   create-pull-request:
     title-prefix: "[coverage-autofix-py] "
     labels: [automated-pr]
@@ -24,7 +26,7 @@ safe-outputs:
     max: 3
 timeout-minutes: 20
 max-ai-credits: 40
-model: gpt-6.1-sol
+model: sonnet
 engine:
   id: copilot
 network:
@@ -32,6 +34,8 @@ network:
 tools:
   edit:
   bash: true
+imports:
+  - shared/codecov-coverage.md
 ---
 
 # Coverage Checks And Suggested Fixes
@@ -52,6 +56,12 @@ implement minimal, safe fixes that improve coverage and reliability.
   `tail`, or line-range views. Avoid dumping full source or test files into context.
 
 ## Coverage Check Procedure
+
+**Start with Codecov.** Before running anything, read the pre-fetched Codecov data in
+`/tmp/gh-aw/agent/codecov/summary.md` (see "Codecov Coverage Data" below; dashboard:
+https://app.codecov.io/gh/carlkidcrypto/purpleair_api). Use its missed/partial line numbers for `purpleair_api/*.py`
+as the primary list of gaps, and use the local coverage run below to confirm and refine them.
+If local tests cannot be run, author tests statically for the Codecov-reported gaps and let CI verify them.
 
 0. **Token & AIC Optimization (Gap Analysis Helper)**:
    Run the static coverage gap analyzer first to identify callable functions/methods

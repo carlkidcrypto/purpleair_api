@@ -14,6 +14,8 @@ permissions:
   copilot-requests: write
 
 safe-outputs:
+  noop:
+    report-as-issue: true
   create-pull-request:
     title-prefix: "[matter-standards]"
     labels:
@@ -43,7 +45,7 @@ tools:
   edit:
   bash: true
 
-model: gpt-6.1-sol
+model: sonnet
 engine:
   id: copilot
 ---

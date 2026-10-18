@@ -22,10 +22,12 @@ permissions:
   contents: read
   copilot-requests: write
 safe-outputs:
+  noop:
+    report-as-issue: true
   update-release:
 timeout-minutes: 20
 max-ai-credits: 40
-model: gpt-6.1-sol
+model: sonnet
 engine:
   id: copilot
 network:

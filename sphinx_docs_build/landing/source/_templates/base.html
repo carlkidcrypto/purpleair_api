@@ -1,0 +1,36 @@
+{% extends "!base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://carlkidcrypto.github.io/purpleair_api/#software",
+        "name": "PurpleAir API",
+        "alternateName": ["purpleair_api", "purpleair api", "PAA"],
+        "description": "Modern Python 3 wrapper for official PurpleAir air quality sensors and the PurpleAir sensor data API.",
+        "url": "https://carlkidcrypto.github.io/purpleair_api/",
+        "codeRepository": "https://github.com/carlkidcrypto/purpleair_api",
+        "programmingLanguage": "Python",
+        "operatingSystem": ["Linux", "macOS", "Windows"],
+        "author": {
+          "@type": "Person",
+          "name": "Carlos",
+          "alternateName": "carlkidcrypto",
+          "url": "https://carlkidcrypto.github.io/"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://carlkidcrypto.github.io/purpleair_api/#website",
+        "url": "https://carlkidcrypto.github.io/purpleair_api/",
+        "name": "PurpleAir API Documentation",
+        "description": "Official documentation and API reference for the PurpleAir API Python wrapper."
+      }
+    ]
+  }
+  </script>
+{% endblock %}
