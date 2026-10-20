@@ -10,16 +10,14 @@ on:
     paths:
       - '**/*.py'
       - '*.py'
-      - 'setup.cfg'
-      - 'pyproject.toml'
+      - 'python/**'
       - '.github/workflows/python_black.yml'
   pull_request:
     branches: [ main, feature/swig ]
     paths:
       - '**/*.py'
       - '*.py'
-      - 'setup.cfg'
-      - 'pyproject.toml'
+      - 'python/**'
       - '.github/workflows/python_black.yml'
   workflow_dispatch:
 
