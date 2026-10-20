@@ -24,7 +24,7 @@ js_swig = custom_target(
   output: 'purpleairapi_base_wrap.cxx',
   command: [
     swig,
-    '-javascript', '-node', '-c++',
+    '-javascript', '-napi', '-c++',
     '-I' + swig_iface,
     '-I' + swig_inc,
     '-outdir', '@OUTDIR@',
