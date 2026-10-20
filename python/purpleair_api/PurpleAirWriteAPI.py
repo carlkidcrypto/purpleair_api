@@ -139,6 +139,8 @@ class PurpleAirWriteAPI:
         :return dict | None: A dictionary containing the deletion response.
         """
 
-        post_url = self._base_api_v1_request_string + f"groups/{group_id}/members/{member_id}"
+        post_url = (
+            self._base_api_v1_request_string + f"groups/{group_id}/members/{member_id}"
+        )
 
         return send_url_delete_request(post_url, self._your_api_write_key)
