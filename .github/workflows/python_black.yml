@@ -24,8 +24,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
   verify-syntax:
@@ -33,6 +32,9 @@ jobs:
     uses: ./.github/workflows/verify_syntax.yml
 
   black:
+    permissions:
+      contents: write
+      pull-requests: write
     needs: verify-syntax
     runs-on: ubuntu-latest
     steps:
@@ -46,7 +48,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Black
-        run: pip install black==26.5.1
+        run: pip install --only-binary :all: black==26.5.1
 
       - name: Run Black
         run: black .

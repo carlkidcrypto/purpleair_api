@@ -68,7 +68,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./javascript
-        run: npm ci || npm install
+        run: npm ci --ignore-scripts
 
       - name: Build native addon
         working-directory: ./javascript

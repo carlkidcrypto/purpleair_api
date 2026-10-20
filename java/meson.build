@@ -34,6 +34,7 @@ endif
 swig_iface = meson.project_source_root() / 'swig' / 'interface'
 swig_inc   = meson.project_source_root() / 'swig' / 'include'
 build_jar_script = meson.current_source_dir() / 'build_jar.py'
+build_test_jar_script = meson.current_source_dir() / 'build_test_jar.py'
 
 # ── SWIG step and JAR compilation ───────────────────────────────────────────
 # Generates purpleairapi_base_wrap.cpp and purpleair-api.jar
@@ -47,9 +48,6 @@ java_swig_jar = custom_target(
   command: [
     python,
     build_jar_script,
-    swig,
-    javac_prog,
-    jar_prog,
     swig_iface,
     swig_inc,
     '@OUTPUT0@',
@@ -75,17 +73,8 @@ test_jar = custom_target(
   input: java_test_src,
   output: 'purpleair-api-tests.jar',
   command: [
-    python, '-c',
-    'import os, subprocess, sys, tempfile, shutil\n'
-    + 'javac=sys.argv[1]; jar=sys.argv[2]; api_jar=sys.argv[3]; test_src=sys.argv[4]; out_jar=sys.argv[5]\n'
-    + 'tmp=tempfile.mkdtemp()\n'
-    + 'try:\n'
-    + '  subprocess.run([javac, "-cp", api_jar, "-d", tmp, test_src], check=True)\n'
-    + '  subprocess.run([jar, "cf", os.path.abspath(out_jar), "-C", tmp, "."], check=True)\n'
-    + 'finally:\n'
-    + '  shutil.rmtree(tmp, ignore_errors=True)',
-    javac_prog,
-    jar_prog,
+    python,
+    build_test_jar_script,
     java_swig_jar[1],
     '@INPUT@',
     '@OUTPUT@',

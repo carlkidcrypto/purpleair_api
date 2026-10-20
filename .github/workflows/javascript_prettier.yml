@@ -47,7 +47,7 @@ jobs:
           cache-dependency-path: javascript/package-lock.json
 
       - name: Install Prettier
-        run: npm install -g prettier@3.2.4
+        run: npm install --ignore-scripts -g prettier@3.2.4
 
       - name: Run Prettier
         run: prettier --check "javascript/**/*.{js,json}"
