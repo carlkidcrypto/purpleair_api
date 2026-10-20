@@ -1,0 +1,74 @@
+name: java/test
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main, feature/swig ]
+    paths:
+      - 'java/**'
+      - 'swig/**'
+      - '.github/workflows/java_test.yml'
+
+  pull_request:
+    branches: [ main, feature/swig ]
+
+jobs:
+  check-source-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      run_job: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - name: Checkout Sourcecode
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Check for changes in Java source code
+        id: changed-files
+        uses: tj-actions/changed-files@c3a1bb2c992d77180ae65be6ae6c166cf40f857c # v46.0.1
+        with:
+          files: |
+            java/**
+            swig/**
+            .github/workflows/java_test.yml
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        java-version: ['17', '21']
+    needs: check-source-changes
+    if: needs.check-source-changes.outputs.run_job == 'true'
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Java ${{ matrix.java-version }}
+        uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12 # v4.7.0
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
+
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev swig build-essential
+
+      - name: Install system dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install curl swig || true
+
+      - name: Install Meson and Ninja
+        run: pip install meson ninja
+
+      - name: Configure with Meson
+        run: meson setup builddir -Dcsharp_bindings=false -Dgo_bindings=false -Djavascript_bindings=false -Denable_java_bindings=true
+
+      - name: Build with Ninja
+        run: ninja -C builddir
+
+      - name: Run Java tests
+        run: meson test -C builddir java_tests -v

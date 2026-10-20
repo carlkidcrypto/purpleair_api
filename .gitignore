@@ -34,6 +34,7 @@ csharp/*_wrap.cxx
 csharp/purpleairapi_base.cs
 csharp/purpleairapi_basePINVOKE.cs
 csharp/StringMap.cs
+csharp/StringVector.cs
 csharp/_string_vector.cs
 csharp/PurpleAirAPIError.cs
 csharp/PurpleAirLocalAPI.cs
@@ -57,6 +58,8 @@ go/go.sum
 *.dll
 *.pyd
 *.pyc
+*.class
+*.jar
 __pycache__/
 build/
 *.egg-info/

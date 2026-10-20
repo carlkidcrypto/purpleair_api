@@ -18,3 +18,10 @@ option(
   value: true,
   description: 'Build JavaScript/Node.js SWIG bindings (requires SWIG, node-gyp, and npm)',
 )
+
+option(
+  'enable_java_bindings',
+  type: 'boolean',
+  value: true,
+  description: 'Build Java SWIG bindings (requires SWIG, JDK 11+, and g++)',
+)

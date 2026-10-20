@@ -1,7 +1,7 @@
 purple_air_api (PAA)
 ====================
 
-This is a wrapper for the PurpleAirAPI (PAA) with a **C++ backend and SWIG bindings** for Python, JavaScript, C#, and Go. Details of the API can be found using this link: https://api.purpleair.com/#api-welcome
+This is a wrapper for the PurpleAirAPI (PAA) with a **C++ backend and SWIG bindings** for Python, JavaScript, C#, Go, and Java. Details of the API can be found using this link: https://api.purpleair.com/#api-welcome
 
 To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by sending an email to ``contact@purpleair.com`` with a first and last name to assign them to.
 
@@ -90,7 +90,7 @@ Multi-Language Support
 The repository is structured to support multiple languages:
 
 - **Python**: ``cd python && python -m pip install .``
-- **JavaScript/Node.js**, **C#**, and **Go** use Meson/Ninja to build the
+- **JavaScript/Node.js**, **C#**, **Go**, and **Java** use Meson/Ninja to build the
   native parts first:
 
   .. code-block:: bash
@@ -102,6 +102,7 @@ The repository is structured to support multiple languages:
   - `javascript/README.rst <javascript/README.rst>`_
   - `csharp/README.rst <csharp/README.rst>`_
   - `go/README.rst <go/README.rst>`_
+  - `java/README.rst <java/README.rst>`_
 
 - **Native C++**: See `swig/README.rst <swig/README.rst>`_
 
