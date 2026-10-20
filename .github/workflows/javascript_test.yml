@@ -37,7 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: ['18.x', '20.x', '22.x']
+        node-version: ['18.x', '20.x', '22.x', '24.x']
     needs: check-source-changes
     if: needs.check-source-changes.outputs.run_job == 'true'
     steps:    

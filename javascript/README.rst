@@ -7,7 +7,7 @@ Prerequisites
 -------------
 
 - SWIG 4.x or later
-- Node.js 14.x or later
+- Node.js 18.x or later (tested on Node 20, 22, and 24 LTS)
 - npm
 - g++ with C++17 support (or Xcode on macOS)
 - libcurl development headers
