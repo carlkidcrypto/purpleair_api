@@ -12,6 +12,9 @@
     <GeneratedSourcesDir
       Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/purpleairapi_base.dll')"
       >$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
+    <GeneratedSourcesDir
+      Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/libpurpleairapi_base.dll')"
+      >$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,6 +50,11 @@
       SourceFiles="@(_NativeLibFiles)"
       DestinationFolder="$(OutputPath)"
       Condition="'@(_NativeLibFiles)' != ''"
+    />
+    <Copy
+      SourceFiles="$(GeneratedSourcesDir)libpurpleairapi_base.dll"
+      DestinationFiles="$(OutputPath)purpleairapi_base.dll"
+      Condition="Exists('$(GeneratedSourcesDir)libpurpleairapi_base.dll')"
     />
     <Copy
       SourceFiles="@(_DependencyDlls)"

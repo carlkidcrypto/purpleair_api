@@ -48,10 +48,21 @@
             }
           },
           "include_dirs": [
-            "<!@(node -p \"(process.env.VCPKG_INSTALLATION_ROOT || 'C:/vcpkg').replace(/\\\\\\\\/g, '/') + '/installed/x64-windows/include'\")"
+            "<!@(node -p \"(process.env.VCPKG_INSTALLATION_ROOT || 'C:/vcpkg').replace(/\\\\/g, '/') + '/installed/x64-windows/include'\")"
+          ],
+          "library_dirs": [
+            "<!@(node -p \"(process.env.VCPKG_INSTALLATION_ROOT || 'C:/vcpkg').replace(/\\\\/g, '/') + '/installed/x64-windows/lib'\")"
           ],
           "libraries": [
-            "-l<!@(node -p \"(process.env.VCPKG_INSTALLATION_ROOT || 'C:/vcpkg').replace(/\\\\\\\\/g, '/') + '/installed/x64-windows/lib/curl.lib'\")"
+            "libcurl.lib"
+          ],
+          "copies": [
+            {
+              "destination": "<(PRODUCT_DIR)",
+              "files": [
+                "<!@(node -p \"(process.env.VCPKG_INSTALLATION_ROOT || 'C:/vcpkg').replace(/\\\\/g, '/') + '/installed/x64-windows/bin/libcurl.dll'\")"
+              ]
+            }
           ]
         }]
       ]

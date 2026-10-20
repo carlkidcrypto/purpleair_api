@@ -80,4 +80,9 @@ jobs:
 
       - name: Run tests
         working-directory: ./csharp/tests
-        run: dotnet test --configuration Release -p:GeneratedSourcesDir=${{ github.workspace }}/builddir/csharp/
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            export PATH="${{ github.workspace }}/builddir/csharp:${{ github.workspace }}/builddir/subprojects/curl-8.12.1/lib:C:/Strawberry/c/bin:$PATH"
+          fi
+          dotnet test --configuration Release -p:GeneratedSourcesDir=${{ github.workspace }}/builddir/csharp/

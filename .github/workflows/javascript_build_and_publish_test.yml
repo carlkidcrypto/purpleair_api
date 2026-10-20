@@ -67,6 +67,7 @@ jobs:
           choco install swig || true
           vcpkg integrate install
           vcpkg install curl:x64-windows
+          Add-Content $env:GITHUB_PATH "C:\vcpkg\installed\x64-windows\bin"
 
       - name: Install dependencies
         working-directory: ./javascript

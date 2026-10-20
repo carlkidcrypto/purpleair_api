@@ -53,12 +53,20 @@ csharp_swig = custom_target(
 )
 
 # ── Native shared library ─────────────────────────────────────────────────────
-# Compile the SWIG C++ wrapper + core C++ sources into libpurpleairapi.so.
+# Compile the SWIG C++ wrapper + core C++ sources into libpurpleairapi_base.so
+# (or purpleairapi_base.dll on Windows).
 # dotnet loads this at runtime via P/Invoke.
+csharp_link_args = []
+if host_machine.system() == 'windows' and meson.get_compiler('cpp').get_id() == 'gcc'
+  csharp_link_args += ['-static-libgcc', '-static-libstdc++']
+endif
+
 shared_library(
   'purpleairapi_base',
   [csharp_swig[0]] + purpleair_sources,
   include_directories: purpleair_inc,
   dependencies: [libcurl_dep],
+  name_prefix: host_machine.system() == 'windows' ? '' : 'lib',
+  link_args: csharp_link_args,
   install: false,
 )
