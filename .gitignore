@@ -66,3 +66,7 @@ build/
 node_modules/
 **/.doctrees/**
 **/coverage.json
+
+# Dynamically extracted gh-aw inline skills
+/.github/skills/*
+!/.github/skills/agentic-workflows/
