@@ -59,7 +59,7 @@ jobs:
         run: meson setup builddir -Dcsharp_bindings=false -Dgo_bindings=false
 
       - name: Build SWIG wrapper with Ninja
-        run: ninja -C builddir javascript_swig javascript_copy_cxx
+        run: ninja -C builddir
 
       - name: Build native addon
         working-directory: ./javascript
@@ -100,7 +100,7 @@ jobs:
         run: meson setup builddir -Dcsharp_bindings=false -Dgo_bindings=false
 
       - name: Build SWIG wrapper with Ninja
-        run: ninja -C builddir javascript_swig javascript_copy_cxx
+        run: ninja -C builddir
 
       - name: Build package
         working-directory: ./javascript

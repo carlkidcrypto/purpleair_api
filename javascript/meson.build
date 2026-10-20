@@ -39,7 +39,7 @@ js_swig = custom_target(
 # Pass @INPUT@ as a standalone list element so Meson expands it correctly.
 python = find_program('python3', 'python', required: true)
 
-custom_target(
+js_copy = custom_target(
   'javascript_copy_cxx',
   input: js_swig,
   output: 'javascript_cxx_copy.stamp',
@@ -52,3 +52,6 @@ custom_target(
   ],
   build_by_default: true,
 )
+
+alias_target('javascript_swig', js_swig)
+alias_target('javascript_copy_cxx', js_copy)
