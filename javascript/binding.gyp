@@ -14,9 +14,6 @@
         "<!@(node -p \"require('node-addon-api').include\")",
         "../swig/include"
       ],
-      "libraries": [
-        "-lcurl"
-      ],
       "defines": [
         "NAPI_CPP_EXCEPTIONS"
       ],
@@ -25,6 +22,11 @@
       "cflags": [ "-std=c++20" ],
       "cflags_cc": [ "-std=c++20" ],
       "conditions": [
+        ["OS!='win'", {
+          "libraries": [
+            "-lcurl"
+          ]
+        }],
         ["OS=='mac'", {
           "xcode_settings": {
             "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
@@ -44,7 +46,13 @@
             "VCCLCompilerTool": {
               "ExceptionHandling": 1
             }
-          }
+          },
+          "include_dirs": [
+            "<!@(node -p \"(process.env.VCPKG_INSTALLATION_ROOT || 'C:/vcpkg').replace(/\\\\\\\\/g, '/') + '/installed/x64-windows/include'\")"
+          ],
+          "libraries": [
+            "-l<!@(node -p \"(process.env.VCPKG_INSTALLATION_ROOT || 'C:/vcpkg').replace(/\\\\\\\\/g, '/') + '/installed/x64-windows/lib/curl.lib'\")"
+          ]
         }]
       ]
     }

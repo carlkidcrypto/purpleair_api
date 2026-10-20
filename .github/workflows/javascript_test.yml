@@ -65,7 +65,9 @@ jobs:
       - name: Install system dependencies (Windows)
         if: runner.os == 'Windows'
         run: |
-          choco install swig curl || true
+          choco install swig || true
+          vcpkg integrate install
+          vcpkg install curl:x64-windows
 
       - name: Install dependencies
         working-directory: ./javascript
