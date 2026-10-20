@@ -11,6 +11,7 @@ on:
     types: [published]
   workflow_dispatch:
   push:
+    branches: [ main ]
     paths:
       - '.github/workflows/python_build_and_publish_pypi.yml'
 
@@ -80,6 +81,7 @@ jobs:
   publish:
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published'
     permissions:
       id-token: write
     steps:
