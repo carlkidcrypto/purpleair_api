@@ -11,3 +11,7 @@ test*/purpleair_api_coverage_reports/**
 **/doctrees/**
 **/.doctrees/**
 **/coverage.json
+
+# Dynamically extracted gh-aw inline skills
+/.github/skills/*
+!/.github/skills/agentic-workflows/
