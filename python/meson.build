@@ -60,6 +60,8 @@ python_swig = custom_target(
     '-o', '@OUTPUT0@',
     '@INPUT@',
   ],
+  install: true,
+  install_dir: [false, py.get_install_dir() / 'purpleair_api'],
 )
 
 # ── Python extension module (_purpleairapi_base.so / .pyd) ───────────────────
@@ -72,12 +74,6 @@ py.extension_module(
   subdir: 'purpleair_api',
 )
 
-# ── Install generated purpleairapi_base.py ───────────────────────────────────
-py.install_sources(
-  python_swig[1],
-  subdir: 'purpleair_api',
-)
-
 # ── Install hand-written Python source files ─────────────────────────────────
 py.install_sources(
   [
@@ -87,6 +83,7 @@ py.install_sources(
     'purpleair_api/PurpleAirAPIError.py',
     'purpleair_api/PurpleAirAPIHelpers.py',
     'purpleair_api/PurpleAirLocalAPI.py',
+    'purpleair_api/PurpleAirMatterConverter.py',
     'purpleair_api/PurpleAirReadAPI.py',
     'purpleair_api/PurpleAirWriteAPI.py',
   ],

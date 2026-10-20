@@ -31,6 +31,19 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
         except Exception as e:
             self.fail(f"debug_log raised an exception: {e}")
 
+    def test_debug_log_prints_when_enabled(self):
+        """
+        Test that debug_log prints a message when PRINT_DEBUG_MSGS is True
+        """
+        # Setup
+        msg_str = "debug enabled message"
+
+        # Action and Expected Result - patch PRINT_DEBUG_MSGS to True and verify print is called
+        with patch.object(helpers_module, "PRINT_DEBUG_MSGS", True):
+            with patch("builtins.print") as mock_print:
+                debug_log(msg_str)
+                mock_print.assert_called_once_with("\033[1;31m" + msg_str + "\x1b[0m")
+
     def test_verify_request_status_code_true(self):
         """
         Test that the codes in SUCCESS_CODE_LIST return true
@@ -413,6 +426,145 @@ class PurpleAirAPIHelpersTest(unittest.TestCase):
                     api_key_to_use=fake_api_key_to_use,
                     json_post_parameters=fake_json_post_params,
                 )
+
+    def test_send_url_get_request_all_optional_params_none(self):
+        """
+        Test that when optional_parameters_dict has all None values the URL is unchanged.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/keys"
+        fake_api_key_to_use = "1111-222-333-4444-5555-6666-7777"
+        fake_first_optional_parameter_separator = "?"
+        optional_parameters_dict = {"param_1": None, "param_2": None}
+
+        # Action and Expected Result — URL should not have any params appended
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"test": 5}',
+                status_code=200,
+            )
+            result = send_url_get_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+                first_optional_parameter_separator=fake_first_optional_parameter_separator,
+                optional_parameters_dict=optional_parameters_dict,
+            )
+        self.assertEqual(result, {"test": 5})
+
+    def test_send_url_get_request_single_non_none_optional_param(self):
+        """
+        Test that when optional_parameters_dict has exactly one non-None value,
+        only that param is appended (exercises opt_param_count == 1 without hitting >= 2 branch).
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/keys"
+        expected_fake_url = "https://api.purpleair.com/v1/keys?only_param=hello"
+        fake_api_key_to_use = "1111-222-333-4444"
+        fake_first_optional_parameter_separator = "?"
+        optional_parameters_dict = {"only_param": "hello", "missing_param": None}
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                expected_fake_url,
+                text='{"result": 1}',
+                status_code=200,
+            )
+            result = send_url_get_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+                first_optional_parameter_separator=fake_first_optional_parameter_separator,
+                optional_parameters_dict=optional_parameters_dict,
+            )
+        self.assertEqual(result, {"result": 1})
+
+    def test_convert_requests_text_to_json_with_debug_enabled(self):
+        """
+        Test that convert_requests_text_to_json logs debug messages when PRINT_DEBUG_MSGS is True.
+        """
+
+        # Setup
+        input_text = '{"debug_key": "debug_value"}'
+
+        # Action and Expected Result — both debug_log calls inside the function should fire
+        with patch.object(helpers_module, "PRINT_DEBUG_MSGS", True):
+            with patch("builtins.print") as mock_print:
+                result = convert_requests_text_to_json(input_text)
+                self.assertEqual(mock_print.call_count, 2)
+
+        self.assertDictEqual(result, {"debug_key": "debug_value"})
+
+    def test_send_url_get_request_no_optional_params_dict(self):
+        """
+        Test that send_url_get_request works correctly when optional_parameters_dict is None
+        (no optional params path — URL is sent as-is).
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/organization"
+        fake_api_key_to_use = "test-key-123"
+
+        # Action and Expected Result
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                text='{"org": "test"}',
+                status_code=200,
+            )
+            result = send_url_get_request(
+                request_url=fake_url_request,
+                api_key_to_use=fake_api_key_to_use,
+            )
+        self.assertEqual(result, {"org": "test"})
+
+    def test_send_url_get_request_strips_quotes_from_url(self):
+        """
+        Test that send_url_get_request strips embedded double-quotes from the URL
+        before sending the request (exercises the request_url.replace('"', "") path).
+        """
+
+        # The URL after stripping should have no quotes
+        cleaned_url = "https://api.purpleair.com/v1/sensors/1234"
+
+        # Action and Expected Result — mocker registers the cleaned URL
+        with requests_mock.Mocker() as m:
+            m.get(
+                cleaned_url,
+                text='{"stripped": true}',
+                status_code=200,
+            )
+            # Pass a URL that contains embedded quotes
+            result = send_url_get_request(
+                request_url='"https://api.purpleair.com/v1/sensors/1234"',
+                api_key_to_use="testkey",
+            )
+        self.assertEqual(result, {"stripped": True})
+
+    def test_send_url_get_request_strips_spaces_from_url(self):
+        """
+        Test that send_url_get_request strips whitespace from the URL
+        before sending the request (exercises the request_url.replace(" ", "") path).
+        """
+
+        # The URL after stripping should have no spaces
+        cleaned_url = "https://api.purpleair.com/v1/sensors/5678"
+
+        # Action and Expected Result — mocker registers the cleaned URL
+        with requests_mock.Mocker() as m:
+            m.get(
+                cleaned_url,
+                text='{"stripped": true}',
+                status_code=200,
+            )
+            # Pass a URL that contains spaces
+            result = send_url_get_request(
+                request_url="https://api.purpleair.com/v1/sensors/ 5678 ",
+                api_key_to_use="testkey",
+            )
+        self.assertEqual(result, {"stripped": True})
 
 
 if __name__ == "__main__":
