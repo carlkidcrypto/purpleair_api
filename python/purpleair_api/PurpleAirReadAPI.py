@@ -17,6 +17,9 @@ class PurpleAirReadAPI:
     """
 
     def __init__(self, api_read_key=None):
+        """
+        :param str api_read_key: A valid PurpleAir API read key.
+        """
         # Save off the API key for internal usage
         self._your_api_read_key = api_read_key
         self._base_api_v1_request_string = "https://api.purpleair.com/v1/"
@@ -45,7 +48,7 @@ class PurpleAirReadAPI:
                                       information:
                                       https://api.purpleair.com/#api-sensors-get-sensor-data
 
-        :return A python dictionary containing the payload response
+        :return dict | None: A python dictionary containing the payload response
         """
 
         request_url = self._base_api_v1_request_string + "sensors/" + f"{sensor_index}"
@@ -103,7 +106,7 @@ class PurpleAirReadAPI:
                             scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deciviews, deciviews_a, deciviews_b, visual_range, visual_range_a, visual_range_b
 
                             Particle count fields:
-                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b
+                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
                             ThingSpeak fields, used to retrieve data from api.thingspeak.com:
                             primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b
@@ -127,17 +130,17 @@ class PurpleAirReadAPI:
                                        number of seconds. Using a value of 0 will match sensors of any age.
                                        Default value: 604800
 
-        :param (optional) int nwlng: A north west longitude for the bounding box. Use a bounding box to limit the sensors
+        :param (optional) float nwlng: A north west longitude for the bounding box. Use a bounding box to limit the sensors
                                      returned to a specific geographic area. The bounding box is defined by two points, a
                                      north west latitude/longitude and a south east latitude/longitude.
 
-        :param (optional) int nwlat: A north west latitude for the bounding box.
+        :param (optional) float nwlat: A north west latitude for the bounding box.
 
-        :param (optional) int selng: A south east longitude for the bounding box.
+        :param (optional) float selng: A south east longitude for the bounding box.
 
-        :param (optional) int selat: A south east latitude for the bounding box.
+        :param (optional) float selat: A south east latitude for the bounding box.
 
-        :return A python dictionary containing the payload response
+        :return dict | None: A python dictionary containing the payload response
         """
 
         request_url = self._base_api_v1_request_string + "sensors/" + f"?fields={fields}"
@@ -181,9 +184,6 @@ class PurpleAirReadAPI:
         :param bool csv_data_format: Whether or not the data will be returned in CSV format or JSON format.
                                      True means we use this endpoint https://api.purpleair.com/#api-sensors-get-sensor-history-csv
                                      False means we use this endpoint https://api.purpleair.com/#api-sensors-get-sensor-history
-
-
-        ## What's below is straight from the Purpleair api website...
 
         :param int sensor_index: The sensor_index as found in the JSON for this specific sensor.
 
@@ -231,7 +231,9 @@ class PurpleAirReadAPI:
                            Particle count fields:
                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
-                           For field descriptions, please see the 'sensor data fields'. section.
+                           For field descriptions, please see the 'sensor data fields' section.
+
+        :return dict | None: A python dictionary containing the payload response
         """
 
         history_url_portion = ""
@@ -256,7 +258,6 @@ class PurpleAirReadAPI:
             "privacy": privacy,
             "start_timestamp": start_timestamp,
             "end_timestamp": end_timestamp,
-            "modified_since": end_timestamp,
             "average": average,
         }
 
@@ -273,6 +274,8 @@ class PurpleAirReadAPI:
         A method to retrieve a list of all members of a specified group.
 
         :param int group_id: The group_id of the requested group. This group must be owned by the api_key.
+
+        :return dict | None: A dictionary containing the group detail payload response.
         """
 
         request_url = self._base_api_v1_request_string + f"groups/{group_id}"
@@ -281,6 +284,8 @@ class PurpleAirReadAPI:
     def request_group_list_data(self):
         """
         A method to retrieve a list of all groups owned by the provided api_key.
+
+        :return dict | None: A dictionary containing the list of groups.
         """
 
         request_url = self._base_api_v1_request_string + f"groups/"
@@ -318,12 +323,14 @@ class PurpleAirReadAPI:
             pm10.0, pm10.0_a, pm10.0_b, pm10.0_atm, pm10.0_atm_a, pm10.0_atm_b, pm10.0_cf_1, pm10.0_cf_1_a, pm10.0_cf_1_b
 
             Particle count fields:
-            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b
+            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
             ThingSpeak fields, used to retrieve data from api.thingspeak.com:
             primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b
 
-            For field descriptions, please see the 'sensor data fields'. section.
+            For field descriptions, please see the 'sensor data fields' section.
+
+        :return dict | None: A dictionary containing the member data payload.
         """
 
         request_url = self._base_api_v1_request_string + f"groups/{group_id}/members/{member_id}"
@@ -351,7 +358,7 @@ class PurpleAirReadAPI:
         average=None,
     ):
         """
-        A method to get a members' historic data from a group to which said member belongs too.
+        A method to get a member's historic data from a group to which said member belongs.
 
         :param int group_id: Groups unique ID.
 
@@ -398,12 +405,14 @@ class PurpleAirReadAPI:
                             Particle count fields:
                             0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
-                            For field descriptions, please see the 'sensor data fields'. section.
+                            For field descriptions, please see the 'sensor data fields' section.
+
+        :return dict | None: A dictionary containing the member historic data payload.
         """
 
         request_url = (
             self._base_api_v1_request_string
-            + f"groups/{group_id}/members/{member_id}/history/?fields={fields}"
+            + f"groups/{group_id}/members/{member_id}/history?fields={fields}"
         )
 
         # Add to the request_url string depending on what optional parameters are
@@ -438,7 +447,7 @@ class PurpleAirReadAPI:
         selat=None,
     ):
         """
-        A method to get multiple members' data from from a group to which said members belong too.
+        A method to get multiple members' data from a group to which said members belong.
 
         :param int group_id: The group_id of the requested group. This group must be owned by the api_key.
 
@@ -469,12 +478,12 @@ class PurpleAirReadAPI:
                             scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deciviews, deciviews_a, deciviews_b, visual_range, visual_range_a, visual_range_b
 
                             Particle count fields:
-                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b
+                            0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b
 
                             ThingSpeak fields, used to retrieve data from api.thingspeak.com:
                             primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b
 
-                            For field descriptions, please see the 'sensor data fields'. section.
+                            For field descriptions, please see the 'sensor data fields' section.
 
         :param (optional) int location_type: The location_type of the sensors.
                                              Possible values are: 0 = Outside or 1 = Inside.
@@ -493,10 +502,11 @@ class PurpleAirReadAPI:
 
         :param (optional) int nwlat: A north west latitude for the bounding box.
 
-         :param (optional) int selng: A south east longitude for the bounding box.
+        :param (optional) int selng: A south east longitude for the bounding box.
 
-         :param (optional) int selat: A south east latitude for the bounding box.
+        :param (optional) int selat: A south east latitude for the bounding box.
 
+        :return dict | None: A python dictionary containing the payload response
         """
 
         request_url = (
@@ -528,6 +538,8 @@ class PurpleAirReadAPI:
     def request_organization_data(self):
         """
         Retrieves information for the organization using the api key of this class instance.
+
+        :return dict | None: A dictionary containing the organization information.
         """
 
         request_url = self._base_api_v1_request_string + "organization"

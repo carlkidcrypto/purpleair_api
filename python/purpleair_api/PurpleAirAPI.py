@@ -23,7 +23,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
         """
         :param str your_api_read_key: A valid PurpleAirAPI Read key
         :param str your_api_write_key: A valid PurpleAirAPI Write key
-        :param str your_ipv4_address: The IPv4 address of your PurpleAir.
+        :param list your_ipv4_address: A list of IPv4 address strings for your PurpleAir sensor(s).
         """
 
         # We can not have all three parameters be empty
@@ -62,7 +62,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
 
         if retval_api_read_key is not None:
             if self._api_key_types[your_api_read_key] == "READ":
-                PurpleAirWriteAPI.__init__(self, api_write_key=your_api_write_key)
+                PurpleAirReadAPI.__init__(self, api_read_key=your_api_read_key)
                 print("PurpleAirAPI: Successfully authenticated read key")
 
             else:
@@ -70,7 +70,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
 
         if retval_api_write_key is not None:
             if self._api_key_types[your_api_write_key] == "WRITE":
-                PurpleAirReadAPI.__init__(self, api_read_key=your_api_read_key)
+                PurpleAirWriteAPI.__init__(self, api_write_key=your_api_write_key)
                 print("PurpleAirAPI: Successfully authenticated write key")
 
             else:
@@ -88,7 +88,8 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
 
         :param str str_api_key_to_check: A valid PurpleAirAPI key to check
 
-        :return True, if an API key can be successfully verified.
+        :return bool: True if the API key can be successfully verified.
+        :raises PurpleAirAPIError: If the key validation request fails.
         """
         request_url = self._base_api_v1_request_string + "keys"
         the_request_text_as_json = send_url_get_request(

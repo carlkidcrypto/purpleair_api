@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="PurpleAirWriteAPI module" href="PurpleAirWriteAPI.html"><link rel="prev" title="PurpleAirLocalAPI module" href="PurpleAirLocalAPI.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>PurpleAirReadAPI module - PurpleAir API V1.4.0.a1 documentation</title>
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>PurpleAirReadAPI module - PurpleAir API V1.5.1a1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.4.0.a1 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API V1.5.1a1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.4.0.a1 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API V1.5.1a1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -200,8 +200,17 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">PurpleAirReadAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirWriteAPI.html">PurpleAirWriteAPI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirMatterConverter.html">PurpleAirMatterConverter module</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matter_implementation.html">Matter Implementation Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Specifications:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="software_requirements.html">Software Requirements</a></li>
 </ul>
 
 </div>
@@ -267,7 +276,7 @@ This class will handle all <cite>read</cite> requests
 <a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
 <dl class="py class">
 <dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PurpleAirReadAPI.</span></span><span class="sig-name descname"><span class="pre">PurpleAirReadAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">PurpleAirReadAPI.</span></span><span class="sig-name descname"><span class="pre">PurpleAirReadAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_read_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The PurpleAirReadAPI class designed to send valid
 read requests.</p>
@@ -279,6 +288,9 @@ read requests.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>group_id</strong> (<em>int</em>) – The group_id of the requested group. This group must be owned by the api_key.</p>
 </dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the group detail payload response.</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -286,6 +298,11 @@ read requests.</p>
 <dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI.request_group_list_data">
 <span class="sig-name descname"><span class="pre">request_group_list_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_group_list_data" title="Link to this definition">¶</a></dt>
 <dd><p>A method to retrieve a list of all groups owned by the provided api_key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary containing the list of groups.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -313,12 +330,15 @@ pm2.5_10minute, pm2.5_10minute_a, pm2.5_10minute_b, pm2.5_30minute, pm2.5_30minu
 <p>PM10.0 fields:
 pm10.0, pm10.0_a, pm10.0_b, pm10.0_atm, pm10.0_atm_a, pm10.0_atm_b, pm10.0_cf_1, pm10.0_cf_1_a, pm10.0_cf_1_b</p>
 <p>Particle count fields:
-0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b</p>
+0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b</p>
 <p>ThingSpeak fields, used to retrieve data from api.thingspeak.com:
 primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b</p>
-<p>For field descriptions, please see the ‘sensor data fields’. section.</p>
+<p>For field descriptions, please see the ‘sensor data fields’ section.</p>
 </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the member data payload.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -326,7 +346,7 @@ primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, prim
 <dl class="py method">
 <dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI.request_member_historic_data">
 <span class="sig-name descname"><span class="pre">request_member_historic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">privacy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_timestamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_member_historic_data" title="Link to this definition">¶</a></dt>
-<dd><p>A method to get a members’ historic data from a group to which said member belongs too.</p>
+<dd><p>A method to get a member’s historic data from a group to which said member belongs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -360,9 +380,12 @@ pm10.0_atm, pm10.0_atm_a, pm10.0_atm_b, pm10.0_cf_1, pm10.0_cf_1_a, pm10.0_cf_1_
 scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deciviews, deciviews_a, deciviews_b, visual_range, visual_range_a, visual_range_b</p>
 <p>Particle count fields:
 0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b</p>
-<p>For field descriptions, please see the ‘sensor data fields’. section.</p>
+<p>For field descriptions, please see the ‘sensor data fields’ section.</p>
 </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary containing the member historic data payload.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -370,7 +393,7 @@ scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deci
 <dl class="py method">
 <dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI.request_members_data">
 <span class="sig-name descname"><span class="pre">request_members_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modified_since</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_age</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwlng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nwlat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_members_data" title="Link to this definition">¶</a></dt>
-<dd><p>A method to get multiple members’ data from from a group to which said members belong too.</p>
+<dd><p>A method to get multiple members’ data from a group to which said members belong.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -393,10 +416,10 @@ pm10.0, pm10.0_a, pm10.0_b, pm10.0_atm, pm10.0_atm_a, pm10.0_atm_b, pm10.0_cf_1,
 <p>Visibility fields:
 scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deciviews, deciviews_a, deciviews_b, visual_range, visual_range_a, visual_range_b</p>
 <p>Particle count fields:
-0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b</p>
+0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b</p>
 <p>ThingSpeak fields, used to retrieve data from api.thingspeak.com:
 primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b</p>
-<p>For field descriptions, please see the ‘sensor data fields’. section.</p>
+<p>For field descriptions, please see the ‘sensor data fields’ section.</p>
 </p></li>
 <li><p><strong>location_type</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – The location_type of the sensors.
 Possible values are: 0 = Outside or 1 = Inside.</p></li>
@@ -407,17 +430,13 @@ Possible values are: 0 = Outside or 1 = Inside.</p></li>
 Default value: 604800</p></li>
 <li><p><strong>nwlng</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – A north west longitude for the bounding box.
 Use a bounding box to limit the sensors returned to a specific geographic area. The bounding box is defined by two points, a north west latitude/longitude and a south east latitude/longitude.</p></li>
-<li><p><strong>nwlat</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – <p>A north west latitude for the bounding box.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param (optional) int selng<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A south east longitude for the bounding box.</p>
-</dd>
-<dt class="field-even">param (optional) int selat<span class="colon">:</span></dt>
-<dd class="field-even"><p>A south east latitude for the bounding box.</p>
-</dd>
-</dl>
-</p></li>
+<li><p><strong>nwlat</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – A north west latitude for the bounding box.</p></li>
+<li><p><strong>selng</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – A south east longitude for the bounding box.</p></li>
+<li><p><strong>selat</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – A south east latitude for the bounding box.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A python dictionary containing the payload response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -448,7 +467,7 @@ pm10.0, pm10.0_a, pm10.0_b, pm10.0_atm, pm10.0_atm_a, pm10.0_atm_b, pm10.0_cf_1,
 <p>Visibility fields:
 scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deciviews, deciviews_a, deciviews_b, visual_range, visual_range_a, visual_range_b</p>
 <p>Particle count fields:
-0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count 10.0_um_count_a, 10.0_um_count_b</p>
+0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b</p>
 <p>ThingSpeak fields, used to retrieve data from api.thingspeak.com:
 primary_id_a, primary_key_a, secondary_id_a, secondary_key_a, primary_id_b, primary_key_b, secondary_id_b, secondary_key_b</p>
 </p></li>
@@ -466,22 +485,29 @@ will match sensors modified at any time</p></li>
 <li><p><strong>max_age</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – Filter results to only include sensors modified or updated within the last
 number of seconds. Using a value of 0 will match sensors of any age.
 Default value: 604800</p></li>
-<li><p><strong>nwlng</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – A north west longitude for the bounding box. Use a bounding box to limit the sensors
+<li><p><strong>nwlng</strong> (<em>(</em><em>optional</em><em>) </em><em>float</em>) – A north west longitude for the bounding box. Use a bounding box to limit the sensors
 returned to a specific geographic area. The bounding box is defined by two points, a
 north west latitude/longitude and a south east latitude/longitude.</p></li>
-<li><p><strong>nwlat</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – A north west latitude for the bounding box.</p></li>
-<li><p><strong>selng</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – A south east longitude for the bounding box.</p></li>
-<li><p><strong>selat</strong> (<em>(</em><em>optional</em><em>) </em><em>int</em>) – A south east latitude for the bounding box.</p></li>
+<li><p><strong>nwlat</strong> (<em>(</em><em>optional</em><em>) </em><em>float</em>) – A north west latitude for the bounding box.</p></li>
+<li><p><strong>selng</strong> (<em>(</em><em>optional</em><em>) </em><em>float</em>) – A south east longitude for the bounding box.</p></li>
+<li><p><strong>selat</strong> (<em>(</em><em>optional</em><em>) </em><em>float</em>) – A south east latitude for the bounding box.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A python dictionary containing the payload response</p>
+</dd>
 </dl>
-<p>:return A python dictionary containing the payload response</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="PurpleAirReadAPI.PurpleAirReadAPI.request_organization_data">
 <span class="sig-name descname"><span class="pre">request_organization_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirReadAPI.PurpleAirReadAPI.request_organization_data" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieves information for the organization using the api key of this class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary containing the organization information.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -510,8 +536,10 @@ information:
 <a class="reference external" href="https://api.purpleair.com/#api-sensors-get-sensor-data">https://api.purpleair.com/#api-sensors-get-sensor-data</a></p></li>
 </ul>
 </dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A python dictionary containing the payload response</p>
+</dd>
 </dl>
-<p>:return A python dictionary containing the payload response</p>
 </dd></dl>
 
 <dl class="py method">
@@ -520,15 +548,10 @@ information:
 <dd><p>A method to request historic data from a single sensor.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>csv_data_format</strong> (<em>bool</em>) – Whether or not the data will be returned in CSV format or JSON format.
-True means we use this endpoint <a class="reference external" href="https://api.purpleair.com/#api-sensors-get-sensor-history-csv">https://api.purpleair.com/#api-sensors-get-sensor-history-csv</a>
-False means we use this endpoint <a class="reference external" href="https://api.purpleair.com/#api-sensors-get-sensor-history">https://api.purpleair.com/#api-sensors-get-sensor-history</a></p>
-</dd>
-</dl>
-<p>## What’s below is straight from the Purpleair api website…</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>csv_data_format</strong> (<em>bool</em>) – Whether or not the data will be returned in CSV format or JSON format.
+True means we use this endpoint <a class="reference external" href="https://api.purpleair.com/#api-sensors-get-sensor-history-csv">https://api.purpleair.com/#api-sensors-get-sensor-history-csv</a>
+False means we use this endpoint <a class="reference external" href="https://api.purpleair.com/#api-sensors-get-sensor-history">https://api.purpleair.com/#api-sensors-get-sensor-history</a></p></li>
 <li><p><strong>sensor_index</strong> (<em>int</em>) – The sensor_index as found in the JSON for this specific sensor.</p></li>
 <li><p><strong>read_key</strong> (<em>(</em><em>optional</em><em>) </em><em>str</em>) – This read_key is required for private devices. It is separate to the api_key and each sensor has its own read_key. Submit multiple keys by separating them with a comma (,) character for example: key-one,key-two,key-three.</p></li>
 <li><p><strong>privacy</strong> (<em>(</em><em>optional</em><em>) </em><em>str</em>) – The privacy of returned data. Sensors can record data while registered as public or private. Obtaining private data requires the sensor’s read_key be provided.
@@ -560,9 +583,12 @@ pm10.0_atm, pm10.0_atm_a, pm10.0_atm_b, pm10.0_cf_1, pm10.0_cf_1_a, pm10.0_cf_1_
 scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deciviews, deciviews_a, deciviews_b, visual_range, visual_range_a, visual_range_b</p>
 <p>Particle count fields:
 0.3_um_count, 0.3_um_count_a, 0.3_um_count_b, 0.5_um_count, 0.5_um_count_a, 0.5_um_count_b, 1.0_um_count, 1.0_um_count_a, 1.0_um_count_b, 2.5_um_count, 2.5_um_count_a, 2.5_um_count_b, 5.0_um_count, 5.0_um_count_a, 5.0_um_count_b, 10.0_um_count, 10.0_um_count_a, 10.0_um_count_b</p>
-<p>For field descriptions, please see the ‘sensor data fields’. section.</p>
+<p>For field descriptions, please see the ‘sensor data fields’ section.</p>
 </p></li>
 </ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>A python dictionary containing the payload response</p>
 </dd>
 </dl>
 </dd></dl>
@@ -655,9 +681,9 @@ scattering_coefficient, scattering_coefficient_a, scattering_coefficient_b, deci
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=6a60ea1c"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="_static/documentation_options.js?v=d0c23d2c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>

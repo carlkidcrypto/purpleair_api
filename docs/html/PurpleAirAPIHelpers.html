@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="PurpleAirLocalAPI module" href="PurpleAirLocalAPI.html"><link rel="prev" title="PurpleAirAPIError module" href="PurpleAirAPIError.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>PurpleAirAPIHelpers module - PurpleAir API V1.4.0.a1 documentation</title>
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>PurpleAirAPIHelpers module - PurpleAir API V1.5.1a1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.4.0.a1 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API V1.5.1a1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.4.0.a1 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API V1.5.1a1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -200,8 +200,17 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirReadAPI.html">PurpleAirReadAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirWriteAPI.html">PurpleAirWriteAPI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirMatterConverter.html">PurpleAirMatterConverter module</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matter_implementation.html">Matter Implementation Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Specifications:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="software_requirements.html">Software Requirements</a></li>
 </ul>
 
 </div>
@@ -252,7 +261,7 @@ These utilities handle HTTP communication, logging, and other common tasks.</p>
 <section id="module-PurpleAirAPIHelpers">
 <span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-PurpleAirAPIHelpers" title="Link to this heading">¶</a></h2>
 <p>Copyright 2024 carlkidcrypto, All rights reserved.
-A python3 file containing helper functions for the PurpleAirAPI** files.
+A python3 file containing helper functions for the PurpleAirAPI files.
 <a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.convert_requests_text_to_json">
@@ -260,10 +269,12 @@ A python3 file containing helper functions for the PurpleAirAPI** files.
 <dd><p>A helper to convert request.text to json.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The request.txt to convert to json</p>
+<dd class="field-odd"><p><strong>text</strong> (<em>str</em>) – The request.text to convert to json</p>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed JSON as a dictionary, or None if text is empty.</p>
 </dd>
 </dl>
-<p>:return dict</p>
 </dd></dl>
 
 <dl class="py function">
@@ -285,12 +296,15 @@ red.</p>
 <span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">sanitize_sensor_data_from_paa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paa_return_data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#PurpleAirAPIHelpers.sanitize_sensor_data_from_paa" title="Link to this definition">¶</a></dt>
 <dd><p>A helper function.
 Since not all sensors support all field names we check that the keys exist
-in the sensor data. If they do not exist we add it in with a NULL
-equivalent. i.e 0.0, 0, “”, etc.
+in the sensor data. If they do not exist we add it in with a null
+equivalent (e.g., <code class="docutils literal notranslate"><span class="pre">0.0</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code>).
 We access the “sensor” key inside this function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>paa_return_data</strong> (<em>dict</em>) – A dictionary with paa return data</p>
+</dd>
+<dt class="field-even">Return dict<span class="colon">:</span></dt>
+<dd class="field-even"><p>The sanitized paa_return_data with all expected fields present.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -298,11 +312,20 @@ We access the “sensor” key inside this function.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.send_url_delete_request">
 <span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">send_url_delete_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_to_use</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_post_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.send_url_delete_request" title="Link to this definition">¶</a></dt>
-<dd><p>A class helper to send the url request. It can also add onto the
-‘request_url’ string if ‘optional_parameters_dict’ are provided.</p>
+<dd><p>Send a DELETE request to the given URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request_url</strong> (<em>str</em>) – The constructed string url request string.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request_url</strong> (<em>str</em>) – The constructed URL request string.</p></li>
+<li><p><strong>api_key_to_use</strong> (<em>str</em>) – The API key to include in the request header.</p></li>
+<li><p><strong>json_post_parameters</strong> (<em>dict</em>) – Optional JSON body parameters to include in the request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed JSON response as a dictionary.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If the response contains an error status code.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -315,12 +338,20 @@ We access the “sensor” key inside this function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request_url</strong> (<em>str</em>) – The constructed string url request string.</p></li>
+<li><p><strong>request_url</strong> (<em>str</em>) – The constructed URL request string.</p></li>
+<li><p><strong>api_key_to_use</strong> (<em>str</em>) – An optional API key included in the request header as ‘X-API-Key’.</p></li>
 <li><p><strong>first_optional_parameter_separator</strong> (<em>str</em>) – The separator between first parameter
-in optional_parameters_dict. i.e ‘?’ or ‘&amp;’.</p></li>
+in optional_parameters_dict. i.e., <code class="docutils literal notranslate"><span class="pre">'?'</span></code> or <code class="docutils literal notranslate"><span class="pre">'&amp;'</span></code>.</p></li>
 <li><p><strong>optional_parameters_dict</strong> (<em>dict</em>) – Optional parameters that can be added onto the
 request_url.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed JSON response as a dictionary.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If the request URL is None, the separator is invalid, or the
+response contains an error status code.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -328,11 +359,20 @@ request_url.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.send_url_post_request">
 <span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">send_url_post_request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key_to_use</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_post_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIHelpers.send_url_post_request" title="Link to this definition">¶</a></dt>
-<dd><p>A class helper to send the url request. It can also add onto the
-‘request_url’ string if ‘optional_parameters_dict’ are provided.</p>
+<dd><p>Send a POST request to the given URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request_url</strong> (<em>str</em>) – The constructed string url request string.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request_url</strong> (<em>str</em>) – The constructed URL request string.</p></li>
+<li><p><strong>api_key_to_use</strong> (<em>str</em>) – The API key to include in the request header.</p></li>
+<li><p><strong>json_post_parameters</strong> (<em>dict</em>) – Optional JSON body parameters to include in the request.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
+<dd class="field-even"><p>The parsed JSON response as a dictionary.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If the response contains an error status code.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -340,9 +380,18 @@ request_url.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="PurpleAirAPIHelpers.verify_request_status_codes">
 <span class="sig-prename descclassname"><span class="pre">PurpleAirAPIHelpers.</span></span><span class="sig-name descname"><span class="pre">verify_request_status_codes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#PurpleAirAPIHelpers.verify_request_status_codes" title="Link to this definition">¶</a></dt>
-<dd><p>A helper to check those status codes.
-True if in SUCCESS_CODE_LIST
-False if in ERROR_CODES_LIST</p>
+<dd><p>A helper to check those status codes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>status_code</strong> (<em>int</em>) – The HTTP status code to verify.</p>
+</dd>
+<dt class="field-even">Return bool<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if in SUCCESS_CODE_LIST, False if in ERROR_CODES_LIST.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If the status code is not in either list.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -426,9 +475,9 @@ False if in ERROR_CODES_LIST</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=6a60ea1c"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="_static/documentation_options.js?v=d0c23d2c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>

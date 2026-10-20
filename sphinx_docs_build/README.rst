@@ -81,7 +81,7 @@ The main configuration file is ``source/conf.py``. Key settings include:
 
 * **Project name and version**: Set in the metadata section
 * **Extensions**: Currently using ``sphinx.ext.autodoc`` for automatic API documentation
-* **Theme**: Using ``sphinx_rtd_theme`` (Read the Docs theme)
+* **Theme**: Using ``furo``
 * **Static files**: Located in ``source/_static/``
 
 Adding New Modules

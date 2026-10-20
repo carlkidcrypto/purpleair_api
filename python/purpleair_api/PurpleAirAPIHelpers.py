@@ -2,7 +2,7 @@
 
 """
 Copyright 2024 carlkidcrypto, All rights reserved.
-A python3 file containing helper functions for the PurpleAirAPI** files.
+A python3 file containing helper functions for the PurpleAirAPI files.
 https://api.purpleair.com/#api-welcome
 """
 
@@ -36,8 +36,11 @@ def debug_log(debug_msg_string):
 def verify_request_status_codes(status_code) -> bool:
     """
     A helper to check those status codes.
-    True if in SUCCESS_CODE_LIST
-    False if in ERROR_CODES_LIST
+
+    :param int status_code: The HTTP status code to verify.
+
+    :return bool: True if in SUCCESS_CODE_LIST, False if in ERROR_CODES_LIST.
+    :raises PurpleAirAPIError: If the status code is not in either list.
     """
 
     if status_code in SUCCESS_CODE_LIST:
@@ -47,16 +50,16 @@ def verify_request_status_codes(status_code) -> bool:
         return False
 
     else:
-        raise PurpleAirAPIError(f"Unkown status code - {status_code}!")
+        raise PurpleAirAPIError(f"Unknown status code - {status_code}!")
 
 
 def convert_requests_text_to_json(text=None) -> dict:
     """
     A helper to convert request.text to json.
 
-    :param str text: The request.txt to convert to json
+    :param str text: The request.text to convert to json
 
-    :return dict
+    :return dict | None: The parsed JSON as a dictionary, or None if text is empty.
     """
 
     the_request_text_as_json = None
@@ -72,11 +75,13 @@ def sanitize_sensor_data_from_paa(paa_return_data) -> dict:
     """
     A helper function.
     Since not all sensors support all field names we check that the keys exist
-    in the sensor data. If they do not exist we add it in with a NULL
-    equivalent. i.e 0.0, 0, "", etc.
+    in the sensor data. If they do not exist we add it in with a null
+    equivalent (e.g., ``0.0``, ``0``, ``""``).
     We access the "sensor" key inside this function.
 
     :param dict paa_return_data: A dictionary with paa return data
+
+    :return dict: The sanitized paa_return_data with all expected fields present.
     """
 
     for key_str in ACCEPTED_FIELD_NAMES_DICT.keys():
@@ -96,11 +101,16 @@ def send_url_get_request(
     A helper to send the url request. It can also add onto the
     'request_url' string if 'optional_parameters_dict' are provided.
 
-    :param str request_url: The constructed string url request string.
+    :param str request_url: The constructed URL request string.
+    :param str api_key_to_use: An optional API key included in the request header as 'X-API-Key'.
     :param str first_optional_parameter_separator: The separator between first parameter
-                                                    in optional_parameters_dict. i.e '?' or '&'.
+                                                    in optional_parameters_dict. i.e., ``'?'`` or ``'&'``.
     :param dict optional_parameters_dict: Optional parameters that can be added onto the
                                             request_url.
+
+    :return dict | None: The parsed JSON response as a dictionary.
+    :raises PurpleAirAPIError: If the request URL is None, the separator is invalid, or the
+                               response contains an error status code.
     """
 
     if request_url is None:
@@ -155,10 +165,14 @@ def send_url_get_request(
 
 def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
     """
-    A class helper to send the url request. It can also add onto the
-    'request_url' string if 'optional_parameters_dict' are provided.
+    Send a POST request to the given URL.
 
-    :param str request_url: The constructed string url request string.
+    :param str request_url: The constructed URL request string.
+    :param str api_key_to_use: The API key to include in the request header.
+    :param dict json_post_parameters: Optional JSON body parameters to include in the request.
+
+    :return dict | None: The parsed JSON response as a dictionary.
+    :raises PurpleAirAPIError: If the response contains an error status code.
     """
 
     debug_log(request_url)
@@ -190,10 +204,14 @@ def send_url_post_request(request_url, api_key_to_use, json_post_parameters={}):
 
 def send_url_delete_request(request_url, api_key_to_use, json_post_parameters={}):
     """
-    A class helper to send the url request. It can also add onto the
-    'request_url' string if 'optional_parameters_dict' are provided.
+    Send a DELETE request to the given URL.
 
-    :param str request_url: The constructed string url request string.
+    :param str request_url: The constructed URL request string.
+    :param str api_key_to_use: The API key to include in the request header.
+    :param dict json_post_parameters: Optional JSON body parameters to include in the request.
+
+    :return dict | None: The parsed JSON response as a dictionary.
+    :raises PurpleAirAPIError: If the response contains an error status code.
     """
 
     debug_log(request_url)

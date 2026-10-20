@@ -9,7 +9,6 @@ test*/coverage_reports/**
 test*/purpleair_api_coverage_reports/**
 **venv**
 **/doctrees/**
-
 # Meson / Ninja build artifacts
 builddir/
 build/
@@ -61,3 +60,5 @@ __pycache__/
 build/
 *.egg-info/
 node_modules/
+**/.doctrees/**
+**/coverage.json

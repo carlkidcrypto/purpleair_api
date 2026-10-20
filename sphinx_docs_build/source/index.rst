@@ -34,13 +34,13 @@ Installation
 
 Install via pip::
 
-    python3 -m pip install purple_air_api
+    python3 -m pip install purpleair_api
 
 Or clone from GitHub::
 
-    git clone https://github.com/carlkidcrypto/purple_air_api.git
-    cd purple_air_api
-    python3 setup.py install
+    git clone https://github.com/carlkidcrypto/purpleair_api.git
+    cd purpleair_api
+    pip install .
 
 Quick Example
 ~~~~~~~~~~~~~
@@ -63,6 +63,18 @@ Documentation Contents
    :caption: API Reference:
 
    modules
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Guides:
+
+    matter_implementation
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Specifications:
+
+    software_requirements
 
 Indices and Tables
 ==================

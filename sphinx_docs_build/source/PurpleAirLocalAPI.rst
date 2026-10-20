@@ -12,7 +12,7 @@ Usage Example
    from purpleair_api.PurpleAirLocalAPI import PurpleAirLocalAPI
    
    # Initialize with local sensor IP addresses
-   local_api = PurpleAirLocalAPI(ipv4_address=["192.168.1.100", "192.168.1.101"])
+   local_api = PurpleAirLocalAPI(ipv4_address_list=["192.168.1.100", "192.168.1.101"])
    
    # Request data from local sensor
    sensor_data = local_api.request_local_sensor_data()

@@ -4,7 +4,6 @@
 Copyright 2023 carlkidcrypto, All rights reserved.
 """
 
-
 import unittest
 import requests_mock
 import sys
@@ -153,6 +152,50 @@ class PurpleAirAPITest(unittest.TestCase):
         self.assertEqual(paa.get_api_key_last_checked["123456789"], 987654321)
         self.assertEqual(paa.get_api_key_type["123456789"], "WRITE")
         self.assertEqual(paa.get_api_versions["123456789"], "1.1.1")
+
+    def test_purpleairapi_ipv4_only(self):
+        """
+        Test that we can create a PurpleAirAPI with only an IPv4 address (local network mode).
+        """
+
+        paa = PurpleAirAPI(your_ipv4_address=["192.168.1.5"])
+        self.assertIsNotNone(paa)
+        self.assertIn("192.168.1.5", paa._base_api_local_network_request_string_dict)
+        self.assertEqual(
+            paa._base_api_local_network_request_string_dict["192.168.1.5"],
+            "http://192.168.1.5/json",
+        )
+
+    def test_purpleairapi_with_both_read_and_write_keys(self):
+        """
+        Test that we can create a PurpleAirAPI with both read and write keys simultaneously.
+        This exercises both retval_api_read_key and retval_api_write_key paths in __init__.
+        """
+
+        # Setup
+        fake_url_request = "https://api.purpleair.com/v1/keys"
+
+        # Action and Expected Result — first call returns READ, second returns WRITE
+        with requests_mock.Mocker() as m:
+            m.get(
+                fake_url_request,
+                [
+                    {
+                        "text": '{"api_version": "1.1.1", "time_stamp": 111, "api_key_type": "READ"}',
+                        "status_code": 200,
+                    },
+                    {
+                        "text": '{"api_version": "1.1.1", "time_stamp": 222, "api_key_type": "WRITE"}',
+                        "status_code": 200,
+                    },
+                ],
+            )
+            paa = PurpleAirAPI(
+                your_api_read_key="readkey123", your_api_write_key="writekey456"
+            )
+
+        self.assertEqual(paa.get_api_key_type["readkey123"], "READ")
+        self.assertEqual(paa.get_api_key_type["writekey456"], "WRITE")
 
 
 if __name__ == "__main__":

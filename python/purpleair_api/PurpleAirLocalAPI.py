@@ -2,12 +2,16 @@
 
 """
 Copyright 2024 carlkidcrypto, All rights reserved.
-A python3 class designed to fetch data from Purple Air's new API.
+A python3 class designed to fetch data from PurpleAir sensors on the local network.
 This class will handle all `local` requests
 https://api.purpleair.com/#api-welcome
 """
 
-from purpleair_api.PurpleAirAPIError import PurpleAirAPIError
+from purpleair_api.PurpleAirAPIError import (
+    PurpleAirAPIError,
+    PurpleAirDeviceError,
+    PurpleAirDeviceOfflineError,
+)
 from purpleair_api.PurpleAirAPIHelpers import send_url_get_request
 
 
@@ -15,13 +19,17 @@ class PurpleAirLocalAPI:
     """
     The PurpleAirLocalAPI class designed to send valid
     local network requests. It can work with one or many IPv4 addresses.
-
-    :param list ipv4_address_list: A list of strings with valid IPv4 addresses for your sensors. The addresses don't need a CIDR.
     """
 
     def __init__(self, ipv4_address_list=None):
-        # Create the vase API request string for local networks.
-        error_msg = "Must provide the IPv4 address list for the sensor(s) on your local network"
+        """
+        :param list ipv4_address_list: A list of strings with valid IPv4 addresses for your
+                                       sensors. The addresses do not need a CIDR prefix.
+        """
+        # Create the base API request string for local networks.
+        error_msg = (
+            "Must provide the IPv4 address list for the sensor(s) on your local network"
+        )
 
         if type(ipv4_address_list) is type(None):
             raise PurpleAirAPIError(error_msg)
@@ -39,12 +47,20 @@ class PurpleAirLocalAPI:
 
     def request_local_sensor_data(self) -> dict:
         """
-        A method to request a local sensors data. This sensor must be in a netork that is accessible
+        A method to request data from one or more local sensors. Each sensor must be accessible on the local network.
+
+        :return dict: A dictionary mapping each IPv4 address to its sensor data payload.
+        :raises PurpleAirDeviceOfflineError: If a sensor is offline or unreachable on the network.
         """
 
         retval = {}
         for key, value in self._base_api_local_network_request_string_dict.items():
-            request_value = send_url_get_request(value)
-            retval[key] = request_value
+            try:
+                request_value = send_url_get_request(value)
+                retval[key] = request_value
+            except Exception as exc:
+                raise PurpleAirDeviceOfflineError(
+                    f"Device at {key} is offline or unreachable: {exc}"
+                ) from exc
 
         return retval

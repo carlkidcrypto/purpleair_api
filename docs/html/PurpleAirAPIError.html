@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="PurpleAirAPIHelpers module" href="PurpleAirAPIHelpers.html"><link rel="prev" title="PurpleAirAPIConstants module" href="PurpleAirAPIConstants.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
-        <title>PurpleAirAPIError module - PurpleAir API V1.4.0.a1 documentation</title>
+    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
+        <title>PurpleAirAPIError module - PurpleAir API V1.5.1a1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     
     
@@ -161,7 +161,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.4.0.a1 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API V1.5.1a1 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +182,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.4.0.a1 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API V1.5.1a1 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -200,8 +200,17 @@
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirLocalAPI.html">PurpleAirLocalAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirReadAPI.html">PurpleAirReadAPI module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="PurpleAirWriteAPI.html">PurpleAirWriteAPI module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PurpleAirMatterConverter.html">PurpleAirMatterConverter module</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Guides:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matter_implementation.html">Matter Implementation Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Specifications:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="software_requirements.html">Software Requirements</a></li>
 </ul>
 
 </div>
@@ -256,9 +265,23 @@ A python3 class designed to fetch data from Purple Air’s new API.
 <a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
 <dl class="py exception">
 <dt class="sig sig-object py" id="PurpleAirAPIError.PurpleAirAPIError">
-<em class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">PurpleAirAPIError.</span></span><span class="sig-name descname"><span class="pre">PurpleAirAPIError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIError.PurpleAirAPIError" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">PurpleAirAPIError.</span></span><span class="sig-name descname"><span class="pre">PurpleAirAPIError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIError.PurpleAirAPIError" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
 <p>Custom Exception for our PurpleAirAPI class.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="PurpleAirAPIError.PurpleAirDeviceError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">PurpleAirAPIError.</span></span><span class="sig-name descname"><span class="pre">PurpleAirDeviceError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIError.PurpleAirDeviceError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirAPIError</span></code></a></p>
+<p>Custom Exception for PurpleAir device errors.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="PurpleAirAPIError.PurpleAirDeviceOfflineError">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">PurpleAirAPIError.</span></span><span class="sig-name descname"><span class="pre">PurpleAirDeviceOfflineError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirAPIError.PurpleAirDeviceOfflineError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PurpleAirAPIError.PurpleAirDeviceError" title="PurpleAirAPIError.PurpleAirDeviceError"><code class="xref py py-class docutils literal notranslate"><span class="pre">PurpleAirDeviceError</span></code></a></p>
+<p>Custom Exception raised when a PurpleAir device/sensor is offline or unreachable on the network.</p>
 </dd></dl>
 
 </section>
@@ -323,6 +346,8 @@ A python3 class designed to fetch data from Purple Air’s new API.
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#module-PurpleAirAPIError">API Reference</a><ul>
 <li><a class="reference internal" href="#PurpleAirAPIError.PurpleAirAPIError"><code class="docutils literal notranslate"><span class="pre">PurpleAirAPIError</span></code></a></li>
+<li><a class="reference internal" href="#PurpleAirAPIError.PurpleAirDeviceError"><code class="docutils literal notranslate"><span class="pre">PurpleAirDeviceError</span></code></a></li>
+<li><a class="reference internal" href="#PurpleAirAPIError.PurpleAirDeviceOfflineError"><code class="docutils literal notranslate"><span class="pre">PurpleAirDeviceOfflineError</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -336,9 +361,9 @@ A python3 class designed to fetch data from Purple Air’s new API.
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=6a60ea1c"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+</div><script src="_static/documentation_options.js?v=d0c23d2c"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>
     </body>
 </html>

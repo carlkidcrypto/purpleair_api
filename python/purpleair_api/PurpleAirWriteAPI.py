@@ -2,7 +2,7 @@
 
 """
 Copyright 2024 carlkidcrypto, All rights reserved.
-A python3 class designed to fetch data from Purple Air's new API.
+A python3 class designed to send write requests to Purple Air's API.
 This class will handle all `write` requests
 https://api.purpleair.com/#api-welcome
 """
@@ -22,6 +22,9 @@ class PurpleAirWriteAPI:
     """
 
     def __init__(self, api_write_key=None):
+        """
+        :param str api_write_key: A valid PurpleAir API write key.
+        """
         # Save off the API key for internal usage
         self._your_api_write_key = api_write_key
         self._base_api_v1_request_string = "https://api.purpleair.com/v1/"
@@ -31,6 +34,8 @@ class PurpleAirWriteAPI:
         A method to create a group for sensors.
 
         :param str name: The name of the group to create.
+
+        :return dict | None: A dictionary containing the created group data.
         """
 
         post_url = self._base_api_v1_request_string + f"groups"
@@ -46,33 +51,27 @@ class PurpleAirWriteAPI:
         location_type=None,
     ):
         """
-        Using a sensor_id (Parameters Option 1)
-        The sensor_id should be exactly as printed on the label on the sensor. When no owner_email is provided, the sensor has to be marked as public.
+        Add a sensor as a member of a group. The group must be owned by the api_key used.
+        Supports three parameter combinations:
+
+        - **Option 1** — public sensor by ``sensor_id`` (as printed on the label):
+          provide ``group_id`` and ``sensor_id``.
+        - **Option 2** — sensor by ``sensor_index`` (from the API):
+          provide ``group_id`` and ``sensor_index``.
+        - **Option 3** — private sensor by ``sensor_id`` with owner verification:
+          provide ``group_id``, ``sensor_id``, ``owner_email``, and optionally ``location_type``.
 
         :param int group_id: The group_id of the group to add a member to. This group must be owned by the api_key.
-
-        :param str sensor_id: The sensor_id of the new member sensor. This must be AS PRINTED on the sensor’s label.
-
-        Using a sensor_index (Parameters Option 2)
-        The sensor_index can be found in lists for example from a /sensors api call. When no owner_email is provided, the sensor has to be marked as public.
-
-        :param int group_id: The group_id of the group to add a member to. This group must be owned by the api_key.
-
         :param int sensor_index: The sensor_index of the new member as found in the JSON for this specific sensor.
+        :param str sensor_id: The sensor_id of the new member sensor. This must be AS PRINTED on the sensor's label.
+        :param str owner_email: An email address that matches the Owner email as set by previously completing
+                                the PurpleAir registration form at www.purpleair.com/register.
+        :param int location_type: (optional) The expected location_type of the new member.
+                                  Possible values are: 0 = Outside or 1 = Inside.
+                                  Required when the target sensor is marked as 'private'.
 
-        Using sensor_id with a private sensor by specifying owner_email and optionally location_type. (Parameters Option 3)
-        This example will produce an error if any provided value does not match the current configuration of the sensor. Note, too many incorrect attempts may disable your API key, so do not try guessing the email!!
-
-        :param int group_id: The group_id of the group to add a member to. This group must be owned by the api_key.
-
-        :param str sensor_id: The sensor_id of the new member sensor. This must be AS PRINTED on the sensor’s label.
-
-        :param str owner_email: An email address that matches the Owner email as set by previously completing the PurpleAir registration form at www.purpleair.com/register.
-
-        :param (optional) int location_type: The expected location_type of the new member.
-                                             Possible values are: 0 = Outside or 1 = Inside.
-                                             If the target member is not of this type, an error will result.
-                                             NOTE: This value is required if the sensor in question is marked as ‘private’ on the registration form.
+        :return dict | None: A dictionary containing the created member data.
+        :raises PurpleAirAPIError: If an invalid combination of parameters is provided or the API request fails.
         """
 
         post_url = self._base_api_v1_request_string + f"groups/{group_id}/members"
@@ -122,6 +121,8 @@ class PurpleAirWriteAPI:
         A method to delete a group for sensors.
 
         :param int group_id: The group_id of the group to delete
+
+        :return dict | None: A dictionary containing the deletion response.
         """
 
         post_url = self._base_api_v1_request_string + f"groups/{group_id}"
@@ -130,8 +131,12 @@ class PurpleAirWriteAPI:
 
     def post_delete_member(self, group_id, member_id):
         """
+        Delete a member from a group.
+
         :param int group_id: The group_id of the group in which member_id is in.
         :param int member_id: The member_id to delete.
+
+        :return dict | None: A dictionary containing the deletion response.
         """
 
         post_url = self._base_api_v1_request_string + f"groups/{group_id}/members/{member_id}"

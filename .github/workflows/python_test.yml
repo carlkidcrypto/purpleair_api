@@ -1,4 +1,9 @@
-name: python/test
+name: Python Tests
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 permissions:
   contents: read
 
@@ -8,10 +13,18 @@ on:
     paths:
       - 'python/**'
       - 'swig/**'
+      - 'tests/**'
       - '.github/workflows/python_test.yml'
 
   pull_request:
     branches: [ main, feature/swig ]
+    paths:
+      - 'python/**'
+      - 'swig/**'
+      - 'tests/**'
+      - '.github/workflows/python_test.yml'
+
+  workflow_dispatch:
 
 jobs:
   check-source-changes:
@@ -20,32 +33,36 @@ jobs:
       run_job: ${{ steps.changed-files.outputs.any_changed }}
     steps:
       - name: Checkout Sourcecode
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v7
 
       - name: Check for changes in source code
         id: changed-files
-        uses: tj-actions/changed-files@c3a1bb2c992d77180ae65be6ae6c166cf40f857c # v46.0.1
+        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v46.0.1
         with:
           files: |
             python/**
             swig/**
+            tests/**
+            setup.py
+            setup.cfg
+            pyproject.toml
             .github/workflows/python_test.yml
 
   tests:
     runs-on: ${{ matrix.os }}
+    needs: check-source-changes
+    if: needs.check-source-changes.outputs.run_job == 'true' || github.event_name == 'workflow_dispatch'
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
-    needs: check-source-changes
-    if: needs.check-source-changes.outputs.run_job == 'true'
-    steps:    
-      - name: Check out repository code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Set up Python ${{ matrix.python-version }} env for running unittest tests...
-        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v7
         with:
           python-version: "${{ matrix.python-version }}"
           cache: 'pip'
@@ -67,38 +84,40 @@ jobs:
           choco install swig curl || true
 
       - name: Install python3 requirements...
-        uses: carlkidcrypto/os-specific-runner@2c04ab1b4323ccfd8f0b17030f0fb0f992969da6 # v2.1.1
+        uses: carlkidcrypto/os-specific-runner@d6494ebfd6437452a44d3f9d6633339772e95070 # v2.4.0
         with:
-            linux: cd /home/runner/work/purpleair_api/purpleair_api/ ;
+          linux: cd /home/runner/work/purpleair_api/purpleair_api/ ;
+             python -m pip install --upgrade wheel ;
+             python -m pip install --upgrade setuptools ;
+             python -m pip install --upgrade pip ;
+             python -m pip install -r tests/requirements.txt ;
+             python -m pip install ./python ;
+          macos: cd /Users/runner/work/purpleair_api/purpleair_api/ ;
+             python -m pip install --upgrade wheel ;
+             python -m pip install --upgrade setuptools ;
+             python -m pip install --upgrade pip ;
+             python -m pip install -r tests/requirements.txt ;
+             python -m pip install ./python ;
+          windows: cd D:\a\purpleair_api\purpleair_api\ ;
                python -m pip install --upgrade wheel ;
                python -m pip install --upgrade setuptools ;
                python -m pip install --upgrade pip ;
-               python -m pip install -r python/tests/requirements.txt ;
-            macos: cd /Users/runner/work/purpleair_api/purpleair_api/ ;
-               python -m pip install --upgrade wheel ;
-               python -m pip install --upgrade setuptools ;
-               python -m pip install --upgrade pip ;
-               python -m pip install -r python/tests/requirements.txt ;
-            windows: cd D:\a\purpleair_api\purpleair_api\ ;
-                 python -m pip install --upgrade wheel ;
-                 python -m pip install --upgrade setuptools ;
-                 python -m pip install --upgrade pip ;
-                 python -m pip install -r python/tests/requirements.txt ;
+               python -m pip install -r tests/requirements.txt ;
+               python -m pip install ./python ;
 
       - name: Run unit tests...
-        uses: carlkidcrypto/os-specific-runner@2c04ab1b4323ccfd8f0b17030f0fb0f992969da6 # v2.1.1
+        uses: carlkidcrypto/os-specific-runner@d6494ebfd6437452a44d3f9d6633339772e95070 # v2.4.0
         with:
-          linux: cd /home/runner/work/purpleair_api/purpleair_api/python/tests ;
+          linux: cd /home/runner/work/purpleair_api/purpleair_api/tests ;
                  coverage run -m unittest && coverage json -o coverage_linux_${{ matrix.os }}_${{ matrix.python-version }}.json ;
-          macos: cd /Users/runner/work/purpleair_api/purpleair_api/python/tests ;
+          macos: cd /Users/runner/work/purpleair_api/purpleair_api/tests ;
                  coverage run -m unittest && coverage json -o coverage_macos_${{ matrix.os }}_${{ matrix.python-version }}.json ;
-          windows: cd D:\a\purpleair_api\purpleair_api\python\tests ;
+          windows: cd D:\a\purpleair_api\purpleair_api\tests ;
                    coverage run -m unittest && coverage json -o coverage_windows_${{ matrix.os }}_${{ matrix.python-version }}.json ;
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5.5.1
+        uses: codecov/codecov-action@v5
         with:
-          files: coverage_*.json
+          files: tests/coverage_*.json
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        

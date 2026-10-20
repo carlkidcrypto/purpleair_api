@@ -14,8 +14,8 @@ Usage Example
    # Initialize with write key
    write_api = PurpleAirWriteAPI(api_write_key="your_write_key")
    
-   # Create a new member
-   result = write_api.post_create_member(sensor_index=12345)
+   # Create a new member using sensor_index
+   result = write_api.post_create_member(group_id=1234, sensor_index=12345)
 
 API Reference
 -------------

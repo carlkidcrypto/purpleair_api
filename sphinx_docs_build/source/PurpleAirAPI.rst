@@ -14,9 +14,9 @@ Usage Example
    
    # Initialize with all API types
    paa = PurpleAirAPI(
-       api_read_key="your_read_key",
-       api_write_key="your_write_key",
-       ipv4_address=["192.168.1.100"]
+       your_api_read_key="your_read_key",
+       your_api_write_key="your_write_key",
+       your_ipv4_address=["192.168.1.100"]
    )
    
    # Now you can use read, write, and local methods

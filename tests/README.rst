@@ -31,14 +31,14 @@ To run all tests with coverage reporting:
 
 .. code-block:: bash
 
-   python3 -m unittest
+   coverage run -m unittest
    coverage html -d purpleair_api_coverage_reports
 
 Or combine in one line (note: second command only runs if first succeeds):
 
 .. code-block:: bash
 
-   python3 -m unittest && coverage html -d purpleair_api_coverage_reports
+   coverage run -m unittest && coverage html -d purpleair_api_coverage_reports
 
 Test Coverage
 -------------

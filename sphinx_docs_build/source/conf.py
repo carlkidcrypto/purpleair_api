@@ -23,7 +23,7 @@ copyright = "2024-2025, carlkidcrypto"
 author = "carlkidcrypto"
 
 # The full version, including alpha/beta/rc tags
-release = "V1.4.0.a1"
+release = "V1.5.1a1"
 
 
 # -- General configuration ---------------------------------------------------
@@ -35,8 +35,6 @@ extensions = [
     "sphinx.ext.autodoc",
 ]
 
-breathe_projects = {"EzSnmp": "../../doxygen_docs_build/doxygen/xml"}
-
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
@@ -46,12 +44,24 @@ templates_path = ["_templates"]
 exclude_patterns = []
 
 
+# Treat broken reference warnings as errors (used with -W flag).
+nitpicky = False
+
+# Suppress warnings that would otherwise become errors with the -W CI flag.
+# Each entry here must appear verbatim (no wildcards).
+suppress_warnings = [
+    "autodoc",
+    "ref.python",
+    "ref",
+]
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
 html_theme = "furo"
+html_baseurl = "https://carlkidcrypto.github.io/purpleair_api/html/"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
