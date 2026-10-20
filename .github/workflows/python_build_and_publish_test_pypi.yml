@@ -8,7 +8,7 @@ permissions:
 concurrency: build_and_publish_to_test_pypi
 on:
   push:
-    branches: [ main, feature/swig ]
+    branches: [ main ]
     paths:
       - 'python/**'
       - 'swig/**'

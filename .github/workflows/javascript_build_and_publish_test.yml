@@ -6,7 +6,7 @@ permissions:
 concurrency: build_and_publish_javascript_test
 on:
   push:
-    branches: [ main, feature/swig ]
+    branches: [ main ]
     paths:
       - 'javascript/**'
       - 'swig/**'

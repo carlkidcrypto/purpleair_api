@@ -1,11 +1,15 @@
 name: csharp/csharpier
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 permissions:
   contents: read
 
 on:
   push:
-    branches: [ main, feature/swig ]
+    branches: [ main ]
     paths:
       - 'csharp/**/*.cs'
       - '.github/workflows/csharp_csharpier.yml'

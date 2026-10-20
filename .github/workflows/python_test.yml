@@ -9,7 +9,7 @@ permissions:
 
 on:
   push:
-    branches: [ main, feature/swig ]
+    branches: [ main ]
     paths:
       - 'python/**'
       - 'swig/**'

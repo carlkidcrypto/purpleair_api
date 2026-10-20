@@ -6,7 +6,7 @@ concurrency:
 
 on:
   push:
-    branches: [main, feature/swig]
+    branches: [main]
     paths:
       - 'sphinx_docs_build/**'
       - 'python/**'
