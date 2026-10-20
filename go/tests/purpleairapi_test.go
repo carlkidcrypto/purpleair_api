@@ -72,8 +72,8 @@ func TestPurpleAirWriteAPIHasDeleteMemberMethod(t *testing.T) {
 // TestNewPurpleAirLocalAPIWithIPAddressList verifies that PurpleAirLocalAPI
 // can be constructed with an IPv4 address list.
 func TestNewPurpleAirLocalAPIWithIPAddressList(t *testing.T) {
-	addrs := purpleairapi.NewX_string_vector()
-	defer purpleairapi.DeleteX_string_vector(addrs)
+	addrs := purpleairapi.NewStringVector()
+	defer purpleairapi.DeleteStringVector(addrs)
 	addrs.Add("192.168.1.100")
 
 	api := purpleairapi.NewPurpleAirLocalAPI(addrs)

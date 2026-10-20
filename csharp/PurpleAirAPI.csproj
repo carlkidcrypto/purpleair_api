@@ -55,8 +55,8 @@
       Condition="Exists('$(GeneratedSourcesDir)StringMap.cs')"
     />
     <Compile
-      Include="$(GeneratedSourcesDir)_string_vector.cs"
-      Condition="Exists('$(GeneratedSourcesDir)_string_vector.cs')"
+      Include="$(GeneratedSourcesDir)StringVector.cs"
+      Condition="Exists('$(GeneratedSourcesDir)StringVector.cs')"
     />
   </ItemGroup>
 </Project>

@@ -37,7 +37,7 @@ csharp_swig = custom_target(
     'PurpleAirReadAPI.cs',
     'PurpleAirWriteAPI.cs',
     'StringMap.cs',
-    '_string_vector.cs',
+    'StringVector.cs',
   ],
   command: [
     swig,

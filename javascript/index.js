@@ -10,7 +10,8 @@ const purpleairapi_base = require('./build/Release/purpleairapi_base.node');
 class PurpleAirLocalAPI extends purpleairapi_base.PurpleAirLocalAPI {
     constructor(ipv4_address_list) {
         if (Array.isArray(ipv4_address_list)) {
-            const vec = new purpleairapi_base._string_vector();
+            const VectorClass = purpleairapi_base.StringVector || purpleairapi_base._string_vector;
+            const vec = new VectorClass();
             for (const ip of ipv4_address_list) {
                 vec.add(String(ip));
             }
@@ -30,5 +31,5 @@ module.exports = {
     PurpleAirLocalAPI: PurpleAirLocalAPI,
     PurpleAirAPIError: purpleairapi_base.PurpleAirAPIError,
     StringMap: purpleairapi_base.StringMap,
-    StringVector: purpleairapi_base._string_vector
+    StringVector: purpleairapi_base.StringVector || purpleairapi_base._string_vector
 };

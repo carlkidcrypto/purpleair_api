@@ -72,7 +72,7 @@ namespace PurpleAirAPI.Tests
         [Fact]
         public void TestCreateWithIPAddressList()
         {
-            var ipList = new _string_vector();
+            var ipList = new StringVector();
             ipList.Add("192.168.1.100");
             var api = new PurpleAirLocalAPI(ipList);
             Assert.NotNull(api);
@@ -81,7 +81,7 @@ namespace PurpleAirAPI.Tests
         [Fact]
         public void TestRequestLocalSensorDataMethodExists()
         {
-            var ipList = new _string_vector();
+            var ipList = new StringVector();
             ipList.Add("192.168.1.100");
             var api = new PurpleAirLocalAPI(ipList);
             Assert.NotNull(api);
@@ -90,7 +90,7 @@ namespace PurpleAirAPI.Tests
         [Fact]
         public void TestThrowErrorWithEmptyIPList()
         {
-            var ipList = new _string_vector();
+            var ipList = new StringVector();
             var api = new PurpleAirLocalAPI(ipList);
             Assert.Throws<ApplicationException>((Action)(() => api.request_local_sensor_data()));
         }
