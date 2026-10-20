@@ -70,3 +70,9 @@ node_modules/
 # Dynamically extracted gh-aw inline skills
 /.github/skills/*
 !/.github/skills/agentic-workflows/
+
+# Meson subprojects
+/subprojects/*
+!/subprojects/*.wrap
+/python/subprojects/*
+!/python/subprojects/*.wrap

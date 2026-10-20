@@ -37,7 +37,7 @@ jobs:
     if: needs.check-source-changes.outputs.run_job == 'true'
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-2022, macos-latest]
         node-version: ['18.x', '20.x', '22.x', '24.x']
 
     steps:
