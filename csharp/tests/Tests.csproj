@@ -1,7 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <RollForward>Major</RollForward>
     <IsPackable>false</IsPackable>
+    <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/libpurpleairapi_base.so')">$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
+    <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/libpurpleairapi_base.dylib')">$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
+    <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/purpleairapi_base.dll')">$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
   </PropertyGroup>
 
   <ItemGroup>
