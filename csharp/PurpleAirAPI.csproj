@@ -16,8 +16,11 @@
       When building via Meson/Ninja, pass the Meson build sub-directory:
         dotnet build -p:GeneratedSourcesDir=<builddir>/csharp/
     -->
-    <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../builddir/csharp/purpleairapi_base.cs')">$(MSBuildThisFileDirectory)../builddir/csharp/</GeneratedSourcesDir>
-    <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == ''">$(MSBuildThisFileDirectory)</GeneratedSourcesDir>
+    <GeneratedSourcesDir
+      Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../builddir/csharp/purpleairapi_base.cs')"
+      >$(MSBuildThisFileDirectory)../builddir/csharp/</GeneratedSourcesDir>
+    <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == ''"
+      >$(MSBuildThisFileDirectory)</GeneratedSourcesDir>
   </PropertyGroup>
 
   <!-- Exclude the tests sub-project from the main assembly's implicit compile glob -->

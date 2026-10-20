@@ -55,7 +55,7 @@ jobs:
           python -m pip install --only-binary :all: --upgrade pip
           python -m pip install --only-binary :all: -r sphinx_docs_build/requirements.txt
           python -m pip install --only-binary :all: -r sphinx_docs_build/landing/requirements.txt
-          python -m pip install --no-build-isolation ./python
+          python -m pip install ./python
 
       - name: Build latest documentation
         run: |
@@ -114,7 +114,7 @@ jobs:
           python -m pip install --only-binary :all: --upgrade pip
           python -m pip install --only-binary :all: -r sphinx_docs_build/requirements.txt
           python -m pip install --only-binary :all: -r sphinx_docs_build/landing/requirements.txt
-          python -m pip install --no-build-isolation ./python
+          python -m pip install ./python
 
       - name: Build versioned documentation
         env:

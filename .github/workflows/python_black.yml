@@ -48,7 +48,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Black
-        run: pip install --only-binary :all: black==26.5.1
+        run: "pip install --only-binary :all: black==26.5.1"
 
       - name: Run Black
         run: black .
