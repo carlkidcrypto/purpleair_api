@@ -41,11 +41,17 @@
   >
     <ItemGroup>
       <_NativeLibFiles Include="$(GeneratedSourcesDir)*purpleairapi_base.*" />
+      <_DependencyDlls Include="$(GeneratedSourcesDir)../subprojects/**/*.dll" />
     </ItemGroup>
     <Copy
       SourceFiles="@(_NativeLibFiles)"
       DestinationFolder="$(OutputPath)"
       Condition="'@(_NativeLibFiles)' != ''"
+    />
+    <Copy
+      SourceFiles="@(_DependencyDlls)"
+      DestinationFolder="$(OutputPath)"
+      Condition="'@(_DependencyDlls)' != ''"
     />
   </Target>
 </Project>

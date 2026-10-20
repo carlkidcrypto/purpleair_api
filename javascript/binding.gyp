@@ -17,6 +17,9 @@
       "libraries": [
         "-lcurl"
       ],
+      "defines": [
+        "NAPI_CPP_EXCEPTIONS"
+      ],
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
       "cflags": [ "-std=c++20" ],
@@ -31,6 +34,16 @@
               "-std=c++20",
               "-stdlib=libc++"
             ]
+          }
+        }],
+        ["OS=='win'", {
+          "defines": [
+            "_HAS_EXCEPTIONS=1"
+          ],
+          "msvs_settings": {
+            "VCCLCompilerTool": {
+              "ExceptionHandling": 1
+            }
           }
         }]
       ]
