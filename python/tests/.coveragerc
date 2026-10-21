@@ -1,0 +1,11 @@
+[run]
+source = purpleair_api
+omit =
+    */tests/*
+    */purpleairapi_base.py
+
+[report]
+omit =
+    */tests/*
+    */purpleairapi_base.py
+

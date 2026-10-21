@@ -21,16 +21,86 @@ coverage:
 
 # Ignore paths - exclude test files and configuration from coverage reports
 ignore:
+  - "python/tests/**"
   - "tests/**"
+  - "csharp/tests/**"
+  - "javascript/tests/**"
+  - "go/tests/**"
+  - "java/tests/**"
   - "setup.py"
   - "setup.cfg"
+  - "python/setup.cfg"
   - ".github/**"
+  - "docs/**"
+  - "sphinx_docs_build/**"
+
+# Flag management: exactly ONE flag per upload (language).
+# Carryforward replaces a carried-forward session whenever ANY of its flags is
+# uploaded again. Unique flags keep each workflow's coverage carried forward
+# independently when its tests are skipped.
+flag_management:
+  default_rules:
+    carryforward: true
+  individual_flags:
+    - name: python
+      paths:
+        - python/**/*.py
+    - name: javascript
+      paths:
+        - javascript/**/*.js
+        - javascript/**/*.json
+    - name: csharp
+      paths:
+        - csharp/**/*.cs
+    - name: go
+      paths:
+        - go/**/*.go
+    - name: java
+      paths:
+        - java/**/*.java
+    - name: cpp
+      paths:
+        - swig/**/*.h
+        - swig/**/*.cpp
+        - swig/**/*.hpp
+        - swig/**/*.i
 
 # Comment configuration for pull requests
 comment:
-  layout: "header, diff, files, footer"
+  layout: "header, diff, flags, components, files, footer"
   behavior: default
   require_changes: false
   require_base: false
   require_head: true
 
+# Component configuration to track each language separately
+component_management:
+  individual_components:
+    - component_id: python_code
+      name: "Python Code"
+      paths:
+        - python/**/*.py
+    - component_id: javascript_code
+      name: "JavaScript Code"
+      paths:
+        - javascript/**/*.js
+        - javascript/**/*.json
+    - component_id: csharp_code
+      name: "C# Code"
+      paths:
+        - csharp/**/*.cs
+    - component_id: go_code
+      name: "Go Code"
+      paths:
+        - go/**/*.go
+    - component_id: java_code
+      name: "Java Code"
+      paths:
+        - java/**/*.java
+    - component_id: cpp_code
+      name: "C++ Code"
+      paths:
+        - swig/**/*.h
+        - swig/**/*.cpp
+        - swig/**/*.hpp
+        - swig/**/*.i

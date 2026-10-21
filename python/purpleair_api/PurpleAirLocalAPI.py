@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+
+"""
+Copyright 2024 carlkidcrypto, All rights reserved.
+A python3 class designed to fetch data from PurpleAir sensors on the local network.
+This class will handle all `local` requests
+https://api.purpleair.com/#api-welcome
+"""
+
+from purpleair_api.PurpleAirAPIError import (
+    PurpleAirAPIError,
+    PurpleAirDeviceError,
+    PurpleAirDeviceOfflineError,
+)
+from purpleair_api.PurpleAirAPIHelpers import send_url_get_request
+
+
+class PurpleAirLocalAPI:
+    """
+    The PurpleAirLocalAPI class designed to send valid
+    local network requests. It can work with one or many IPv4 addresses.
+    """
+
+    def __init__(self, ipv4_address_list=None):
+        """
+        :param list ipv4_address_list: A list of strings with valid IPv4 addresses for your
+                                       sensors. The addresses do not need a CIDR prefix.
+        """
+        # Create the base API request string for local networks.
+        error_msg = "Must provide the IPv4 address list for the sensor(s) on your local network"
+
+        if type(ipv4_address_list) is type(None):
+            raise PurpleAirAPIError(error_msg)
+
+        elif type(ipv4_address_list) is not type(list()):
+            raise PurpleAirAPIError(error_msg)
+
+        for address in ipv4_address_list:
+            if len(address) == 0 or len(address) > 15:
+                raise PurpleAirAPIError(error_msg)
+
+        self._base_api_local_network_request_string_dict = dict()
+        for address in ipv4_address_list:
+            self._base_api_local_network_request_string_dict[address] = f"http://{address}/json"
+
+    def request_local_sensor_data(self) -> dict:
+        """
+        A method to request data from one or more local sensors. Each sensor must be accessible on the local network.
+
+        :return dict: A dictionary mapping each IPv4 address to its sensor data payload.
+        :raises PurpleAirDeviceOfflineError: If a sensor is offline or unreachable on the network.
+        """
+
+        retval = {}
+        for key, value in self._base_api_local_network_request_string_dict.items():
+            try:
+                request_value = send_url_get_request(value)
+                retval[key] = request_value
+            except Exception as exc:
+                raise PurpleAirDeviceOfflineError(
+                    f"Device at {key} is offline or unreachable: {exc}"
+                ) from exc
+
+        return retval

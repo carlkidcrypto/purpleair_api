@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RollForward>Major</RollForward>
+    <IsPackable>false</IsPackable>
+    <GeneratedSourcesDir
+      Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/libpurpleairapi_base.so')"
+      >$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
+    <GeneratedSourcesDir
+      Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/libpurpleairapi_base.dylib')"
+      >$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
+    <GeneratedSourcesDir
+      Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/purpleairapi_base.dll')"
+      >$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
+    <GeneratedSourcesDir
+      Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../../builddir/csharp/libpurpleairapi_base.dll')"
+      >$(MSBuildThisFileDirectory)../../builddir/csharp/</GeneratedSourcesDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../PurpleAirAPI.csproj" />
+  </ItemGroup>
+
+  <!--
+    Copy the SWIG native library (libpurpleairapi_base.so / .dylib / .dll)
+    from the Meson build directory to the test output directory so that the
+    .NET runtime can find it via P/Invoke at test execution time.
+    GeneratedSourcesDir is passed on the dotnet test command line, e.g.:
+      dotnet test -p:GeneratedSourcesDir=<builddir>/csharp/
+  -->
+  <Target
+    Name="CopyNativeLibrary"
+    AfterTargets="Build"
+    Condition="'$(GeneratedSourcesDir)' != '' And Exists('$(GeneratedSourcesDir)')"
+  >
+    <ItemGroup>
+      <_NativeLibFiles Include="$(GeneratedSourcesDir)*purpleairapi_base.*" />
+      <_DependencyDlls Include="$(GeneratedSourcesDir)../subprojects/**/*.dll" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(_NativeLibFiles)"
+      DestinationFolder="$(OutputPath)"
+      Condition="'@(_NativeLibFiles)' != ''"
+    />
+    <Copy
+      SourceFiles="$(GeneratedSourcesDir)libpurpleairapi_base.dll"
+      DestinationFiles="$(OutputPath)purpleairapi_base.dll"
+      Condition="Exists('$(GeneratedSourcesDir)libpurpleairapi_base.dll')"
+    />
+    <Copy
+      SourceFiles="@(_DependencyDlls)"
+      DestinationFolder="$(OutputPath)"
+      Condition="'@(_DependencyDlls)' != ''"
+    />
+  </Target>
+</Project>
