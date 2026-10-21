@@ -10,7 +10,7 @@ import sys
 from pathlib import Path
 
 # On Windows, add the directory containing bundled DLLs to the DLL search path
-if sys.platform == "win32":
+if sys.platform == "win32":  # pragma: no cover
     _pkg_dir = Path(__file__).resolve().parent
     _libs_dir = _pkg_dir / ".purpleair_api.mesonpy.libs"
     if _libs_dir.is_dir():
