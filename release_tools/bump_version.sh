@@ -101,6 +101,7 @@ pathspecs=(
     ':(exclude).github/scripts/**'
     ':(exclude)release_tools/**'
     ':(exclude)tests/**'
+    ':(exclude)python/tests/**'
 )
 
 files=()
@@ -196,7 +197,7 @@ if [[ "$verify" == true ]]; then
     # 3. Unit test check
     if command -v "$pytest_bin" >/dev/null 2>&1; then
         printf '[3/3] Running pytest suite...\n'
-        "$pytest_bin" tests/ -q
+        "$pytest_bin" python/tests/ -q
     else
         printf '[3/3] pytest not found, skipping unit tests.\n'
     fi

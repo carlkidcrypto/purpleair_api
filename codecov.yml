@@ -21,9 +21,15 @@ coverage:
 
 # Ignore paths - exclude test files and configuration from coverage reports
 ignore:
+  - "python/tests/**"
   - "tests/**"
+  - "csharp/tests/**"
+  - "javascript/tests/**"
+  - "go/tests/**"
+  - "java/tests/**"
   - "setup.py"
   - "setup.cfg"
+  - "python/setup.cfg"
   - ".github/**"
 
 # Comment configuration for pull requests

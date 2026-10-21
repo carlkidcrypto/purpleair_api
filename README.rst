@@ -198,7 +198,7 @@ Now we can use that instance to do things like:
 Tests
 -----
 
-Refer to the test `README <tests/README.rst>`_
+Refer to the test `README <python/tests/README.rst>`_
 
 Documentation
 -------------

@@ -1,6 +1,0 @@
-[run]
-source = purpleair_api
-omit = */tests/*
-
-[report]
-omit = */tests/*

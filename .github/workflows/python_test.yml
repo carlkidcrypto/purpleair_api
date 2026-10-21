@@ -13,7 +13,6 @@ on:
     paths:
       - 'python/**'
       - 'swig/**'
-      - 'tests/**'
       - '.github/workflows/python_test.yml'
 
   pull_request:
@@ -21,7 +20,6 @@ on:
     paths:
       - 'python/**'
       - 'swig/**'
-      - 'tests/**'
       - '.github/workflows/python_test.yml'
 
   workflow_dispatch:
@@ -42,7 +40,6 @@ jobs:
           files: |
             python/**
             swig/**
-            tests/**
             .github/workflows/python_test.yml
 
   tests:
@@ -87,34 +84,34 @@ jobs:
              python -m pip install --upgrade wheel ;
              python -m pip install --upgrade setuptools ;
              python -m pip install --upgrade pip ;
-             python -m pip install -r tests/requirements.txt ;
+             python -m pip install -r python/tests/requirements.txt ;
              python -m pip install ./python ;
           macos: cd /Users/runner/work/purpleair_api/purpleair_api/ ;
              python -m pip install --upgrade wheel ;
              python -m pip install --upgrade setuptools ;
              python -m pip install --upgrade pip ;
-             python -m pip install -r tests/requirements.txt ;
+             python -m pip install -r python/tests/requirements.txt ;
              python -m pip install ./python ;
           windows: cd D:\a\purpleair_api\purpleair_api\ ;
                python -m pip install --upgrade wheel ;
                python -m pip install --upgrade setuptools ;
                python -m pip install --upgrade pip ;
-               python -m pip install -r tests/requirements.txt ;
+               python -m pip install -r python/tests/requirements.txt ;
                python -m pip install ./python ;
 
       - name: Run unit tests...
         uses: carlkidcrypto/os-specific-runner@d6494ebfd6437452a44d3f9d6633339772e95070 # v2.4.0
         with:
-          linux: cd /home/runner/work/purpleair_api/purpleair_api/tests ;
+          linux: cd /home/runner/work/purpleair_api/purpleair_api/python/tests ;
                  coverage run -m unittest && coverage json -o coverage_linux_${{ matrix.os }}_${{ matrix.python-version }}.json ;
-          macos: cd /Users/runner/work/purpleair_api/purpleair_api/tests ;
+          macos: cd /Users/runner/work/purpleair_api/purpleair_api/python/tests ;
                  coverage run -m unittest && coverage json -o coverage_macos_${{ matrix.os }}_${{ matrix.python-version }}.json ;
-          windows: cd D:\a\purpleair_api\purpleair_api\tests ;
+          windows: cd D:\a\purpleair_api\purpleair_api\python\tests ;
                    coverage run -m unittest && coverage json -o coverage_windows_${{ matrix.os }}_${{ matrix.python-version }}.json ;
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
         with:
-          files: tests/coverage_*.json
+          files: python/tests/coverage_*.json
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
