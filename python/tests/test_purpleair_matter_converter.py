@@ -333,9 +333,7 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
         self.assertEqual(attrs["pm10Density"], 1840)
 
     def test_air_quality_rating_is_valid_enum_value(self):
-        rating = self.result["clusters"]["air_quality_measurement"]["attributes"][
-            "airQuality"
-        ]
+        rating = self.result["clusters"]["air_quality_measurement"]["attributes"]["airQuality"]
         self.assertIn(rating, [e.value for e in MatterAirQualityRating])
 
     def test_aqi_rating_matches_air_quality(self):
@@ -408,9 +406,7 @@ class PurpleAirMatterConverterAirQualitySensorTest(unittest.TestCase):
 
     def test_missing_fields_defaults_to_zero(self):
         """Missing numeric fields default to 0 and produce valid output."""
-        result = PurpleAirMatterConverter.to_air_quality_sensor(
-            SAMPLE_SENSOR_MISSING_FIELDS
-        )
+        result = PurpleAirMatterConverter.to_air_quality_sensor(SAMPLE_SENSOR_MISSING_FIELDS)
         attrs = result["clusters"]["air_quality_measurement"]["attributes"]
         self.assertEqual(attrs["measuredValue"], 750)  # pm2.5=7.5 → ×100
 
@@ -573,15 +569,9 @@ class PurpleAirMatterConverterEnvironmentalSensorExtraTest(unittest.TestCase):
         empty_sensor = {"name": "Sparse Sensor"}
         result = PurpleAirMatterConverter.to_environmental_sensor(empty_sensor)
         clusters = result["clusters"]
-        self.assertIsNone(
-            clusters["temperature_measurement"]["attributes"]["measuredValue"]
-        )
-        self.assertIsNone(
-            clusters["humidity_measurement"]["attributes"]["measuredValue"]
-        )
-        self.assertIsNone(
-            clusters["pressure_measurement"]["attributes"]["measuredValue"]
-        )
+        self.assertIsNone(clusters["temperature_measurement"]["attributes"]["measuredValue"])
+        self.assertIsNone(clusters["humidity_measurement"]["attributes"]["measuredValue"])
+        self.assertIsNone(clusters["pressure_measurement"]["attributes"]["measuredValue"])
 
     def test_default_name_when_no_name_field(self):
         """When name field is absent and no sensor_name provided, fallback name is used."""
@@ -598,9 +588,7 @@ class PurpleAirMatterConverterNormaliseInnerNotDictTest(unittest.TestCase):
         bad_payload = {"sensor": "this_is_not_a_dict"}
         result = PurpleAirMatterConverter.to_air_quality_sensor(bad_payload)
         self.assertIn("device_type", result)
-        self.assertEqual(
-            result["device_type"]["id"], MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR
-        )
+        self.assertEqual(result["device_type"]["id"], MATTER_DEVICE_TYPE_AIR_QUALITY_SENSOR)
         aq_attrs = result["clusters"]["air_quality_measurement"]["attributes"]
         self.assertEqual(aq_attrs["measuredValue"], 0)
 

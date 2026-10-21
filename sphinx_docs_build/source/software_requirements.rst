@@ -282,6 +282,13 @@ in other languages) without requiring live network access during test runs.
 [TEST-05] Automated CI matrix workflows shall execute test suites across Linux, macOS, and Windows runners
 for all supported runtimes.
 
+[TEST-06] CI testing workflows on Linux shall execute the test suite under Valgrind Memcheck with CPython
+suppressions to detect C++ core memory leaks, uninitialized memory accesses, and invalid memory operations,
+publishing automated leak summary reports to pull requests.
+
+[TEST-07] Code coverage metrics shall be tracked and uploaded to Codecov across all supported language bindings
+(Python, JavaScript, C#, Go, Java) with dedicated carryforward feature flags and component management per language.
+
 Code Quality and Verification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -359,3 +366,8 @@ mangling when running native builds or passing workspace directory paths.
 [CICD-08] Multi-language publishing workflows (PyPI, npm, NuGet) shall execute exclusively on release
 events or authorized manual triggers, with branch guards strictly prohibiting publishing from non-main
 branches.
+
+[CICD-09] Multi-language CI test workflows shall generate standardized unit test results (JUnit XML, TRX)
+and publish automated pass/fail, error, and duration summary comments on pull requests using
+``publish-unit-test-result-action`` and ``pytest-coverage-comment``.
+

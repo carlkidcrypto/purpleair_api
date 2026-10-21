@@ -116,9 +116,7 @@ class PurpleAirAPITest(unittest.TestCase):
                 status_code=200,
             )
 
-            PurpleAirAPI(
-                your_api_write_key="123456789", your_ipv4_address=["192.168.1.2"]
-            )
+            PurpleAirAPI(your_api_write_key="123456789", your_ipv4_address=["192.168.1.2"])
 
         with requests_mock.Mocker() as m:
             m.get(
@@ -127,9 +125,7 @@ class PurpleAirAPITest(unittest.TestCase):
                 status_code=200,
             )
 
-            PurpleAirAPI(
-                your_api_read_key="123456789", your_ipv4_address=["192.168.1.2"]
-            )
+            PurpleAirAPI(your_api_read_key="123456789", your_ipv4_address=["192.168.1.2"])
 
     def test_purpleairapi_getters(self):
         """
@@ -190,9 +186,7 @@ class PurpleAirAPITest(unittest.TestCase):
                     },
                 ],
             )
-            paa = PurpleAirAPI(
-                your_api_read_key="readkey123", your_api_write_key="writekey456"
-            )
+            paa = PurpleAirAPI(your_api_read_key="readkey123", your_api_write_key="writekey456")
 
         self.assertEqual(paa.get_api_key_type["readkey123"], "READ")
         self.assertEqual(paa.get_api_key_type["writekey456"], "WRITE")
