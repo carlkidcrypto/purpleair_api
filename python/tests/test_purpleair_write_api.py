@@ -126,7 +126,9 @@ class PurpleAirWriteAPITest(unittest.TestCase):
         # Action and Expected Result
         with self.assertRaises(PurpleAirAPIError):
             # Both sensor_index and sensor_id provided
-            self.pawa.post_create_member(group_id=1234, sensor_index=4567, sensor_id="SENSOR123")
+            self.pawa.post_create_member(
+                group_id=1234, sensor_index=4567, sensor_id="SENSOR123"
+            )
 
     def test_post_delete_group(self):
         """

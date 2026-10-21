@@ -27,7 +27,9 @@ class PurpleAirLocalAPI:
                                        sensors. The addresses do not need a CIDR prefix.
         """
         # Create the base API request string for local networks.
-        error_msg = "Must provide the IPv4 address list for the sensor(s) on your local network"
+        error_msg = (
+            "Must provide the IPv4 address list for the sensor(s) on your local network"
+        )
 
         if type(ipv4_address_list) is type(None):
             raise PurpleAirAPIError(error_msg)
@@ -41,7 +43,9 @@ class PurpleAirLocalAPI:
 
         self._base_api_local_network_request_string_dict = dict()
         for address in ipv4_address_list:
-            self._base_api_local_network_request_string_dict[address] = f"http://{address}/json"
+            self._base_api_local_network_request_string_dict[address] = (
+                f"http://{address}/json"
+            )
 
     def request_local_sensor_data(self) -> dict:
         """

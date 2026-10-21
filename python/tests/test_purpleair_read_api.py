@@ -60,9 +60,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = (
-            "https://api.purpleair.com/v1/sensors/1234?read_key=56789&fields=test1,test2,test3"
-        )
+        fake_url_request = "https://api.purpleair.com/v1/sensors/1234?read_key=56789&fields=test1,test2,test3"
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:
@@ -90,7 +88,9 @@ class PurpleAirReadAPITest(unittest.TestCase):
                 text='{"test": 5}',
                 status_code=200,
             )
-            self.para.request_multiple_sensors_data(fields="test1, test2, test3, test4, test5")
+            self.para.request_multiple_sensors_data(
+                fields="test1, test2, test3, test4, test5"
+            )
 
     def test_request_multiple_sensors_data_with_some_optional_parameters(self):
         """
@@ -150,9 +150,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = (
-            "https://api.purpleair.com/v1/sensors/1234/history?fields=name,field1,field2,etc"
-        )
+        fake_url_request = "https://api.purpleair.com/v1/sensors/1234/history?fields=name,field1,field2,etc"
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:
@@ -172,9 +170,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = (
-            "https://api.purpleair.com/v1/sensors/1234/history/csv?fields=name,field1,field2,etc"
-        )
+        fake_url_request = "https://api.purpleair.com/v1/sensors/1234/history/csv?fields=name,field1,field2,etc"
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:
@@ -251,7 +247,9 @@ class PurpleAirReadAPITest(unittest.TestCase):
 
     def test_request_members_data(self):
         # Setup
-        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members?fields=name"
+        fake_url_request = (
+            "https://api.purpleair.com/v1/groups/4321/members?fields=name"
+        )
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:
@@ -285,9 +283,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = (
-            "https://api.purpleair.com/v1/groups/4321/members/1234?fields=name,temperature"
-        )
+        fake_url_request = "https://api.purpleair.com/v1/groups/4321/members/1234?fields=name,temperature"
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:
@@ -404,7 +400,9 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = "https://api.purpleair.com/v1/sensors/1234?fields=name,temperature"
+        fake_url_request = (
+            "https://api.purpleair.com/v1/sensors/1234?fields=name,temperature"
+        )
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:
@@ -445,9 +443,7 @@ class PurpleAirReadAPITest(unittest.TestCase):
         """
 
         # Setup
-        fake_url_request = (
-            "https://api.purpleair.com/v1/sensors/?fields=name&modified_since=1700000000"
-        )
+        fake_url_request = "https://api.purpleair.com/v1/sensors/?fields=name&modified_since=1700000000"
 
         # Action and Expected Result
         with requests_mock.Mocker() as m:

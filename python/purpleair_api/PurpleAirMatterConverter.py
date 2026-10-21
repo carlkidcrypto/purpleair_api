@@ -392,10 +392,14 @@ class PurpleAirMatterConverter:
 
         # Unit conversions
         temp_c = fahrenheit_to_celsius(temp_f) if temp_f is not None else None
-        pressure_kpa = pressure_psi_to_kpa(pressure_psi) if pressure_psi is not None else None
+        pressure_kpa = (
+            pressure_psi_to_kpa(pressure_psi) if pressure_psi is not None else None
+        )
 
         device_name = sensor_name or data.get("name") or "PurpleAir Sensor"
-        sensor_index = data.get("sensor_index", PurpleAirMatterConverter.DEFAULT_SENSOR_INDEX)
+        sensor_index = data.get(
+            "sensor_index", PurpleAirMatterConverter.DEFAULT_SENSOR_INDEX
+        )
 
         # Matter scaled-integer conventions:
         #   Temperature : value × 100   (e.g. 23.45°C → 2345)
@@ -428,11 +432,15 @@ class PurpleAirMatterConverter:
                         "measuredValue": (
                             int(round(pm25_raw * 100)) if pm25_raw is not None else None
                         ),
-                        "pm1Density": (int(round(pm1_raw * 100)) if pm1_raw is not None else None),
+                        "pm1Density": (
+                            int(round(pm1_raw * 100)) if pm1_raw is not None else None
+                        ),
                         "pm10Density": (
                             int(round(pm10_raw * 100)) if pm10_raw is not None else None
                         ),
-                        "vocDensity": (int(round(voc_raw * 100)) if voc_raw is not None else None),
+                        "vocDensity": (
+                            int(round(voc_raw * 100)) if voc_raw is not None else None
+                        ),
                         # airQuality: Matter::AirQuality enum (0x0007), mapped from AQI
                         "airQuality": rating.value,
                         # aqiRating: Matter::AirQualityRating enum (0x0008)
@@ -454,7 +462,9 @@ class PurpleAirMatterConverter:
                 "temperature_measurement": {
                     "cluster_id": MATTER_CLUSTER_TEMP_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": (int(round(temp_c * 100)) if temp_c is not None else None),
+                        "measuredValue": (
+                            int(round(temp_c * 100)) if temp_c is not None else None
+                        ),
                         "minMeasuredValue": -27315,  # -273.15 °C
                         "maxMeasuredValue": 20000,  # 200.00 °C
                     },
@@ -486,7 +496,9 @@ class PurpleAirMatterConverter:
                     "cluster_id": MATTER_CLUSTER_PRESSURE_MEASUREMENT,
                     "attributes": {
                         "measuredValue": (
-                            int(round(pressure_kpa * 10)) if pressure_kpa is not None else None
+                            int(round(pressure_kpa * 10))
+                            if pressure_kpa is not None
+                            else None
                         ),
                         "minMeasuredValue": 0,  # 0 kPa
                         "maxMeasuredValue": 11500,  # 1150.0 kPa
@@ -544,7 +556,9 @@ class PurpleAirMatterConverter:
                 "temperature_measurement": {
                     "cluster_id": MATTER_CLUSTER_TEMP_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": (int(round(temp_c * 100)) if temp_c is not None else None),
+                        "measuredValue": (
+                            int(round(temp_c * 100)) if temp_c is not None else None
+                        ),
                         "minMeasuredValue": -27315,
                         "maxMeasuredValue": 20000,
                     },
@@ -578,7 +592,9 @@ class PurpleAirMatterConverter:
         temp_c = fahrenheit_to_celsius(temp_f) if temp_f is not None else None
         humidity = _nullable_float(data.get("humidity"))
         pressure_psi = _nullable_float(data.get("pressure"))
-        pressure_kpa = pressure_psi_to_kpa(pressure_psi) if pressure_psi is not None else None
+        pressure_kpa = (
+            pressure_psi_to_kpa(pressure_psi) if pressure_psi is not None else None
+        )
         device_name = sensor_name or data.get("name") or "PurpleAir Environmental"
 
         return {
@@ -594,7 +610,9 @@ class PurpleAirMatterConverter:
                 "temperature_measurement": {
                     "cluster_id": MATTER_CLUSTER_TEMP_MEASUREMENT,
                     "attributes": {
-                        "measuredValue": (int(round(temp_c * 100)) if temp_c is not None else None),
+                        "measuredValue": (
+                            int(round(temp_c * 100)) if temp_c is not None else None
+                        ),
                         "minMeasuredValue": -27315,
                         "maxMeasuredValue": 20000,
                     },
@@ -616,7 +634,9 @@ class PurpleAirMatterConverter:
                     "cluster_id": MATTER_CLUSTER_PRESSURE_MEASUREMENT,
                     "attributes": {
                         "measuredValue": (
-                            int(round(pressure_kpa * 10)) if pressure_kpa is not None else None
+                            int(round(pressure_kpa * 10))
+                            if pressure_kpa is not None
+                            else None
                         ),
                         "minMeasuredValue": 0,
                         "maxMeasuredValue": 11500,
