@@ -1,0 +1,14 @@
+[run]
+source = purpleair_api
+omit =
+    */tests/*
+    */purpleairapi_base.py
+
+[report]
+omit =
+    */tests/*
+    */purpleairapi_base.py
+exclude_lines =
+    pragma: no cover
+    if sys.platform == "win32":
+

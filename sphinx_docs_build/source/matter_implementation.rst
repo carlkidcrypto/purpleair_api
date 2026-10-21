@@ -240,5 +240,5 @@ Design Notes
   deterministic and testable without network access.
 - **API-compatible response format** — handles both bare ``{"sensor": {...}}`` and
   flat sensor dictionaries from the PurpleAir API.
-- **Tested** — see ``tests/test_purpleair_matter_converter.py`` for coverage including EPA AQI
+- **Tested** — see ``python/tests/test_purpleair_matter_converter.py`` for coverage including EPA AQI
   boundary conditions and unit conversion accuracy.

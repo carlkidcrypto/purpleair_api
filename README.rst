@@ -1,9 +1,11 @@
 purple_air_api (PAA)
 ====================
 
-This is a python3 wrapper for the PurpleAirAPI (PAA). Details of the API can be found using this link: https://api.purpleair.com/#api-welcome
+This is a wrapper for the PurpleAirAPI (PAA) with a **C++ backend and SWIG bindings** for Python, JavaScript, C#, Go, and Java. Details of the API can be found using this link: https://api.purpleair.com/#api-welcome
 
 To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by sending an email to ``contact@purpleair.com`` with a first and last name to assign them to.
+
+**New in v2.0**: The library now uses a high-performance C++ backend with SWIG bindings, providing native performance while maintaining full backward compatibility with existing Python code.
 
 .. image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml
@@ -54,11 +56,26 @@ Requirements
 Installation
 ------------
 
+Prerequisites
+~~~~~~~~~~~~~
+
+The C++ backend requires:
+
+- **Linux/Ubuntu**: ``sudo apt-get install build-essential libcurl4-openssl-dev swig meson ninja-build``
+- **macOS**: ``brew install curl swig meson ninja``
+- **Windows**: Visual Studio C++, SWIG, curl library, Meson, and Ninja
+
+Installation via pip
+~~~~~~~~~~~~~~~~~~~~
+
 You can install the PurpleAir API via pip:
 
 .. code-block:: bash
 
    python3 -m pip install purpleair_api
+
+Installation from source
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can also install PurpleAir API by cloning down this repo:
 
@@ -66,7 +83,28 @@ You can also install PurpleAir API by cloning down this repo:
 
    git clone https://github.com/carlkidcrypto/purpleair_api.git
    cd purpleair_api
-   pip install .
+
+Multi-Language Support
+~~~~~~~~~~~~~~~~~~~~~~
+
+The repository is structured to support multiple languages:
+
+- **Python**: ``cd python && python -m pip install .``
+- **JavaScript/Node.js**, **C#**, **Go**, and **Java** use Meson/Ninja to build the
+  native parts first:
+
+  .. code-block:: bash
+
+     meson setup builddir && ninja -C builddir
+
+  Then follow the language-specific steps in each binding's README:
+
+  - `javascript/README.rst <javascript/README.rst>`_
+  - `csharp/README.rst <csharp/README.rst>`_
+  - `go/README.rst <go/README.rst>`_
+  - `java/README.rst <java/README.rst>`_
+
+- **Native C++**: See `swig/README.rst <swig/README.rst>`_
 
 PurpleAirAPI Usage Example
 ---------------------------
@@ -160,7 +198,7 @@ Now we can use that instance to do things like:
 Tests
 -----
 
-Refer to the test `README <tests/README.rst>`_
+Refer to the test `README <python/tests/README.rst>`_
 
 Documentation
 -------------

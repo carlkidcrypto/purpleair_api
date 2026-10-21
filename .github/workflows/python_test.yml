@@ -1,0 +1,371 @@
+name: Python Tests
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'python/**'
+      - 'swig/**'
+      - '.github/workflows/python_test.yml'
+
+  pull_request:
+    branches: [ main, feature/swig ]
+    paths:
+      - 'python/**'
+      - 'swig/**'
+      - '.github/workflows/python_test.yml'
+
+  workflow_dispatch:
+
+jobs:
+  check-source-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      run_job: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - name: Checkout Sourcecode
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Check for changes in source code
+        id: changed-files
+        uses: tj-actions/changed-files@c3a1bb2c992d77180ae65be6ae6c166cf40f857c # v46.0.1
+        with:
+          files: |
+            python/**
+            swig/**
+            .github/workflows/python_test.yml
+
+  tests:
+    runs-on: ${{ matrix.os }}
+    needs: check-source-changes
+    if: needs.check-source-changes.outputs.run_job == 'true' || github.event_name == 'workflow_dispatch'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "${{ matrix.python-version }}"
+          cache: 'pip'
+
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev swig valgrind
+
+      - name: Install system dependencies (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew install curl swig || true
+
+      - name: Install system dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          choco install swig curl || true
+
+      - name: Install python requirements (Non-Windows)
+        if: runner.os != 'Windows'
+        run: |
+          python -m pip install --upgrade wheel setuptools pip
+          python -m pip install -r python/tests/requirements.txt
+          python -m pip install ./python
+
+      - name: Install python requirements (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          python -m pip install --upgrade wheel setuptools pip
+          python -m pip install -r python/tests/requirements.txt
+          python -m pip install ./python
+
+      - name: Run unit tests (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          cd python/tests
+          wget -q https://raw.githubusercontent.com/python/cpython/main/Misc/valgrind-python.supp
+          VALGRIND=(
+            'valgrind'
+            '--tool=memcheck'
+            '--leak-check=full'
+            '--show-leak-kinds=definite,indirect,possible'
+            '--suppressions=./valgrind-python.supp'
+            '--log-file=../../valgrind_${{ matrix.os }}_${{ matrix.python-version }}.out'
+            '--error-exitcode=0'
+          )
+          PYTHONMALLOC=malloc "${VALGRIND[@]}" pytest -v -s \
+            --cov=purpleair_api \
+            --cov-report=term-missing \
+            --cov-report=xml:../../coverage_${{ matrix.os }}_${{ matrix.python-version }}.xml \
+            --junitxml=../../test-results_${{ matrix.os }}_${{ matrix.python-version }}.xml \
+            . | tee ../../test-outputs_${{ matrix.os }}_${{ matrix.python-version }}.txt
+
+      - name: Run unit tests (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          cd python/tests
+          pytest -v -s \
+            --cov=purpleair_api \
+            --cov-report=term-missing \
+            --cov-report=xml:../../coverage_${{ matrix.os }}_${{ matrix.python-version }}.xml \
+            --junitxml=../../test-results_${{ matrix.os }}_${{ matrix.python-version }}.xml \
+            . | tee ../../test-outputs_${{ matrix.os }}_${{ matrix.python-version }}.txt
+
+      - name: Run unit tests (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cd python\tests
+          pytest -v -s `
+            --cov=purpleair_api `
+            --cov-report=term-missing `
+            --cov-report=xml:..\..\coverage_${{ matrix.os }}_${{ matrix.python-version }}.xml `
+            --junitxml=..\..\test-results_${{ matrix.os }}_${{ matrix.python-version }}.xml `
+            . | Tee-Object -FilePath ..\..\test-outputs_${{ matrix.os }}_${{ matrix.python-version }}.txt
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
+        with:
+          files: coverage_${{ matrix.os }}_${{ matrix.python-version }}.xml
+          flags: python
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload Valgrind Reports
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v5
+        if: always() && runner.os == 'Linux'
+        with:
+          name: valgrind-report_${{ matrix.os }}_${{ matrix.python-version }}
+          path: valgrind_${{ matrix.os }}_${{ matrix.python-version }}.out
+
+      - name: Upload Test Outputs and Results
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v5
+        if: always()
+        with:
+          name: pytest-results_${{ matrix.os }}_${{ matrix.python-version }}
+          path: |
+            test-outputs_${{ matrix.os }}_${{ matrix.python-version }}.txt
+            test-results_${{ matrix.os }}_${{ matrix.python-version }}.xml
+
+  make-stripped-valgrind-files:
+    runs-on: ${{ matrix.os }}
+    needs: tests
+    if: always() && needs.tests.result != 'skipped'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: valgrind-report_*
+          merge-multiple: false
+
+      - name: Parse Valgrind Reports
+        run: |
+          python - << "EOF"
+          try:
+              with open("./valgrind-report_${{ matrix.os }}_${{ matrix.python-version }}/valgrind_${{ matrix.os }}_${{ matrix.python-version }}.out") as f:
+                  data = f.readlines()
+              last_five_lines = data[-5:]
+          except OSError as error:
+              last_five_lines = [f"valgrind report unavailable: {error}\n"]
+          with open('./valgrind-stripped_${{ matrix.os }}_${{ matrix.python-version }}.log', 'w') as f:
+              f.write('```sh\n')
+              f.writelines(last_five_lines)
+              f.write('```\n')
+          EOF
+
+      - name: Upload Stripped Valgrind Reports
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v5
+        with:
+          name: valgrind-stripped_${{ matrix.os }}_${{ matrix.python-version }}
+          path: valgrind-stripped_${{ matrix.os }}_${{ matrix.python-version }}.log
+
+  comment-valgrind:
+    runs-on: ubuntu-latest
+    needs: make-stripped-valgrind-files
+    permissions:
+      pull-requests: write
+      contents: write
+    if: always() && needs.make-stripped-valgrind-files.result != 'skipped'
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: valgrind-stripped_*
+          merge-multiple: false
+
+      - name: Set Env Variables
+        id: valgrind_stripped_vars
+        run: |
+          read_stripped_log() {
+            cat "valgrind-stripped_ubuntu-latest_$1/valgrind-stripped_ubuntu-latest_$1.log" 2>/dev/null \
+              || echo "valgrind report unavailable"
+          }
+          temp1=$(read_stripped_log 3.10)
+          temp2=$(read_stripped_log 3.11)
+          temp3=$(read_stripped_log 3.12)
+          temp4=$(read_stripped_log 3.13)
+          temp5=$(read_stripped_log 3.14)
+          echo VALGRIND_STRIPPED_UBUNTU_LATEST_3_10=$temp1 >> $GITHUB_OUTPUT
+          echo VALGRIND_STRIPPED_UBUNTU_LATEST_3_11=$temp2 >> $GITHUB_OUTPUT
+          echo VALGRIND_STRIPPED_UBUNTU_LATEST_3_12=$temp3 >> $GITHUB_OUTPUT
+          echo VALGRIND_STRIPPED_UBUNTU_LATEST_3_13=$temp4 >> $GITHUB_OUTPUT
+          echo VALGRIND_STRIPPED_UBUNTU_LATEST_3_14=$temp5 >> $GITHUB_OUTPUT
+
+      - name: Checkout Sourcecode
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Render Valgrind Comment Template
+        id: template
+        uses: chuhlomin/render-template@a7c644e341797d050d1cb24332d83791b9a46dae # v1.12
+        with:
+          template: .github/comment-valgrind-template.md
+          vars: |
+            py3_10: "${{ steps.valgrind_stripped_vars.outputs.VALGRIND_STRIPPED_UBUNTU_LATEST_3_10 }}"
+            py3_11: "${{ steps.valgrind_stripped_vars.outputs.VALGRIND_STRIPPED_UBUNTU_LATEST_3_11 }}"
+            py3_12: "${{ steps.valgrind_stripped_vars.outputs.VALGRIND_STRIPPED_UBUNTU_LATEST_3_12 }}"
+            py3_13: "${{ steps.valgrind_stripped_vars.outputs.VALGRIND_STRIPPED_UBUNTU_LATEST_3_13 }}"
+            py3_14: "${{ steps.valgrind_stripped_vars.outputs.VALGRIND_STRIPPED_UBUNTU_LATEST_3_14 }}"
+
+      - name: Find existing PR comment (Valgrind)
+        id: find-valgrind-comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- purpleair-valgrind -->'
+
+      - name: Create A Comment For PR
+        uses: peter-evans/create-or-update-comment@2b6bdb56ad3073fa0e4beef00447158f55a18414 # v5
+        if: github.event_name == 'pull_request'
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find-valgrind-comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+            ## Valgrind 🔍
+            <!-- purpleair-valgrind -->
+            ${{ steps.template.outputs.result }}
+
+      - name: Create A Comment For Push
+        uses: peter-evans/commit-comment@f6d60c65d05bb59f750fa51ad3de1d443ba0eb52 # v4
+        if: github.event_name == 'push'
+        with:
+          body: ${{ steps.template.outputs.result }}
+
+  comment-python-test-report:
+    runs-on: ubuntu-latest
+    needs: tests
+    permissions:
+      pull-requests: write
+      contents: write
+      checks: write
+    if: always() && github.event_name == 'pull_request' && needs.tests.result != 'skipped'
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: pytest-results_*
+          merge-multiple: false
+
+      - name: Publish Python Test Results
+        uses: EnricoMi/publish-unit-test-result-action@7622c5bf3d112a72ab4fa3951c2aa5723d8ab92d # v2
+        with:
+          files: pytest-results_*/**/*.xml
+          check_name: Python Test Results
+          comment_title: Python Test Results
+
+      - name: Pytest coverage comment
+        id: pytest-coverage
+        uses: MishaKav/pytest-coverage-comment@9ee59af31bd7bcada1cc496f086b407122602dbd # v1.12.3
+        with:
+          title: Pytest Coverage Report - Python
+          unique-id-for-comment: python-tests
+          hide-badge: true
+          hide-report: true
+          create-new-comment: false
+          hide-comment: true
+          report-only-changed-files: false
+          multiple-files: |
+            ubuntu-latest - 3.10, pytest-results_ubuntu-latest_3.10/test-outputs_ubuntu-latest_3.10.txt, pytest-results_ubuntu-latest_3.10/test-results_ubuntu-latest_3.10.xml
+            ubuntu-latest - 3.11, pytest-results_ubuntu-latest_3.11/test-outputs_ubuntu-latest_3.11.txt, pytest-results_ubuntu-latest_3.11/test-results_ubuntu-latest_3.11.xml
+            ubuntu-latest - 3.12, pytest-results_ubuntu-latest_3.12/test-outputs_ubuntu-latest_3.12.txt, pytest-results_ubuntu-latest_3.12/test-results_ubuntu-latest_3.12.xml
+            ubuntu-latest - 3.13, pytest-results_ubuntu-latest_3.13/test-outputs_ubuntu-latest_3.13.txt, pytest-results_ubuntu-latest_3.13/test-results_ubuntu-latest_3.13.xml
+            ubuntu-latest - 3.14, pytest-results_ubuntu-latest_3.14/test-outputs_ubuntu-latest_3.14.txt, pytest-results_ubuntu-latest_3.14/test-results_ubuntu-latest_3.14.xml
+            macos-latest - 3.10, pytest-results_macos-latest_3.10/test-outputs_macos-latest_3.10.txt, pytest-results_macos-latest_3.10/test-results_macos-latest_3.10.xml
+            macos-latest - 3.11, pytest-results_macos-latest_3.11/test-outputs_macos-latest_3.11.txt, pytest-results_macos-latest_3.11/test-results_macos-latest_3.11.xml
+            macos-latest - 3.12, pytest-results_macos-latest_3.12/test-outputs_macos-latest_3.12.txt, pytest-results_macos-latest_3.12/test-results_macos-latest_3.12.xml
+            macos-latest - 3.13, pytest-results_macos-latest_3.13/test-outputs_macos-latest_3.13.txt, pytest-results_macos-latest_3.13/test-results_macos-latest_3.13.xml
+            macos-latest - 3.14, pytest-results_macos-latest_3.14/test-outputs_macos-latest_3.14.txt, pytest-results_macos-latest_3.14/test-results_macos-latest_3.14.xml
+            windows-latest - 3.10, pytest-results_windows-latest_3.10/test-outputs_windows-latest_3.10.txt, pytest-results_windows-latest_3.10/test-results_windows-latest_3.10.xml
+            windows-latest - 3.11, pytest-results_windows-latest_3.11/test-outputs_windows-latest_3.11.txt, pytest-results_windows-latest_3.11/test-results_windows-latest_3.11.xml
+            windows-latest - 3.12, pytest-results_windows-latest_3.12/test-outputs_windows-latest_3.12.txt, pytest-results_windows-latest_3.12/test-results_windows-latest_3.12.xml
+            windows-latest - 3.13, pytest-results_windows-latest_3.13/test-outputs_windows-latest_3.13.txt, pytest-results_windows-latest_3.13/test-results_windows-latest_3.13.xml
+            windows-latest - 3.14, pytest-results_windows-latest_3.14/test-outputs_windows-latest_3.14.txt, pytest-results_windows-latest_3.14/test-results_windows-latest_3.14.xml
+
+      - name: Strip leading newlines from summaryReport
+        id: clean-report
+        env:
+          SUMMARY_REPORT: ${{ steps.pytest-coverage.outputs.summaryReport }}
+        run: |
+          python3 -c "
+          import os, json
+          report = os.environ.get('SUMMARY_REPORT', '')
+          try:
+              decoded = json.loads(report)
+              if isinstance(decoded, str):
+                  report = decoded
+          except (json.JSONDecodeError, ValueError):
+              pass
+          report = report.lstrip('\n')
+          delimiter = 'GHADELIMITER'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'report<<{delimiter}\n')
+              f.write(report)
+              if not report.endswith('\n'):
+                  f.write('\n')
+              f.write(f'{delimiter}\n')
+          "
+
+      - name: Find existing pytest coverage comment (PR)
+        id: find-pytest-comment
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/find-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '<!-- pytest-coverage-python -->'
+
+      - name: Post collapsible pytest coverage comment (PR)
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@2b6bdb56ad3073fa0e4beef00447158f55a18414 # v5
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-id: ${{ steps.find-pytest-comment.outputs.comment-id }}
+          edit-mode: replace
+          body: |
+            <!-- pytest-coverage-python -->
+            ## Pytest Coverage Report - Python 🐍
+            <details>
+            <summary>📊 Test Results (click to expand)</summary>
+
+            ${{ steps.clean-report.outputs.report }}
+            </details>

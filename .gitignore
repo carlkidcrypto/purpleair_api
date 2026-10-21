@@ -4,14 +4,75 @@
 **/build/**
 **/__pycache__/**
 **/purpleair_api.egg-info/**
-test*/.coverage
-test*/coverage_reports/**
-test*/purpleair_api_coverage_reports/**
+**/.coverage*
+**/coverage_reports/**
+**/purpleair_api_coverage_reports/**
+**/coverage/
 **venv**
 **/doctrees/**
+# Meson / Ninja build artifacts
+builddir/
+build/
+_build/
+.mesonpy/
+*.mesonpy.*
+meson-private/
+meson-info/
+meson-logs/
+
+# SWIG generated files - Python
+python/purpleair_api/purpleairapi_base.py
+python/purpleair_api/*_wrap.cpp
+python/purpleair_api/*.so
+
+# SWIG generated files - JavaScript
+javascript/*_wrap.cxx
+javascript/build/
+
+# SWIG generated files - C#
+csharp/*_wrap.cxx
+csharp/purpleairapi_base.cs
+csharp/purpleairapi_basePINVOKE.cs
+csharp/StringMap.cs
+csharp/StringVector.cs
+csharp/_string_vector.cs
+csharp/PurpleAirAPIError.cs
+csharp/PurpleAirLocalAPI.cs
+csharp/PurpleAirReadAPI.cs
+csharp/PurpleAirWriteAPI.cs
+csharp/**/bin/
+csharp/**/obj/
+
+# SWIG generated files - swig/interface
+swig/interface/*_wrap.cpp
+swig/interface/*_wrap.cxx
+
+# SWIG generated files - Go
+go/purpleairapi/purpleairapi.go
+go/purpleairapi/purpleairapi_wrap.cxx
+go/purpleairapi/libpurpleairapi.a
+go/*.o
+go/go.sum
+
+*.so
+*.dll
+*.pyd
+*.pyc
+*.class
+*.jar
+__pycache__/
+build/
+*.egg-info/
+node_modules/
 **/.doctrees/**
 **/coverage.json
 
 # Dynamically extracted gh-aw inline skills
 /.github/skills/*
 !/.github/skills/agentic-workflows/
+
+# Meson subprojects
+/subprojects/*
+!/subprojects/*.wrap
+/python/subprojects/*
+!/python/subprojects/*.wrap
