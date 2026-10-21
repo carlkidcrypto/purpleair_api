@@ -81,8 +81,9 @@ jobs:
       - name: Run Go tests
         working-directory: ./go
         run: |
-          go test -v -coverprofile=coverage.out ./tests/... 2>&1 | \
-            go-junit-report -set-exit-code -out "go-test-results_${{ matrix.os }}_${{ matrix.go-version }}.xml"
+          go test -v -coverprofile=coverage.out ./tests/... > test-output.txt
+          cat test-output.txt
+          go-junit-report -in test-output.txt -set-exit-code -out "go-test-results_${{ matrix.os }}_${{ matrix.go-version }}.xml"
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
