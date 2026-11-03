@@ -98,12 +98,24 @@ pathspecs=(
     ':(exclude).github/scripts/**'
     ':(exclude)release_tools/**'
     ':(exclude)tests/**'
+    ':(exclude)purpleair_api/PurpleAirMatterConverter.py'
+    ':(exclude)HOWTO_MATTER.rst'
+    ':(exclude)sphinx_docs_build/source/PurpleAirMatterConverter.rst'
+    ':(exclude)sphinx_docs_build/source/matter_implementation.rst'
+    ':(exclude)sphinx_docs_build/source/software_requirements.rst'
+    ':(exclude).github/workflows/matter-standards-watcher.md'
 )
 
 files=()
 while IFS= read -r line; do
     [[ -n "$line" ]] && files+=("$line")
-done < <(git grep -Il -F -- "$old_version" -- . "${pathspecs[@]}" || true)
+done < <(
+    {
+        git grep -Il -F -- "$old_version" -- . "${pathspecs[@]}" || true
+        git grep -Il -F -- "v$old_version" -- . "${pathspecs[@]}" || true
+        git grep -Il -F -- "V$old_version" -- . "${pathspecs[@]}" || true
+    } | sort -u
+)
 
 required_files=(
     setup.cfg
@@ -134,14 +146,30 @@ if [[ "$dry_run" == true ]]; then
     exit 0
 fi
 
-OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
-    's/\Q$ENV{OLD_VERSION}\E/$ENV{NEW_VERSION}/g' "${files[@]}"
+for file in "${files[@]}"; do
+    if [[ "$file" == "setup.cfg" ]]; then
+        OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
+            's/^version\s*=\s*\Q$ENV{OLD_VERSION}\E$/version = $ENV{NEW_VERSION}/m' "$file"
+    elif [[ "$file" == "README.rst" ]]; then
+        OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
+            's/\Qv$ENV{OLD_VERSION}\E/v$ENV{NEW_VERSION}/g; s/\QV$ENV{OLD_VERSION}\E/v$ENV{NEW_VERSION}/g' "$file"
+    else
+        OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
+            's/\Qv$ENV{OLD_VERSION}\E/v$ENV{NEW_VERSION}/g; s/\QV$ENV{OLD_VERSION}\E/v$ENV{NEW_VERSION}/g; s/\Q$ENV{OLD_VERSION}\E/$ENV{NEW_VERSION}/g' "$file"
+    fi
+done
 
 # Verify no occurrences remain in active tracked files
 remaining=()
 while IFS= read -r line; do
     [[ -n "$line" ]] && remaining+=("$line")
-done < <(git grep -Il -F -- "$old_version" -- . "${pathspecs[@]}" || true)
+done < <(
+    {
+        git grep -Il -F -- "$old_version" -- . "${pathspecs[@]}" ':(exclude)README.rst' || true
+        git grep -Il -F -- "v$old_version" -- . "${pathspecs[@]}" || true
+        git grep -Il -F -- "V$old_version" -- . "${pathspecs[@]}" || true
+    } | sort -u
+)
 
 if [[ ${#remaining[@]} -gt 0 ]]; then
     printf 'Error: Version %s still remains in tracked files:\n' "$old_version" >&2
