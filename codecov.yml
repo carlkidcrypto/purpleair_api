@@ -26,7 +26,6 @@ ignore:
   - "csharp/tests/**"
   - "javascript/tests/**"
   - "go/tests/**"
-  - "java/tests/**"
   - "setup.py"
   - "setup.cfg"
   - "python/setup.cfg"
@@ -55,9 +54,6 @@ flag_management:
     - name: go
       paths:
         - go/**/*.go
-    - name: java
-      paths:
-        - java/**/*.java
     - name: cpp
       paths:
         - swig/**/*.h
@@ -93,10 +89,6 @@ component_management:
       name: "Go Code"
       paths:
         - go/**/*.go
-    - component_id: java_code
-      name: "Java Code"
-      paths:
-        - java/**/*.java
     - component_id: cpp_code
       name: "C++ Code"
       paths:

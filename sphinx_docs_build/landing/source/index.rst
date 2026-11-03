@@ -36,6 +36,7 @@ Select a version of the documentation to browse:
 * `Latest Version <./html/index.html>`_
 * `v1.5.1a1 <./html_v1.5.1a1/index.html>`_
 * `v1.5.1a0 <./html_v1.5.1a0/index.html>`_
+* `v1.5.1 <./html_v1.5.1/index.html>`_
 * `v1.5.0 <./html_v1.5.0/index.html>`_
 * `v1.4.1 <./html_v1.4.1/index.html>`_
 * `v1.4.0 <./html_v1.4.0/index.html>`_

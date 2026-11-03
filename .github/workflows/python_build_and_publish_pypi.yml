@@ -38,7 +38,7 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel python/ --output-dir dist/
         env:
-          CIBW_BUILD: "cp310-* cp311-* cp312-* cp313-* cp314-*"
+          CIBW_BUILD: "cp311-* cp312-* cp313-* cp314-* cp315-*"
           CIBW_SKIP: "*-musllinux_*"
           # Install system dependencies
           CIBW_BEFORE_ALL_LINUX: "yum install -y libcurl-devel swig || apt-get update && apt-get install -y libcurl4-openssl-dev swig"
@@ -97,6 +97,6 @@ jobs:
           path: dist/
 
       - name: Publish distribution 📦 to PyPI
-        uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e # release/v1.13
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # release/v1.14
         with:
           print-hash: true

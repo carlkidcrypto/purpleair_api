@@ -4,9 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="prev" title="Matter Implementation Guide" href="matter_implementation.html">
+        <link rel="canonical" href="https://carlkidcrypto.github.io/purpleair_api/html/software_requirements.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>Software Requirements - PurpleAir API V1.5.1a1 documentation</title>
+    <!-- Generated with Sphinx 9.2.0 and Furo 2025.12.19 -->
+        <title>Software Requirements - PurpleAir API 2.0.0a0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.5.1a1 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API 2.0.0a0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.5.1a1 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API 2.0.0a0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -284,22 +285,31 @@ where the prefix indicates the feature area:</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MATTER</span></code></p></td>
 <td><p>Matter standard device &amp; cluster conversion</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ERR</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BIND</span></code></p></td>
+<td><p>Unified C++ Core and SWIG Multi-Language Bindings</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BUILD</span></code></p></td>
+<td><p>Meson Unified Build System &amp; WrapDB Dependencies</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PKG</span></code></p></td>
+<td><p>Multi-Language Packaging and Distribution</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ERR</span></code></p></td>
 <td><p>Error handling and exception hierarchy</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HELP</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HELP</span></code></p></td>
 <td><p>Request helpers and utility functions</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TEST</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TEST</span></code></p></td>
 <td><p>Testing and code coverage</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">QUAL</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">QUAL</span></code></p></td>
 <td><p>Code quality, formatting, and linting</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DOCS</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DOCS</span></code></p></td>
 <td><p>Documentation and landing page</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CICD</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CICD</span></code></p></td>
 <td><p>CI/CD pipelines, concurrency, and release automation</p></td>
 </tr>
 </tbody>
@@ -309,11 +319,19 @@ where the prefix indicates the feature area:</p>
 <h2>Functional Requirements<a class="headerlink" href="#functional-requirements" title="Link to this heading">¶</a></h2>
 <section id="general-requirements">
 <h3>General Requirements<a class="headerlink" href="#general-requirements" title="Link to this heading">¶</a></h3>
-<p>[GEN-01] The system shall provide a pure Python package installable via <code class="docutils literal notranslate"><span class="pre">pip</span></code> for interacting
-with PurpleAir air quality sensors via cloud and local network APIs.</p>
-<p>[GEN-02] The system shall support Python 3.10, 3.11, 3.12, 3.13, and 3.14 across Linux, macOS,
-and Windows operating systems.</p>
-<p>[GEN-03] The system shall use the <code class="docutils literal notranslate"><span class="pre">requests</span></code> library for executing HTTP and HTTPS requests.</p>
+<p>[GEN-01] The system shall provide a unified multi-language library centered around a C++17 core
+with SWIG bindings for Python, JavaScript/Node.js, C#, and Go, alongside a high-level Python
+package installable via <code class="docutils literal notranslate"><span class="pre">pip</span></code> for interacting with PurpleAir air quality sensors via cloud and
+local network APIs.</p>
+<p>[GEN-02] The system shall support the following runtime environments and platforms:</p>
+<ul class="simple">
+<li><p>Python 3.11, 3.12, 3.13, 3.14, and 3.15 across Linux, macOS, and Windows.</p></li>
+<li><p>Node.js LTS versions 18.x, 20.x, 22.x, and 24.x across Linux, macOS, and Windows.</p></li>
+<li><p>C# / .NET 6.0 and 8.0 across Linux, macOS, and Windows.</p></li>
+<li><p>Go 1.21, 1.22, and 1.23 across Linux and macOS.</p></li>
+</ul>
+<p>[GEN-03] The Python system shall use the <code class="docutils literal notranslate"><span class="pre">requests</span></code> library for executing HTTP and HTTPS requests,
+while the native C++ core shall use <code class="docutils literal notranslate"><span class="pre">libcurl</span></code> for cross-platform network communication.</p>
 <p>[GEN-04] The package initializer (<code class="docutils literal notranslate"><span class="pre">purpleair_api/__init__.py</span></code>) shall remain clean and lightweight
 to avoid circular dependencies or unwanted side-effects on import.</p>
 </section>
@@ -360,53 +378,83 @@ member.</p>
 <p>[READ-09] The system shall implement <code class="docutils literal notranslate"><span class="pre">request_members_data(group_id,</span> <span class="pre">fields,</span> <span class="pre">location_type,</span>
 <span class="pre">read_keys,</span> <span class="pre">show_only,</span> <span class="pre">modified_since,</span> <span class="pre">max_age,</span> <span class="pre">nwlng,</span> <span class="pre">nwlat,</span> <span class="pre">selng,</span> <span class="pre">selat)</span></code> to query data across
 all members of a sensor group.</p>
-<p>[READ-10] The system shall implement <code class="docutils literal notranslate"><span class="pre">request_organization_data()</span></code> to query organization-level
-sensor allocations and metadata.</p>
 </section>
 <section id="cloud-write-api-operations">
 <h3>Cloud Write API Operations<a class="headerlink" href="#cloud-write-api-operations" title="Link to this heading">¶</a></h3>
 <p>[WRITE-01] The system shall provide a <code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI</span></code> class initialized with an optional
 <code class="docutils literal notranslate"><span class="pre">api_write_key</span></code> parameter.</p>
-<p>[WRITE-02] The system shall implement <code class="docutils literal notranslate"><span class="pre">post_create_group_data(name)</span></code> to create a new sensor group
-on the PurpleAir cloud service.</p>
-<p>[WRITE-03] The system shall implement <code class="docutils literal notranslate"><span class="pre">post_create_member(group_id,</span> <span class="pre">sensor_index,</span> <span class="pre">sensor_id)</span></code> to
-add a sensor member to a designated group using its sensor index or sensor ID.</p>
-<p>[WRITE-04] The system shall implement <code class="docutils literal notranslate"><span class="pre">post_delete_group(group_id)</span></code> to delete an existing sensor
-group.</p>
-<p>[WRITE-05] The system shall implement <code class="docutils literal notranslate"><span class="pre">post_delete_member(group_id,</span> <span class="pre">member_id)</span></code> to remove a member
-from a sensor group.</p>
+<p>[WRITE-02] The system shall implement <code class="docutils literal notranslate"><span class="pre">post_create_group_data(name)</span></code> to create a new sensor group.</p>
+<p>[WRITE-03] The system shall implement <code class="docutils literal notranslate"><span class="pre">post_create_group_member_data(group_id,</span> <span class="pre">sensor_index,</span>
+<span class="pre">sensor_id)</span></code> to add a sensor to an existing group.</p>
+<p>[WRITE-04] The system shall implement <code class="docutils literal notranslate"><span class="pre">delete_group_member(group_id,</span> <span class="pre">member_id)</span></code> to remove a sensor
+member from a group.</p>
+<p>[WRITE-05] The system shall implement <code class="docutils literal notranslate"><span class="pre">delete_group(group_id)</span></code> to delete an entire sensor group.</p>
 </section>
 <section id="local-network-sensor-operations">
 <h3>Local Network Sensor Operations<a class="headerlink" href="#local-network-sensor-operations" title="Link to this heading">¶</a></h3>
-<p>[LOCAL-01] The system shall provide a <code class="docutils literal notranslate"><span class="pre">PurpleAirLocalAPI</span></code> class initialized with a list of IPv4
-address strings representing local network sensors.</p>
-<p>[LOCAL-02] The <code class="docutils literal notranslate"><span class="pre">PurpleAirLocalAPI</span></code> initializer shall validate IPv4 address formatting and raise
-<code class="docutils literal notranslate"><span class="pre">PurpleAirAPIError</span></code> if the address list is empty, non-list, or contains invalid IP strings.</p>
-<p>[LOCAL-03] The system shall implement <code class="docutils literal notranslate"><span class="pre">request_local_sensor_data()</span></code> to query sensor data directly
-over HTTP from each configured sensor at <code class="docutils literal notranslate"><span class="pre">http://&lt;ipv4&gt;/json</span></code>.</p>
-<p>[LOCAL-04] The system shall raise <code class="docutils literal notranslate"><span class="pre">PurpleAirDeviceOfflineError</span></code> with clear diagnostic details
-when a local sensor is unreachable or encounters a network error.</p>
+<p>[LOCAL-01] The system shall provide a <code class="docutils literal notranslate"><span class="pre">PurpleAirLocalAPI</span></code> class initialized with an optional
+<code class="docutils literal notranslate"><span class="pre">ipv4_address</span></code> parameter (single IPv4 string or list of IPv4 strings).</p>
+<p>[LOCAL-02] The system shall implement <code class="docutils literal notranslate"><span class="pre">request_local_sensor_data()</span></code> to query the <code class="docutils literal notranslate"><span class="pre">/json</span></code> endpoint
+of local sensors directly over the local network via HTTP GET.</p>
+<p>[LOCAL-03] When initialized with multiple IP addresses, <code class="docutils literal notranslate"><span class="pre">request_local_sensor_data()</span></code> shall return
+a dictionary mapping each IP address to its corresponding sensor response dictionary.</p>
+<p>[LOCAL-04] When initialized with a single IP address, <code class="docutils literal notranslate"><span class="pre">request_local_sensor_data()</span></code> shall return
+the sensor response dictionary directly.</p>
+<p>[LOCAL-05] If a local sensor is unreachable or returns an HTTP error, the system shall raise
+<code class="docutils literal notranslate"><span class="pre">PurpleAirDeviceError</span></code> or <code class="docutils literal notranslate"><span class="pre">PurpleAirDeviceOfflineError</span></code> with context.</p>
 </section>
-<section id="matter-standards-conversion">
-<h3>Matter Standards Conversion<a class="headerlink" href="#matter-standards-conversion" title="Link to this heading">¶</a></h3>
-<p>[MATTER-01] The system shall provide a <code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter</span></code> class compliant with the
-Connectivity Standards Alliance (CSA) Matter 1.5.1 Specification.</p>
-<p>[MATTER-02] The system shall convert PurpleAir sensor data into Matter Air Quality Sensor Device
-Type structures (Device Type ID <code class="docutils literal notranslate"><span class="pre">0x002D</span></code>).</p>
-<p>[MATTER-03] The system shall map readings into standard Matter clusters:</p>
-<ul class="simple">
-<li><p>Air Quality Measurement Cluster (<code class="docutils literal notranslate"><span class="pre">0x005D</span></code>)</p></li>
-<li><p>Temperature Measurement Cluster (<code class="docutils literal notranslate"><span class="pre">0x0402</span></code>)</p></li>
-<li><p>Relative Humidity Measurement Cluster (<code class="docutils literal notranslate"><span class="pre">0x0405</span></code>)</p></li>
-<li><p>Barometric Pressure Measurement Cluster (<code class="docutils literal notranslate"><span class="pre">0x0403</span></code>)</p></li>
-<li><p>Carbon Dioxide Concentration Measurement Cluster (<code class="docutils literal notranslate"><span class="pre">0x040D</span></code>)</p></li>
-</ul>
-<p>[MATTER-04] The system shall calculate EPA Air Quality Index (AQI) values and ratings from PM2.5
-measurements per official EPA AQI piecewise linear breakpoint equations.</p>
-<p>[MATTER-05] The system shall provide unit conversion utilities including Fahrenheit to Celsius
+<section id="matter-device-and-cluster-conversion">
+<h3>Matter Device and Cluster Conversion<a class="headerlink" href="#matter-device-and-cluster-conversion" title="Link to this heading">¶</a></h3>
+<p>[MATTER-01] The system shall provide a <code class="docutils literal notranslate"><span class="pre">PurpleAirMatterConverter</span></code> class capable of converting
+raw sensor dictionaries (from either cloud or local APIs) into Matter-compliant cluster attributes
+and device types.</p>
+<p>[MATTER-02] The converter shall support Air Quality cluster (cluster ID <code class="docutils literal notranslate"><span class="pre">0x005B</span></code>) mapping with
+EPA Air Quality Index (AQI) calculation based on PM2.5 readings per 40 CFR Part 58 breakpoints.</p>
+<p>[MATTER-03] The converter shall map PM2.5 concentrations to the PM2.5 Concentration Measurement
+cluster (cluster ID <code class="docutils literal notranslate"><span class="pre">0x042A</span></code>) with 1 µg/m³ precision.</p>
+<p>[MATTER-04] The converter shall map humidity readings to the Relative Humidity Measurement cluster
+(cluster ID <code class="docutils literal notranslate"><span class="pre">0x0405</span></code>) scaled to Matter 0.01% relative humidity precision.</p>
+<p>[MATTER-05] The converter shall map temperature and barometric pressure readings from Fahrenheit to Celsius
 (for Matter 0.01 °C precision) and PSI to kPa (for Matter 0.1 kPa precision).</p>
 <p>[MATTER-06] The system shall handle offline or unreachable sensors by setting air quality
 ratings to <code class="docutils literal notranslate"><span class="pre">UNKNOWN</span></code> (<code class="docutils literal notranslate"><span class="pre">0x00</span></code>) and reporting appropriate status flags per Matter specifications.</p>
+</section>
+<section id="swig-multi-language-bindings">
+<h3>SWIG Multi-Language Bindings<a class="headerlink" href="#swig-multi-language-bindings" title="Link to this heading">¶</a></h3>
+<p>[BIND-01] The system shall provide a native C++17 core engine under <code class="docutils literal notranslate"><span class="pre">swig/include/</span></code> and <code class="docutils literal notranslate"><span class="pre">swig/src/</span></code>
+implementing PurpleAir Cloud Read, Cloud Write, and Local sensor operations using <code class="docutils literal notranslate"><span class="pre">libcurl</span></code>.</p>
+<p>[BIND-02] SWIG interface definitions under <code class="docutils literal notranslate"><span class="pre">swig/interface/</span></code> (<code class="docutils literal notranslate"><span class="pre">purpleairapi_base.i</span></code>, <code class="docutils literal notranslate"><span class="pre">purpleairapi_go.i</span></code>)
+shall generate type-safe wrapper code across Python, JavaScript (Node-API), C#, and Go.</p>
+<p>[BIND-03] For JavaScript / Node.js, the SWIG bindings shall target Node-API (<code class="docutils literal notranslate"><span class="pre">-javascript</span> <span class="pre">-napi</span></code>)
+via <code class="docutils literal notranslate"><span class="pre">node-addon-api</span></code> to guarantee native binary compatibility across Node.js LTS versions 18 through 24.</p>
+<p>[BIND-04] For C# / .NET, the SWIG bindings shall emit P/Invoke interop code, build shared libraries
+without the <code class="docutils literal notranslate"><span class="pre">lib</span></code> prefix on Windows (<code class="docutils literal notranslate"><span class="pre">name_prefix:</span> <span class="pre">host_machine.system()</span> <span class="pre">==</span> <span class="pre">'windows'</span> <span class="pre">?</span> <span class="pre">''</span> <span class="pre">:</span> <span class="pre">'lib'</span></code>),
+and link with static MinGW runtime arguments (<code class="docutils literal notranslate"><span class="pre">-static-libgcc</span></code>, <code class="docutils literal notranslate"><span class="pre">-static-libstdc++</span></code>) when compiling
+with GCC on Windows.</p>
+<p>[BIND-05] For Go, the SWIG bindings shall generate <code class="docutils literal notranslate"><span class="pre">cgo</span></code>-compatible wrappers and package definitions
+under <code class="docutils literal notranslate"><span class="pre">go/purpleairapi/</span></code> supporting standard Go toolchains (<code class="docutils literal notranslate"><span class="pre">go</span> <span class="pre">test</span> <span class="pre">./tests/...</span></code>).</p>
+</section>
+<section id="meson-unified-build-system">
+<h3>Meson Unified Build System<a class="headerlink" href="#meson-unified-build-system" title="Link to this heading">¶</a></h3>
+<p>[BUILD-01] The system shall use Meson (&gt;=0.64.0) and Ninja as the centralized build system orchestrating
+compilation of the C++ core and language subprojects (<code class="docutils literal notranslate"><span class="pre">swig/</span></code>, <code class="docutils literal notranslate"><span class="pre">csharp/</span></code>, <code class="docutils literal notranslate"><span class="pre">javascript/</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">go/</span></code>).</p>
+<p>[BUILD-02] The build configuration shall define options (<code class="docutils literal notranslate"><span class="pre">csharp_bindings</span></code>, <code class="docutils literal notranslate"><span class="pre">go_bindings</span></code>,
+<code class="docutils literal notranslate"><span class="pre">javascript_bindings</span></code>) allowing independent enabling or disabling of language targets.</p>
+<p>[BUILD-03] The Meson build system shall provide WrapDB fallback files (<code class="docutils literal notranslate"><span class="pre">subprojects/curl.wrap</span></code>) to
+automatically compile and link <code class="docutils literal notranslate"><span class="pre">libcurl</span></code> on platforms lacking system-wide <code class="docutils literal notranslate"><span class="pre">pkg-config</span></code> installations
+(e.g., Windows GitHub Actions runners).</p>
+<p>[BUILD-04] The Python package shall use <code class="docutils literal notranslate"><span class="pre">meson-python</span></code> as the PEP 517 build backend via <code class="docutils literal notranslate"><span class="pre">python/meson.build</span></code>
+and <code class="docutils literal notranslate"><span class="pre">python/pyproject.toml</span></code> for building native extension wheels and source distributions.</p>
+</section>
+<section id="multi-language-packaging-and-distribution">
+<h3>Multi-Language Packaging and Distribution<a class="headerlink" href="#multi-language-packaging-and-distribution" title="Link to this heading">¶</a></h3>
+<p>[PKG-01] Python packages (source distributions and binary wheels) shall be built using <code class="docutils literal notranslate"><span class="pre">meson-python</span></code>
+and distributed to PyPI and TestPyPI.</p>
+<p>[PKG-02] JavaScript packages shall compile native Node-API addons via <code class="docutils literal notranslate"><span class="pre">node-gyp</span></code> with <code class="docutils literal notranslate"><span class="pre">binding.gyp</span></code>
+and be packaged and published to npm as <code class="docutils literal notranslate"><span class="pre">purpleair_api</span></code>.</p>
+<p>[PKG-03] C# packages shall be compiled with <code class="docutils literal notranslate"><span class="pre">dotnet</span> <span class="pre">pack</span></code> producing signed NuGet packages
+(<code class="docutils literal notranslate"><span class="pre">PurpleAirAPI.nupkg</span></code>) bundling native runtimes across <code class="docutils literal notranslate"><span class="pre">win-x64</span></code>, <code class="docutils literal notranslate"><span class="pre">linux-x64</span></code>, and <code class="docutils literal notranslate"><span class="pre">osx-x64</span></code>.</p>
 </section>
 <section id="error-and-exception-handling">
 <h3>Error and Exception Handling<a class="headerlink" href="#error-and-exception-handling" title="Link to this heading">¶</a></h3>
@@ -432,22 +480,35 @@ credentials in logs.</p>
 <h2>Non-Functional Requirements<a class="headerlink" href="#non-functional-requirements" title="Link to this heading">¶</a></h2>
 <section id="testing-and-code-coverage">
 <h3>Testing and Code Coverage<a class="headerlink" href="#testing-and-code-coverage" title="Link to this heading">¶</a></h3>
-<p>[TEST-01] The system shall maintain 100% statement and branch code coverage across all modules
-in the package.</p>
-<p>[TEST-02] Unit tests shall run via Python’s standard <code class="docutils literal notranslate"><span class="pre">unittest</span></code> test runner with <code class="docutils literal notranslate"><span class="pre">coverage.py</span></code>.</p>
-<p>[TEST-03] Unit tests shall use <code class="docutils literal notranslate"><span class="pre">requests_mock</span></code> to simulate HTTP responses for all cloud and local
-endpoints without making live network calls during test execution.</p>
-<p>[TEST-04] Unit tests shall execute cleanly across Ubuntu, macOS, and Windows runners for all
-supported Python versions (3.10 through 3.14).</p>
+<p>[TEST-01] The Python package shall maintain 100% statement and branch code coverage across all modules
+in <code class="docutils literal notranslate"><span class="pre">python/purpleair_api</span></code>.</p>
+<p>[TEST-02] All Python unit tests, test configuration, and requirements shall reside under <code class="docutils literal notranslate"><span class="pre">python/tests/</span></code>,
+with code coverage measured via <code class="docutils literal notranslate"><span class="pre">python/tests/.coveragerc</span></code>.</p>
+<p>[TEST-03] Each language binding shall maintain its own dedicated test suite under <code class="docutils literal notranslate"><span class="pre">&lt;language&gt;/tests/</span></code>
+(e.g., <code class="docutils literal notranslate"><span class="pre">python/tests/</span></code>, <code class="docutils literal notranslate"><span class="pre">csharp/tests/</span></code>, <code class="docutils literal notranslate"><span class="pre">javascript/tests/</span></code>, and <code class="docutils literal notranslate"><span class="pre">go/tests/</span></code>).</p>
+<p>[TEST-04] Unit tests shall simulate HTTP responses (e.g. via <code class="docutils literal notranslate"><span class="pre">requests_mock</span></code> in Python or mock handlers
+in other languages) without requiring live network access during test runs.</p>
+<p>[TEST-05] Automated CI matrix workflows shall execute test suites across Linux, macOS, and Windows runners
+for all supported runtimes (Python 3.11 through 3.15, Node.js LTS, .NET, Go).</p>
+<p>[TEST-06] CI testing workflows on Linux shall execute the test suite under Valgrind Memcheck with CPython
+suppressions to detect C++ core memory leaks, uninitialized memory accesses, and invalid memory operations,
+publishing automated leak summary reports to pull requests.</p>
+<p>[TEST-07] Code coverage metrics shall be tracked and uploaded to Codecov across all supported language bindings
+(Python, JavaScript, C#, Go) with dedicated carryforward feature flags and component management per language.</p>
 </section>
 <section id="code-quality-and-verification">
 <h3>Code Quality and Verification<a class="headerlink" href="#code-quality-and-verification" title="Link to this heading">¶</a></h3>
-<p>[QUAL-01] All Python code shall adhere to the Black code style and pass automated formatting
-checks in CI (<code class="docutils literal notranslate"><span class="pre">.github/workflows/black.yml</span></code>).</p>
-<p>[QUAL-02] All GitHub Actions workflow YAML files shall adhere to strict formatting and pass
-validation via <code class="docutils literal notranslate"><span class="pre">yamllint</span></code> using the repository’s <code class="docutils literal notranslate"><span class="pre">.yamllint</span></code> configuration.</p>
-<p>[QUAL-03] Workflows managed by GitHub Agentic Workflows (<code class="docutils literal notranslate"><span class="pre">gh-aw</span></code>) shall compile cleanly
-without warnings or errors via <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">aw</span> <span class="pre">compile</span></code>.</p>
+<p>[QUAL-01] All Python code shall adhere to the Black code style and pass automated formatting checks in CI.</p>
+<p>[QUAL-02] All JavaScript, TypeScript, and JSON files shall adhere to Prettier formatting standards.</p>
+<p>[QUAL-03] All C# code shall adhere to CSharpier formatting standards.</p>
+<p>[QUAL-04] All GitHub Actions workflow YAML files shall adhere to strict formatting and pass validation via
+<code class="docutils literal notranslate"><span class="pre">yamllint</span></code> using the repository’s <code class="docutils literal notranslate"><span class="pre">.yamllint</span></code> configuration.</p>
+<p>[QUAL-05] Workflows managed by GitHub Agentic Workflows (<code class="docutils literal notranslate"><span class="pre">gh-aw</span></code>) shall compile cleanly without warnings
+or errors via <code class="docutils literal notranslate"><span class="pre">gh</span> <span class="pre">aw</span> <span class="pre">compile</span></code>.</p>
+<p>[QUAL-06] The codebase shall pass SonarQube Cloud Quality Gate standards on new code (zero bugs, zero
+vulnerabilities, security rating A, and new code duplication &lt;= 3%).</p>
+<p>[QUAL-07] Documentation directories (<code class="docutils literal notranslate"><span class="pre">docs/**</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx_docs_build/**</span></code>) and language test directories
+(<code class="docutils literal notranslate"><span class="pre">*/tests/**</span></code>) shall be excluded from SonarQube copy-paste detection via root <code class="docutils literal notranslate"><span class="pre">.sonarcloud.properties</span></code>.</p>
 </section>
 <section id="documentation">
 <h3>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h3>
@@ -461,6 +522,9 @@ that compiles a version switcher linking to the latest documentation and all his
 GitHub Pages from ignoring directories with leading underscores (such as <code class="docutils literal notranslate"><span class="pre">_static/</span></code> and <code class="docutils literal notranslate"><span class="pre">_sources/</span></code>).</p>
 <p>[DOCS-05] Sphinx documentation builds in CI shall enforce <code class="docutils literal notranslate"><span class="pre">SPHINXOPTS=&quot;-W&quot;</span></code> to treat all warnings
 as errors, ensuring that broken cross-references or invalid reST markup fail the build.</p>
+<p>[DOCS-06] The Sphinx documentation build environment in CI shall execute under Python 3.14
+(supporting dependencies requiring Python &gt;=3.13, such as Sphinx 9.2+) for both continuous main branch
+deployments and versioned release builds.</p>
 </section>
 <section id="ci-cd-and-automation">
 <h3>CI/CD and Automation<a class="headerlink" href="#ci-cd-and-automation" title="Link to this heading">¶</a></h3>
@@ -486,8 +550,20 @@ workflow shall:</p>
 <code class="docutils literal notranslate"><span class="pre">peter-evans/create-pull-request&#64;v8</span></code>.</p></li>
 </ul>
 <p>[CICD-06] Distribution packaging for TestPyPI and PyPI shall be extracted into reusable composite
-GitHub Actions, invoking <code class="docutils literal notranslate"><span class="pre">pypa/gh-action-pypi-publish</span></code> directly at the job step level for OIDC
-Trusted Publishing compatibility.</p>
+GitHub Actions (<code class="docutils literal notranslate"><span class="pre">build-distribution</span></code>) executing under Python 3.14, invoking
+<code class="docutils literal notranslate"><span class="pre">pypa/gh-action-pypi-publish</span></code> directly at the job step level for OIDC Trusted Publishing
+compatibility.</p>
+<p>[CICD-07] Windows runner workflow execution shall isolate PowerShell (<code class="docutils literal notranslate"><span class="pre">pwsh</span></code>) steps from bash path
+mangling when running native builds or passing workspace directory paths.</p>
+<p>[CICD-08] Multi-language publishing workflows (PyPI, npm, NuGet) shall execute exclusively on release
+events or authorized manual triggers, with branch guards strictly prohibiting publishing from non-main
+branches.</p>
+<p>[CICD-09] Multi-language CI test workflows shall generate standardized unit test results (JUnit XML, TRX)
+and publish automated pass/fail, error, and duration summary comments on pull requests using
+<code class="docutils literal notranslate"><span class="pre">publish-unit-test-result-action</span></code> and <code class="docutils literal notranslate"><span class="pre">pytest-coverage-comment</span></code>.</p>
+<p>[CICD-10] CI workflow validation and automated diagnostic tooling (including workflow syntax
+validation via <code class="docutils literal notranslate"><span class="pre">verify_syntax.yml</span></code>) shall configure and execute in a dedicated Python 3.14 runner
+environment.</p>
 </section>
 </section>
 </section>
@@ -546,7 +622,10 @@ Trusted Publishing compatibility.</p>
 <li><a class="reference internal" href="#cloud-read-api-operations">Cloud Read API Operations</a></li>
 <li><a class="reference internal" href="#cloud-write-api-operations">Cloud Write API Operations</a></li>
 <li><a class="reference internal" href="#local-network-sensor-operations">Local Network Sensor Operations</a></li>
-<li><a class="reference internal" href="#matter-standards-conversion">Matter Standards Conversion</a></li>
+<li><a class="reference internal" href="#matter-device-and-cluster-conversion">Matter Device and Cluster Conversion</a></li>
+<li><a class="reference internal" href="#swig-multi-language-bindings">SWIG Multi-Language Bindings</a></li>
+<li><a class="reference internal" href="#meson-unified-build-system">Meson Unified Build System</a></li>
+<li><a class="reference internal" href="#multi-language-packaging-and-distribution">Multi-Language Packaging and Distribution</a></li>
 <li><a class="reference internal" href="#error-and-exception-handling">Error and Exception Handling</a></li>
 <li><a class="reference internal" href="#helper-and-utility-functions">Helper and Utility Functions</a></li>
 </ul>
@@ -569,7 +648,7 @@ Trusted Publishing compatibility.</p>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=d0c23d2c"></script>
+</div><script src="_static/documentation_options.js?v=30372d7b"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

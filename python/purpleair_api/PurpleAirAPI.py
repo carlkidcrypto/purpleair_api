@@ -120,7 +120,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
     @property
     def get_api_versions(self):
         """
-        A method to return the API versions being used for both read/write keys.
+        A property that returns the API versions being used for both read/write keys.
         """
 
         return self._api_versions
@@ -128,7 +128,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
     @property
     def get_api_key_last_checked(self):
         """
-        A method to return the timestamp of when the API read/write keys were last checked.
+        A property that returns the timestamp of when the API read/write keys were last checked.
         """
 
         return self._api_keys_last_checked
@@ -136,7 +136,7 @@ class PurpleAirAPI(PurpleAirReadAPI, PurpleAirWriteAPI, PurpleAirLocalAPI):
     @property
     def get_api_key_type(self):
         """
-        A method to return the API key types being used.
+        A property that returns the API key types being used.
         """
 
         return self._api_key_types

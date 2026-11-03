@@ -17,13 +17,6 @@ libcurl_dep = dependency('libcurl', required: true)
 swig = find_program('swig', required: true)
 
 # ---------------------------------------------------------------------------
-# Optional language runtimes
-# ---------------------------------------------------------------------------
-if get_option('enable_java_bindings')
-  add_languages('java', required: false, native: false)
-endif
-
-# ---------------------------------------------------------------------------
 # Core C++ sources and include paths (shared across all language bindings)
 # ---------------------------------------------------------------------------
 purpleair_sources = files(
@@ -51,6 +44,3 @@ subdir('go')
 
 # JavaScript/Node.js bindings
 subdir('javascript')
-
-# Java bindings
-subdir('java')

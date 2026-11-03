@@ -49,17 +49,16 @@ General Requirements
 ~~~~~~~~~~~~~~~~~~~~
 
 [GEN-01] The system shall provide a unified multi-language library centered around a C++17 core
-with SWIG bindings for Python, JavaScript/Node.js, C#, Go, and Java, alongside a high-level Python
+with SWIG bindings for Python, JavaScript/Node.js, C#, and Go, alongside a high-level Python
 package installable via ``pip`` for interacting with PurpleAir air quality sensors via cloud and
 local network APIs.
 
 [GEN-02] The system shall support the following runtime environments and platforms:
 
-* Python 3.10, 3.11, 3.12, 3.13, and 3.14 across Linux, macOS, and Windows.
+* Python 3.11, 3.12, 3.13, 3.14, and 3.15 across Linux, macOS, and Windows.
 * Node.js LTS versions 18.x, 20.x, 22.x, and 24.x across Linux, macOS, and Windows.
 * C# / .NET 6.0 and 8.0 across Linux, macOS, and Windows.
 * Go 1.21, 1.22, and 1.23 across Linux and macOS.
-* Java OpenJDK 17 and 21 across Linux and macOS.
 
 [GEN-03] The Python system shall use the ``requests`` library for executing HTTP and HTTPS requests,
 while the native C++ core shall use ``libcurl`` for cross-platform network communication.
@@ -190,7 +189,7 @@ SWIG Multi-Language Bindings
 implementing PurpleAir Cloud Read, Cloud Write, and Local sensor operations using ``libcurl``.
 
 [BIND-02] SWIG interface definitions under ``swig/interface/`` (``purpleairapi_base.i``, ``purpleairapi_go.i``)
-shall generate type-safe wrapper code across Python, JavaScript (Node-API), C#, Go, and Java.
+shall generate type-safe wrapper code across Python, JavaScript (Node-API), C#, and Go.
 
 [BIND-03] For JavaScript / Node.js, the SWIG bindings shall target Node-API (``-javascript -napi``)
 via ``node-addon-api`` to guarantee native binary compatibility across Node.js LTS versions 18 through 24.
@@ -203,19 +202,15 @@ with GCC on Windows.
 [BIND-05] For Go, the SWIG bindings shall generate ``cgo``-compatible wrappers and package definitions
 under ``go/purpleairapi/`` supporting standard Go toolchains (``go test ./tests/...``).
 
-[BIND-06] For Java, the SWIG bindings shall generate JNI wrappers and Java classes under the
-``com.purpleair.api`` package, compiled into a standalone JAR.
-
 Meson Unified Build System
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 [BUILD-01] The system shall use Meson (>=0.64.0) and Ninja as the centralized build system orchestrating
-compilation of the C++ core and language subprojects (``swig/``, ``csharp/``, ``javascript/``, ``go/``,
-and ``java/``).
+compilation of the C++ core and language subprojects (``swig/``, ``csharp/``, ``javascript/``, and
+``go/``).
 
 [BUILD-02] The build configuration shall define options (``csharp_bindings``, ``go_bindings``,
-``javascript_bindings``, ``enable_java_bindings``) allowing independent enabling or disabling of
-language targets.
+``javascript_bindings``) allowing independent enabling or disabling of language targets.
 
 [BUILD-03] The Meson build system shall provide WrapDB fallback files (``subprojects/curl.wrap``) to
 automatically compile and link ``libcurl`` on platforms lacking system-wide ``pkg-config`` installations
@@ -274,20 +269,20 @@ in ``python/purpleair_api``.
 with code coverage measured via ``python/tests/.coveragerc``.
 
 [TEST-03] Each language binding shall maintain its own dedicated test suite under ``<language>/tests/``
-(e.g., ``python/tests/``, ``csharp/tests/``, ``javascript/tests/``, ``go/tests/``, and ``java/tests/``).
+(e.g., ``python/tests/``, ``csharp/tests/``, ``javascript/tests/``, and ``go/tests/``).
 
 [TEST-04] Unit tests shall simulate HTTP responses (e.g. via ``requests_mock`` in Python or mock handlers
 in other languages) without requiring live network access during test runs.
 
 [TEST-05] Automated CI matrix workflows shall execute test suites across Linux, macOS, and Windows runners
-for all supported runtimes.
+for all supported runtimes (Python 3.11 through 3.15, Node.js LTS, .NET, Go).
 
 [TEST-06] CI testing workflows on Linux shall execute the test suite under Valgrind Memcheck with CPython
 suppressions to detect C++ core memory leaks, uninitialized memory accesses, and invalid memory operations,
 publishing automated leak summary reports to pull requests.
 
 [TEST-07] Code coverage metrics shall be tracked and uploaded to Codecov across all supported language bindings
-(Python, JavaScript, C#, Go, Java) with dedicated carryforward feature flags and component management per language.
+(Python, JavaScript, C#, Go) with dedicated carryforward feature flags and component management per language.
 
 Code Quality and Verification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -328,6 +323,10 @@ GitHub Pages from ignoring directories with leading underscores (such as ``_stat
 [DOCS-05] Sphinx documentation builds in CI shall enforce ``SPHINXOPTS="-W"`` to treat all warnings
 as errors, ensuring that broken cross-references or invalid reST markup fail the build.
 
+[DOCS-06] The Sphinx documentation build environment in CI shall execute under Python 3.14
+(supporting dependencies requiring Python >=3.13, such as Sphinx 9.2+) for both continuous main branch
+deployments and versioned release builds.
+
 CI/CD and Automation
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -357,8 +356,9 @@ workflow shall:
   ``peter-evans/create-pull-request@v8``.
 
 [CICD-06] Distribution packaging for TestPyPI and PyPI shall be extracted into reusable composite
-GitHub Actions, invoking ``pypa/gh-action-pypi-publish`` directly at the job step level for OIDC
-Trusted Publishing compatibility.
+GitHub Actions (``build-distribution``) executing under Python 3.14, invoking
+``pypa/gh-action-pypi-publish`` directly at the job step level for OIDC Trusted Publishing
+compatibility.
 
 [CICD-07] Windows runner workflow execution shall isolate PowerShell (``pwsh``) steps from bash path
 mangling when running native builds or passing workspace directory paths.
@@ -371,3 +371,6 @@ branches.
 and publish automated pass/fail, error, and duration summary comments on pull requests using
 ``publish-unit-test-result-action`` and ``pytest-coverage-comment``.
 
+[CICD-10] CI workflow validation and automated diagnostic tooling (including workflow syntax
+validation via ``verify_syntax.yml``) shall configure and execute in a dedicated Python 3.14 runner
+environment.
