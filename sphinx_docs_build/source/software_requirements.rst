@@ -45,7 +45,7 @@ General Requirements
 [GEN-01] The system shall provide a pure Python package installable via ``pip`` for interacting
 with PurpleAir air quality sensors via cloud and local network APIs.
 
-[GEN-02] The system shall support Python 3.10, 3.11, 3.12, 3.13, and 3.14 across Linux, macOS,
+[GEN-02] The system shall support Python 3.11, 3.12, 3.13, 3.14, and 3.15 across Linux, macOS,
 and Windows operating systems.
 
 [GEN-03] The system shall use the ``requests`` library for executing HTTP and HTTPS requests.
@@ -215,7 +215,7 @@ in the package.
 endpoints without making live network calls during test execution.
 
 [TEST-04] Unit tests shall execute cleanly across Ubuntu, macOS, and Windows runners for all
-supported Python versions (3.10 through 3.14).
+supported Python versions (3.11 through 3.15).
 
 Code Quality and Verification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -247,6 +247,10 @@ GitHub Pages from ignoring directories with leading underscores (such as ``_stat
 [DOCS-05] Sphinx documentation builds in CI shall enforce ``SPHINXOPTS="-W"`` to treat all warnings
 as errors, ensuring that broken cross-references or invalid reST markup fail the build.
 
+[DOCS-06] The Sphinx documentation build environment in CI shall execute under Python 3.14
+(supporting dependencies requiring Python >=3.13, such as Sphinx 9.2+) for both continuous main branch
+deployments and versioned release builds.
+
 CI/CD and Automation
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -276,5 +280,10 @@ workflow shall:
   ``peter-evans/create-pull-request@v8``.
 
 [CICD-06] Distribution packaging for TestPyPI and PyPI shall be extracted into reusable composite
-GitHub Actions, invoking ``pypa/gh-action-pypi-publish`` directly at the job step level for OIDC
-Trusted Publishing compatibility.
+GitHub Actions (``build-distribution``) executing under Python 3.14, invoking
+``pypa/gh-action-pypi-publish`` directly at the job step level for OIDC Trusted Publishing
+compatibility.
+
+[CICD-07] CI workflow validation and automated diagnostic tooling (including workflow syntax
+validation via ``verify_syntax.yml``) shall configure and execute in a dedicated Python 3.14 runner
+environment.
