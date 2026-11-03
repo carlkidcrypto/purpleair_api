@@ -374,3 +374,8 @@ and publish automated pass/fail, error, and duration summary comments on pull re
 [CICD-10] CI workflow validation and automated diagnostic tooling (including workflow syntax
 validation via ``verify_syntax.yml``) shall configure and execute in a dedicated Python 3.14 runner
 environment.
+
+[CICD-08] The package versioning and release automation shall follow SemVer-compliant
+Calendar Versioning (CalSemVer) using ``YYYY.M.D`` for stable releases and ``YYYY.M.DaN`` for
+pre-releases, omitting leading zeroes in date components to guarantee compatibility with PEP 440
+and SemVer 2.0.0.
