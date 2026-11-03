@@ -281,8 +281,9 @@ for all supported runtimes (Python 3.11 through 3.15, Node.js LTS, .NET, Go).
 suppressions to detect C++ core memory leaks, uninitialized memory accesses, and invalid memory operations,
 publishing automated leak summary reports to pull requests.
 
-[TEST-07] Code coverage metrics shall be tracked and uploaded to Codecov across all supported language bindings
-(Python, JavaScript, C#, Go) with dedicated carryforward feature flags and component management per language.
+[TEST-07] Code coverage metrics shall be tracked and uploaded to Codecov across
+all supported language bindings (Python, JavaScript, C#, Go) with dedicated
+carryforward feature flags and per-language component management.
 
 Code Quality and Verification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -281,8 +281,9 @@ for all supported runtimes (Python 3.11 through 3.15, Node.js LTS, .NET, Go).
 suppressions to detect C++ core memory leaks, uninitialized memory accesses, and invalid memory operations,
 publishing automated leak summary reports to pull requests.
 
-[TEST-07] Code coverage metrics shall be tracked and uploaded to Codecov across all supported language bindings
-(Python, JavaScript, C#, Go) with dedicated carryforward feature flags and component management per language.
+[TEST-07] Code coverage metrics shall be tracked and uploaded to Codecov across
+all supported language bindings (Python, JavaScript, C#, Go) with dedicated
+carryforward feature flags and per-language component management.
 
 Code Quality and Verification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -374,3 +375,8 @@ and publish automated pass/fail, error, and duration summary comments on pull re
 [CICD-10] CI workflow validation and automated diagnostic tooling (including workflow syntax
 validation via ``verify_syntax.yml``) shall configure and execute in a dedicated Python 3.14 runner
 environment.
+
+[CICD-08] The package versioning and release automation shall follow SemVer-compliant
+Calendar Versioning (CalSemVer) using ``YYYY.M.D`` for stable releases and ``YYYY.M.DaN`` for
+pre-releases, omitting leading zeroes in date components to guarantee compatibility with PEP 440
+and SemVer 2.0.0.

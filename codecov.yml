@@ -43,22 +43,31 @@ flag_management:
   individual_flags:
     - name: python
       paths:
+        - python/*.py
         - python/**/*.py
     - name: javascript
       paths:
+        - javascript/*.js
         - javascript/**/*.js
+        - javascript/*.json
         - javascript/**/*.json
     - name: csharp
       paths:
+        - csharp/*.cs
         - csharp/**/*.cs
     - name: go
       paths:
+        - go/*.go
         - go/**/*.go
     - name: cpp
       paths:
+        - swig/*.h
         - swig/**/*.h
+        - swig/*.cpp
         - swig/**/*.cpp
+        - swig/*.hpp
         - swig/**/*.hpp
+        - swig/*.i
         - swig/**/*.i
 
 # Comment configuration for pull requests
@@ -69,30 +78,26 @@ comment:
   require_base: false
   require_head: true
 
-# Component configuration to track each language separately
+# Component configuration to track each language separately.
+# Only components with active hand-authored source code in the repository are
+# listed. C# SWIG wrapper classes are generated at build time in builddir/csharp/
+# (git-ignored) and C++ sources in swig/ are exercised via language bindings.
 component_management:
   individual_components:
     - component_id: python_code
       name: "Python Code"
       paths:
+        - python/*.py
         - python/**/*.py
     - component_id: javascript_code
       name: "JavaScript Code"
       paths:
+        - javascript/*.js
         - javascript/**/*.js
+        - javascript/*.json
         - javascript/**/*.json
-    - component_id: csharp_code
-      name: "C# Code"
-      paths:
-        - csharp/**/*.cs
     - component_id: go_code
       name: "Go Code"
       paths:
+        - go/*.go
         - go/**/*.go
-    - component_id: cpp_code
-      name: "C++ Code"
-      paths:
-        - swig/**/*.h
-        - swig/**/*.cpp
-        - swig/**/*.hpp
-        - swig/**/*.i
