@@ -9,6 +9,8 @@ describe("PurpleAirAPI", () => {
     PurpleAirWriteAPI,
     PurpleAirLocalAPI,
     PurpleAirAPIError,
+    StringMap,
+    StringVector,
   } = require("../index");
 
   describe("PurpleAirReadAPI", () => {
@@ -58,6 +60,18 @@ describe("PurpleAirAPI", () => {
       expect(api).toBeDefined();
     });
 
+    test("should create PurpleAirLocalAPI with StringVector instance", () => {
+      const vec = new StringVector();
+      vec.add("192.168.1.100");
+      const api = new PurpleAirLocalAPI(vec);
+      expect(api).toBeDefined();
+    });
+
+    test("should create PurpleAirLocalAPI without arguments", () => {
+      const api = new PurpleAirLocalAPI();
+      expect(api).toBeDefined();
+    });
+
     test("should have request_local_sensor_data method", () => {
       const api = new PurpleAirLocalAPI(["192.168.1.100"]);
       expect(typeof api.request_local_sensor_data).toBe("function");
@@ -68,6 +82,20 @@ describe("PurpleAirAPI", () => {
       expect(() => {
         api.request_local_sensor_data();
       }).toThrow();
+    });
+  });
+
+  describe("StringMap and StringVector", () => {
+    test("should create StringMap instance", () => {
+      const map = new StringMap();
+      expect(map).toBeDefined();
+    });
+
+    test("should create StringVector instance and add elements", () => {
+      const vec = new StringVector();
+      expect(vec).toBeDefined();
+      vec.add("test_item");
+      expect(vec.size()).toBe(1);
     });
   });
 
