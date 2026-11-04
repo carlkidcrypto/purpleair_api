@@ -436,13 +436,13 @@ Example 3: Adding a Helper Function
 .. code-block:: bash
 
     # Make changes to PurpleAirAPIHelpers.py
-    # Add tests to tests/test_purpleair_api_helpers.py
+    # Add tests to python/tests/test_purpleair_api_helpers.py
     
     # Format code
-    python -m black purpleair_api/ tests/
+    python -m black python/
     
     # Run tests
-    cd tests
+    cd python/tests
     coverage run -m unittest test_purpleair_api_helpers
     coverage report
     

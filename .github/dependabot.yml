@@ -1,6 +1,6 @@
 version: 2
 updates:
-  # Maintain dependencies for github-actions
+  # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -15,15 +15,36 @@ updates:
       - ".github/agents/*.md"
       - ".github/aw/*.lock.json"
 
-  # Maintain dependencies for pip (root)
+  # Maintain Python dependencies
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "/python"
     schedule:
       interval: "weekly"
     groups:
       python-dependencies:
         patterns:
           - "*"
+    open-pull-requests-limit: 10
+
+  # Maintain JavaScript/Node.js dependencies
+  - package-ecosystem: "npm"
+    directory: "/javascript"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+
+  # Maintain C#/.NET dependencies
+  - package-ecosystem: "nuget"
+    directory: "/csharp"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+
+  # Maintain Go dependencies
+  - package-ecosystem: "gomod"
+    directory: "/go"
+    schedule:
+      interval: "weekly"
     open-pull-requests-limit: 10
 
   # Maintain dependencies for pip (tests)

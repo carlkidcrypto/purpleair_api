@@ -65,20 +65,23 @@ if [[ ! "$new_version" =~ ^[0-9]+(\.[0-9]+){2}([.-]?[0-9A-Za-z.-]+)?$ ]]; then
     exit 2
 fi
 
+cfg_file="setup.cfg"
+[[ -f "python/setup.cfg" ]] && cfg_file="python/setup.cfg"
+
 if [[ $# -eq 2 ]]; then
     old_version="${2#v}"
 else
-    if [[ ! -f "setup.cfg" ]]; then
+    if [[ ! -f "$cfg_file" ]]; then
         printf 'Error: setup.cfg not found in %s\n' "$repo_root" >&2
         exit 1
     fi
-    old_version=$(sed -nE 's/^version[[:space:]]*=[[:space:]]*([^[:space:]]+).*$/\1/p' setup.cfg | head -n 1)
+    old_version=$(sed -nE 's/^version[[:space:]]*=[[:space:]]*([^[:space:]]+).*$/\1/p' "$cfg_file" | head -n 1)
 fi
 
 old_version="${old_version#v}"
 
 if [[ -z "$old_version" ]]; then
-    printf 'Error: Could not determine current version from setup.cfg\n' >&2
+    printf 'Error: Could not determine current version from %s\n' "$cfg_file" >&2
     exit 1
 fi
 
@@ -98,7 +101,9 @@ pathspecs=(
     ':(exclude).github/scripts/**'
     ':(exclude)release_tools/**'
     ':(exclude)tests/**'
+    ':(exclude)python/tests/**'
     ':(exclude)purpleair_api/PurpleAirMatterConverter.py'
+    ':(exclude)python/purpleair_api/PurpleAirMatterConverter.py'
     ':(exclude)HOWTO_MATTER.rst'
     ':(exclude)sphinx_docs_build/source/PurpleAirMatterConverter.rst'
     ':(exclude)sphinx_docs_build/source/matter_implementation.rst'
@@ -118,7 +123,7 @@ done < <(
 )
 
 required_files=(
-    setup.cfg
+    "$cfg_file"
     sphinx_docs_build/source/conf.py
 )
 
@@ -147,7 +152,7 @@ if [[ "$dry_run" == true ]]; then
 fi
 
 for file in "${files[@]}"; do
-    if [[ "$file" == "setup.cfg" ]]; then
+    if [[ "$file" == "setup.cfg" || "$file" == "python/setup.cfg" ]]; then
         OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
             's/^version\s*=\s*\Q$ENV{OLD_VERSION}\E$/version = $ENV{NEW_VERSION}/m' "$file"
     elif [[ "$file" == "README.rst" ]]; then
@@ -221,7 +226,7 @@ if [[ "$verify" == true ]]; then
     # 3. Unit test check
     if command -v "$pytest_bin" >/dev/null 2>&1; then
         printf '[3/3] Running pytest suite...\n'
-        "$pytest_bin" tests/ -q
+        "$pytest_bin" python/tests/ -q
     else
         printf '[3/3] pytest not found, skipping unit tests.\n'
     fi

@@ -4,9 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="PurpleAirMatterConverter module" href="PurpleAirMatterConverter.html"><link rel="prev" title="PurpleAirReadAPI module" href="PurpleAirReadAPI.html">
+        <link rel="canonical" href="https://carlkidcrypto.github.io/purpleair_api/html/PurpleAirWriteAPI.html">
 
-    <!-- Generated with Sphinx 9.1.0 and Furo 2025.12.19 -->
-        <title>PurpleAirWriteAPI module - PurpleAir API V1.5.1a1 documentation</title>
+    <!-- Generated with Sphinx 9.2.0 and Furo 2025.12.19 -->
+        <title>PurpleAirWriteAPI module - PurpleAir API v2026.11.3a0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
@@ -161,7 +162,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">PurpleAir API V1.5.1a1 documentation</div></a>
+      <a href="index.html"><div class="brand">PurpleAir API v2026.11.3a0 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -182,7 +183,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  <span class="sidebar-brand-text">PurpleAir API V1.5.1a1 documentation</span>
+  <span class="sidebar-brand-text">PurpleAir API v2026.11.3a0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -265,100 +266,8 @@ Requires a write API key with appropriate permissions.</p>
 </pre></div>
 </div>
 </section>
-<section id="module-PurpleAirWriteAPI">
-<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-PurpleAirWriteAPI" title="Link to this heading">¶</a></h2>
-<p>Copyright 2024 carlkidcrypto, All rights reserved.
-A python3 class designed to send write requests to Purple Air’s API.
-This class will handle all <cite>write</cite> requests
-<a class="reference external" href="https://api.purpleair.com/#api-welcome">https://api.purpleair.com/#api-welcome</a></p>
-<dl class="py class">
-<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">PurpleAirWriteAPI.</span></span><span class="sig-name descname"><span class="pre">PurpleAirWriteAPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_write_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The PurpleAirWriteAPI class designed to send valid
-write requests.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_group_data">
-<span class="sig-name descname"><span class="pre">post_create_group_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_group_data" title="Link to this definition">¶</a></dt>
-<dd><p>A method to create a group for sensors.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – The name of the group to create.</p>
-</dd>
-<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary containing the created group data.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_member">
-<span class="sig-name descname"><span class="pre">post_create_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner_email</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_member" title="Link to this definition">¶</a></dt>
-<dd><p>Add a sensor as a member of a group. The group must be owned by the api_key used.
-Supports three parameter combinations:</p>
-<ul class="simple">
-<li><p><strong>Option 1</strong> — public sensor by <code class="docutils literal notranslate"><span class="pre">sensor_id</span></code> (as printed on the label):
-provide <code class="docutils literal notranslate"><span class="pre">group_id</span></code> and <code class="docutils literal notranslate"><span class="pre">sensor_id</span></code>.</p></li>
-<li><p><strong>Option 2</strong> — sensor by <code class="docutils literal notranslate"><span class="pre">sensor_index</span></code> (from the API):
-provide <code class="docutils literal notranslate"><span class="pre">group_id</span></code> and <code class="docutils literal notranslate"><span class="pre">sensor_index</span></code>.</p></li>
-<li><p><strong>Option 3</strong> — private sensor by <code class="docutils literal notranslate"><span class="pre">sensor_id</span></code> with owner verification:
-provide <code class="docutils literal notranslate"><span class="pre">group_id</span></code>, <code class="docutils literal notranslate"><span class="pre">sensor_id</span></code>, <code class="docutils literal notranslate"><span class="pre">owner_email</span></code>, and optionally <code class="docutils literal notranslate"><span class="pre">location_type</span></code>.</p></li>
-</ul>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to add a member to. This group must be owned by the api_key.</p></li>
-<li><p><strong>sensor_index</strong> (<em>int</em>) – The sensor_index of the new member as found in the JSON for this specific sensor.</p></li>
-<li><p><strong>sensor_id</strong> (<em>str</em>) – The sensor_id of the new member sensor. This must be AS PRINTED on the sensor’s label.</p></li>
-<li><p><strong>owner_email</strong> (<em>str</em>) – An email address that matches the Owner email as set by previously completing
-the PurpleAir registration form at www.purpleair.com/register.</p></li>
-<li><p><strong>location_type</strong> (<em>int</em>) – (optional) The expected location_type of the new member.
-Possible values are: 0 = Outside or 1 = Inside.
-Required when the target sensor is marked as ‘private’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary containing the created member data.</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="PurpleAirAPIError.html#PurpleAirAPIError.PurpleAirAPIError" title="PurpleAirAPIError.PurpleAirAPIError"><strong>PurpleAirAPIError</strong></a> – If an invalid combination of parameters is provided or the API request fails.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_group">
-<span class="sig-name descname"><span class="pre">post_delete_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_group" title="Link to this definition">¶</a></dt>
-<dd><p>A method to delete a group for sensors.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group to delete</p>
-</dd>
-<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary containing the deletion response.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_member">
-<span class="sig-name descname"><span class="pre">post_delete_member</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_member" title="Link to this definition">¶</a></dt>
-<dd><p>Delete a member from a group.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>group_id</strong> (<em>int</em>) – The group_id of the group in which member_id is in.</p></li>
-<li><p><strong>member_id</strong> (<em>int</em>) – The member_id to delete.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return dict | None<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary containing the deletion response.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -419,16 +328,7 @@ Required when the target sensor is marked as ‘private’.</p></li>
             <ul>
 <li><a class="reference internal" href="#">PurpleAirWriteAPI module</a><ul>
 <li><a class="reference internal" href="#usage-example">Usage Example</a></li>
-<li><a class="reference internal" href="#module-PurpleAirWriteAPI">API Reference</a><ul>
-<li><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI</span></code></a><ul>
-<li><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_group_data"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI.post_create_group_data()</span></code></a></li>
-<li><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_create_member"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI.post_create_member()</span></code></a></li>
-<li><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_group"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI.post_delete_group()</span></code></a></li>
-<li><a class="reference internal" href="#PurpleAirWriteAPI.PurpleAirWriteAPI.post_delete_member"><code class="docutils literal notranslate"><span class="pre">PurpleAirWriteAPI.post_delete_member()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a class="reference internal" href="#api-reference">API Reference</a></li>
 </ul>
 </li>
 </ul>
@@ -440,7 +340,7 @@ Required when the target sensor is marked as ‘private’.</p></li>
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=d0c23d2c"></script>
+</div><script src="_static/documentation_options.js?v=02d0d29a"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/furo.js?v=46bd48cc"></script>

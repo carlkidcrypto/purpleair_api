@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RollForward>Major</RollForward>
+    <RootNamespace>PurpleAirAPI</RootNamespace>
+    <AssemblyName>PurpleAirAPI</AssemblyName>
+    <Version>2.0.0-a0</Version>
+    <Authors>Carlos Santos</Authors>
+    <Description>PurpleAir API C# bindings with C++ backend</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/carlkidcrypto/purpleair_api</RepositoryUrl>
+    <!--
+      GeneratedSourcesDir: where SWIG-generated *.cs files live.
+      Default is the project directory (supports manual / legacy builds where
+      SWIG is invoked manually and files land in csharp/).
+      When building via Meson/Ninja, pass the Meson build sub-directory:
+        dotnet build -p:GeneratedSourcesDir=<builddir>/csharp/
+    -->
+    <GeneratedSourcesDir
+      Condition="'$(GeneratedSourcesDir)' == '' And Exists('$(MSBuildThisFileDirectory)../builddir/csharp/purpleairapi_base.cs')"
+      >$(MSBuildThisFileDirectory)../builddir/csharp/</GeneratedSourcesDir>
+    <GeneratedSourcesDir Condition="'$(GeneratedSourcesDir)' == ''"
+      >$(MSBuildThisFileDirectory)</GeneratedSourcesDir>
+  </PropertyGroup>
+
+  <!-- Exclude the tests sub-project from the main assembly's implicit compile glob -->
+  <ItemGroup>
+    <Compile Remove="tests/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile
+      Include="$(GeneratedSourcesDir)purpleairapi_base.cs"
+      Condition="Exists('$(GeneratedSourcesDir)purpleairapi_base.cs')"
+    />
+    <Compile
+      Include="$(GeneratedSourcesDir)purpleairapi_basePINVOKE.cs"
+      Condition="Exists('$(GeneratedSourcesDir)purpleairapi_basePINVOKE.cs')"
+    />
+    <Compile
+      Include="$(GeneratedSourcesDir)PurpleAirAPIError.cs"
+      Condition="Exists('$(GeneratedSourcesDir)PurpleAirAPIError.cs')"
+    />
+    <Compile
+      Include="$(GeneratedSourcesDir)PurpleAirLocalAPI.cs"
+      Condition="Exists('$(GeneratedSourcesDir)PurpleAirLocalAPI.cs')"
+    />
+    <Compile
+      Include="$(GeneratedSourcesDir)PurpleAirReadAPI.cs"
+      Condition="Exists('$(GeneratedSourcesDir)PurpleAirReadAPI.cs')"
+    />
+    <Compile
+      Include="$(GeneratedSourcesDir)PurpleAirWriteAPI.cs"
+      Condition="Exists('$(GeneratedSourcesDir)PurpleAirWriteAPI.cs')"
+    />
+    <Compile
+      Include="$(GeneratedSourcesDir)StringMap.cs"
+      Condition="Exists('$(GeneratedSourcesDir)StringMap.cs')"
+    />
+    <Compile
+      Include="$(GeneratedSourcesDir)StringVector.cs"
+      Condition="Exists('$(GeneratedSourcesDir)StringVector.cs')"
+    />
+  </ItemGroup>
+</Project>
