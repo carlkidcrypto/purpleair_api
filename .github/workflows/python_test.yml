@@ -135,7 +135,7 @@ jobs:
             . | Tee-Object -FilePath ..\..\test-outputs_${{ matrix.os }}_${{ matrix.python-version }}.txt
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           files: coverage_${{ matrix.os }}_${{ matrix.python-version }}.xml
           flags: python
