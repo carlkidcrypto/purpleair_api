@@ -11,6 +11,7 @@ on:
   push:
     branches: [ main ]
     paths:
+      - 'codecov.yml'
       - 'python/**'
       - 'swig/**'
       - '.github/workflows/python_test.yml'
@@ -18,6 +19,7 @@ on:
   pull_request:
     branches: [ main, feature/swig ]
     paths:
+      - 'codecov.yml'
       - 'python/**'
       - 'swig/**'
       - '.github/workflows/python_test.yml'
@@ -38,6 +40,7 @@ jobs:
         uses: tj-actions/changed-files@c3a1bb2c992d77180ae65be6ae6c166cf40f857c # v46.0.1
         with:
           files: |
+            codecov.yml
             python/**
             swig/**
             .github/workflows/python_test.yml
@@ -135,10 +138,12 @@ jobs:
             . | Tee-Object -FilePath ..\..\test-outputs_${{ matrix.os }}_${{ matrix.python-version }}.txt
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
+        uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage_${{ matrix.os }}_${{ matrix.python-version }}.xml
           flags: python
+          fail_ci_if_error: false
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
