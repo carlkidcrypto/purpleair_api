@@ -33,7 +33,7 @@ jobs:
       run_job: ${{ steps.changed-files.outputs.any_changed }}
     steps:
       - name: Checkout Sourcecode
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Check for changes in source code
         id: changed-files
@@ -56,10 +56,10 @@ jobs:
         python-version: ["3.11", "3.12", "3.13", "3.14", "3.15"]
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "${{ matrix.python-version }}"
           cache: 'pip'
@@ -138,7 +138,7 @@ jobs:
             . | Tee-Object -FilePath ..\..\test-outputs_${{ matrix.os }}_${{ matrix.python-version }}.txt
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage_${{ matrix.os }}_${{ matrix.python-version }}.xml
@@ -235,7 +235,7 @@ jobs:
           echo VALGRIND_STRIPPED_UBUNTU_LATEST_3_15=$temp5 >> $GITHUB_OUTPUT
 
       - name: Checkout Sourcecode
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Render Valgrind Comment Template
         id: template
