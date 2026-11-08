@@ -376,7 +376,14 @@ and publish automated pass/fail, error, and duration summary comments on pull re
 validation via ``verify_syntax.yml``) shall configure and execute in a dedicated Python 3.14 runner
 environment.
 
-[CICD-08] The package versioning and release automation shall follow SemVer-compliant
-Calendar Versioning (CalSemVer) using ``YYYY.M.D`` for stable releases and ``YYYY.M.DaN`` for
-pre-releases, omitting leading zeroes in date components to guarantee compatibility with PEP 440
-and SemVer 2.0.0.
+[CICD-11] The package versioning and release automation shall follow
+SemVer-compliant Calendar Versioning (CalSemVer) using ``YYYY.M.D`` for stable
+releases and ``YYYY.M.DaN`` for pre-releases, omitting leading zeroes in date
+components to guarantee compatibility with PEP 440 and SemVer 2.0.0.
+
+[CICD-12] Automated multi-language test workflows (Python, JavaScript, Go,
+and C#) shall generate standardized code coverage reports and upload them to
+Codecov (``codecov/codecov-action``) using repository secret ``CODECOV_TOKEN``,
+tagged with dedicated flags (``python``, ``javascript``, ``go``, ``csharp``)
+and tracked via separate components (``python_code``, ``javascript_code``,
+``go_code``).
