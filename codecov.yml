@@ -26,12 +26,21 @@ ignore:
   - "csharp/tests/**"
   - "javascript/tests/**"
   - "go/tests/**"
+  - "test_*.py"
+  - "**/test_*.py"
+  - "**/*_test.go"
   - "setup.py"
   - "setup.cfg"
   - "python/setup.cfg"
+  - "release_tools/**"
   - ".github/**"
   - "docs/**"
   - "sphinx_docs_build/**"
+  - "subprojects/**"
+  - "builddir/**"
+  - "purpleair_api/purpleairapi_base.py"
+  - "python/purpleair_api/purpleairapi_base.py"
+  - "swig/purpleairapi_base_wrap.cxx"
 
 # Flag management: exactly ONE flag per upload (language).
 # Carryforward replaces a carried-forward session whenever ANY of its flags is
