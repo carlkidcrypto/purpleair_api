@@ -66,7 +66,7 @@ jobs:
           # Build dependencies
           CIBW_BUILD_VERBOSITY: 1
 
-      - uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.4.3
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v4.4.3
         with:
           name: wheels-${{ matrix.os }}
           path: ./dist/*.whl
@@ -93,7 +93,7 @@ jobs:
       - name: Build sdist
         run: python -m build --sdist python/ --outdir dist/
 
-      - uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.4.3
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v4.4.3
         with:
           name: sdist
           path: dist/*.tar.gz
