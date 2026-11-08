@@ -97,6 +97,7 @@ jobs:
             -out "go-test-results_${{ matrix.os }}_${{ matrix.go-version }}.xml"
 
       - name: Upload coverage reports to Codecov
+        if: always()
         uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
