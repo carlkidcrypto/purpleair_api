@@ -79,38 +79,14 @@ def get_canonical_manifest_dir(
 
 def compute_sha256(path_or_url: str) -> str:
     """Compute the lowercase SHA256 hex digest of a local file or remote URL."""
-    p = Path(path_or_url)
     h = hashlib.sha256()
-    if p.is_file():
-        with open(p, "rb") as f:
-            for chunk in iter(lambda: f.read(65536), b""):
-                h.update(chunk)
-        return h.hexdigest().lower()
-
-    dist_candidate = REPO_ROOT / "dist" / p.name
-    if dist_candidate.is_file():
-        with open(dist_candidate, "rb") as f:
-            for chunk in iter(lambda: f.read(65536), b""):
-                h.update(chunk)
-        return h.hexdigest().lower()
 
     if path_or_url.startswith("http://") or path_or_url.startswith("https://"):
-        import ssl
-
-        ctx = ssl.create_default_context()
-        try:
-            import certifi
-
-            ctx.load_verify_locations(certifi.where())
-        except Exception:
-            ctx.check_hostname = False
-            ctx.verify_mode = ssl.CERT_NONE
-
         try:
             req = urllib.request.Request(
                 path_or_url, headers={"User-Agent": "winget-manifest-gen/1.0"}
             )
-            with urllib.request.urlopen(req, context=ctx) as resp:
+            with urllib.request.urlopen(req) as resp:
                 while chunk := resp.read(65536):
                     h.update(chunk)
             return h.hexdigest().lower()
@@ -119,6 +95,18 @@ def compute_sha256(path_or_url: str) -> str:
                 f"Warning: Could not fetch remote URL for SHA256 ({exc}); using zero digest."
             )
             return "0000000000000000000000000000000000000000000000000000000000000000"
+
+    safe_name = Path(path_or_url).name
+    candidate_paths = [
+        (REPO_ROOT / path_or_url).resolve(),
+        (REPO_ROOT / "dist" / safe_name).resolve(),
+    ]
+    for p in candidate_paths:
+        if p.is_file() and p.is_relative_to(REPO_ROOT.resolve()):
+            with open(p, "rb") as f:
+                for chunk in iter(lambda: f.read(65536), b""):
+                    h.update(chunk)
+            return h.hexdigest().lower()
 
     raise FileNotFoundError(f"Cannot compute hash for: {path_or_url}")
 
