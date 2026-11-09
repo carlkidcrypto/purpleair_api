@@ -15,6 +15,9 @@ std::string PurpleAirLocalAPI::request_local_sensor_data() {
 
     // Request data from the first IPv4 address
     // In the future, this could be extended to query all addresses and combine results
+    // Local PurpleAir sensors are embedded IoT devices on private LAN subnets that only
+    // expose an unencrypted HTTP daemon (http://<ip>/json). Hardware does not support TLS/HTTPS.
+    // codeql [cpp/non-https-url]
     std::string request_url = "http://" + _ipv4_address_list[0] + "/json";
     
     return send_url_get_request(request_url);
