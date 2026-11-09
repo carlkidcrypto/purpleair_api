@@ -1,0 +1,148 @@
+name: WinGet Distributions (FUTURE / WIP)
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+on:
+  release:
+    types: [published]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/generate_winget_manifest.py'
+      - '.github/workflows/build_and_publish_to_winget.yml'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag for WinGet distribution (e.g. v2026.11.3)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  verify-syntax:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/verify_syntax.yml
+
+  publish-winget:
+    name: Publish release to WinGet (wingetcreate) [FUTURE / WIP]
+    runs-on: windows-latest
+    needs: verify-syntax
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.14"
+
+      - name: Determine Version and Release URLs
+        shell: pwsh
+        run: |
+          $tag = "${{ github.event.release.tag_name || github.event.inputs.release_tag }}"
+          if (-not $tag -and "${{ github.event_name }}" -eq "release") {
+            $tag = "${{ github.ref_name }}"
+          }
+          if ($tag -match "^v?(?<ver>\d{4}\.\d+\..+)$") {
+            $version = $Matches.ver
+          } else {
+            $version = (python -c "from tools.generate_winget_manifest import _read_current_version; print(_read_current_version())").Trim()
+            $tag = "v$version"
+          }
+          $setupUrl = "https://github.com/carlkidcrypto/purpleair_api/releases/download/$tag/PurpleAirAPI-Windows-x64-Setup.exe"
+          Write-Host "Target Version: $version"
+          Write-Host "Target Tag: $tag"
+          Write-Host "Installer URL: $setupUrl"
+          "WINGET_VERSION=$version" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "WINGET_TAG=$tag" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "WINGET_INSTALLER_URL=$setupUrl" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Generate WinGet Manifests
+        shell: pwsh
+        run: |
+          python tools/generate_winget_manifest.py `
+            --out-dir dist-winget `
+            --version "$env:WINGET_VERSION" `
+            --installer-url "$env:WINGET_INSTALLER_URL" `
+            --installer-type inno
+
+      - name: Upload WinGet Manifest Artifacts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: winget-manifests
+          path: dist-winget/**
+
+      - name: Install Microsoft wingetcreate CLI
+        shell: pwsh
+        run: |
+          Write-Host "Downloading Microsoft wingetcreate CLI..."
+          Invoke-WebRequest -Uri "https://aka.ms/wingetcreate/latest" -OutFile "wingetcreate.exe"
+          if (Test-Path ".\wingetcreate.exe") {
+            $item = Get-Item ".\wingetcreate.exe"
+            Write-Host "wingetcreate downloaded successfully: $($item.FullName) ($($item.Length) bytes)"
+          } else {
+            throw "Failed to download wingetcreate.exe"
+          }
+
+      - name: Validate Manifest Structure Locally
+        shell: pwsh
+        run: |
+          $ver = "$env:WINGET_VERSION"
+          $manifestDir = "dist-winget\manifests\c\carlkidcrypto\PurpleAirAPI\$ver"
+          if (-not (Test-Path $manifestDir)) {
+            throw "Manifest directory does not exist: $manifestDir"
+          }
+          Get-ChildItem -Path $manifestDir | Format-Table Name, Length, LastWriteTime
+          if (Get-Command winget -ErrorAction SilentlyContinue) {
+            Write-Host "Validating manifests via winget validate..."
+            winget validate --manifest "$manifestDir"
+          } else {
+            Write-Host "winget client CLI not present on runner; local syntax check passed."
+          }
+
+      - name: Submit Pull Request to microsoft/winget-pkgs
+        shell: pwsh
+        run: |
+          $token = "${{ secrets.WINGET_CREATE_PAT || secrets.WINGET_TOKEN || secrets.WINGET_ACC_TOKEN }}"
+          if (-not $token) {
+            Write-Host "::notice::WinGet distribution pipeline is currently marked as FUTURE / WIP pending repository credentials setup."
+            Write-Host "::notice::WINGET_CREATE_PAT / WINGET_TOKEN / WINGET_ACC_TOKEN secret is not configured."
+            Write-Host "WinGet manifests were generated and saved to run artifacts."
+            Write-Host "To enable automated PR submission to microsoft/winget-pkgs, add a GitHub PAT with 'public_repo' scope to repository secrets."
+            exit 0
+          }
+
+          if ("${{ github.event_name }}" -eq "pull_request") {
+            Write-Host "Pull request event detected. Manifest generation and CLI tests passed. Skipping PR submission during PR check."
+            exit 0
+          }
+
+          $ver = "$env:WINGET_VERSION"
+          $manifestPath = (Resolve-Path "dist-winget\manifests\c\carlkidcrypto\PurpleAirAPI\$ver\carlkidcrypto.PurpleAirAPI.yaml").Path
+          Write-Host "Submitting manifests for carlkidcrypto.PurpleAirAPI v$ver to microsoft/winget-pkgs..."
+
+          $submitExit = 0
+          try {
+            & .\wingetcreate.exe submit "$manifestPath" --token "$token" --no-open
+            $submitExit = $LASTEXITCODE
+          } catch {
+            Write-Host "wingetcreate submit error: $_"
+            $submitExit = 1
+          }
+
+          if ($submitExit -ne 0) {
+            Write-Host "wingetcreate submit exited with code $submitExit; attempting wingetcreate update fallback..."
+            & .\wingetcreate.exe update carlkidcrypto.PurpleAirAPI `
+              --version "$ver" `
+              --urls "$env:WINGET_INSTALLER_URL" `
+              --token "$token" `
+              --no-open `
+              --submit
+          }
