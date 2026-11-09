@@ -2,42 +2,32 @@
 # https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
 # https://cibuildwheel.pypa.io/en/stable/deliver-to-pypi/
 
-name: python/build_and_publish_test_pypi
+name: PyPI Distributions
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
 permissions:
   contents: read
-concurrency: build_and_publish_to_test_pypi
-on:
-  push:
-    branches: [ main ]
-    paths:
-      - 'python/**'
-      - 'swig/**'
-      - '.github/workflows/python_build_and_publish_test_pypi.yml'
 
 jobs:
-  check-source-changes:
-    runs-on: ubuntu-latest
-    outputs:
-      run_job: ${{ steps.changed-files.outputs.any_changed }}
-    steps:
-      - name: Checkout Sourcecode
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Check for changes in Python source
-        id: changed-files
-        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v46.0.1
-        with:
-          files: |
-            python/**
-            swig/**
-            .github/workflows/python_build_and_publish_test_pypi.yml
+  verify-syntax:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/verify_syntax.yml
 
   build_wheels:
+    needs: verify-syntax
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    needs: check-source-changes
-    if: needs.check-source-changes.outputs.run_job == 'true'
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-13, macos-14]
 
@@ -66,16 +56,15 @@ jobs:
           # Build dependencies
           CIBW_BUILD_VERBOSITY: 1
 
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v4.4.3
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: wheels-${{ matrix.os }}
           path: ./dist/*.whl
 
   build_sdist:
+    needs: verify-syntax
     name: Build source distribution
     runs-on: ubuntu-latest
-    needs: check-source-changes
-    if: needs.check-source-changes.outputs.run_job == 'true'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -93,14 +82,16 @@ jobs:
       - name: Build sdist
         run: python -m build --sdist python/ --outdir dist/
 
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v4.4.3
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: sdist
           path: dist/*.tar.gz
 
   publish:
     needs: [build_wheels, build_sdist]
+    name: Build and Publish To PyPI
     runs-on: ubuntu-latest
+    environment: build_and_publish_to_pypi
     permissions:
       id-token: write
     steps:
@@ -115,9 +106,9 @@ jobs:
           name: sdist
           path: dist/
 
-      - name: Publish distribution 📦 to Test PyPI
+      - name: Publish distribution 📦 to PyPI
         uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086 # release/v1.14
         with:
+          packages-dir: dist/
           skip-existing: true
           print-hash: true
-          repository-url: https://test.pypi.org/legacy/
