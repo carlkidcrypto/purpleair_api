@@ -15,6 +15,9 @@ on:
       - '!.github/workflows/agentics-maintenance.yml'
       - '!.github/aw/**'
       - '!**/*.json'
+      - 'tools/actionlint-version.txt'
+      - '.github/actionlint.yaml'
+      - '.yamllint'
   pull_request:
     branches: [main]
     paths:
@@ -25,6 +28,9 @@ on:
       - '!.github/workflows/agentics-maintenance.yml'
       - '!.github/aw/**'
       - '!**/*.json'
+      - 'tools/actionlint-version.txt'
+      - '.github/actionlint.yaml'
+      - '.yamllint'
   workflow_call:
   workflow_dispatch:
 
@@ -36,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -44,7 +50,18 @@ jobs:
           python-version: "3.14"
 
       - name: Install yamllint
-        run: python -m pip install yamllint
+        run: python -m pip install yamllint==1.38.0
+
+      - name: Install actionlint
+        run: |
+          set -e
+          version=$(cat tools/actionlint-version.txt)
+          archive="actionlint_${version#v}_linux_amd64.tar.gz"
+          curl -fsSL --retry 5 --retry-delay 2 --retry-all-errors "https://github.com/rhysd/actionlint/releases/download/${version}/${archive}" -o /tmp/actionlint.tar.gz
+          mkdir -p /tmp/actionlint
+          tar -xzf /tmp/actionlint.tar.gz -C /tmp/actionlint
+          sudo install -m 0755 /tmp/actionlint/actionlint /usr/local/bin/actionlint
+          actionlint -version
 
       - name: Lint workflow YAML files
         run: |
@@ -58,3 +75,16 @@ jobs:
             ! -path "*/.github/aw/*" \
             -print0 | xargs -0 yamllint -c .yamllint
           echo "All workflow YAML files passed linting."
+
+      - name: Validate workflow actions
+        run: |
+          set -e
+          echo "Validating workflow actions with actionlint..."
+          find .github/workflows/ \( -name "*.yml" -o -name "*.yaml" \) \
+            ! -name "*.lock.yml" \
+            ! -name "*.lock.yaml" \
+            ! -name "agentics-maintenance.yml" \
+            ! -name "*.json" \
+            ! -path "*/.github/aw/*" \
+            -print0 | xargs -0 actionlint -shellcheck=
+          echo "All workflow files passed actionlint."
