@@ -222,14 +222,23 @@ and ``python/pyproject.toml`` for building native extension wheels and source di
 Multi-Language Packaging and Distribution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-[PKG-01] Python packages (source distributions and binary wheels) shall be built using ``meson-python``
-and distributed to PyPI and TestPyPI.
+[PKG-01] Python packages (source distributions and binary wheels) shall be
+built using ``cibuildwheel`` and ``build``, and distributed to PyPI and
+TestPyPI.
 
-[PKG-02] JavaScript packages shall compile native Node-API addons via ``node-gyp`` with ``binding.gyp``
-and be packaged and published to npm as ``purpleair_api``.
+[PKG-02] JavaScript packages shall compile native Node-API addons via
+``node-gyp`` and be packaged and published to npm as ``purpleair-api``.
 
-[PKG-03] C# packages shall be compiled with ``dotnet pack`` producing signed NuGet packages
-(``PurpleAirAPI.nupkg``) bundling native runtimes across ``win-x64``, ``linux-x64``, and ``osx-x64``.
+[PKG-03] C# packages shall be compiled with ``dotnet pack`` producing NuGet
+packages (``PurpleAirAPI.nupkg``) published to NuGet.org and GitHub Packages.
+
+[PKG-04] Go bindings shall be distributed via Go modules
+(``github.com/carlkidcrypto/purpleair_api/go``) and pre-warmed on
+``proxy.golang.org``.
+
+[PKG-05] WinGet packages (``carlkidcrypto.PurpleAirAPI``) shall provide
+automated multi-file manifest generation conforming to WinGet specification
+1.6.0.
 
 Error and Exception Handling
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -356,17 +365,19 @@ workflow shall:
 * Automatically create a pull request into ``main`` with the versioned docs and updated index using
   ``peter-evans/create-pull-request@v8``.
 
-[CICD-06] Distribution packaging for TestPyPI and PyPI shall be extracted into reusable composite
-GitHub Actions (``build-distribution``) executing under Python 3.14, invoking
-``pypa/gh-action-pypi-publish`` directly at the job step level for OIDC Trusted Publishing
-compatibility.
+[CICD-06] Python distribution workflows (``build_and_publish_to_pypi.yml``
+and ``build_and_publish_to_test_pypi.yml``) shall build wheels using
+``cibuildwheel`` and source distributions using ``build``, publishing via
+``pypa/gh-action-pypi-publish`` with OIDC Trusted Publishing and artifact
+preservation.
 
 [CICD-07] Windows runner workflow execution shall isolate PowerShell (``pwsh``) steps from bash path
 mangling when running native builds or passing workspace directory paths.
 
-[CICD-08] Multi-language publishing workflows (PyPI, npm, NuGet) shall execute exclusively on release
-events or authorized manual triggers, with branch guards strictly prohibiting publishing from non-main
-branches.
+[CICD-08] Multi-ecosystem publishing workflows (PyPI, npm, NuGet, Go, WinGet)
+shall execute exclusively on release published events or workflow_dispatch,
+with packaging decoupled from publishing and artifacts uploaded prior to publish
+steps.
 
 [CICD-09] Multi-language CI test workflows shall generate standardized unit test results (JUnit XML, TRX)
 and publish automated pass/fail, error, and duration summary comments on pull requests using
@@ -387,3 +398,7 @@ Codecov (``codecov/codecov-action``) using repository secret ``CODECOV_TOKEN``,
 tagged with dedicated flags (``python``, ``javascript``, ``go``, ``csharp``)
 and tracked via separate components (``python_code``, ``javascript_code``,
 ``go_code``).
+
+[CICD-13] WinGet distribution workflow (``build_and_publish_to_winget.yml``)
+shall generate package manifests via ``tools/generate_winget_manifest.py`` and
+gracefully handle missing submission credentials with clear diagnostic notices.
