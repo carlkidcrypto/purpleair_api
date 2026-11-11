@@ -29,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-13, macos-14]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -46,12 +46,16 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel python/ --output-dir dist/
         env:
-          CIBW_BUILD: "cp311-* cp312-* cp313-* cp314-* cp315-*"
-          CIBW_SKIP: "*-musllinux_*"
+          CIBW_BUILD: "cp311-* cp312-* cp313-* cp314-*"
+          CIBW_SKIP: "*-musllinux_* cp36-* cp37-* cp38-* cp39-* cp310-* pp*"
+          CIBW_MANYLINUX_X86_64_IMAGE: "manylinux_2_28"
+          CIBW_ARCHS_LINUX: "x86_64"
+          CIBW_ARCHS_MACOS: "arm64"
+          CIBW_ARCHS_WINDOWS: "AMD64"
           # Install system dependencies
-          CIBW_BEFORE_ALL_LINUX: "yum install -y libcurl-devel swig || apt-get update && apt-get install -y libcurl4-openssl-dev swig"
+          CIBW_BEFORE_ALL_LINUX: "if command -v dnf >/dev/null 2>&1; then dnf install -y libcurl-devel swig; elif command -v yum >/dev/null 2>&1; then yum install -y libcurl-devel swig; elif command -v apt-get >/dev/null 2>&1; then apt-get update && apt-get install -y libcurl4-openssl-dev swig; fi"
           CIBW_BEFORE_ALL_MACOS: "brew install curl swig || true"
-          CIBW_ENVIRONMENT_MACOS: PKG_CONFIG_PATH="$(brew --prefix curl)/lib/pkgconfig"
+          CIBW_ENVIRONMENT_MACOS: PKG_CONFIG_PATH="$(brew --prefix curl)/lib/pkgconfig" MACOSX_DEPLOYMENT_TARGET="11.0"
           CIBW_BEFORE_ALL_WINDOWS: "choco install swig curl || true"
           # Build dependencies
           CIBW_BUILD_VERBOSITY: 1

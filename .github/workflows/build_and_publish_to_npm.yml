@@ -115,14 +115,23 @@ jobs:
             echo "Notice: ${PACKAGE_NAME}@${PACKAGE_VERSION} is already published on npm; skipping publish step."
             exit 0
           fi
+          TARBALL=$(ls -1 purpleair-api-*.tgz 2>/dev/null | head -n 1)
           if [[ "$PACKAGE_VERSION" =~ -alpha\. ]] || \
              [[ "$PACKAGE_VERSION" =~ -a[0-9] ]] || \
              [[ "$PACKAGE_VERSION" =~ -beta\. ]] || \
              [[ "$PACKAGE_VERSION" =~ -rc\. ]] || \
              [[ "$PACKAGE_VERSION" =~ -[0-9]+$ ]]; then
             echo "Publishing prerelease version $PACKAGE_VERSION with tag 'next'..."
-            npm publish --access public --provenance --tag next
+            if [ -n "$TARBALL" ]; then
+              npm publish "$TARBALL" --access public --provenance --tag next
+            else
+              npm publish --access public --provenance --tag next
+            fi
           else
             echo "Publishing release version $PACKAGE_VERSION with tag 'latest'..."
-            npm publish --access public --provenance --tag latest
+            if [ -n "$TARBALL" ]; then
+              npm publish "$TARBALL" --access public --provenance --tag latest
+            else
+              npm publish --access public --provenance --tag latest
+            fi
           fi

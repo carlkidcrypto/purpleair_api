@@ -24,7 +24,7 @@ author = "carlkidcrypto"
 
 # The full version, including alpha/beta/rc tags
 # The full version, including alpha/beta/rc tags
-release = "v2026.11.11a0"
+release = "v2026.11.11a1"
 
 
 # -- General configuration ---------------------------------------------------
