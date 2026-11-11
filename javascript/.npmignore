@@ -1,0 +1,9 @@
+build/Release/obj.target
+build/Release/.deps
+*.tgz
+coverage
+tests
+node_modules
+binding.gyp
+meson.build
+purpleairapi_base_wrap.cxx
