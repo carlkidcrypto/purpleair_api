@@ -1,7 +1,28 @@
-Last Updated: 2026-11-02 18:43:33 UTC
+Last Updated: 2026-11-11 19:46:47 UTC
 
 # Changelog
 
+
+<a name="v2026.11.11a0"></a>
+## [v2026.11.11a0](https://github.com/carlkidcrypto/purpleair_api/compare/v1.5.1...v2026.11.11a0) (2026-11-11)
+
+
+### Changes
+
+#### Bump
+
+- Bump the nuget group with 3 updates ([#468](https://github.com/carlkidcrypto/purpleair_api/issues/468))
+
+
+
+
+
+
+
+
+
+
+---
 
 <a name="v1.5.1"></a>
 ## [v1.5.1](https://github.com/carlkidcrypto/purpleair_api/compare/v1.5.1a1...v1.5.1) (2026-11-02)
