@@ -54,7 +54,7 @@ When running `bump_version.sh` (or `release.sh`) in `purpleair_api`, the followi
 2. `python/pyproject.toml` &mdash; Modern Python build system specification (`version = "<VER>"`)
 3. `meson.build` &mdash; Root C++17 Meson build configuration (`version: '<VER>'`)
 4. `python/meson.build` &mdash; Python extension Meson build configuration (`version: '<VER>'`)
-5. `javascript/package.json` &mdash; Node.js package version (mapped to SemVer 2.0.0 e.g. `YYYY.M.D-alpha.N`)
+5. `javascript/package.json` &mdash; Node.js package version (mapped to SemVer format e.g. `YYYY.M.D-alpha.N`)
 6. `javascript/package-lock.json` &mdash; Node.js package lock version
 7. `csharp/PurpleAirAPI.csproj` &mdash; .NET C# project package version (`<Version>...</Version>`)
 8. `sphinx_docs_build/source/conf.py` &mdash; Sphinx documentation release variable (`release = "v<VER>"`)
