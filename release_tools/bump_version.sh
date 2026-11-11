@@ -90,11 +90,30 @@ if [[ "$old_version" == "$new_version" ]]; then
     exit 0
 fi
 
+# Convert PEP-440 (e.g. 2026.11.11a0) to SemVer-2.0 (e.g. 2026.11.11-alpha.0) if applicable
+to_semver() {
+    local v="$1"
+    if [[ "$v" =~ ^([0-9]+\.[0-9]+\.[0-9]+)a([0-9]+)$ ]]; then
+        printf '%s-alpha.%s' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}"
+    elif [[ "$v" =~ ^([0-9]+\.[0-9]+\.[0-9]+)b([0-9]+)$ ]]; then
+        printf '%s-beta.%s' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}"
+    elif [[ "$v" =~ ^([0-9]+\.[0-9]+\.[0-9]+)rc([0-9]+)$ ]]; then
+        printf '%s-rc.%s' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}"
+    elif [[ "$v" =~ ^([0-9]+\.[0-9]+\.[0-9]+)\.([0-9]+)$ ]]; then
+        printf '%s-%s' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]}"
+    else
+        printf '%s' "$v"
+    fi
+}
+
+old_semver_npm=$(to_semver "$old_version")
+new_semver_npm=$(to_semver "$new_version")
+
 # Exclude historical files, build caches, and release tools themselves
 pathspecs=(
     ':(exclude)CHANGELOG.md'
     ':(exclude)build/**'
-    ':(exclude)python3.12.venv/**'
+    ':(exclude)*.venv/**'
     ':(exclude)docs/**'
     ':(exclude)sphinx_docs_build/landing/**'
     ':(exclude).github/workflows/*.lock.yml'
@@ -119,6 +138,8 @@ done < <(
         git grep -Il -F -- "$old_version" -- . "${pathspecs[@]}" || true
         git grep -Il -F -- "v$old_version" -- . "${pathspecs[@]}" || true
         git grep -Il -F -- "V$old_version" -- . "${pathspecs[@]}" || true
+        git grep -Il -F -- "$old_semver_npm" -- . "${pathspecs[@]}" || true
+        git grep -Il -F -- "v$old_semver_npm" -- . "${pathspecs[@]}" || true
     } | sort -u
 )
 
@@ -139,9 +160,9 @@ if [[ ${#files[@]} -eq 0 ]]; then
     exit 1
 fi
 
-printf '%s version %s -> %s in %d file(s):\n' \
+printf '%s version %s -> %s (npm/SemVer %s -> %s) in %d file(s):\n' \
     "$([[ "$dry_run" == true ]] && printf 'Would bump' || printf 'Bumping')" \
-    "$old_version" "$new_version" "${#files[@]}"
+    "$old_version" "$new_version" "$old_semver_npm" "$new_semver_npm" "${#files[@]}"
 for f in "${files[@]}"; do
     printf '  - %s\n' "$f"
 done
@@ -155,12 +176,31 @@ for file in "${files[@]}"; do
     if [[ "$file" == "setup.cfg" || "$file" == "python/setup.cfg" ]]; then
         OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
             's/^version\s*=\s*\Q$ENV{OLD_VERSION}\E$/version = $ENV{NEW_VERSION}/m' "$file"
+    elif [[ "$file" == "python/pyproject.toml" || "$file" == "pyproject.toml" ]]; then
+        OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
+            's/^version\s*=\s*"\Q$ENV{OLD_VERSION}\E"$/version = "$ENV{NEW_VERSION}"/m' "$file"
+    elif [[ "$file" == "javascript/package.json" || "$file" == "javascript/package-lock.json" ]]; then
+        OLD_VER="$old_semver_npm" NEW_VER="$new_semver_npm" perl -0pi -e \
+            's/"version":\s*"\Q$ENV{OLD_VER}\E"/"version": "$ENV{NEW_VER}"/g' "$file"
+    elif [[ "$file" == "csharp/PurpleAirAPI.csproj" ]]; then
+        if [[ "$new_version" =~ (a|b|rc) ]]; then
+            TARGET_CS_VER="$new_semver_npm"
+        else
+            TARGET_CS_VER="$new_version"
+        fi
+        perl -0pi -e 's/<Version>.*?<\/Version>/<Version>'"$TARGET_CS_VER"'<\/Version>/g' "$file"
+    elif [[ "$file" == "meson.build" || "$file" == "python/meson.build" ]]; then
+        OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
+            's/version:\s*'\''\Q$ENV{OLD_VERSION}\E'\''/version: '\''$ENV{NEW_VERSION}'\''/g' "$file"
     elif [[ "$file" == "README.rst" ]]; then
         OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
             's/\Qv$ENV{OLD_VERSION}\E/v$ENV{NEW_VERSION}/g; s/\QV$ENV{OLD_VERSION}\E/v$ENV{NEW_VERSION}/g' "$file"
-    else
+    elif [[ "$file" == "sphinx_docs_build/source/conf.py" ]]; then
         OLD_VERSION="$old_version" NEW_VERSION="$new_version" perl -0pi -e \
-            's/\Qv$ENV{OLD_VERSION}\E/v$ENV{NEW_VERSION}/g; s/\QV$ENV{OLD_VERSION}\E/v$ENV{NEW_VERSION}/g; s/\Q$ENV{OLD_VERSION}\E/$ENV{NEW_VERSION}/g' "$file"
+            's/release\s*=\s*"v\Q$ENV{OLD_VERSION}\E"/release = "v$ENV{NEW_VERSION}"/g' "$file"
+    else
+        OLD_VER="$old_version" NEW_VER="$new_version" OLD_SEMVER="$old_semver_npm" NEW_SEMVER="$new_semver_npm" perl -0pi -e \
+            's/\Qv$ENV{OLD_VER}\E/v$ENV{NEW_VER}/g; s/\QV$ENV{OLD_VER}\E/v$ENV{NEW_VER}/g; s/\Q$ENV{OLD_SEMVER}\E/$ENV{NEW_SEMVER}/g; s/\Q$ENV{OLD_VER}\E/$ENV{NEW_VER}/g' "$file"
     fi
 done
 
@@ -173,6 +213,8 @@ done < <(
         git grep -Il -F -- "$old_version" -- . "${pathspecs[@]}" ':(exclude)README.rst' || true
         git grep -Il -F -- "v$old_version" -- . "${pathspecs[@]}" || true
         git grep -Il -F -- "V$old_version" -- . "${pathspecs[@]}" || true
+        git grep -Il -F -- "$old_semver_npm" -- . "${pathspecs[@]}" || true
+        git grep -Il -F -- "v$old_semver_npm" -- . "${pathspecs[@]}" || true
     } | sort -u
 )
 

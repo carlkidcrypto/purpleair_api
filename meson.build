@@ -1,7 +1,7 @@
 project(
   'purpleair_api',
   ['cpp'],
-  version: '2.0.0a0',
+  version: '2026.11.11a0',
   license: 'MIT',
   default_options: [
     'cpp_std=c++17',
