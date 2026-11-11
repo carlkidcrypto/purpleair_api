@@ -5,7 +5,7 @@ This is a wrapper for the PurpleAirAPI (PAA) with a **C++ backend and SWIG bindi
 
 To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by sending an email to ``contact@purpleair.com`` with a first and last name to assign them to.
 
-**New in v2.0**: The library now uses a high-performance C++ backend with SWIG bindings, providing native performance while maintaining full backward compatibility with existing Python code.
+**New in CalSemVer**: The library now uses a high-performance C++ backend with SWIG bindings, providing native performance while maintaining full backward compatibility with existing Python code.
 
 .. image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml

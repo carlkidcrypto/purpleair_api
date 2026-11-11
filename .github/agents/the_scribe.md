@@ -16,7 +16,7 @@ Focus on the following instructions:
 - Ensure proper links between relevant files
 - Ensure to maintain various versions of documentation under docs/. For
     example, html is the current release, html_v1.1.0 is the v1.1.0 release, and
-    html_v2.0.1 is the v2.0.1 release.
+    html_v2026.11.3 is the v2026.11.3 release.
 - Do not edit the html directly, rather use the sphinx command `make html`
     inside `sphinx_docs_build` to generate it for you.
 - Add the following footer to all created or updated README.rst files:
