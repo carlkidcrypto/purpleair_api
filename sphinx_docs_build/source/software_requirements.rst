@@ -390,7 +390,7 @@ environment.
 [CICD-11] The package versioning and release automation shall follow
 SemVer-compliant Calendar Versioning (CalSemVer) using ``YYYY.M.D`` for stable
 releases and ``YYYY.M.DaN`` for pre-releases, omitting leading zeroes in date
-components to guarantee compatibility with PEP 440 and SemVer 2.0.0.
+components to guarantee compatibility with PEP 440 and SemVer standards.
 
 [CICD-12] Automated multi-language test workflows (Python, JavaScript, Go,
 and C#) shall generate standardized code coverage reports and upload them to

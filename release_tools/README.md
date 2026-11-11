@@ -48,17 +48,27 @@ Atomically bumps version strings across all tracked package and documentation fi
 
 ## Managed File Touchpoints
 
-When running `bump_version.sh` in `purpleair_api`, the following files are synchronized:
+When running `bump_version.sh` (or `release.sh`) in `purpleair_api`, the following files are synchronized:
 
-1. `setup.cfg` &mdash; Python package distribution version (`version = <VER>`)
-2. `sphinx_docs_build/source/conf.py` &mdash; Sphinx documentation release variable (`release = "v<VER>"`)
+1. `python/setup.cfg` &mdash; Python package distribution version (`version = <VER>`)
+2. `python/pyproject.toml` &mdash; Modern Python build system specification (`version = "<VER>"`)
+3. `meson.build` &mdash; Root C++17 Meson build configuration (`version: '<VER>'`)
+4. `python/meson.build` &mdash; Python extension Meson build configuration (`version: '<VER>'`)
+5. `javascript/package.json` &mdash; Node.js package version (mapped to SemVer format e.g. `YYYY.M.D-alpha.N`)
+6. `javascript/package-lock.json` &mdash; Node.js package lock version
+7. `csharp/PurpleAirAPI.csproj` &mdash; .NET C# project package version (`<Version>...</Version>`)
+8. `sphinx_docs_build/source/conf.py` &mdash; Sphinx documentation release variable (`release = "v<VER>"`)
+9. `README.rst` &mdash; Release badge download shield URLs (`v<VER>`)
+10. `tools/generate_winget_manifest.py` &mdash; WinGet manifest generator fallback default
+11. `python/uv.lock` &mdash; Dependency lockfile package version
 
 ### Excluded Files
 
 The following files are intentionally excluded from version bump scripts:
 - `CHANGELOG.md` &mdash; Generated and maintained by `auto_change_log.md`
 - `docs/html/**`, `docs/html_v*/**` &mdash; Generated documentation artifacts
-- `tests/**` &mdash; Test suite files
+- `tests/**`, `python/tests/**` &mdash; Test suite files
+- External specification files (e.g. CSA Matter 1.5.1 specification references)
 
 ---
 
@@ -66,21 +76,24 @@ The following files are intentionally excluded from version bump scripts:
 
 1. **Create a release branch or worktree**:
    ```bash
-   git checkout -b chore/bump-v1.5.1
+   git worktree add -b release/v2026.11.11a0 ../purpleair_api-release-v2026.11.11a0 origin/main
+   cd ../purpleair_api-release-v2026.11.11a0
    ```
 2. **Execute version bump with verification**:
    ```bash
-   ./release_tools/bump_version.sh --verify 1.5.1
+   ./release_tools/bump_version.sh --verify 2026.11.11a0
    ```
+   *(or use the symlink `./release_tools/release.sh --verify 2026.11.11a0`)*
 3. **Inspect the git status and diff**:
    ```bash
    git diff
    ```
-4. **Commit and push**:
+4. **Commit and push using targeted staging**:
    ```bash
-   git commit -am "chore: bump version to 1.5.1"
-   git push -u origin chore/bump-v1.5.1
+   git add <modified-files>
+   git commit -m "chore(release): bump version to 2026.11.11a0 across multi-language manifests"
+   git push -u origin release/v2026.11.11a0
    ```
 5. **Open Pull Request**:
-   - Open a PR targeting `main`.
-   - Wait for maintainer review and merge.
+   - Open a PR targeting `main` using `gh pr create`.
+   - Monitor CI check status and hand off to maintainer for merging.

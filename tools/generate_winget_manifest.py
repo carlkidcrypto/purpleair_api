@@ -58,7 +58,7 @@ def _read_current_version() -> str:
         if match:
             return match.group(1).strip()
 
-    return "2026.11.3-alpha.0"
+    return "2026.11.11-alpha.0"
 
 
 def get_canonical_manifest_dir(
@@ -67,14 +67,33 @@ def get_canonical_manifest_dir(
     out_dir: Path,
 ) -> Path:
     """Return canonical WinGet directory: manifests/{first-letter}/{Publisher}/{AppName}/{Version}/"""
+    if not re.fullmatch(r"^[a-zA-Z0-9_\-]+(?:\.[a-zA-Z0-9_\-]+)+$", package_id):
+        raise ValueError(f"Invalid package_id format: {package_id}")
+    if not re.fullmatch(r"^[0-9a-zA-Z\.\-_]+$", package_version):
+        raise ValueError(f"Invalid package_version format: {package_version}")
+
     parts = package_id.split(".", 1)
     publisher = parts[0]
     app_name = parts[1] if len(parts) > 1 else package_id
     first_letter = publisher[0].lower()
 
-    if out_dir.name.lower() == "manifests":
-        return out_dir / first_letter / publisher / app_name / package_version
-    return out_dir / "manifests" / first_letter / publisher / app_name / package_version
+    base_out = out_dir.resolve()
+    if base_out.name.lower() == "manifests":
+        target = base_out / first_letter / publisher / app_name / package_version
+    else:
+        target = (
+            base_out
+            / "manifests"
+            / first_letter
+            / publisher
+            / app_name
+            / package_version
+        )
+
+    target_resolved = target.resolve()
+    if not target_resolved.is_relative_to(base_out):
+        raise ValueError(f"Path traversal detected in manifest directory: {target}")
+    return target_resolved
 
 
 def compute_sha256(path_or_url: str) -> str:
@@ -237,9 +256,14 @@ def generate_manifests(
             f"ManifestVersion: {MANIFEST_VERSION}\n"
         )
 
-    version_path = dest / f"{package_id}.yaml"
-    locale_path = dest / f"{package_id}.locale.en-US.yaml"
-    installer_path = dest / f"{package_id}.installer.yaml"
+    target_dir = dest.resolve()
+    version_path = (target_dir / f"{package_id}.yaml").resolve()
+    locale_path = (target_dir / f"{package_id}.locale.en-US.yaml").resolve()
+    installer_path = (target_dir / f"{package_id}.installer.yaml").resolve()
+
+    for p in (version_path, locale_path, installer_path):
+        if not p.is_relative_to(target_dir):
+            raise ValueError(f"Path traversal detected in manifest output file: {p}")
 
     version_path.write_text(version_yaml, encoding="utf-8")
     locale_path.write_text(locale_yaml, encoding="utf-8")

@@ -176,7 +176,8 @@ def test_parse_semver():
     assert parse_semver("v1.5.0") == (1, 5, 0, 1, "")
     assert parse_semver("1.5.0") == (1, 5, 0, 1, "")
     assert parse_semver("v1.5.0a1") == (1, 5, 0, 0, "a1")
-    assert parse_semver("v2.0.0-rc.1") == (2, 0, 0, 0, "rc.1")
+    assert parse_semver("v2026.11.11-rc.1") == (2026, 11, 11, 0, "rc.1")
+    assert parse_semver("v2026.11.11a0") == (2026, 11, 11, 0, "a0")
     assert parse_semver("invalid_tag") is None
 
 
