@@ -4,7 +4,7 @@ build-backend = "mesonpy"
 
 [project]
 name = "purpleair_api"
-version = "2026.11.11a0"
+version = "2026.11.11a1"
 description = "PurpleAir API wrapper with C++ backend and SWIG bindings"
 readme = "../README.rst"
 license = {text = "MIT"}
