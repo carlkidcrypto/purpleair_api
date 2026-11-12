@@ -1,7 +1,20 @@
-Last Updated: 2026-11-11 19:46:47 UTC
+Last Updated: 2026-11-11 22:14:41 UTC
 
 # Changelog
 
+
+<a name="v2026.11.11a1"></a>
+## [v2026.11.11a1](https://github.com/carlkidcrypto/purpleair_api/compare/v2026.11.11a0...v2026.11.11a1) (2026-11-11)
+
+
+
+
+
+
+
+
+
+---
 
 <a name="v2026.11.11a0"></a>
 ## [v2026.11.11a0](https://github.com/carlkidcrypto/purpleair_api/compare/v1.5.1...v2026.11.11a0) (2026-11-11)
