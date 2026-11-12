@@ -76,9 +76,12 @@ jobs:
           CIBW_ARCHS_MACOS: "arm64"
           CIBW_ARCHS_WINDOWS: "AMD64"
           # Install system dependencies
-          CIBW_BEFORE_ALL_LINUX: "if command -v dnf >/dev/null 2>&1; then dnf install -y libcurl-devel swig; elif command -v yum >/dev/null 2>&1; then yum install -y libcurl-devel swig; elif command -v apt-get >/dev/null 2>&1; then apt-get update && apt-get install -y libcurl4-openssl-dev swig; fi"
-          CIBW_BEFORE_ALL_MACOS: "brew install curl swig || true"
-          CIBW_ENVIRONMENT_MACOS: PKG_CONFIG_PATH="$(brew --prefix curl)/lib/pkgconfig" MACOSX_DEPLOYMENT_TARGET="11.0"
+          CIBW_BEFORE_ALL_LINUX: >-
+            if command -v dnf >/dev/null 2>&1; then dnf install -y libcurl-devel swig;
+            elif command -v yum >/dev/null 2>&1; then yum install -y libcurl-devel swig;
+            elif command -v apt-get >/dev/null 2>&1; then apt-get update && apt-get install -y libcurl4-openssl-dev swig; fi
+          CIBW_BEFORE_ALL_MACOS: "brew install swig || true"
+          CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET="11.0"
           CIBW_BEFORE_ALL_WINDOWS: "choco install swig curl || true"
           # Build dependencies
           CIBW_BUILD_VERBOSITY: 1
