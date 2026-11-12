@@ -1,7 +1,7 @@
 project(
   'purpleair_api',
   ['cpp'],
-  version: '2026.11.11a1',
+  version: '2026.11.11a2',
   license: 'MIT',
   default_options: [
     'cpp_std=c++17',
@@ -13,7 +13,12 @@ project(
 # ---------------------------------------------------------------------------
 # Common dependencies and tools
 # ---------------------------------------------------------------------------
-libcurl_dep = dependency('libcurl', required: true)
+cpp = meson.get_compiler('cpp')
+if host_machine.system() == 'darwin'
+  libcurl_dep = cpp.find_library('curl', required: true)
+else
+  libcurl_dep = dependency('libcurl', required: true)
+endif
 swig = find_program('swig', required: true)
 
 # ---------------------------------------------------------------------------

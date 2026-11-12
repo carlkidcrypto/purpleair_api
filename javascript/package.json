@@ -1,6 +1,6 @@
 {
   "name": "purpleair-api",
-  "version": "2026.11.11-alpha.1",
+  "version": "2026.11.11-alpha.2",
   "description": "PurpleAir API Node.js bindings with C++ backend",
   "author": "carlkidcrypto",
   "license": "MIT",

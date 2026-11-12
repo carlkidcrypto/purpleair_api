@@ -399,7 +399,7 @@ wheels = [
 
 [[package]]
 name = "purpleair-api"
-version = "2026.11.11a1"
+version = "2026.11.11a2"
 source = { editable = "." }
 dependencies = [
     { name = "requests" },
