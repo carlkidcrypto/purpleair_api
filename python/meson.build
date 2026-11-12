@@ -27,10 +27,7 @@ cpp = meson.get_compiler('cpp')
 if host_machine.system() == 'darwin'
   libcurl_dep = cpp.find_library('curl', required: true)
 else
-  libcurl_dep = dependency('libcurl', required: false)
-  if not libcurl_dep.found()
-    libcurl_dep = cpp.find_library('curl', required: true)
-  endif
+  libcurl_dep = dependency('libcurl', required: true)
 endif
 swig        = find_program('swig', required: true)
 
