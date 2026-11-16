@@ -8,6 +8,14 @@ concurrency:
 on:
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Optional tag to validate/include in the changelog range"
+        required: false
+        type: string
+  skip-if-match:
+    query: 'is:pr is:open head:automation/update-changelog label:documentation label:automated-pr'
 
 permissions:
   actions: read
@@ -18,7 +26,9 @@ safe-outputs:
   noop:
     report-as-issue: true
   create-pull-request:
-    title-prefix: "[changelog]"
+    title-prefix: "[changelog] "
+    base-branch: main
+    protected-files: allowed
     labels:
       - documentation
       - automated-pr
@@ -68,11 +78,12 @@ Generate and open a changelog update PR only when substantive changelog content 
    - After installation, verify it works: `git-chglog --version`
    - **If git-chglog cannot be installed by either method, stop immediately with a clear error message. Do NOT attempt to re-implement changelog generation using Python, shell, or any other scripting language.**
 
-2. Generate candidate changelog content:
+2. Generate candidate changelog content and validate non-empty output:
    - `git-chglog --config .chglog/config.yml -o CHANGELOG.tmp`
+   - Verify that the latest tag section in `CHANGELOG.tmp` (between the first `<a name=` heading and the first `---` separator) is non-empty and contains at least one commit bullet (`^- `). If the latest section is empty, stop immediately with a clear error message and do not open a PR.
 
 3. Build commit intelligence context for summary quality:
-   - Identify the current release tag from the triggering release.
+   - Identify the current release tag from the triggering release (or from `workflow_dispatch` `inputs.tag` if provided, otherwise the latest git tag).
    - Determine whether the triggering release is a prerelease (`prerelease: true|false`) from the GitHub release payload.
    - Select a comparison base using this priority order (first match wins):
      1. If the release body contains `<!-- BASE_TAG: <tag> -->`, use `<tag>`.
