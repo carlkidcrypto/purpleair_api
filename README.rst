@@ -7,35 +7,32 @@ To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by se
 
 **New in CalSemVer**: The library now uses a high-performance C++ backend with SWIG bindings, providing native performance while maintaining full backward compatibility with existing Python code.
 
-|python_tests| |javascript_tests| |csharp_tests| |go_tests| |black| |sphinx_docs| |pages_deploy|
+|python_tests| |javascript_tests| |csharp_tests| |go_tests| |black| |sphinx_docs|
 
 |codecov| |sonar_gate| |sonar_security| |sonar_maintainability| |codeql|
 
 |pypi_version| |pypi_downloads| |npm_version| |npm_downloads| |pypi_dist| |testpypi_dist|
 
-|python_versions| |license|
+|license|
 
-.. |python_tests| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/python_test.yml/badge.svg?branch=main
+.. |python_tests| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/python_test.yml?branch=main&style=flat-square&label=Python%20Tests
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/python_test.yml
    :alt: Python Tests
-.. |javascript_tests| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/javascript_test.yml/badge.svg?branch=main
+.. |javascript_tests| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/javascript_test.yml?branch=main&style=flat-square&label=JavaScript%20Tests
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/javascript_test.yml
    :alt: JavaScript Tests
-.. |csharp_tests| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/csharp_test.yml/badge.svg?branch=main
+.. |csharp_tests| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/csharp_test.yml?branch=main&style=flat-square&label=C%23%20Tests
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/csharp_test.yml
    :alt: C# Tests
-.. |go_tests| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/go_test.yml/badge.svg?branch=main
+.. |go_tests| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/go_test.yml?branch=main&style=flat-square&label=Go%20Tests
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/go_test.yml
    :alt: Go Tests
-.. |black| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/python_black.yml/badge.svg
+.. |black| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/python_black.yml?branch=main&style=flat-square&label=Black
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/python_black.yml
    :alt: Black
-.. |sphinx_docs| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/python_sphinx_build.yml/badge.svg
+.. |sphinx_docs| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/python_sphinx_build.yml?branch=main&style=flat-square&label=Sphinx%20Docs
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/python_sphinx_build.yml
-   :alt: Sphinx Docs Build
-.. |pages_deploy| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/pages/pages-build-deployment/badge.svg
-   :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/pages/pages-build-deployment
-   :alt: pages-build-deployment
+   :alt: Sphinx Docs
 .. |codecov| image:: https://img.shields.io/codecov/c/github/carlkidcrypto/purpleair_api/main?style=flat-square&label=Codecov
    :target: https://codecov.io/gh/carlkidcrypto/purpleair_api
    :alt: Codecov
@@ -63,15 +60,12 @@ To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by se
 .. |npm_downloads| image:: https://img.shields.io/npm/dm/purpleair-api?style=flat-square
    :target: https://www.npmjs.com/package/purpleair-api
    :alt: npm Downloads
-.. |pypi_dist| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml/badge.svg
+.. |pypi_dist| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/build_and_publish_to_pypi.yml?style=flat-square&label=PyPI%20Distributions
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_pypi.yml
    :alt: PyPI Distributions
-.. |testpypi_dist| image:: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml/badge.svg
+.. |testpypi_dist| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/build_and_publish_to_test_pypi.yml?branch=main&style=flat-square&label=TestPyPI%20Distributions
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml
    :alt: TestPyPI Distributions
-.. |python_versions| image:: https://img.shields.io/pypi/pyversions/purpleair_api?style=flat-square
-   :target: https://pypi.org/project/purpleair_api/
-   :alt: Python Versions
 .. |license| image:: https://img.shields.io/github/license/carlkidcrypto/purpleair_api?style=flat-square
    :target: https://github.com/carlkidcrypto/purpleair_api/blob/main/LICENSE
    :alt: License
