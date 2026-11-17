@@ -4,13 +4,6 @@ info:
   title: CHANGELOG
   repository_url: https://github.com/carlkidcrypto/purpleair_api
 options:
-  commits:
-    # filters:
-    #   Type:
-    #     - feat
-    #     - fix
-    #     - perf
-    #     - refactor
   commit_groups:
     title_maps:
       feat: Features
@@ -24,9 +17,20 @@ options:
       test: Tests
       style: Styles
       revert: Reverts
+      Bump: Dependency Updates
+      Release: Releases
+      Add: Additions
+      Fix: Bug Fixes
+      Update: Updates
+      Refactor: Code Refactoring
+      Document: Documentation Updates
+      Enhance: Enhancements
+      Hotfix: Hotfixes
+      Initial: Initial Commits
+      Merge: Merges
       other: Other Changes
   header:
-    pattern: "^((\\w+)\\s.*)$"
+    pattern: "^\\s*((?:\\[[^\\]]+\\]\\s*)?([\\w]*)(?:\\([^)]*\\))?!?.*)$"
     pattern_maps:
       - Subject
       - Type
