@@ -42,8 +42,10 @@ class CodecovConfigurationTest(unittest.TestCase):
             path = REPO_ROOT / ".github" / "workflows" / wf_file
             self.assertTrue(path.is_file(), f"{wf_file} must exist")
             content = path.read_text(encoding="utf-8")
-            self.assertIn(
-                "codecov/codecov-action", content, f"{wf_file} must use codecov-action"
+            self.assertTrue(
+                "carlkidcrypto/shared-workflows/actions/upload-codecov" in content
+                or "codecov/codecov-action" in content,
+                f"{wf_file} must use upload-codecov or codecov-action",
             )
             self.assertIn(
                 "token: ${{ secrets.CODECOV_TOKEN }}",
@@ -51,10 +53,12 @@ class CodecovConfigurationTest(unittest.TestCase):
                 f"{wf_file} must provide token",
             )
             self.assertIn(f"flags: {flag}", content, f"{wf_file} must set flag {flag}")
-            self.assertIn(
-                "fail_ci_if_error: false",
-                content,
-                f"{wf_file} must set fail_ci_if_error",
+            self.assertTrue(
+                "fail-ci-if-error: 'false'" in content
+                or 'fail-ci-if-error: "false"' in content
+                or "fail-ci-if-error: false" in content
+                or "fail_ci_if_error: false" in content,
+                f"{wf_file} must set fail-ci-if-error to false",
             )
             self.assertIn(
                 "codecov.yml",
