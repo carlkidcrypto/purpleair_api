@@ -22,13 +22,15 @@ jobs:
     permissions:
       contents: read
       id-token: write
-    uses: carlkidcrypto/shared-workflows/.github/workflows/reusable_pypi_publish.yml@14e025f6c182b7b20718538f533ca467a9ff9c6c
+    uses: carlkidcrypto/shared-workflows/.github/workflows/reusable_pypi_publish.yml@3538efdfabdbcf0ae956cfc5685fd4c21a59696b
     with:
       target: pypi
       environment-name: build_and_publish_to_pypi
       build-mode: cibuildwheel
       package-subdir: python
       matrix-json: >-
-        [{"os":"ubuntu-latest","arch":"x86_64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"},{"os":"windows-latest","arch":"AMD64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"},{"os":"macos-latest","arch":"arm64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"}]
+        [{"os":"ubuntu-latest","arch":"x86_64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"},
+        {"os":"windows-latest","arch":"AMD64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"},
+        {"os":"macos-latest","arch":"arm64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"}]
       python-version: '3.11'
       skip-existing: true
