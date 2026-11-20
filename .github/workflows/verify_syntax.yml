@@ -15,7 +15,6 @@ on:
       - '!.github/workflows/agentics-maintenance.yml'
       - '!.github/aw/**'
       - '!**/*.json'
-      - 'tools/actionlint-version.txt'
       - '.github/actionlint.yaml'
       - '.yamllint'
   pull_request:
@@ -28,7 +27,6 @@ on:
       - '!.github/workflows/agentics-maintenance.yml'
       - '!.github/aw/**'
       - '!**/*.json'
-      - 'tools/actionlint-version.txt'
       - '.github/actionlint.yaml'
       - '.yamllint'
   workflow_call:
