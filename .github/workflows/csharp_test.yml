@@ -37,7 +37,7 @@ jobs:
 
       - name: Check for changes in C# source code
         id: changed-files
-        uses: carlkidcrypto/shared-workflows/actions/check-source-changes@873e1fea29bbd9dc73651d85a28920cb0797cb85
+        uses: carlkidcrypto/shared-workflows/actions/check-source-changes@3538efdfabdbcf0ae956cfc5685fd4c21a59696b
         with:
           files: |
             codecov.yml
@@ -111,7 +111,7 @@ jobs:
 
       - name: Upload coverage reports to Codecov
         if: always()
-        uses: carlkidcrypto/shared-workflows/actions/upload-codecov@873e1fea29bbd9dc73651d85a28920cb0797cb85
+        uses: carlkidcrypto/shared-workflows/actions/upload-codecov@3538efdfabdbcf0ae956cfc5685fd4c21a59696b
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: csharp/tests/TestResults/**/coverage.cobertura.xml
