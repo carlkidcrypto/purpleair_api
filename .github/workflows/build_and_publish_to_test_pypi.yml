@@ -2,6 +2,8 @@
 # Refer to the following link for help
 # https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
 # https://cibuildwheel.pypa.io/en/stable/deliver-to-pypi/
+# Note: TestPyPI Trusted Publishing (OIDC) does not support reusable workflows
+# (pypa/gh-action-pypi-publish#166), so the publish job runs directly in this workflow.
 
 name: TestPyPI Distributions
 
@@ -22,23 +24,137 @@ permissions:
   contents: read
 
 jobs:
-  publish-test-pypi:
+  verify-syntax:
     permissions:
       contents: read
+    uses: carlkidcrypto/shared-workflows/.github/workflows/reusable_verify_syntax.yml@3538efdfabdbcf0ae956cfc5685fd4c21a59696b
+
+  check-source-changes:
+    needs: [verify-syntax]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      run_job: ${{ steps.changed-files.outputs.any_changed }}
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Check for packaging and source changes
+        id: changed-files
+        uses: carlkidcrypto/shared-workflows/actions/check-source-changes@3538efdfabdbcf0ae956cfc5685fd4c21a59696b
+        with:
+          files: |
+            python/**
+            swig/**
+            .github/workflows/build_and_publish_to_test_pypi.yml
+
+  build-wheels:
+    needs: [verify-syntax, check-source-changes]
+    if: ${{ needs.check-source-changes.outputs.run_job == 'true' || github.event_name == 'workflow_dispatch' }}
+    name: Build wheels on ${{ matrix.os }} (${{ matrix.arch }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: x86_64
+            cibw-build: 'cp311-* cp312-* cp313-* cp314-*'
+          - os: windows-latest
+            arch: AMD64
+            cibw-build: 'cp311-* cp312-* cp313-* cp314-*'
+          - os: macos-latest
+            arch: arm64
+            cibw-build: 'cp311-* cp312-* cp313-* cp314-*'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install cibuildwheel
+        shell: bash
+        run: |
+          python -m pip install --only-binary ":all:" "cibuildwheel==2.22.0"
+
+      - name: Build wheels with cibuildwheel
+        shell: bash
+        env:
+          CIBW_BUILD: ${{ matrix.cibw-build }}
+        run: python -m cibuildwheel "python" --output-dir dist/
+
+      - name: Upload wheel artifacts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: cibw-wheels-${{ matrix.os }}-${{ matrix.arch }}-${{ strategy.job-index }}
+          path: dist/*.whl
+          retention-days: 7
+
+  build-sdist:
+    needs: [verify-syntax, check-source-changes]
+    if: ${{ needs.check-source-changes.outputs.run_job == 'true' || github.event_name == 'workflow_dispatch' }}
+    name: Build distribution
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
+        with:
+          python-version: '3.11'
+
+      - name: Install build dependencies
+        shell: bash
+        run: |
+          python -m pip install --only-binary :all: --upgrade pip
+          python -m pip install --only-binary :all: build==1.2.2.post1
+
+      - name: Build distribution
+        shell: bash
+        run: python -m build --sdist "python" --outdir dist/
+
+      - name: Upload distribution artifacts
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
+        with:
+          name: sdist
+          path: dist/*
+          retention-days: 7
+
+  publish:
+    needs: [build-wheels, build-sdist]
+    name: Publish distribution to TestPyPI
+    runs-on: ubuntu-latest
+    environment: build_and_publish_to_test_pypi
+    permissions:
       id-token: write
-    uses: carlkidcrypto/shared-workflows/.github/workflows/reusable_pypi_publish.yml@3538efdfabdbcf0ae956cfc5685fd4c21a59696b
-    with:
-      target: testpypi
-      build-mode: cibuildwheel
-      package-subdir: python
-      matrix-json: >-
-        [{"os":"ubuntu-latest","arch":"x86_64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"},
-        {"os":"windows-latest","arch":"AMD64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"},
-        {"os":"macos-latest","arch":"arm64","cibw-build":"cp311-* cp312-* cp313-* cp314-*"}]
-      python-version: '3.11'
-      check-changes: true
-      changed-files-patterns: |
-        python/**
-        swig/**
-        .github/workflows/build_and_publish_to_test_pypi.yml
-      skip-existing: true
+      contents: read
+    steps:
+      - name: Download wheel artifacts
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+        with:
+          pattern: cibw-wheels-*
+          merge-multiple: true
+          path: dist/
+
+      - name: Download distribution artifacts
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+        with:
+          name: sdist
+          path: dist/
+
+      - name: Publish distribution to TestPyPI (OIDC)
+        uses: pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086  # release/v1.14
+        with:
+          packages-dir: dist/
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
+          verify-metadata: false
+          print-hash: true
