@@ -29,7 +29,7 @@ jobs:
 
       - name: Check for changes in JavaScript source code
         id: changed-files
-        uses: carlkidcrypto/shared-workflows/actions/check-source-changes@3538efdfabdbcf0ae956cfc5685fd4c21a59696b
+        uses: carlkidcrypto/shared-workflows/actions/check-source-changes@22f04e222fa07048891327e4d34bb174d36e7bfa
         with:
           files: |
             javascript/**/*.js
