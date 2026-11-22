@@ -21,7 +21,7 @@ jobs:
       contents: read
       packages: write
       id-token: write
-    uses: carlkidcrypto/shared-workflows/.github/workflows/reusable_nuget_publish.yml@3538efdfabdbcf0ae956cfc5685fd4c21a59696b
+    uses: carlkidcrypto/shared-workflows/.github/workflows/reusable_nuget_publish.yml@22f04e222fa07048891327e4d34bb174d36e7bfa
     with:
       project-path: csharp/PurpleAirAPI.csproj
       dotnet-version: '8.0.x'
