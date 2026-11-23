@@ -11,7 +11,7 @@ To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by se
 
 |codecov| |sonar_gate| |sonar_security| |sonar_maintainability| |codeql|
 
-|pypi_version| |pypi_downloads| |npm_version| |npm_downloads| |pypi_dist| |testpypi_dist|
+|pypi_version| |testpypi_version| |pypi_downloads| |npm_version| |npm_downloads| |pypi_dist| |testpypi_dist|
 
 |license|
 
@@ -51,6 +51,9 @@ To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by se
 .. |pypi_version| image:: https://img.shields.io/pypi/v/purpleair_api?style=flat-square
    :target: https://pypi.org/project/purpleair_api/
    :alt: PyPI Version
+.. |testpypi_version| image:: https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Ftest.pypi.org%2Fpypi%2Fpurpleair-api%2Fjson&query=%24.info.version&label=TestPyPI&style=flat-square&color=blue
+   :target: https://test.pypi.org/project/purpleair-api/
+   :alt: TestPyPI Version
 .. |pypi_downloads| image:: https://img.shields.io/pypi/dm/purpleair_api?style=flat-square
    :target: https://pypi.org/project/purpleair_api/
    :alt: PyPI Downloads
