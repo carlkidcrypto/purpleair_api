@@ -367,9 +367,12 @@ workflow shall:
 
 [CICD-06] Python distribution workflows (``build_and_publish_to_pypi.yml``
 and ``build_and_publish_to_test_pypi.yml``) shall build wheels using
-``cibuildwheel`` and source distributions using ``build``, publishing via
-``pypa/gh-action-pypi-publish`` with OIDC Trusted Publishing and artifact
-preservation.
+``cibuildwheel`` and source distributions using ``build`` via
+``reusable_pypi_publish.yml`` with ``skip-publish: true``, then publish in a
+caller-side ``publish`` job (``permissions: id-token: write``, ``contents: read``)
+invoking ``pypa/gh-action-pypi-publish`` directly with OIDC Trusted Publishing
+and artifact preservation so PyPI/TestPyPI receives the caller repository's
+``job_workflow_ref`` claim.
 
 [CICD-07] Windows runner workflow execution shall isolate PowerShell (``pwsh``) steps from bash path
 mangling when running native builds or passing workspace directory paths.
@@ -402,3 +405,9 @@ and tracked via separate components (``python_code``, ``javascript_code``,
 [CICD-13] WinGet distribution workflow (``build_and_publish_to_winget.yml``)
 shall generate package manifests via ``tools/generate_winget_manifest.py`` and
 gracefully handle missing submission credentials with clear diagnostic notices.
+
+[CICD-14] NuGet distribution workflow (``build_and_publish_to_nuget.yml``)
+shall pack the C# package in a caller-side job (``permissions: id-token: write``,
+``contents: read``, ``packages: write``) and authenticate to NuGet.org via OIDC
+Trusted Publishing (``NuGet/login@v1``) with duplicate-package skipping and
+GitHub Packages publishing, preserving the caller ``job_workflow_ref`` claim.
