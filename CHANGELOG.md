@@ -1,7 +1,30 @@
-Last Updated: 2026-11-21 04:21:55 UTC
+Last Updated: 2026-11-23 05:44:38 UTC
 
 # Changelog
 
+<a name="v2026.11.22b0"></a>
+## [v2026.11.22b0](https://github.com/carlkidcrypto/purpleair_api/compare/v2026.11.19b0...v2026.11.22b0) (2026-11-22)
+
+### Changes
+
+#### Bug Fixes
+
+- fix(ci): set build_and_publish_to_test_pypi environment on TestPyPI OIDC publish job ([#519](https://github.com/carlkidcrypto/purpleair_api/issues/519))
+
+#### Documentation Updates
+
+- docs: add versioned documentation for v2026.11.19b0 ([#511](https://github.com/carlkidcrypto/purpleair_api/issues/511))
+
+#### Maintenance
+
+- chore(release): prepare beta release v2026.11.22b0 ([#518](https://github.com/carlkidcrypto/purpleair_api/issues/518))
+- chore(ci): bump shared-workflows to 22f04e2 and adopt caller-side PyPI OIDC publish ([#517](https://github.com/carlkidcrypto/purpleair_api/issues/517))
+
+#### Updates
+
+- [changelog] Update CHANGELOG.md ([#510](https://github.com/carlkidcrypto/purpleair_api/issues/510))
+
+---
 <a name="v2026.11.19b0"></a>
 ## [v2026.11.19b0](https://github.com/carlkidcrypto/purpleair_api/compare/v2026.11.11a2...v2026.11.19b0) (2026-11-20)
 
