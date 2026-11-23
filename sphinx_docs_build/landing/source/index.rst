@@ -34,6 +34,7 @@ Select a version of the documentation to browse:
 .. VERSION_LIST_START
 
 * `Latest Version <./html/index.html>`_
+* `v2026.11.22b0 <./html_v2026.11.22b0/index.html>`_
 * `v2026.11.19b0 <./html_v2026.11.19b0/index.html>`_
 * `v2026.11.11a2 <./html_v2026.11.11a2/index.html>`_
 * `v2026.11.11a1 <./html_v2026.11.11a1/index.html>`_
