@@ -58,7 +58,7 @@ def _read_current_version() -> str:
         if match:
             return match.group(1).strip()
 
-    return "2026.11.19-beta.0"
+    return "2026.11.22-beta.0"
 
 
 def get_canonical_manifest_dir(
