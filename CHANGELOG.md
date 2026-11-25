@@ -1,7 +1,33 @@
-Last Updated: 2026-11-23 05:44:38 UTC
+Last Updated: 2026-11-25 04:35:50 UTC
 
 # Changelog
 
+<a name="v2026.11.24b0"></a>
+## [v2026.11.24b0](https://github.com/carlkidcrypto/purpleair_api/compare/v2026.11.22b0...v2026.11.24b0) (2026-11-24)
+
+### Changes
+
+#### Bug Fixes
+
+- fix(ci): add missing gh-aw runtime imports for shared-workflows 22f04e2 ([#527](https://github.com/carlkidcrypto/purpleair_api/issues/527))
+- fix(ci): run NuGet OIDC publish caller-side to satisfy job_workflow_ref claim ([#523](https://github.com/carlkidcrypto/purpleair_api/issues/523))
+
+#### Documentation Updates
+
+- docs(srs): update software requirements for caller-side PyPI and NuGet OIDC publishing ([#525](https://github.com/carlkidcrypto/purpleair_api/issues/525))
+- docs(readme): add TestPyPI version badge ([#524](https://github.com/carlkidcrypto/purpleair_api/issues/524))
+- docs: add versioned documentation for v2026.11.22b0 ([#521](https://github.com/carlkidcrypto/purpleair_api/issues/521))
+
+#### Maintenance
+
+- chore(release): prepare beta release v2026.11.24b0 ([#529](https://github.com/carlkidcrypto/purpleair_api/issues/529))
+- chore(ci): bump shared-workflows to eeefdd5 ([#528](https://github.com/carlkidcrypto/purpleair_api/issues/528))
+
+#### Updates
+
+- [changelog] Update CHANGELOG.md ([#520](https://github.com/carlkidcrypto/purpleair_api/issues/520))
+
+---
 <a name="v2026.11.22b0"></a>
 ## [v2026.11.22b0](https://github.com/carlkidcrypto/purpleair_api/compare/v2026.11.19b0...v2026.11.22b0) (2026-11-22)
 
