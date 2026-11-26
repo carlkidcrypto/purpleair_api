@@ -4,7 +4,7 @@ build-backend = "mesonpy"
 
 [project]
 name = "purpleair_api"
-version = "2026.11.24b0"
+version = "2026.11.26"
 description = "PurpleAir API wrapper with C++ backend and SWIG bindings"
 readme = "../README.rst"
 license = {text = "MIT"}
@@ -21,7 +21,7 @@ keywords = [
     "purpleair-sensor"
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
