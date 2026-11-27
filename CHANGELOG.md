@@ -1,7 +1,33 @@
-Last Updated: 2026-11-25 04:35:50 UTC
+Last Updated: 2026-11-27 05:25:51 UTC
 
 # Changelog
 
+<a name="v2026.11.26"></a>
+## [v2026.11.26](https://github.com/carlkidcrypto/purpleair_api/compare/v2026.11.24b0...v2026.11.26) (2026-11-26)
+
+### Changes
+
+#### Build System
+
+- build(deps): Bump coverage in /python in the python-dependencies group ([#539](https://github.com/carlkidcrypto/purpleair_api/issues/539))
+- build(deps): Bump actions/setup-go from 7.0.0 to 7.1.0 ([#538](https://github.com/carlkidcrypto/purpleair_api/issues/538))
+- build(deps): Bump peter-evans/create-or-update-comment ([#537](https://github.com/carlkidcrypto/purpleair_api/issues/537))
+- build(deps): Bump actions/setup-dotnet from 6.0.0 to 6.1.0 ([#536](https://github.com/carlkidcrypto/purpleair_api/issues/536))
+- build(deps): Bump chuhlomin/render-template from 1.12 to 1.13 ([#535](https://github.com/carlkidcrypto/purpleair_api/issues/535))
+
+#### Documentation Updates
+
+- docs: add versioned documentation for v2026.11.24b0 ([#531](https://github.com/carlkidcrypto/purpleair_api/issues/531))
+
+#### Maintenance
+
+- chore(release): prepare first stable production release v2026.11.26 ([#540](https://github.com/carlkidcrypto/purpleair_api/issues/540))
+
+#### Updates
+
+- [changelog] Update CHANGELOG.md ([#530](https://github.com/carlkidcrypto/purpleair_api/issues/530))
+
+---
 <a name="v2026.11.24b0"></a>
 ## [v2026.11.24b0](https://github.com/carlkidcrypto/purpleair_api/compare/v2026.11.22b0...v2026.11.24b0) (2026-11-24)
 
