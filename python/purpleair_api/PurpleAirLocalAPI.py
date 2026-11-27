@@ -43,8 +43,9 @@ class PurpleAirLocalAPI:
 
         self._base_api_local_network_request_string_dict = dict()
         for address in ipv4_address_list:
+            # PurpleAir local LAN sensors only expose plain HTTP on /json
             self._base_api_local_network_request_string_dict[address] = (
-                f"http://{address}/json"
+                f"http://{address}/json"  # NOSONAR
             )
 
     def request_local_sensor_data(self) -> dict:
