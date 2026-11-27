@@ -35,14 +35,6 @@ Select a version of the documentation to browse:
 
 * `Latest Version <./html/index.html>`_
 * `v2026.11.26 <./html_v2026.11.26/index.html>`_
-* `v2026.11.24b0 <./html_v2026.11.24b0/index.html>`_
-* `v2026.11.22b0 <./html_v2026.11.22b0/index.html>`_
-* `v2026.11.19b0 <./html_v2026.11.19b0/index.html>`_
-* `v2026.11.11a2 <./html_v2026.11.11a2/index.html>`_
-* `v2026.11.11a1 <./html_v2026.11.11a1/index.html>`_
-* `v2026.11.11a0 <./html_v2026.11.11a0/index.html>`_
-* `v1.5.1a1 <./html_v1.5.1a1/index.html>`_
-* `v1.5.1a0 <./html_v1.5.1a0/index.html>`_
 * `v1.5.1 <./html_v1.5.1/index.html>`_
 * `v1.5.0 <./html_v1.5.0/index.html>`_
 * `v1.4.1 <./html_v1.4.1/index.html>`_
