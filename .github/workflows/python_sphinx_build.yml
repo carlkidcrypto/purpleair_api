@@ -96,26 +96,77 @@ jobs:
           git fetch origin main
           git checkout main
           git pull origin main
-          rm -rf "docs/html_${VERSION}"
-          cp -r "/tmp/html_${VERSION}" "docs/html_${VERSION}"
+          CLEAN_VER="${VERSION#v}"
+          CLEAN_VER="${CLEAN_VER#V}"
+          rm -rf "docs/html_v${CLEAN_VER}" "docs/html_V${CLEAN_VER}"
+          cp -r "/tmp/html_${VERSION}" "docs/html_v${CLEAN_VER}"
 
       - name: Update landing page version list
         run: |
           python - <<'PY'
           import pathlib
           import re
+          import shutil
+
+          VERSION_RE = re.compile(
+              r"^(?P<release>\d+(?:\.\d+)*)"
+              r"(?:(?P<pre_sep>[.-]?)(?P<pre_type>dev|alpha|beta|rc|a|b)[.-]?(?P<pre_num>\d+)"
+              r"|-(?P<dash_num>\d+))?$",
+              re.IGNORECASE,
+          )
+          PRE_RANK = {"dev": 0, "a": 1, "alpha": 1, "b": 2, "beta": 2, "rc": 3}
+
+          def parse_version_key(dir_name: str):
+              clean = re.sub(r"^html_[vV]", "", dir_name).strip()
+              match = VERSION_RE.match(clean)
+              if not match:
+                  return None
+              release = tuple(int(part) for part in match.group("release").split("."))
+              pre_type = match.group("pre_type")
+              dash_num = match.group("dash_num")
+              if pre_type is not None:
+                  return (release, 0, PRE_RANK[pre_type.lower()], int(match.group("pre_num")))
+              if dash_num is not None:
+                  return (release, 0, 1, int(dash_num))
+              return (release, 1, 99, 0)
 
           docs_dir = pathlib.Path("docs")
           index_rst = pathlib.Path("sphinx_docs_build/landing/source/index.rst")
-          versions = sorted(
-              (directory.name for directory in docs_dir.iterdir()
-               if directory.is_dir() and directory.name.startswith("html_v")),
+
+          # Normalize legacy html_V* directories to html_v*
+          for entry in sorted(docs_dir.iterdir(), key=lambda p: p.name):
+              if entry.is_dir() and entry.name.startswith("html_V"):
+                  target = docs_dir / ("html_v" + entry.name[6:])
+                  if not target.exists():
+                      entry.rename(target)
+                  else:
+                      shutil.rmtree(entry)
+
+          version_dirs = [
+              d for d in docs_dir.iterdir()
+              if d.is_dir() and d.name.lower().startswith("html_v")
+          ]
+          parsed = [(d, parse_version_key(d.name)) for d in version_dirs]
+          stable_keys = [k for _, k in parsed if k is not None and k[1] == 1]
+          latest_stable = max(stable_keys) if stable_keys else None
+
+          # Prune prereleases superseded by the latest formal stable release (CalSemVer + SemVer)
+          active = []
+          for d, key in parsed:
+              if latest_stable is not None and key is not None and key[1] == 0 and key < latest_stable:
+                  print(f"Retiring superseded prerelease docs {d.name}")
+                  shutil.rmtree(d)
+              else:
+                  active.append((d, key))
+
+          active.sort(
+              key=lambda item: (item[1] is not None, item[1] or ((0,), 0, 0, 0), item[0].name),
               reverse=True,
           )
           entries = ["* `Latest Version <./html/index.html>`_"]
           entries.extend(
-              f"* `{version.removeprefix('html_')} <./{version}/index.html>`_"
-              for version in versions
+              f"* `v{re.sub(r'^html_[vV]', '', d.name)} <./{d.name}/index.html>`_"
+              for d, _ in active
           )
           content = index_rst.read_text(encoding="utf-8")
           updated, replacements = re.subn(
