@@ -11,7 +11,13 @@ To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by se
 
 |codecov| |sonar_gate| |sonar_security| |sonar_maintainability| |codeql|
 
-|pypi_version| |testpypi_version| |pypi_downloads| |npm_version| |npm_downloads| |pypi_dist| |testpypi_dist|
+|pypi_version| |pypi_downloads| |pypi_dist| |testpypi_version| |testpypi_dist|
+
+|npm_version| |npm_downloads| |npm_dist|
+
+|nuget_version| |nuget_downloads| |nuget_dist|
+
+|go_version| |go_dist| |winget_dist|
 
 |license|
 
@@ -69,6 +75,27 @@ To use the PurpleAirAPI (PAA), API keys are required. You can get API keys by se
 .. |testpypi_dist| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/build_and_publish_to_test_pypi.yml?branch=main&style=flat-square&label=TestPyPI%20Distributions
    :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_test_pypi.yml
    :alt: TestPyPI Distributions
+.. |npm_dist| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/build_and_publish_to_npm.yml?style=flat-square&label=npm%20Distributions
+   :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_npm.yml
+   :alt: npm Distributions
+.. |nuget_version| image:: https://img.shields.io/nuget/v/PurpleAirApi?style=flat-square
+   :target: https://www.nuget.org/packages/PurpleAirApi
+   :alt: NuGet Version
+.. |nuget_downloads| image:: https://img.shields.io/nuget/dt/PurpleAirApi?style=flat-square
+   :target: https://www.nuget.org/packages/PurpleAirApi
+   :alt: NuGet Downloads
+.. |nuget_dist| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/build_and_publish_to_nuget.yml?style=flat-square&label=NuGet%20Distributions
+   :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_nuget.yml
+   :alt: NuGet Distributions
+.. |go_version| image:: https://img.shields.io/github/go-mod/go-version/carlkidcrypto/purpleair_api?filename=go%2Fgo.mod&style=flat-square&label=Go
+   :target: https://pkg.go.dev/github.com/carlkidcrypto/purpleair_api/go
+   :alt: Go Version
+.. |go_dist| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/build_and_publish_to_go.yml?style=flat-square&label=Go%20Distributions
+   :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_go.yml
+   :alt: Go Distributions
+.. |winget_dist| image:: https://img.shields.io/github/actions/workflow/status/carlkidcrypto/purpleair_api/build_and_publish_to_winget.yml?style=flat-square&label=WinGet%20Distributions
+   :target: https://github.com/carlkidcrypto/purpleair_api/actions/workflows/build_and_publish_to_winget.yml
+   :alt: WinGet Distributions
 .. |license| image:: https://img.shields.io/github/license/carlkidcrypto/purpleair_api?style=flat-square
    :target: https://github.com/carlkidcrypto/purpleair_api/blob/main/LICENSE
    :alt: License
