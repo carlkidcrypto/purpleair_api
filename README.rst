@@ -153,10 +153,65 @@ You can also install PurpleAir API by cloning down this repo:
    git clone https://github.com/carlkidcrypto/purpleair_api.git
    cd purpleair_api
 
-Multi-Language Support
-~~~~~~~~~~~~~~~~~~~~~~
+Multi-Language Installation & Quick Start
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The repository is structured to support multiple languages:
+``purpleair_api`` is built on a shared C++17 core with **SWIG 4.x bindings** across 4 target languages (**Python**, **JavaScript/Node.js**, **C#/.NET**, and **Go**).
+
+**Python (PyPI)**
+
+.. code-block:: bash
+
+   python3 -m pip install purpleair_api
+
+.. code-block:: python
+
+   from purpleair_api.PurpleAirAPI import PurpleAirAPI
+
+   api = PurpleAirAPI("YOUR_READ_KEY")
+   data = api.request_sensor_data(1234)
+
+**JavaScript / Node.js (npm)**
+
+.. code-block:: bash
+
+   npm install purpleair-api
+
+.. code-block:: javascript
+
+   const { PurpleAirAPI } = require("purpleair-api");
+
+   const api = new PurpleAirAPI("YOUR_READ_KEY", "");
+   console.log(api.request_sensor_data(1234));
+
+**C# / .NET (NuGet)**
+
+.. code-block:: bash
+
+   dotnet add package PurpleAirApi
+
+.. code-block:: csharp
+
+   using PurpleAirApi;
+
+   using var api = new PurpleAirAPI("YOUR_READ_KEY");
+   string json = api.request_sensor_data(1234);
+
+**Go (cgo module)**
+
+.. code-block:: bash
+
+   go get github.com/carlkidcrypto/purpleair_api/go
+
+.. code-block:: go
+
+   import purpleair "github.com/carlkidcrypto/purpleair_api/go"
+
+   api := purpleair.NewPurpleAirAPI("YOUR_READ_KEY")
+   defer purpleair.DeletePurpleAirAPI(api)
+
+Building Bindings From Source
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Python**: ``cd python && python -m pip install .``
 - **JavaScript/Node.js**, **C#**, and **Go** use Meson/Ninja to build the
